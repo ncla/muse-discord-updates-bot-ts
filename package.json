@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "discord.js": "^14.16.3",
+    "dotenv": "^16.4.7",
     "rate-limiter-flexible": "^5.0.4"
   },
   "devDependencies": {
