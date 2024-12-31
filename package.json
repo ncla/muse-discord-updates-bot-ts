@@ -1,0 +1,17 @@
+{
+  "name": "muse-discord-updates-bot-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "discord.js": "^14.16.3",
+    "rate-limiter-flexible": "^5.0.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.3"
+  },
+  "private": true
+}
