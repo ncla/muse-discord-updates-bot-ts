@@ -1,6 +1,6 @@
 import {Update, WebhookService} from "../../update";
 import {UpdateType} from "../../message-manager";
-import {JsonForDiscord} from "./json-for-discord";
+import {Json as DefaultJsonDiscordTransformer } from "./discord/json";
 
 export interface UpdateTransformer {
     transform(update: Update): any;
@@ -10,10 +10,8 @@ export function getTransformer(webhookService: WebhookService, updateType: Updat
     switch (webhookService) {
         case WebhookService.Discord:
             switch (updateType) {
-                case UpdateType.YOUTUBE_UPLOAD:
-                    return new JsonForDiscord;
                 default:
-                    throw new Error(`No transformer found for update type ${updateType}, webhook service ${webhookService}`);
+                    return new DefaultJsonDiscordTransformer;
             }
         default:
             throw new Error(`No transformers available for service ${updateType}`);
