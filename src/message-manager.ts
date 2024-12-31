@@ -1,17 +1,14 @@
 import {WebhookMessageCreateOptions} from "discord.js";
 import {RateLimiterMemory, RateLimiterQueue} from "rate-limiter-flexible";
+import {Update, WebhookService} from "./update";
+import {getTransformer} from "./updates/transformers";
 
-interface Update {
-    tracker_id: string;
-    content: string;
-    image_url: string;
-    url: string;
-    timestamp: string;
-    author: string;
-    author_image_url: string;
+export enum UpdateType {
+    INSTAGRAM_POST = 'INSTAGRAM_POST',
+    YOUTUBE_UPLOAD = 'YOUTUBE_UPLOAD',
 }
 
-interface WebhookMessage {
+interface DiscordWebhookMessage {
     webhookId: string;
     webhookToken: string;
     body: WebhookMessageCreateOptions
@@ -112,14 +109,16 @@ export class DiscordUpdateRequestManager extends FixedWindowRateLimitedRequestMa
 
     async send(update: Update): Promise<Response>
     {
+        const transformer = getTransformer(WebhookService.Discord, update.type);
+
+        const transformedUpdateBody = transformer?.transform(update);
+
         return await fetch(`https://discord.com/api/webhooks/${this._webhookId}/${this._webhookToken}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                content: 'hehe'
-            }),
+            body: JSON.stringify(transformedUpdateBody),
         })
         .then(async response => {
             if (!response.ok) {
