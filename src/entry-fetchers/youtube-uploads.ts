@@ -26,7 +26,7 @@ export class YoutubeUploads implements EntryFetcher
             url.searchParams.append('part', 'snippet')
             url.searchParams.append('key', apiKey)
 
-            let json
+            let json: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistItemResource>;
 
             const response = await fetch(url.toString());
 
@@ -36,7 +36,7 @@ export class YoutubeUploads implements EntryFetcher
 
             json = await response.json();
 
-            const channelUploadEntries: UnprocessedUpdateEntry[] = json.items.map((item: any): UnprocessedUpdateEntry => {
+            const channelUploadEntries: UnprocessedUpdateEntry[] = json.items.map((item): UnprocessedUpdateEntry => {
                 return {
                     ...createBlankUpdate(),
                     type: UpdateType.YOUTUBE_UPLOAD,

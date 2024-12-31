@@ -12,6 +12,7 @@
     "rate-limiter-flexible": "^5.0.4"
   },
   "devDependencies": {
+    "@types/gapi.youtube": "^3.0.40",
     "typescript": "^5.5.3"
   },
   "private": true
