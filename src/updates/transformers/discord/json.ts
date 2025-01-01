@@ -5,7 +5,7 @@ import {WebhookMessageCreateOptions} from "discord.js";
 export class Json implements UpdateTransformer {
     transform(update: Update): WebhookMessageCreateOptions {
         return {
-            content: 'xd'
+            content: JSON.stringify(update),
         }
     }
 }

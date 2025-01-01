@@ -1,5 +1,4 @@
-import {Update, WebhookService} from "../../update";
-import {UpdateType} from "../../message-manager";
+import {Update, UpdateType, WebhookService} from "../../update";
 import {Json as DefaultJsonDiscordTransformer } from "./discord/json";
 
 export interface UpdateTransformer {

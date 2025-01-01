@@ -1,8 +1,7 @@
 import {EntryFetcher} from "./index";
 import config, {IConfig} from "../config";
 // import * as util from "node:util";
-import {createBlankUnprocessedUpdate, UnprocessedUpdateEntry} from "../update";
-import {UpdateType} from "../message-manager";
+import {createBlankUnprocessedUpdate, UnprocessedUpdateEntry, UpdateType} from "../update";
 
 export class YoutubeUploads implements EntryFetcher
 {

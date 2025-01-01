@@ -1,7 +1,10 @@
-import {UpdateType} from "./message-manager";
-
 export enum WebhookService {
     Discord,
+}
+
+export enum UpdateType {
+    INSTAGRAM_POST = 'INSTAGRAM_POST',
+    YOUTUBE_UPLOAD = 'YOUTUBE_UPLOAD',
 }
 
 export type UpdateAuthor = {
