@@ -27,9 +27,7 @@ abstract class FixedWindowRateLimitedRequestManager<UpdateRequestBody> extends A
             duration: rateLimitDurationSeconds,
         });
 
-        const limiterQueue = new RateLimiterQueue(limiterFlexible, {
-            maxQueueSize: 5,
-        });
+        const limiterQueue = new RateLimiterQueue(limiterFlexible);
 
         for (let i = 0; i < this.updates.length; i++) {
             limiterQueue
@@ -43,8 +41,8 @@ abstract class FixedWindowRateLimitedRequestManager<UpdateRequestBody> extends A
                     .then(result => console.log('3', result.status))
                     .catch(error => console.error('4', error));
                 })
-                .catch(() => {
-                    console.log('Warning: Queue is full, delaying request')
+                .catch((err) => {
+                    console.error(err)
                 })
         }
     }
