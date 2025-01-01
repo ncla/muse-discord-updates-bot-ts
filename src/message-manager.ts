@@ -6,7 +6,7 @@ interface WebhookExecuteRequester<UpdateRequestBody> {
     send(update: UpdateRequestBody): Promise<Response>
 }
 
-class AbstractUpdateRequestManager<UpdateRequestBody> implements WebhookExecuteRequester<UpdateRequestBody> {
+abstract class AbstractUpdateRequestManager<UpdateRequestBody> implements WebhookExecuteRequester<UpdateRequestBody> {
     protected updates: UpdateRequestBody[] = [];
 
     add(update: UpdateRequestBody)
@@ -14,13 +14,12 @@ class AbstractUpdateRequestManager<UpdateRequestBody> implements WebhookExecuteR
         this.updates.push(update);
     }
 
-    async send(update: UpdateRequestBody): Promise<any> {
-        console.warn('`send` method not implemented');
-        return
-    }
+    abstract send(update: UpdateRequestBody): Promise<Response>;
+
+    abstract sendAll(): void;
 }
 
-class FixedWindowRateLimitedRequestManager<UpdateRequestBody> extends AbstractUpdateRequestManager<UpdateRequestBody> {
+abstract class FixedWindowRateLimitedRequestManager<UpdateRequestBody> extends AbstractUpdateRequestManager<UpdateRequestBody> {
     sendAll(requestAmountPerDuration: number = 5, rateLimitDurationSeconds: number = 2)
     {
         const limiterFlexible = new RateLimiterMemory({
