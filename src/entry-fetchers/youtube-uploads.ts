@@ -1,7 +1,7 @@
 import {EntryFetcher} from "./index";
 import config from "../config";
 // import * as util from "node:util";
-import {createBlankUpdate, UnprocessedUpdateEntry} from "../update";
+import {createBlankUnprocessedUpdate, UnprocessedUpdateEntry} from "../update";
 import {UpdateType} from "../message-manager";
 
 export class YoutubeUploads implements EntryFetcher
@@ -36,7 +36,7 @@ export class YoutubeUploads implements EntryFetcher
 
             const channelUploadEntries: UnprocessedUpdateEntry[] = json.items.map((item): UnprocessedUpdateEntry => {
                 return {
-                    ...createBlankUpdate(),
+                    ...createBlankUnprocessedUpdate(),
                     type: UpdateType.YOUTUBE_UPLOAD,
                     id: item.snippet.resourceId.videoId,
                     title: item.snippet.title,
@@ -48,7 +48,6 @@ export class YoutubeUploads implements EntryFetcher
                         name: channel.username,
                         image_url: channel.author_image_url,
                     },
-                    isNew: null,
                 }
             });
 

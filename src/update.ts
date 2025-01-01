@@ -30,7 +30,11 @@ export interface UnprocessedUpdateEntry extends Update {
     isNew: boolean | null;
 }
 
-export function createBlankUpdate(): OptionalUpdateFields
+export interface EmptyUnprocessedUpdateEntry extends OptionalUpdateFields {
+    isNew: null;
+}
+
+export function createBlankUnprocessedUpdate(): EmptyUnprocessedUpdateEntry
 {
     return {
         parent_id: null,
@@ -44,6 +48,7 @@ export function createBlankUpdate(): OptionalUpdateFields
             id: null,
             name: null,
             image_url: null,
-        }
+        },
+        isNew: null
     }
 }
