@@ -1,5 +1,5 @@
 import {EntryFetcher} from "./index";
-import config from "../config";
+import config, {IConfig} from "../config";
 // import * as util from "node:util";
 import {createBlankUnprocessedUpdate, UnprocessedUpdateEntry} from "../update";
 import {UpdateType} from "../message-manager";
@@ -35,25 +35,31 @@ export class YoutubeUploads implements EntryFetcher
             let json: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistItemResource> = await response.json();
 
             const channelUploadEntries: UnprocessedUpdateEntry[] = json.items.map((item): UnprocessedUpdateEntry => {
-                return {
-                    ...createBlankUnprocessedUpdate(),
-                    type: UpdateType.YOUTUBE_UPLOAD,
-                    id: item.snippet.resourceId.videoId,
-                    title: item.snippet.title,
-                    content: item.snippet.description ? item.snippet.description : null,
-                    url: `https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}`,
-                    image_url: item.snippet.thumbnails.standard !== undefined ? item.snippet.thumbnails.standard.url : item.snippet.thumbnails.default.url,
-                    author: {
-                        id: channel.channel_id,
-                        name: channel.username,
-                        image_url: channel.author_image_url,
-                    },
-                }
+                return this.mapPlayListItemToEntry(item, channel);
             });
 
             entries = [...entries, ...channelUploadEntries]
         }
 
         return entries;
+    }
+
+    // TODO: channel typehint seems quite heavy. type-hint without nested properties instead?
+    private mapPlayListItemToEntry(item: GoogleApiYouTubePlaylistItemResource, channel: IConfig['fetchables']['youtube'][number]): UnprocessedUpdateEntry
+    {
+        return {
+            ...createBlankUnprocessedUpdate(),
+            type: UpdateType.YOUTUBE_UPLOAD,
+            id: item.snippet.resourceId.videoId,
+            title: item.snippet.title,
+            content: item.snippet.description ? item.snippet.description : null,
+            url: `https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}`,
+            image_url: item.snippet.thumbnails.standard !== undefined ? item.snippet.thumbnails.standard.url : item.snippet.thumbnails.default.url,
+            author: {
+                id: channel.channel_id,
+                name: channel.username,
+                image_url: channel.author_image_url,
+            },
+        }
     }
 }

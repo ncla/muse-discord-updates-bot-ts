@@ -4,7 +4,7 @@ dotenv.config()
 
 // console.log(process.env)
 
-interface Config {
+export interface IConfig {
     services: {
         youtube: {
             uploads_api_key: string | undefined,
@@ -28,7 +28,7 @@ interface Config {
     }
 }
 
-const config: Config = {
+const config: IConfig = {
     services: {
         youtube: {
             uploads_api_key: process.env.YOUTUBE_UPLOADS_API_KEY
