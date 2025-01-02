@@ -7,11 +7,11 @@ interface WebhookExecuteRequester<UpdateRequestBody> {
 }
 
 abstract class AbstractUpdateRequestManager<UpdateRequestBody> implements WebhookExecuteRequester<UpdateRequestBody> {
-    protected updates: UpdateRequestBody[] = [];
+    protected requestBodies: UpdateRequestBody[] = [];
 
-    add(update: UpdateRequestBody)
+    add(requestBody: UpdateRequestBody)
     {
-        this.updates.push(update);
+        this.requestBodies.push(requestBody);
     }
 
     abstract send(update: UpdateRequestBody): Promise<Response>;
@@ -29,12 +29,12 @@ abstract class FixedWindowRateLimitedRequestManager<UpdateRequestBody> extends A
 
         const limiterQueue = new RateLimiterQueue(limiterFlexible);
 
-        for (let i = 0; i < this.updates.length; i++) {
+        for (let i = 0; i < this.requestBodies.length; i++) {
             limiterQueue
                 .removeTokens(1)
                 .then(() => {
                     retryPromise(
-                        () => this.send(this.updates[i]),
+                        () => this.send(this.requestBodies[i]),
                         3,
                         2500
                     )
@@ -48,7 +48,7 @@ abstract class FixedWindowRateLimitedRequestManager<UpdateRequestBody> extends A
     }
 }
 
-export class DiscordUpdateRequestManager extends FixedWindowRateLimitedRequestManager<WebhookMessageCreateOptions> {
+export class DiscordWebhookRequestManager extends FixedWindowRateLimitedRequestManager<WebhookMessageCreateOptions> {
     private _webhookId: string;
 
     private _webhookToken: string;

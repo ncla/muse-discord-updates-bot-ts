@@ -1,4 +1,4 @@
-import {DiscordUpdateRequestManager} from "./message-manager";
+import {DiscordWebhookRequestManager} from "./request-manager";
 import {YoutubeUploads} from "./entry-fetchers/youtube-uploads";
 import config from "./config";
 import {getTransformer as getUpdatesTransformer} from "./updates/transformers";
@@ -12,7 +12,7 @@ import {WebhookService} from "./update";
         throw new Error('Discord webhook ID or token is not set');
     }
 
-    let discordUpdateRequestManager = new DiscordUpdateRequestManager(
+    let discordUpdateRequestManager = new DiscordWebhookRequestManager(
         discordWebhookId,
         discordWebhookToken,
     )
