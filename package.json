@@ -7,12 +7,16 @@
     "build": "tsc"
   },
   "dependencies": {
+    "better-sqlite3": "^11.7.0",
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.7",
+    "kysely": "^0.27.5",
     "rate-limiter-flexible": "^5.0.4"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
     "@types/gapi.youtube": "^3.0.40",
+    "kysely-ctl": "^0.10.1",
     "typescript": "^5.5.3"
   },
   "private": true
