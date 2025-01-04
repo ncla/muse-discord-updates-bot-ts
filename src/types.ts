@@ -15,13 +15,15 @@ export interface Database {
 export interface UpdatesTable {
     id: Generated<number>
 
-    unique_id: string
+    type: ColumnType<string, string, never>
 
-    data: JSONColumnType<Update>
+    unique_id: ColumnType<string, string, never>
+
+    data: JSONColumnType<Update | null, Update | undefined, Update | undefined>
 
     created_at: ColumnType<Date, string | undefined, never>
 }
 
-export type UpdateRecord = Selectable<UpdatesTable>
-export type NewUpdateRecord = Insertable<UpdatesTable>
-export type UpdateRecordUpdate = Updateable<UpdatesTable>
+export type SelectableUpdateRecord = Selectable<UpdatesTable>
+export type InsertableUpdateRecord = Insertable<UpdatesTable>
+export type UpdateableRecordUpdate = Updateable<UpdatesTable>
