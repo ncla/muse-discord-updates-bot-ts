@@ -20,7 +20,7 @@ export interface OptionalUpdateFields {
     content?: string | null;
     url?: string | null;
     image_url?: string | null;
-    created_at_timestamp?: string | null;
+    created_at_timestamp?: string | null; // TODO: just name this created_at?
     author?: UpdateAuthor | null;
 }
 

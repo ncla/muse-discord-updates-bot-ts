@@ -15,11 +15,11 @@ export interface Database {
 export interface UpdatesTable {
     id: Generated<number>
 
-    unique_external_id: string
+    unique_id: string
+
+    data: JSONColumnType<Update>
 
     created_at: ColumnType<Date, string | undefined, never>
-
-    metadata: JSONColumnType<Update>
 }
 
 export type UpdateRecord = Selectable<UpdatesTable>
