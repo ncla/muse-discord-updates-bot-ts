@@ -5,6 +5,9 @@ dotenv.config()
 // console.log(process.env)
 
 export interface IConfig {
+    app: {
+        debug: boolean,
+    }
     services: {
         youtube: {
             uploads_api_key: string | undefined,
@@ -29,6 +32,9 @@ export interface IConfig {
 }
 
 const config: IConfig = {
+    app: {
+        debug: process.env.APP_DEBUG === 'true',
+    },
     services: {
         youtube: {
             uploads_api_key: process.env.YOUTUBE_UPLOADS_API_KEY
