@@ -2,11 +2,12 @@ import {WebhookMessageCreateOptions} from "discord.js";
 import {RateLimiterMemory, RateLimiterQueue} from "rate-limiter-flexible";
 import {retryPromise} from "./common";
 
-interface WebhookExecuteRequester<UpdateRequestBody> {
+export interface WebhookExecuteRequester<UpdateRequestBody> {
     send(update: UpdateRequestBody): Promise<Response>
+    sendAll(): void
 }
 
-abstract class AbstractUpdateRequestManager<UpdateRequestBody> implements WebhookExecuteRequester<UpdateRequestBody> {
+export abstract class AbstractUpdateRequestManager<UpdateRequestBody> implements WebhookExecuteRequester<UpdateRequestBody> {
     protected requestBodies: UpdateRequestBody[] = [];
 
     add(requestBody: UpdateRequestBody)
@@ -20,6 +21,7 @@ abstract class AbstractUpdateRequestManager<UpdateRequestBody> implements Webhoo
 }
 
 abstract class FixedWindowRateLimitedRequestManager<UpdateRequestBody> extends AbstractUpdateRequestManager<UpdateRequestBody> {
+    // TODO: Promise all?
     sendAll(requestAmountPerDuration: number = 5, rateLimitDurationSeconds: number = 2)
     {
         const limiterFlexible = new RateLimiterMemory({

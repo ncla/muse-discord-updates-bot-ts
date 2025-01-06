@@ -1,8 +1,10 @@
 import {DiscordWebhookRequestManager} from "./request-manager";
 import {YoutubeUploads} from "./entry-fetchers/youtube-uploads";
 import config from "./config";
-import {getTransformer as getUpdatesTransformer} from "./updates/transformers";
 import {WebhookService} from "./update";
+import {UpdatesRepositoryKysely} from "./repositories/updates-repository";
+import {db} from "./database";
+import {FeedProcessor} from "./processors/feed-processor";
 
 (async () => {
     const discordWebhookId = config.webhooks.discord.id;
@@ -12,35 +14,14 @@ import {WebhookService} from "./update";
         throw new Error('Discord webhook ID or token is not set');
     }
 
-    let discordUpdateRequestManager = new DiscordWebhookRequestManager(
-        discordWebhookId,
-        discordWebhookToken,
+    const feedProcessor = new FeedProcessor(
+        WebhookService.Discord,
+        [new YoutubeUploads],
+        new UpdatesRepositoryKysely(db),
+        new DiscordWebhookRequestManager(discordWebhookId, discordWebhookToken)
     )
 
-    // for (let i = 0; i < 30; i++) {
-    //     discordUpdateRequestManager.add({
-    //         type: UpdateType.YOUTUBE_UPLOAD,
-    //         id: 'xd'
-    //     })
-    // }
-
-    const unprocessedEntries = await (new YoutubeUploads).fetch()
-
-
-    // foreach webhook service
-    // -- get transformer, transform to request bodies, add to request manager, send all
-
-    const transformedEntries = unprocessedEntries.map(entry => {
-        const transformer = getUpdatesTransformer(WebhookService.Discord, entry.type)
-
-        return transformer?.transform(entry)
-    })
-
-    transformedEntries.forEach(entry => {
-        discordUpdateRequestManager.add(entry)
-    })
-
-    discordUpdateRequestManager.sendAll()
+    feedProcessor.process()
 })().catch(error => {
-    console.error('Error occurred:', error);
+    console.error('Main app function error occurred:', error);
 });

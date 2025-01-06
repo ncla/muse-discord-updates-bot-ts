@@ -26,6 +26,7 @@ export interface OptionalUpdateFields {
 
 export interface Update extends OptionalUpdateFields {
     type: UpdateType;
+    uniqueId: string;
     id: string;
 }
 

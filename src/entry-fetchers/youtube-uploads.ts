@@ -48,6 +48,7 @@ export class YoutubeUploads implements EntryFetcher
     {
         return {
             ...createBlankUnprocessedUpdate(),
+            uniqueId: `${channel.channel_id}_${item.snippet.resourceId.videoId}`,
             type: UpdateType.YOUTUBE_UPLOAD,
             id: item.snippet.resourceId.videoId,
             title: item.snippet.title,

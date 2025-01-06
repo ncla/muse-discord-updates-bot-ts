@@ -1,9 +1,9 @@
 import { Kysely } from "kysely";
-import {Database, InsertableUpdateRecord, SelectableUpdateRecord} from "../types";
+import {Database, InsertableUpdateRecord, SelectableUpdateRecord} from "../database";
 
-interface IUpdatesRepository<UpdateCreateType, ReturnableRecordType> {
-    findByTypeAndUniqueId(type: string, uniqueId: string): Promise<ReturnableRecordType | undefined>;
-    create(update: UpdateCreateType): Promise<void> | void;
+export interface IUpdatesRepository<CreateUpdateRecordType, ReturnableUpdateRecordType> {
+    findByTypeAndUniqueId(type: string, uniqueId: string): Promise<ReturnableUpdateRecordType | undefined>;
+    create(update: CreateUpdateRecordType): Promise<void> | void;
 }
 
 export class UpdatesRepositoryKysely implements IUpdatesRepository<InsertableUpdateRecord, SelectableUpdateRecord>
@@ -26,6 +26,10 @@ export class UpdatesRepositoryKysely implements IUpdatesRepository<InsertableUpd
 
     async create(newUpdateRecord: InsertableUpdateRecord): Promise<void>
     {
+        if (typeof newUpdateRecord.data === 'object') {
+            newUpdateRecord.data = JSON.stringify(newUpdateRecord.data)
+        }
+
         await this
             .db
             .insertInto('updates')
