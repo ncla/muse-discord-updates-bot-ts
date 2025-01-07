@@ -44,7 +44,10 @@ export class YoutubeUploads implements EntryFetcher
     }
 
     // TODO: channel typehint seems quite heavy. type-hint without nested properties instead?
-    private mapPlayListItemToEntry(item: GoogleApiYouTubePlaylistItemResource, channel: IConfig['fetchables']['youtube'][number]): UnprocessedUpdateEntry
+    private mapPlayListItemToEntry(
+        item: GoogleApiYouTubePlaylistItemResource,
+        channel: IConfig['fetchables']['youtube'][number]
+    ): UnprocessedUpdateEntry
     {
         return {
             ...createBlankUnprocessedUpdate(),
