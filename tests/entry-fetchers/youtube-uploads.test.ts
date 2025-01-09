@@ -1,7 +1,11 @@
 import {YoutubeUploads} from "../../src/entry-fetchers/youtube-uploads";
+import {expect, test, vi } from 'vitest'
+import {IConfig} from "../../src/config";
 
 // TODO: flaky. depends on an actual API response.
 test('fetches youtube uploads', async () => {
+    vi.resetModules()
+
     const fetcher = new YoutubeUploads()
     const fetchResult = await fetcher.fetch()
 
@@ -10,14 +14,14 @@ test('fetches youtube uploads', async () => {
 })
 
 test('throws error when no API key is set', async () => {
-    jest.resetModules()
+    vi.resetModules()
 
-    const originalConfig = jest.requireActual('../../src/config');
+    const configImport = await vi.importActual('../../src/config')
+    const originalConfig = configImport.default as IConfig
 
-    jest.doMock('../../src/config', () => ({
-        __esModule: true,
+    vi.doMock('../../src/config', () => ({
         default: {
-            ...originalConfig.default,
+            ...originalConfig,
             services: {
                 youtube: {
                     uploads_api_key: undefined
@@ -26,8 +30,9 @@ test('throws error when no API key is set', async () => {
         }
     }));
 
-    // This feels weird.
-    const YoutubeUploads = require('../../src/entry-fetchers/youtube-uploads').YoutubeUploads;
+    const { YoutubeUploads } = await vi.importActual<
+        typeof import('../../src/entry-fetchers/youtube-uploads')
+    >('../../src/entry-fetchers/youtube-uploads');
 
     const fetcher = new YoutubeUploads()
     await expect(fetcher.fetch()).rejects.toThrow()
@@ -35,14 +40,14 @@ test('throws error when no API key is set', async () => {
 
 // TODO: flaky. depends on an actual API response.
 test('throws 400 HTTP error when incorrect API key is set', async () => {
-    jest.resetModules()
+    vi.resetModules()
 
-    const originalConfig = jest.requireActual('../../src/config');
+    const configImport = await vi.importActual('../../src/config')
+    const originalConfig = configImport.default as IConfig
 
-    jest.doMock('../../src/config', () => ({
-        __esModule: true,
+    vi.doMock('../../src/config', () => ({
         default: {
-            ...originalConfig.default,
+            ...originalConfig,
             services: {
                 youtube: {
                     uploads_api_key: 'incorrect'
@@ -51,43 +56,38 @@ test('throws 400 HTTP error when incorrect API key is set', async () => {
         }
     }));
 
-    // This feels weird.
-    const YoutubeUploads = require('../../src/entry-fetchers/youtube-uploads').YoutubeUploads;
+    const { YoutubeUploads } = await vi.importActual<
+        typeof import('../../src/entry-fetchers/youtube-uploads')
+    >('../../src/entry-fetchers/youtube-uploads');
 
-    const fetcher = new YoutubeUploads()
+    const fetcher = new YoutubeUploads
     await expect(fetcher.fetch()).rejects.toThrow('Response status: 400')
 })
 
 test('content is null when no description is provided for video', async () => {
-    jest
-        .spyOn(global, 'fetch')
-        .mockImplementation(
-            jest.fn(
-                () => {
-                    return Promise.resolve({
-                        ok: true,
-                        json: () => Promise.resolve({
-                            items: [
-                                {
-                                    snippet: {
-                                        resourceId: {
-                                            videoId: 'videoId'
-                                        },
-                                        title: 'title',
-                                        description: '',
-                                        thumbnails: {
-                                            standard: {
-                                                url: 'url'
-                                            }
-                                        }
-                                    }
+    vi.stubGlobal('fetch', () => {
+        return Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve({
+                items: [
+                    {
+                        snippet: {
+                            resourceId: {
+                                videoId: 'videoId'
+                            },
+                            title: 'title',
+                            description: '',
+                            thumbnails: {
+                                standard: {
+                                    url: 'url'
                                 }
-                            ]
-                        })
-                    })
-                }
-            ) as jest.Mock // https://stackoverflow.com/a/64819545/757587
-        );
+                            }
+                        }
+                    }
+                ]
+            })
+        })
+    })
 
     const fetcher = new YoutubeUploads()
     const result = await fetcher.fetch()
@@ -98,35 +98,29 @@ test('content is null when no description is provided for video', async () => {
 test('content is set when description is provided', async () => {
     const DESCRIPTION = 'Description :)'
 
-    jest
-        .spyOn(global, 'fetch')
-        .mockImplementation(
-            jest.fn(
-                () => {
-                    return Promise.resolve({
-                        ok: true,
-                        json: () => Promise.resolve({
-                            items: [
-                                {
-                                    snippet: {
-                                        resourceId: {
-                                            videoId: 'videoId'
-                                        },
-                                        title: 'title',
-                                        description: DESCRIPTION,
-                                        thumbnails: {
-                                            standard: {
-                                                url: 'url'
-                                            }
-                                        }
-                                    }
+    vi.stubGlobal('fetch', () => {
+        return Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve({
+                items: [
+                    {
+                        snippet: {
+                            resourceId: {
+                                videoId: 'videoId'
+                            },
+                            title: 'title',
+                            description: DESCRIPTION,
+                            thumbnails: {
+                                standard: {
+                                    url: 'url'
                                 }
-                            ]
-                        })
-                    })
-                }
-            ) as jest.Mock // https://stackoverflow.com/a/64819545/757587
-        );
+                            }
+                        }
+                    }
+                ]
+            })
+        })
+    })
 
     const fetcher = new YoutubeUploads()
     const result = await fetcher.fetch()
@@ -138,38 +132,32 @@ test('uses standard thumbnail if it is provided', async () => {
     const STANDARD_THUMBNAIL_URL = 'https://thumbnail.com/standard.jpg'
     const DEFAULT_THUMBNAIL_URL = 'https://thumbnail.com/default.jpg'
 
-    jest
-        .spyOn(global, 'fetch')
-        .mockImplementation(
-            jest.fn(
-                () => {
-                    return Promise.resolve({
-                        ok: true,
-                        json: () => Promise.resolve({
-                            items: [
-                                {
-                                    snippet: {
-                                        resourceId: {
-                                            videoId: 'videoId'
-                                        },
-                                        title: 'title',
-                                        description: '',
-                                        thumbnails: {
-                                            standard: {
-                                                url: STANDARD_THUMBNAIL_URL
-                                            },
-                                            default: {
-                                                url: DEFAULT_THUMBNAIL_URL
-                                            }
-                                        }
-                                    }
+    vi.stubGlobal('fetch', () => {
+        return Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve({
+                items: [
+                    {
+                        snippet: {
+                            resourceId: {
+                                videoId: 'videoId'
+                            },
+                            title: 'title',
+                            description: '',
+                            thumbnails: {
+                                standard: {
+                                    url: STANDARD_THUMBNAIL_URL
+                                },
+                                default: {
+                                    url: DEFAULT_THUMBNAIL_URL
                                 }
-                            ]
-                        })
-                    })
-                }
-            ) as jest.Mock // https://stackoverflow.com/a/64819545/757587
-        );
+                            }
+                        }
+                    }
+                ]
+            })
+        })
+    })
 
     const fetcher = new YoutubeUploads()
     const result = await fetcher.fetch()
@@ -180,35 +168,29 @@ test('uses standard thumbnail if it is provided', async () => {
 test('uses default thumbnail if standard is not present', async () => {
     const DEFAULT_THUMBNAIL_URL = 'https://thumbnail.com/default.jpg'
 
-    jest
-        .spyOn(global, 'fetch')
-        .mockImplementation(
-            jest.fn(
-                () => {
-                    return Promise.resolve({
-                        ok: true,
-                        json: () => Promise.resolve({
-                            items: [
-                                {
-                                    snippet: {
-                                        resourceId: {
-                                            videoId: 'videoId'
-                                        },
-                                        title: 'title',
-                                        description: '',
-                                        thumbnails: {
-                                            default: {
-                                                url: DEFAULT_THUMBNAIL_URL
-                                            }
-                                        }
-                                    }
+    vi.stubGlobal('fetch', () => {
+        return Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve({
+                items: [
+                    {
+                        snippet: {
+                            resourceId: {
+                                videoId: 'videoId'
+                            },
+                            title: 'title',
+                            description: '',
+                            thumbnails: {
+                                default: {
+                                    url: DEFAULT_THUMBNAIL_URL
                                 }
-                            ]
-                        })
-                    })
-                }
-            ) as jest.Mock // https://stackoverflow.com/a/64819545/757587
-        );
+                            }
+                        }
+                    }
+                ]
+            })
+        })
+    })
 
     const fetcher = new YoutubeUploads()
     const result = await fetcher.fetch()

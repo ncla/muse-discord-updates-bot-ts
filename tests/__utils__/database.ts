@@ -1,8 +1,9 @@
 import {Database} from "../../src/database";
 import SQLite from 'better-sqlite3'
-import {FileMigrationProvider, Kysely, Migrator, SqliteDialect } from 'kysely'
+import {Kysely, Migrator, SqliteDialect } from 'kysely'
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
+import {TypeScriptFileMigrationProvider} from "../../src/ts-migration-transpiler";
 
 export const createTestDatabase = async () => {
     const dialect = new SqliteDialect({
@@ -17,13 +18,11 @@ export const createTestDatabase = async () => {
 
     const migrator = new Migrator({
         db,
-        provider: new FileMigrationProvider({
-            fs,
-            path,
-            migrationFolder: path.join(ROOT_DIR, 'migrations'),
-        }),
+        provider: new TypeScriptFileMigrationProvider(path.join(__dirname, "..", "..", "migrations")),
     })
 
+    // If you need to output any errors, `migrateToLatest` outputs `error` and `results` property
+    // https://kysely.dev/docs/migrations#running-migrations
     await migrator.migrateToLatest()
 
     return db

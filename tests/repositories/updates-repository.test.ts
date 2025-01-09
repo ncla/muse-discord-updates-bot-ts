@@ -1,5 +1,6 @@
 import {UpdatesRepositoryKysely} from "../../src/repositories/updates-repository";
 import {clearTestDatabase, createTestDatabase} from "../__utils__/database";
+import {expect, test} from 'vitest'
 
 test('it creates a new update', async () => {
     await clearTestDatabase()
