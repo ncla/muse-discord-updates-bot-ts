@@ -42,6 +42,28 @@ test('it returns undefined when no update is found', async () => {
     expect(result).toBeUndefined()
 })
 
+test('it returns object for data property when it has JSON data in column', async () => {
+    const db = await createTestDatabase()
+
+    const updatesRepository = new UpdatesRepositoryKysely(db)
+
+    await updatesRepository.create({
+        type: 'test',
+        unique_id: 'test',
+        data: {
+            id: 'test_id',
+            type: UpdateType.YOUTUBE_UPLOAD,
+            uniqueId: 'test_unique_id',
+        },
+    })
+
+    const result = await updatesRepository.findByTypeAndUniqueId('test', 'test')
+
+    expect(result).not.toBeUndefined()
+    // @ts-ignore
+    expect(result.data).toBeInstanceOf(Object)
+})
+
 test('it creates a new update', async () => {
     const db = await createTestDatabase()
 

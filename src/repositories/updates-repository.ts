@@ -13,15 +13,21 @@ export class UpdatesRepositoryKysely implements IUpdatesRepository<InsertableUpd
         return this
     }
 
-    findByTypeAndUniqueId(type: string, uniqueId: string): Promise<SelectableUpdateRecord | undefined>
+    async findByTypeAndUniqueId(type: string, uniqueId: string): Promise<SelectableUpdateRecord | undefined>
     {
-        return this
+        const result = await this
             .db
             .selectFrom('updates')
             .where('type', '=', type)
             .where('unique_id', '=', uniqueId)
             .selectAll()
             .executeTakeFirst()
+
+        if (result && typeof result.data === 'string') {
+            result.data = JSON.parse(result.data)
+        }
+
+        return result
     }
 
     async create(newUpdateRecord: InsertableUpdateRecord): Promise<void>
