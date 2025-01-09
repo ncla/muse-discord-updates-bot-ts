@@ -13,7 +13,7 @@ export class FeedProcessor<
 {
     constructor(
         protected webhookService: WebhookService,
-        protected entryFetcher: EntryFetcher[],
+        protected entryFetchers: EntryFetcher[],
         protected updatesRepository: IUpdatesRepository<CreateUpdateRecordType, ReturnableUpdateRecordType>,
         protected requestManager: AbstractUpdateRequestManager<RequestManagerBodyType>
     ) {
@@ -23,7 +23,7 @@ export class FeedProcessor<
     async process()
     {
         const entriesPerFetcher = await Promise.all(
-            this.entryFetcher.map(fetcher => fetcher.fetch())
+            this.entryFetchers.map(fetcher => fetcher.fetch())
         )
 
         let entries = entriesPerFetcher.flat()
