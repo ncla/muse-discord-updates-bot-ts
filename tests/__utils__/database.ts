@@ -29,5 +29,7 @@ export const createTestDatabase = async () => {
 }
 
 export const clearTestDatabase = async () => {
-    await fs.rm('./data/testing.db.sqlite3')
+    await fs.rm('./data/testing.db.sqlite3', {
+        force: true,
+    })
 }
