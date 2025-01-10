@@ -1,6 +1,7 @@
 import {WebhookMessageCreateOptions} from "discord.js";
 import {RateLimiterMemory, RateLimiterQueue} from "rate-limiter-flexible";
 import {retryPromise} from "./common";
+import {PromiseResult} from "./types/promises";
 
 export interface WebhookExecuteRequester<UpdateRequestBody> {
     send(update: UpdateRequestBody): Promise<Response>
@@ -21,8 +22,7 @@ export abstract class AbstractUpdateRequestManager<UpdateRequestBody> implements
 }
 
 abstract class FixedWindowRateLimitedRequestManager<UpdateRequestBody> extends AbstractUpdateRequestManager<UpdateRequestBody> {
-    // TODO: Promise all?
-    sendAll(requestAmountPerDuration: number = 5, rateLimitDurationSeconds: number = 2)
+    async sendAll(requestAmountPerDuration: number = 5, rateLimitDurationSeconds: number = 2): Promise<PromiseResult<Response>[]>
     {
         const limiterFlexible = new RateLimiterMemory({
             points: requestAmountPerDuration,
@@ -31,22 +31,30 @@ abstract class FixedWindowRateLimitedRequestManager<UpdateRequestBody> extends A
 
         const limiterQueue = new RateLimiterQueue(limiterFlexible);
 
+        let sendPromises: Promise<PromiseResult<Response>>[] = []
+
         for (let i = 0; i < this.requestBodies.length; i++) {
-            limiterQueue
-                .removeTokens(1)
-                .then(() => {
-                    retryPromise(
-                        () => this.send(this.requestBodies[i]),
-                        3,
-                        2500
-                    )
-                    .then(result => console.log('3', result.status))
-                    .catch(error => console.error('4', error));
+            sendPromises.push(
+                new Promise((resolve, reject) => {
+                    limiterQueue
+                        .removeTokens(1)
+                        .then(() => {
+                            retryPromise(
+                                () => this.send(this.requestBodies[i]),
+                                3,
+                                2500
+                            )
+                            .then(result => resolve({status: 'fulfilled', value: result}))
+                            .catch(error => resolve({status: 'rejected', reason: error}));
+                        })
+                        .catch((error) => {
+                            resolve({status: 'rejected', reason: error})
+                        })
                 })
-                .catch((err) => {
-                    console.error(err)
-                })
+            )
         }
+
+        return await Promise.all(sendPromises);
     }
 }
 
