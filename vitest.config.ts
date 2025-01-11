@@ -5,6 +5,7 @@ export default defineConfig({
         setupFiles: ["/tests/test.setup.ts"],
         coverage: {
             include: ["src/**/*.ts"],
-        }
+        },
+        testTimeout: 10000,
     },
 })

@@ -2,31 +2,37 @@ type PromiseFunction<T> = () => Promise<T>;
 
 export function retryPromise<T>(
     fn: PromiseFunction<T>,
-    retries: number = 3,
+    maxTries: number = 3,
     delay: number = 1000
 ): Promise<T> {
     return new Promise((resolve, reject) => {
-        const attempt = (n: number) => {
-            fn()
-                .then(resolve)
-                .catch((error) => {
-                    console.error(error);
+        const attempt = (totalTries: number) => {
+            function handleFailure(error: any) {
+                if (totalTries === maxTries) {
+                    reject(error);
+                    return;
+                }
 
-                    if (n === 1) {
-                        console.error(`Exhausted all retries`);
-                        reject(error);
-                        return;
-                    }
+                setTimeout(() => {
+                    attempt(totalTries + 1);
+                }, delay);
+            }
 
-                    console.warn(`Retrying ${n}/${retries} in ${delay}ms`);
+            try {
+                const result = fn(); // Call the function here
 
-                    setTimeout(() => {
-                        console.warn(`Retrying ${n}/${retries}`);
-                        attempt(n - 1);
-                    }, delay);
-                });
+                // If it's a promise, wait for resolution/rejection.
+                if (result instanceof Promise) {
+                    result.then(resolve).catch(handleFailure);
+                } else {
+                    // If it's not a promise, resolve directly.
+                    resolve(result);
+                }
+            } catch (error) {
+                handleFailure(error); // Handle synchronous errors.
+            }
         };
 
-        attempt(retries);
+        attempt(1);
     });
 }

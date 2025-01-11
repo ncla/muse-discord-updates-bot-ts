@@ -1,4 +1,4 @@
-import {beforeAll, expect, test, vi} from 'vitest'
+import {afterEach, beforeAll, beforeEach, expect, test, vi} from 'vitest'
 import dotenv from 'dotenv'
 import {DiscordWebhookRequestManager} from "../src/request-manager";
 
@@ -23,6 +23,7 @@ test('it sends request to discord webhook endpoint', async () => {
     expect(response.status).toBe(204)
 })
 
+// TODO: alternatively, we could just mock the send method and check if it was called and note the timestamps
 test('it sends multiple requests without hitting burst limit', async () => {
     const manager = new DiscordWebhookRequestManager('fake', 'fake')
 
@@ -68,4 +69,44 @@ test('it sends multiple requests without hitting burst limit', async () => {
     expect(timestamps[10] - timestamps[5]).toBeGreaterThanOrEqual(RATE_LIMIT_DURATION * 1000)
 })
 
-test.todo('failing requests are retried up to 3 times')
+test('request is tried three times', async () => {
+    const manager = new DiscordWebhookRequestManager('fakeWebhookId', 'fakeWebhookToken')
+
+    const REQUEST_AMOUNT = 1
+    const REQUEST_AMOUNT_PER_DURATION = 5
+    const RATE_LIMIT_DURATION = 1
+
+    manager.send = vi.fn(() => {
+        throw new Error('Fake error')
+    })
+
+    const managerSpy = vi.spyOn(manager, 'send')
+
+    for (let i = 0; i < REQUEST_AMOUNT; i++) {
+        manager.add({
+            content: i.toString()
+        })
+    }
+
+    vi.useFakeTimers()
+
+    const beforeTime = +new Date()
+
+    manager
+        .sendAll(REQUEST_AMOUNT_PER_DURATION, RATE_LIMIT_DURATION)
+        .then((result) => {
+            expect(result.length).toBe(REQUEST_AMOUNT)
+            expect(result[0].status).toBe('rejected')
+        })
+
+    await vi.advanceTimersByTimeAsync(2500)
+    await vi.advanceTimersByTimeAsync(2500)
+
+    const afterTime = +new Date()
+
+    expect(afterTime - beforeTime).toBeGreaterThanOrEqual(5000)
+
+    vi.useRealTimers()
+
+    expect(managerSpy).toHaveBeenCalledTimes(3)
+})
