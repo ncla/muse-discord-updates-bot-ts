@@ -28,6 +28,11 @@ export interface IConfig {
             id: string | undefined,
             token: string | undefined,
         }
+    },
+    pingable_mention_ids: {
+        discord: {
+            youtube_uploads: string | undefined,
+        }
     }
 }
 
@@ -56,6 +61,11 @@ const config: IConfig = {
         discord: {
             id: process.env.DISCORD_WEBHOOK_ID,
             token: process.env.DISCORD_WEBHOOK_TOKEN,
+        }
+    },
+    pingable_mention_ids: {
+        discord: {
+            youtube_uploads: process.env.DISCORD_ROLE_ID_YOUTUBE_UPLOADS,
         }
     }
 };

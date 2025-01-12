@@ -20,7 +20,7 @@ export interface OptionalUpdateFields {
     content?: string | null;
     url?: string | null;
     image_url?: string | null;
-    created_at_timestamp?: string | null; // TODO: just name this created_at?
+    created_at?: Date | null;
     author?: UpdateAuthor | null;
 }
 
@@ -47,7 +47,7 @@ export function createBlankUnprocessedUpdate(): EmptyUnprocessedUpdateEntry
         content: null,
         url: null,
         image_url: null,
-        created_at_timestamp: null,
+        created_at: null,
         author: {
             id: null,
             name: null,

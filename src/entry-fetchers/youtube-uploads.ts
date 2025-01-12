@@ -63,6 +63,7 @@ export class YoutubeUploads implements EntryFetcher
                 name: channel.username,
                 image_url: channel.author_image_url,
             },
+            created_at: new Date(item.snippet.publishedAt),
         }
     }
 }

@@ -14,6 +14,11 @@ vi.mock('../src/config', async () => {
                     uploads_api_key: process.env.TEST_YOUTUBE_UPLOADS_API_KEY
                 }
             },
+            pingable_mention_ids: {
+                discord: {
+                    youtube_uploads: process.env.TEST_DISCORD_ROLE_ID_YOUTUBE_UPLOADS,
+                }
+            }
         }
     }
 })
