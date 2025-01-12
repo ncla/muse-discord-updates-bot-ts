@@ -83,8 +83,6 @@ export class DiscordWebhookRequestManager extends FixedWindowRateLimitedRequestM
                 throw new Error(`Error: ${response.statusText}`);
             }
 
-            console.log(`Timestamp: ${new Date().toISOString()} | Status: ${response.status}`);
-
             return response;
         })
     }
