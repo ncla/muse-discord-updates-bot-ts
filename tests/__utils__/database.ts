@@ -5,9 +5,9 @@ import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import {TypeScriptFileMigrationProvider} from "../../src/ts-migration-transpiler";
 
-export const createTestDatabase = async () => {
+export const createTestDatabase = async (dbFileIdentifier: string) => {
     const dialect = new SqliteDialect({
-        database: new SQLite('./data/testing.db.sqlite3'),
+        database: new SQLite(`./data/testing.${dbFileIdentifier}.db.sqlite3`),
     })
 
     const db = new Kysely<Database>({
@@ -28,8 +28,8 @@ export const createTestDatabase = async () => {
     return db
 }
 
-export const clearTestDatabase = async () => {
-    await fs.rm('./data/testing.db.sqlite3', {
+export const clearTestDatabase = async (dbFileIdentifier: string) => {
+    await fs.rm(`./data/testing.${dbFileIdentifier}.db.sqlite3`, {
         force: true,
     })
 }

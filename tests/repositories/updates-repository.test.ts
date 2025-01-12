@@ -3,16 +3,18 @@ import {clearTestDatabase, createTestDatabase} from "../__utils__/database";
 import {afterAll, afterEach, beforeEach, expect, test} from 'vitest'
 import {UpdateType} from "../../src/update";
 
+const DB_FILE_IDENTIFIER = 'updates-repository'
+
 beforeEach(async () => {
-    await clearTestDatabase()
+    await clearTestDatabase(DB_FILE_IDENTIFIER)
 })
 
 afterEach(async () => {
-    await clearTestDatabase()
+    await clearTestDatabase(DB_FILE_IDENTIFIER)
 })
 
 test('it finds an update by type and unique_id', async () => {
-    const db = await createTestDatabase()
+    const db = await createTestDatabase(DB_FILE_IDENTIFIER)
 
     const updatesRepository = new UpdatesRepositoryKysely(db)
 
@@ -33,7 +35,7 @@ test('it finds an update by type and unique_id', async () => {
 })
 
 test('it returns undefined when no update is found', async () => {
-    const db = await createTestDatabase()
+    const db = await createTestDatabase(DB_FILE_IDENTIFIER)
 
     const updatesRepository = new UpdatesRepositoryKysely(db)
 
@@ -43,7 +45,7 @@ test('it returns undefined when no update is found', async () => {
 })
 
 test('it returns object for data property when it has JSON data in column', async () => {
-    const db = await createTestDatabase()
+    const db = await createTestDatabase(DB_FILE_IDENTIFIER)
 
     const updatesRepository = new UpdatesRepositoryKysely(db)
 
@@ -65,7 +67,7 @@ test('it returns object for data property when it has JSON data in column', asyn
 })
 
 test('it creates a new update', async () => {
-    const db = await createTestDatabase()
+    const db = await createTestDatabase(DB_FILE_IDENTIFIER)
 
     const updatesRepository = new UpdatesRepositoryKysely(db)
 
@@ -89,7 +91,7 @@ test('it creates a new update', async () => {
 })
 
 test('inserting a duplicate unique_id throws an error', async () => {
-    const db = await createTestDatabase()
+    const db = await createTestDatabase(DB_FILE_IDENTIFIER)
 
     const updatesRepository = new UpdatesRepositoryKysely(db)
 
@@ -108,7 +110,7 @@ test('inserting a duplicate unique_id throws an error', async () => {
 })
 
 test('it creates record with JSON data when passed an object', async () => {
-    const db = await createTestDatabase()
+    const db = await createTestDatabase(DB_FILE_IDENTIFIER)
 
     const updatesRepository = new UpdatesRepositoryKysely(db)
 
