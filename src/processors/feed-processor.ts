@@ -1,9 +1,10 @@
 import {EntryFetcher} from "../entry-fetchers";
 import {IUpdatesRepository} from "../repositories/updates-repository";
-import {getTransformer, UpdateTransformer} from "../updates/transformers";
+import {getTransformer} from "../updates/transformers";
 import {AbstractUpdateRequestManager} from "../request-manager";
-import {WebhookService} from "../update";
-import { WebhookMessageCreateOptions } from "discord.js";
+import {UnprocessedUpdateEntry, WebhookService} from "../update";
+import {WebhookMessageCreateOptions} from "discord.js";
+import {FulfilledPromise, PromiseResult, RejectedPromise} from "../types/promises";
 
 export class FeedProcessor<
     CreateUpdateRecordType,
@@ -22,11 +23,32 @@ export class FeedProcessor<
 
     async process()
     {
-        const entriesPerFetcher = await Promise.all(
-            this.entryFetchers.map(fetcher => fetcher.fetch())
+        const fetcherResults: PromiseResult<UnprocessedUpdateEntry[]>[] = await Promise.all(
+            this.entryFetchers.map(async fetcher => {
+                try {
+                    return <FulfilledPromise<UnprocessedUpdateEntry[]>>{
+                        status: 'fulfilled',
+                        value: await fetcher.fetch()
+                    }
+                } catch (error) {
+                    return <RejectedPromise>{
+                        status: 'rejected',
+                        reason: error
+                    }
+                }
+            })
         )
 
-        let entries = entriesPerFetcher.flat()
+        const successfulFetcherResults = fetcherResults.filter(result => result.status === 'fulfilled')
+        const failedFetcherResults = fetcherResults.filter(result => result.status === 'rejected')
+
+        if (failedFetcherResults.length > 0) {
+            console.warn(`Failed fetchers: ${failedFetcherResults.map(failedFetcher => failedFetcher.reason)}`)
+        }
+
+        let entries = successfulFetcherResults
+            .map(result => result.value)
+            .flat()
 
         for (const entry of entries) {
             const existingEntry = await this.updatesRepository.findByTypeAndUniqueId(
@@ -51,6 +73,6 @@ export class FeedProcessor<
             }
         }
 
-        this.requestManager.sendAll()
+        return this.requestManager.sendAll()
     }
 }
