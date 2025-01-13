@@ -15,7 +15,7 @@ const dialect = new SqliteDialect({
     database: new SQLite('./data/db.sqlite3'),
 })
 
-function queryLogging(event: any) {
+export function queryLogging(event: any) {
     if (event.level === "error") {
         console.error("Query failed: ", {
             durationMs: event.queryDurationMillis,

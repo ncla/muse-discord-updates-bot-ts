@@ -53,3 +53,59 @@ test('it processes with one of the fetchers throwing error', async () => {
         expect(requestManagerSendSpy).toHaveBeenCalledTimes(1)
     }).not.toThrow()
 })
+
+test('insert query is not run when entry already exists', async () => {
+    const FAKE_UNIQUE_ID = 'fake_unique_id';
+
+    const db = await createTestDatabase(DB_FILE_IDENTIFIER)
+
+    await db
+        .insertInto('updates')
+        .values({
+            type: UpdateType.YOUTUBE_UPLOAD,
+            unique_id: FAKE_UNIQUE_ID
+        })
+        .executeTakeFirst()
+
+    const updatesRepository = new UpdatesRepositoryKysely(db)
+    const requestManager = new DiscordWebhookRequestManager('fake', 'fake')
+
+    const entryFetcherGood = new YoutubeUploads()
+
+    let fakeYoutubeUploadEntry = createTestUnprocessedEntry(UpdateType.YOUTUBE_UPLOAD)
+    fakeYoutubeUploadEntry.uniqueId = FAKE_UNIQUE_ID
+
+    entryFetcherGood.fetch = vi.fn(async () => {
+        return <UnprocessedUpdateEntry[]>[
+            fakeYoutubeUploadEntry,
+        ]
+    })
+
+    const requestManagerSendSpy = vi
+        .spyOn(requestManager, 'send')
+        .mockImplementation(async () => {
+            return new Response()
+        })
+
+    const updatesRepositoryFindSpy = vi.spyOn(updatesRepository, 'findByTypeAndUniqueId')
+    const updatesRepositoryCreateSpy = vi.spyOn(updatesRepository, 'create')
+
+    const feedProcessor = new FeedProcessor(
+        WebhookService.Discord,
+        [entryFetcherGood],
+        updatesRepository,
+        requestManager
+    )
+
+    await feedProcessor.process()
+
+    expect(updatesRepositoryFindSpy).toHaveBeenCalledTimes(1)
+    expect(updatesRepositoryCreateSpy).toHaveBeenCalledTimes(0)
+
+    const rows = await db
+        .selectFrom('updates')
+        .selectAll()
+        .execute()
+
+    expect(rows.length).toBe(1)
+})
