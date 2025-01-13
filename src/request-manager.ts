@@ -16,6 +16,11 @@ export abstract class AbstractUpdateRequestManager<UpdateRequestBody> implements
         this.requestBodies.push(requestBody);
     }
 
+    count(): number
+    {
+        return this.requestBodies.length;
+    }
+
     abstract send(update: UpdateRequestBody): Promise<Response>;
 
     abstract sendAll(): void;

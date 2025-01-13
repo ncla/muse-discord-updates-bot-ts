@@ -56,23 +56,27 @@ export class FeedProcessor<
                 entry.uniqueId
             )
 
-            if (existingEntry === undefined) {
-                const newEntry = <CreateUpdateRecordType>{
-                    type: entry.type,
-                    unique_id: entry.uniqueId,
-                    data: entry
-                }
-
-                this.updatesRepository.create(newEntry)
-
-                const entryTransformer = getTransformer(this.webhookService, entry.type)
-                const entryRequestBody = entryTransformer.transform(entry)
-
-                // TODO: Asserting type here is not ideal.
-                this.requestManager.add(entryRequestBody as RequestManagerBodyType)
+            if (existingEntry !== undefined) {
+                continue
             }
+
+            const newEntry = <CreateUpdateRecordType>{
+                type: entry.type,
+                unique_id: entry.uniqueId,
+                data: entry
+            }
+
+            this.updatesRepository.create(newEntry)
+
+            const entryTransformer = getTransformer(this.webhookService, entry.type)
+            const entryRequestBody = entryTransformer.transform(entry)
+
+            // TODO: Asserting type here is not ideal.
+            this.requestManager.add(entryRequestBody as RequestManagerBodyType)
         }
 
-        return this.requestManager.sendAll()
+        if (this.requestManager.count() > 0) {
+            return this.requestManager.sendAll()
+        }
     }
 }
