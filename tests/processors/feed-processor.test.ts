@@ -6,6 +6,8 @@ import {clearTestDatabase, createTestDatabase} from "../__utils__/database";
 import {DiscordWebhookRequestManager} from "../../src/request-manager";
 import {YoutubeUploads} from "../../src/entry-fetchers/youtube-uploads";
 import {createTestUnprocessedEntry} from "../__utils__";
+import {YoutubeUpload as YoutubeUploadsTransformer} from "../../src/updates/transformers/discord/youtube-upload";
+import * as transformerExports from '../../src/updates/transformers/index'
 
 const DB_FILE_IDENTIFIER = 'feed-processor'
 
@@ -108,4 +110,54 @@ test('insert query is not run when entry already exists', async () => {
         .execute()
 
     expect(rows.length).toBe(1)
+})
+
+test('it processes fetched entries in a loop without one entry failing entire process', async () => {
+    const db = await createTestDatabase(DB_FILE_IDENTIFIER)
+
+    const updatesRepository = new UpdatesRepositoryKysely(db)
+    const requestManager = new DiscordWebhookRequestManager('fake', 'fake')
+    const entryFetcher = new YoutubeUploads()
+
+    let getTransformerCallCount = 0;
+
+    // This could be any other method that returns error, we just need to test that the feed process continues
+    vi.spyOn(transformerExports, 'getTransformer').mockImplementation(() => {
+        if (getTransformerCallCount === 2) {
+            getTransformerCallCount++
+            throw new Error('xD')
+        }
+
+        getTransformerCallCount++
+        return new YoutubeUploadsTransformer
+    })
+
+    const entries: UnprocessedUpdateEntry[] = []
+
+    for (let i = 0; i < 5; i++) {
+        let entry = createTestUnprocessedEntry(UpdateType.YOUTUBE_UPLOAD)
+        entry.uniqueId = `unique_id_${i}`
+        entries.push(entry)
+    }
+
+    entryFetcher.fetch = vi.fn(async () => {
+        return entries
+    })
+
+    const requestManagerSendSpy = vi
+        .spyOn(requestManager, 'send')
+        .mockImplementation(async () => {
+            return new Response()
+        })
+
+    const feedProcessor = new FeedProcessor(
+        WebhookService.Discord,
+        [entryFetcher],
+        updatesRepository,
+        requestManager
+    )
+
+    await feedProcessor.process()
+
+    expect(requestManagerSendSpy).toHaveBeenCalledTimes(4)
 })

@@ -51,28 +51,32 @@ export class FeedProcessor<
             .flat()
 
         for (const entry of entries) {
-            const existingEntry = await this.updatesRepository.findByTypeAndUniqueId(
-                entry.type,
-                entry.uniqueId
-            )
+            try {
+                const existingEntry = await this.updatesRepository.findByTypeAndUniqueId(
+                    entry.type,
+                    entry.uniqueId
+                )
 
-            if (existingEntry !== undefined) {
-                continue
+                if (existingEntry !== undefined) {
+                    continue
+                }
+
+                const newEntry = <CreateUpdateRecordType>{
+                    type: entry.type,
+                    unique_id: entry.uniqueId,
+                    data: entry
+                }
+
+                this.updatesRepository.create(newEntry)
+
+                const entryTransformer = getTransformer(this.webhookService, entry.type)
+                const entryRequestBody = entryTransformer.transform(entry)
+
+                // TODO: Asserting type here is not ideal.
+                this.requestManager.add(entryRequestBody as RequestManagerBodyType)
+            } catch (error) {
+                console.error(`Failed to process entry: ${error}`)
             }
-
-            const newEntry = <CreateUpdateRecordType>{
-                type: entry.type,
-                unique_id: entry.uniqueId,
-                data: entry
-            }
-
-            this.updatesRepository.create(newEntry)
-
-            const entryTransformer = getTransformer(this.webhookService, entry.type)
-            const entryRequestBody = entryTransformer.transform(entry)
-
-            // TODO: Asserting type here is not ideal.
-            this.requestManager.add(entryRequestBody as RequestManagerBodyType)
         }
 
         if (this.requestManager.count() > 0) {
