@@ -5,6 +5,7 @@ export enum WebhookService {
 export enum UpdateType {
     INSTAGRAM_POST = 'INSTAGRAM_POST',
     YOUTUBE_UPLOAD = 'YOUTUBE_UPLOAD',
+    YOUTUBE_PLAYLIST_VIDEO = 'YOUTUBE_PLAYLIST_VIDEO',
 }
 
 export type UpdateAuthor = {

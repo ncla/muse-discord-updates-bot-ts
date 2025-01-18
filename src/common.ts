@@ -80,3 +80,24 @@ export function setNestedProperty<T extends NestedObject>(object: T, path: strin
     // Set the value at the last key
     current[keys[keys.length - 1]] = value;
 }
+
+const NO_THUMBNAIL_IMAGE_URL = 'https://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg';
+
+export function exportHighestResolutionThumbnailUrlFromYoutubePlaylistItem(thumbnails: GoogleApiYouTubeThumbnailResource): string
+{
+    const thumbnailKeys = Object.keys(thumbnails) as (keyof GoogleApiYouTubeThumbnailResource)[]
+
+    if (thumbnailKeys.length === 0) {
+        return NO_THUMBNAIL_IMAGE_URL;
+    }
+
+    const highestResolutionThumbnailKey = thumbnailKeys[thumbnailKeys.length - 1];
+
+    const thumbnail = thumbnails[highestResolutionThumbnailKey]
+
+    if (!thumbnail) {
+        return NO_THUMBNAIL_IMAGE_URL;
+    }
+
+    return thumbnail.url;
+}

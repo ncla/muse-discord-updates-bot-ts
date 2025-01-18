@@ -11,6 +11,7 @@ export interface IConfig {
     services: {
         youtube: {
             uploads_api_key: string | undefined,
+            playlists_api_key: string | undefined,
         }
     }
     fetchables: {
@@ -42,7 +43,8 @@ const config: IConfig = {
     },
     services: {
         youtube: {
-            uploads_api_key: process.env.YOUTUBE_UPLOADS_API_KEY
+            uploads_api_key: process.env.YOUTUBE_UPLOADS_API_KEY,
+            playlists_api_key: process.env.YOUTUBE_PLAYLISTS_API_KEY,
         }
     },
     fetchables: {

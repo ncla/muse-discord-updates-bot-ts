@@ -38,8 +38,23 @@ export const db = new Kysely<Database>({
 })
 
 export interface Database {
-    updates: UpdatesTable
+    updates: UpdatesTable,
+    youtube_playlists: YoutubePlaylistsTable
 }
+
+export interface YoutubePlaylistsTable {
+    id: Generated<number>
+
+    playlist_id: ColumnType<string, string, never>
+
+    video_count: ColumnType<number, number, number>
+
+    created_at: ColumnType<Date, string | undefined, never>
+}
+
+export type ReturnableYoutubePlaylistRecord = Selectable<YoutubePlaylistsTable>
+export type InsertableYoutubePlaylistRecord = Insertable<YoutubePlaylistsTable>
+export type UpdateableRecordYoutubePlaylist = Updateable<YoutubePlaylistsTable>
 
 export interface UpdatesTable {
     id: Generated<number>
