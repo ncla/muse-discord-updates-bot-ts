@@ -2,7 +2,7 @@ import {EntryFetcher} from "./index";
 import config, {IConfig} from "../config";
 import {IYoutubePlaylistsRepository, YoutubePlaylistsKysely} from "../repositories/youtube-playlists-repository";
 import {createBlankUnprocessedUpdate, UnprocessedUpdateEntry, UpdateType} from "../update";
-import {exportHighestResolutionThumbnailUrlFromYoutubePlaylistItem} from "../common";
+import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "../common";
 
 const NO_THUMBNAIL_IMAGE_URL = 'https://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg';
 
@@ -135,7 +135,7 @@ export class YoutubePlaylistVideos<InsertablePlaylistRecord, SelectablePlaylistR
             title: playlistItem.snippet.title,
             content: playlistItem.snippet.description ? playlistItem.snippet.description : null,
             url: `https://www.youtube.com/watch?v=${playlistItem.snippet.resourceId.videoId}&list=${playlistItem.snippet.playlistId}`,
-            image_url: exportHighestResolutionThumbnailUrlFromYoutubePlaylistItem(playlistItem.snippet.thumbnails),
+            image_url: exportHighestResolutionThumbnailUrlFromThumbnailResource(playlistItem.snippet.thumbnails),
             author: {
                 id: channel.channel_id,
                 name: channel.username,

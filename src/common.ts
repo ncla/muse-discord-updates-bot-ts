@@ -83,7 +83,7 @@ export function setNestedProperty<T extends NestedObject>(object: T, path: strin
 
 const NO_THUMBNAIL_IMAGE_URL = 'https://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg';
 
-export function exportHighestResolutionThumbnailUrlFromYoutubePlaylistItem(thumbnails: GoogleApiYouTubeThumbnailResource): string
+export function exportHighestResolutionThumbnailUrlFromThumbnailResource(thumbnails: GoogleApiYouTubeThumbnailResource): string
 {
     const thumbnailKeys = Object.keys(thumbnails) as (keyof GoogleApiYouTubeThumbnailResource)[]
 

@@ -2,7 +2,7 @@ import {EntryFetcher} from "./index";
 import config, {IConfig} from "../config";
 // import * as util from "node:util";
 import {createBlankUnprocessedUpdate, UnprocessedUpdateEntry, UpdateType} from "../update";
-import {exportHighestResolutionThumbnailUrlFromYoutubePlaylistItem} from "../common";
+import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "../common";
 
 export class YoutubeUploads implements EntryFetcher
 {
@@ -58,7 +58,7 @@ export class YoutubeUploads implements EntryFetcher
             title: item.snippet.title,
             content: item.snippet.description ? item.snippet.description : null,
             url: `https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}`,
-            image_url: exportHighestResolutionThumbnailUrlFromYoutubePlaylistItem(item.snippet.thumbnails),
+            image_url: exportHighestResolutionThumbnailUrlFromThumbnailResource(item.snippet.thumbnails),
             author: {
                 id: channel.channel_id,
                 name: channel.username,
