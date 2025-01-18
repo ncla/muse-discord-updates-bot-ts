@@ -9,6 +9,11 @@ export interface IConfig {
         debug: boolean,
     }
     services: {
+        musebootlegs: {
+            username: string | undefined,
+            password: string | undefined,
+            user_agent: string | undefined,
+        },
         youtube: {
             uploads_api_key: string | undefined,
             playlists_api_key: string | undefined,
@@ -42,6 +47,11 @@ const config: IConfig = {
         debug: process.env.APP_DEBUG === 'true',
     },
     services: {
+        musebootlegs: {
+            username: process.env.MUSEBOOTLEGS_USERNAME,
+            password: process.env.MUSEBOOTLEGS_PASSWORD,
+            user_agent: process.env.MUSEBOOTLEGS_USER_AGENT,
+        },
         youtube: {
             uploads_api_key: process.env.YOUTUBE_UPLOADS_API_KEY,
             playlists_api_key: process.env.YOUTUBE_PLAYLISTS_API_KEY,

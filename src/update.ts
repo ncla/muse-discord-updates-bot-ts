@@ -6,6 +6,7 @@ export enum UpdateType {
     INSTAGRAM_POST = 'INSTAGRAM_POST',
     YOUTUBE_UPLOAD = 'YOUTUBE_UPLOAD',
     YOUTUBE_PLAYLIST_VIDEO = 'YOUTUBE_PLAYLIST_VIDEO',
+    MUSEBOOTLEGS_TORRENT = 'MUSEBOOTLEGS_TORRENT',
 }
 
 export type UpdateAuthor = {
@@ -32,7 +33,7 @@ export interface Update extends OptionalUpdateFields {
 }
 
 export interface UnprocessedUpdateEntry extends Update {
-    isNew: boolean | null;
+    isNew: boolean | null; // TODO: Remove this field
 }
 
 export interface EmptyUnprocessedUpdateEntry extends OptionalUpdateFields {

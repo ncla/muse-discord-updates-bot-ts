@@ -3,6 +3,7 @@ import {Update, UpdateType, WebhookService} from "../../update";
 import {Json as DefaultJsonDiscordTransformer} from "./discord/json";
 import {YoutubeUpload as YoutubeUploadsTransformer} from "./discord/youtube-upload";
 import {YoutubePlaylistVideo} from "./discord/youtube-playlist-video";
+import {MusebootlegsTorrent} from "./discord/musebootlegs-torrent";
 
 export interface UpdateTransformer<BodyType> {
     transform(update: Update): BodyType;
@@ -24,6 +25,8 @@ export function getTransformer(
                     return new YoutubeUploadsTransformer
                 case UpdateType.YOUTUBE_PLAYLIST_VIDEO:
                     return new YoutubePlaylistVideo
+                case UpdateType.MUSEBOOTLEGS_TORRENT:
+                    return new MusebootlegsTorrent;
                 default:
                     return new DefaultJsonDiscordTransformer
             }
