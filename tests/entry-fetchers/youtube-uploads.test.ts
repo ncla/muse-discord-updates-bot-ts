@@ -145,12 +145,12 @@ test('uses standard thumbnail if it is provided', async () => {
                             title: 'title',
                             description: '',
                             thumbnails: {
+                                default: {
+                                    url: DEFAULT_THUMBNAIL_URL
+                                },
                                 standard: {
                                     url: STANDARD_THUMBNAIL_URL
                                 },
-                                default: {
-                                    url: DEFAULT_THUMBNAIL_URL
-                                }
                             }
                         }
                     }
