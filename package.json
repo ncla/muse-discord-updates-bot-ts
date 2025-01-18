@@ -6,7 +6,9 @@
   "main": "dist/index.js",
   "scripts": {
     "process": "tsx src/index.ts",
-    "test": "vitest --coverage"
+    "test": "vitest --coverage",
+    "ci:test": "vitest run --coverage --coverage.reporter=json-summary --coverage.reportOnFailure=true",
+    "ci:badges": "npx istanbul-badges-readme --exitCode=1"
   },
   "dependencies": {
     "better-sqlite3": "^11.7.0",
@@ -21,6 +23,7 @@
     "@types/gapi.youtube": "^3.0.40",
     "@types/jsdom": "^21.1.7",
     "@vitest/coverage-v8": "^2.1.8",
+    "istanbul-badges-readme": "^1.9.0",
     "kysely-ctl": "^0.10.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
