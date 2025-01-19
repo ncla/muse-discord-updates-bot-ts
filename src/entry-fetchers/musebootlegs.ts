@@ -107,6 +107,7 @@ export class Musebootlegs implements EntryFetcher
             const imageElement = torrentBox.querySelector('.previewImage a') as HTMLAnchorElement
             const authorElement = torrentBox.querySelector('.torrentOwner > span > span')
             const torrentOwnerElement = torrentBox.querySelector('.torrentOwner')
+            const descriptionElement = torrentBox.querySelector('.torrentDescription')
 
             let uploadedDate: Date | null = null
 
@@ -142,11 +143,12 @@ export class Musebootlegs implements EntryFetcher
                 id: torrentId,
                 uniqueId: torrentId,
                 title: entryTextElement.textContent.trim(),
+                content: descriptionElement && descriptionElement.textContent ? descriptionElement.textContent.trim() : null,
                 url: entryLink && entryLink.href ? entryLink.href : null,
                 image_url: imageElement && imageElement.href ? imageElement.href : null,
                 author: {
                     id: null,
-                    name: authorElement ? authorElement.textContent : null,
+                    name: authorElement && authorElement.textContent ? authorElement.textContent : null,
                     image_url: null
                 },
                 created_at: uploadedDate

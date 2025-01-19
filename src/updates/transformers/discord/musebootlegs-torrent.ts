@@ -28,6 +28,7 @@ export class MusebootlegsTorrent implements DiscordUpdateTransformer {
                 {
                     title: truncateText(update.title, 250),
                     url: update.url,
+                    description: update.content ? truncateText(update.content, 300) : undefined,
                     fields: [
                         {
                             name: 'Uploader',
