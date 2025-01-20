@@ -117,7 +117,7 @@ export class Musebootlegs implements EntryFetcher
         let errorBox = document.querySelector('#show_error');
 
         if (errorBox) {
-            throw new Error(errorBox.textContent ?? 'Error box found')
+            throw new Error('Error box found')
         }
 
         let torrentBoxes = document.querySelectorAll('#content > .torrent-box[id^="torrent_"]');
