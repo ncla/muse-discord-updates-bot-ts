@@ -23,18 +23,25 @@ export class Musebootlegs implements EntryFetcher
 
         const loginResponse = await this.sendLoginRequest(
             this.config.services.musebootlegs.username,
-            this.config.services.musebootlegs.password
+            this.config.services.musebootlegs.password,
+            this.config.services.musebootlegs.user_agent
         )
-
-        if (!loginResponse.ok) {
-            throw new Error('Login failed')
-        }
 
         const cookies = loginResponse.headers.getSetCookie()
 
+        if (
+            cookies[0] === undefined ||
+            !cookies[0].startsWith('tsue_member=')
+        ) {
+            throw new Error('Failed to get login cookies')
+        }
+
         const cookieHeader = cookies.map(cookie => cookie.split(';')[0]).join('; ')
 
-        const torrentListResponse = await this.sendTorrentListRequest(cookieHeader)
+        const torrentListResponse = await this.sendTorrentListRequest(
+            cookieHeader,
+            this.config.services.musebootlegs.user_agent
+        )
 
         if (!torrentListResponse.ok) {
             throw new Error('Failed to get torrent list response')
@@ -45,10 +52,18 @@ export class Musebootlegs implements EntryFetcher
         return this.parseTorrentListResponse(torrentListPageHtml)
     }
 
-    async sendLoginRequest(username: string, password: string)
+    async sendLoginRequest(
+        username: string | undefined = undefined,
+        password: string | undefined = undefined,
+        useragent: string | undefined = undefined
+    )
     {
-        if (this.config.services.musebootlegs.user_agent === undefined) {
-            throw new Error('MuseBootlegs user agent is not set')
+        if (
+            typeof username !== 'string' ||
+            typeof password !== 'string' ||
+            typeof useragent !== 'string'
+        ) {
+            throw new Error('Missing required parameters for login request')
         }
 
         const url = 'https://www.musebootlegs.com/ajax/login.php'
@@ -63,14 +78,17 @@ export class Musebootlegs implements EntryFetcher
             body: formData,
             headers: {
                 // Special user agent must be passed to bypass Cloudflare's protection
-                'User-Agent': this.config.services.musebootlegs.user_agent
+                'User-Agent': useragent
             }
         })
     }
 
-    async sendTorrentListRequest(cookie: string)
+    async sendTorrentListRequest(
+        cookie: string,
+        useragent: string | undefined = undefined
+    )
     {
-        if (this.config.services.musebootlegs.user_agent === undefined) {
+        if (typeof useragent !== 'string') {
             throw new Error('MuseBootlegs user agent is not set')
         }
 
@@ -85,7 +103,7 @@ export class Musebootlegs implements EntryFetcher
             headers: {
                 'Cookie': cookie,
                 // Special user agent must be passed to bypass Cloudflare's protection
-                'User-Agent': this.config.services.musebootlegs.user_agent
+                'User-Agent': useragent
             }
         })
     }

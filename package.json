@@ -25,6 +25,7 @@
     "@vitest/coverage-v8": "^2.1.8",
     "istanbul-badges-readme": "^1.9.0",
     "kysely-ctl": "^0.10.1",
+    "msw": "^2.7.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
