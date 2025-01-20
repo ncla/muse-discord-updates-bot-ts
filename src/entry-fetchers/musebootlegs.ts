@@ -1,30 +1,44 @@
 import {EntryFetcher} from "./index";
-import config from "../config";
+import config, {IConfig} from "../config";
 import {JSDOM} from 'jsdom'
 import {createBlankUnprocessedUpdate, UnprocessedUpdateEntry, UpdateType} from "../update";
 
 export class Musebootlegs implements EntryFetcher
 {
+    private config: IConfig;
+
+    constructor(config: IConfig) {
+        this.config = config;
+    }
+
     async fetch()
     {
         if (
-            config.services.musebootlegs.username === undefined ||
-            config.services.musebootlegs.password === undefined ||
-            config.services.musebootlegs.user_agent === undefined
+            this.config.services.musebootlegs.username === undefined ||
+            this.config.services.musebootlegs.password === undefined ||
+            this.config.services.musebootlegs.user_agent === undefined
         ) {
-            throw new Error('MuseBootlegs username or password is not set')
+            throw new Error('MuseBootlegs username, password or user agent is not set')
         }
 
         const loginResponse = await this.sendLoginRequest(
-            config.services.musebootlegs.username,
-            config.services.musebootlegs.password
+            this.config.services.musebootlegs.username,
+            this.config.services.musebootlegs.password
         )
+
+        if (!loginResponse.ok) {
+            throw new Error('Login failed')
+        }
 
         const cookies = loginResponse.headers.getSetCookie()
 
         const cookieHeader = cookies.map(cookie => cookie.split(';')[0]).join('; ')
 
         const torrentListResponse = await this.sendTorrentListRequest(cookieHeader)
+
+        if (!torrentListResponse.ok) {
+            throw new Error('Failed to get torrent list response')
+        }
 
         const torrentListPageHtml = await torrentListResponse.text()
 
@@ -33,7 +47,7 @@ export class Musebootlegs implements EntryFetcher
 
     async sendLoginRequest(username: string, password: string)
     {
-        if (config.services.musebootlegs.user_agent === undefined) {
+        if (this.config.services.musebootlegs.user_agent === undefined) {
             throw new Error('MuseBootlegs user agent is not set')
         }
 
@@ -49,14 +63,14 @@ export class Musebootlegs implements EntryFetcher
             body: formData,
             headers: {
                 // Special user agent must be passed to bypass Cloudflare's protection
-                'User-Agent': config.services.musebootlegs.user_agent
+                'User-Agent': this.config.services.musebootlegs.user_agent
             }
         })
     }
 
     async sendTorrentListRequest(cookie: string)
     {
-        if (config.services.musebootlegs.user_agent === undefined) {
+        if (this.config.services.musebootlegs.user_agent === undefined) {
             throw new Error('MuseBootlegs user agent is not set')
         }
 
@@ -71,7 +85,7 @@ export class Musebootlegs implements EntryFetcher
             headers: {
                 'Cookie': cookie,
                 // Special user agent must be passed to bypass Cloudflare's protection
-                'User-Agent': config.services.musebootlegs.user_agent
+                'User-Agent': this.config.services.musebootlegs.user_agent
             }
         })
     }

@@ -4,12 +4,18 @@ vi.mock('../src/config', async () => {
     const configImport = await vi.importActual<
         typeof import('../src/config')
     >('../src/config')
+
     const originalConfig = configImport.default
 
     return {
         default: {
             ...originalConfig,
             services: {
+                musebootlegs: {
+                    username: process.env.TEST_MUSEBOOTLEGS_USERNAME,
+                    password: process.env.TEST_MUSEBOOTLEGS_PASSWORD,
+                    user_agent: process.env.TEST_MUSEBOOTLEGS_USER_AGENT,
+                },
                 youtube: {
                     uploads_api_key: process.env.TEST_YOUTUBE_UPLOADS_API_KEY
                 }
