@@ -8,6 +8,7 @@ import {YoutubeUploads} from "../../src/entry-fetchers/youtube-uploads";
 import {createTestUnprocessedEntry} from "../__utils__";
 import {YoutubeUpload as YoutubeUploadsTransformer} from "../../src/updates/transformers/discord/youtube-upload";
 import * as transformerExports from '../../src/updates/transformers/index'
+import config from "../../src/config";
 
 const DB_FILE_IDENTIFIER = 'feed-processor'
 
@@ -24,8 +25,8 @@ test('it processes with one of the fetchers throwing error', async () => {
     const updatesRepository = new UpdatesRepositoryKysely(db)
     const requestManager = new DiscordWebhookRequestManager('fake', 'fake')
 
-    const entryFetcherGood = new YoutubeUploads()
-    const entryFetcherFailing = new YoutubeUploads()
+    const entryFetcherGood = new YoutubeUploads(config)
+    const entryFetcherFailing = new YoutubeUploads(config)
 
     entryFetcherGood.fetch = vi.fn(async () => {
         return <UnprocessedUpdateEntry[]>[
@@ -72,7 +73,7 @@ test('insert query is not run when entry already exists', async () => {
     const updatesRepository = new UpdatesRepositoryKysely(db)
     const requestManager = new DiscordWebhookRequestManager('fake', 'fake')
 
-    const entryFetcherGood = new YoutubeUploads()
+    const entryFetcherGood = new YoutubeUploads(config)
 
     let fakeYoutubeUploadEntry = createTestUnprocessedEntry(UpdateType.YOUTUBE_UPLOAD)
     fakeYoutubeUploadEntry.uniqueId = FAKE_UNIQUE_ID
@@ -117,7 +118,7 @@ test('it processes fetched entries in a loop without one entry failing entire pr
 
     const updatesRepository = new UpdatesRepositoryKysely(db)
     const requestManager = new DiscordWebhookRequestManager('fake', 'fake')
-    const entryFetcher = new YoutubeUploads()
+    const entryFetcher = new YoutubeUploads(config)
 
     let getTransformerCallCount = 0;
 

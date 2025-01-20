@@ -1,4 +1,5 @@
 import {createBlankUnprocessedUpdate, UnprocessedUpdateEntry, UpdateType} from "../../src/update";
+import {IConfig} from "../../src/config";
 
 export function repeatText(text: string, times: number) {
     if (times < 0) {
@@ -32,4 +33,10 @@ export function createTestUnprocessedEntry(updateType: UpdateType = UpdateType.Y
             image_url: 'https://google.com/image.jpg',
         }
     }
+}
+
+export async function getTestConfig()
+{
+    const config = await import('../../src/config')
+    return config.default as IConfig
 }

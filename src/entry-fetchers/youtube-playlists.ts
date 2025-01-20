@@ -1,17 +1,16 @@
 import {EntryFetcher} from "./index";
-import config, {IConfig} from "../config";
+import {IConfig} from "../config";
 import {IYoutubePlaylistsRepository, YoutubePlaylistsKysely} from "../repositories/youtube-playlists-repository";
 import {createBlankUnprocessedUpdate, UnprocessedUpdateEntry, UpdateType} from "../update";
 import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "../common";
-
-const NO_THUMBNAIL_IMAGE_URL = 'https://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg';
 
 export class YoutubePlaylistVideos<InsertablePlaylistRecord, SelectablePlaylistRecord> implements EntryFetcher
 {
     constructor(
         // TODO: Tried to do this as interface but TypeScript could not infer the types from generics
         // TODO: Come back later and try to make this work
-        private youtubePlaylistsRepository: YoutubePlaylistsKysely
+        private youtubePlaylistsRepository: YoutubePlaylistsKysely,
+        private config: IConfig
     ) {
         return this
     }
@@ -20,10 +19,10 @@ export class YoutubePlaylistVideos<InsertablePlaylistRecord, SelectablePlaylistR
     // have changed in video count since last check. This is because of rather low rate-limit of the YouTube API.
     async fetch()
     {
-        const channels = config.fetchables.youtube
+        const channels = this.config.fetchables.youtube
             .filter(channel => channel.playlists);
 
-        const apiKey = config.services.youtube.playlists_api_key
+        const apiKey = this.config.services.youtube.playlists_api_key
 
         if (apiKey === undefined) {
             throw new Error('Youtube playlists API key is not set')

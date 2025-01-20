@@ -3,8 +3,17 @@ import {YoutubeUploads} from "./entry-fetchers/youtube-uploads";
 import config from "./config";
 import {WebhookService} from "./update";
 import {UpdatesRepositoryKysely} from "./repositories/updates-repository";
-import {db} from "./database";
+import {YoutubePlaylistsKysely} from "./repositories/youtube-playlists-repository";
+import {
+    db,
+    InsertableUpdateRecord,
+    InsertableYoutubePlaylistRecord,
+    SelectableUpdateRecord,
+    ReturnableYoutubePlaylistRecord
+} from "./database";
 import {FeedProcessor} from "./processors/feed-processor";
+import {YoutubePlaylistVideos} from "./entry-fetchers/youtube-playlists";
+import {Musebootlegs} from "./entry-fetchers/musebootlegs";
 
 (async () => {
     const discordWebhookId = config.webhooks.discord.id;
@@ -16,7 +25,11 @@ import {FeedProcessor} from "./processors/feed-processor";
 
     const feedProcessor = new FeedProcessor(
         WebhookService.Discord,
-        [new YoutubeUploads],
+        [
+            // new YoutubeUploads(config),
+            // new YoutubePlaylistVideos(new YoutubePlaylistsKysely(db), config),
+            new Musebootlegs(config)
+        ],
         new UpdatesRepositoryKysely(db),
         new DiscordWebhookRequestManager(discordWebhookId, discordWebhookToken)
     )

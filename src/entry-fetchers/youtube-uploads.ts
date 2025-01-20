@@ -6,11 +6,13 @@ import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "../commo
 
 export class YoutubeUploads implements EntryFetcher
 {
+    constructor(private config: IConfig) {
+        return this
+    }
+
     async fetch()
     {
-        // console.log(util.inspect(config, { depth: 5 }));
-
-        const apiKey = config.services.youtube.uploads_api_key
+        const apiKey = this.config.services.youtube.uploads_api_key
 
         if (apiKey === undefined) {
             throw new Error('Youtube uploads API key is not set')
@@ -18,7 +20,7 @@ export class YoutubeUploads implements EntryFetcher
 
         let entries: UnprocessedUpdateEntry[] = []
 
-        for (const channel of config.fetchables.youtube) {
+        for (const channel of this.config.fetchables.youtube) {
             let url = new URL(`https://www.googleapis.com/youtube/v3/playlistItems`);
 
             url.searchParams.append('playlistId', channel.uploads_playlist_id)

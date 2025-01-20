@@ -1,12 +1,13 @@
 import {YoutubeUploads} from "../../src/entry-fetchers/youtube-uploads";
 import {expect, test, vi } from 'vitest'
-import {IConfig} from "../../src/config";
+import config, {IConfig} from "../../src/config";
+import {getTestConfig} from "../__utils__";
 
 // TODO: flaky. depends on an actual API response.
 test('fetches youtube uploads', async () => {
     vi.resetModules()
 
-    const fetcher = new YoutubeUploads()
+    const fetcher = new YoutubeUploads(config)
     const fetchResult = await fetcher.fetch()
 
     expect(Array.isArray(fetchResult)).toBe(true)
@@ -16,25 +17,11 @@ test('fetches youtube uploads', async () => {
 test('throws error when no API key is set', async () => {
     vi.resetModules()
 
-    const configImport = await vi.importActual('../../src/config')
-    const originalConfig = configImport.default as IConfig
+    const testConfig = await getTestConfig()
 
-    vi.doMock('../../src/config', () => ({
-        default: {
-            ...originalConfig,
-            services: {
-                youtube: {
-                    uploads_api_key: undefined
-                }
-            },
-        }
-    }));
+    testConfig.services.youtube.uploads_api_key = undefined
 
-    const { YoutubeUploads } = await vi.importActual<
-        typeof import('../../src/entry-fetchers/youtube-uploads')
-    >('../../src/entry-fetchers/youtube-uploads');
-
-    const fetcher = new YoutubeUploads()
+    const fetcher = new YoutubeUploads(testConfig)
     await expect(fetcher.fetch()).rejects.toThrow()
 })
 
@@ -42,25 +29,11 @@ test('throws error when no API key is set', async () => {
 test('throws 400 HTTP error when incorrect API key is set', async () => {
     vi.resetModules()
 
-    const configImport = await vi.importActual('../../src/config')
-    const originalConfig = configImport.default as IConfig
+    const testConfig = await getTestConfig()
 
-    vi.doMock('../../src/config', () => ({
-        default: {
-            ...originalConfig,
-            services: {
-                youtube: {
-                    uploads_api_key: 'incorrect'
-                }
-            },
-        }
-    }));
+    testConfig.services.youtube.uploads_api_key = 'incorrect'
 
-    const { YoutubeUploads } = await vi.importActual<
-        typeof import('../../src/entry-fetchers/youtube-uploads')
-    >('../../src/entry-fetchers/youtube-uploads');
-
-    const fetcher = new YoutubeUploads
+    const fetcher = new YoutubeUploads(testConfig)
     await expect(fetcher.fetch()).rejects.toThrow('Response status: 400')
 })
 
@@ -89,7 +62,7 @@ test('content is null when no description is provided for video', async () => {
         })
     })
 
-    const fetcher = new YoutubeUploads()
+    const fetcher = new YoutubeUploads(config)
     const result = await fetcher.fetch()
 
     expect(result[0].content).toBeNull()
@@ -122,7 +95,7 @@ test('content is set when description is provided', async () => {
         })
     })
 
-    const fetcher = new YoutubeUploads()
+    const fetcher = new YoutubeUploads(config)
     const result = await fetcher.fetch()
 
     expect(result[0].content).toBe(DESCRIPTION)
@@ -159,7 +132,7 @@ test('uses standard thumbnail if it is provided', async () => {
         })
     })
 
-    const fetcher = new YoutubeUploads()
+    const fetcher = new YoutubeUploads(config)
     const result = await fetcher.fetch()
 
     expect(result[0].image_url).toBe(STANDARD_THUMBNAIL_URL)
@@ -192,7 +165,7 @@ test('uses default thumbnail if standard is not present', async () => {
         })
     })
 
-    const fetcher = new YoutubeUploads()
+    const fetcher = new YoutubeUploads(config)
     const result = await fetcher.fetch()
 
     expect(result[0].image_url).toBe(DEFAULT_THUMBNAIL_URL)
