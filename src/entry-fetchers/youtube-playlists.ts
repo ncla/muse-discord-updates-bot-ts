@@ -1,7 +1,7 @@
 import {EntryFetcher} from "./index";
 import {IConfig} from "../config";
 import {IYoutubePlaylistsRepository, YoutubePlaylistsKysely} from "../repositories/youtube-playlists-repository";
-import {createBlankUnprocessedUpdate, UnprocessedUpdateEntry, UpdateType} from "../update";
+import {createBlankUnprocessedUpdate, Update, UpdateType} from "../update";
 import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "../common";
 
 export class YoutubePlaylistVideos<InsertablePlaylistRecord, SelectablePlaylistRecord> implements EntryFetcher
@@ -80,7 +80,7 @@ export class YoutubePlaylistVideos<InsertablePlaylistRecord, SelectablePlaylistR
             playlistItems.push(...json.items)
         }
 
-        return playlistItems.map((playlistItem): UnprocessedUpdateEntry => {
+        return playlistItems.map((playlistItem): Update => {
             const channel = channels.find(channel => channel.channel_id === playlistOwnerChannelId[playlistItem.snippet.playlistId])
 
             if (channel === undefined) {
@@ -123,7 +123,7 @@ export class YoutubePlaylistVideos<InsertablePlaylistRecord, SelectablePlaylistR
         playlist: GoogleApiYouTubePlaylistResource,
         playlistItem: GoogleApiYouTubePlaylistItemResource,
         channel: IConfig['fetchables']['youtube'][number]
-    ): UnprocessedUpdateEntry
+    ): Update
     {
         return {
             ...createBlankUnprocessedUpdate(),

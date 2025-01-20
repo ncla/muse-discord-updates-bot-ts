@@ -1,7 +1,7 @@
 import {EntryFetcher} from "./index";
 import config, {IConfig} from "../config";
 import {JSDOM} from 'jsdom'
-import {createBlankUnprocessedUpdate, UnprocessedUpdateEntry, UpdateType} from "../update";
+import {createBlankUnprocessedUpdate, Update, UpdateType} from "../update";
 
 export class Musebootlegs implements EntryFetcher
 {
@@ -122,7 +122,7 @@ export class Musebootlegs implements EntryFetcher
 
         let torrentBoxes = document.querySelectorAll('#content > .torrent-box[id^="torrent_"]');
 
-        const entries: UnprocessedUpdateEntry[] = []
+        const entries: Update[] = []
 
         torrentBoxes.forEach((torrentBox) => {
             const entryTextElement = torrentBox.querySelector('.newIndicator')

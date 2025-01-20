@@ -1,7 +1,7 @@
 import {EntryFetcher} from "./index";
 import config, {IConfig} from "../config";
 // import * as util from "node:util";
-import {createBlankUnprocessedUpdate, UnprocessedUpdateEntry, UpdateType} from "../update";
+import {createBlankUnprocessedUpdate, Update, UpdateType} from "../update";
 import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "../common";
 
 export class YoutubeUploads implements EntryFetcher
@@ -18,7 +18,7 @@ export class YoutubeUploads implements EntryFetcher
             throw new Error('Youtube uploads API key is not set')
         }
 
-        let entries: UnprocessedUpdateEntry[] = []
+        let entries: Update[] = []
 
         for (const channel of this.config.fetchables.youtube) {
             let url = new URL(`https://www.googleapis.com/youtube/v3/playlistItems`);
@@ -36,7 +36,7 @@ export class YoutubeUploads implements EntryFetcher
 
             let json: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistItemResource> = await response.json();
 
-            const channelUploadEntries: UnprocessedUpdateEntry[] = json.items.map((item): UnprocessedUpdateEntry => {
+            const channelUploadEntries: Update[] = json.items.map((item): Update => {
                 return this.mapPlayListItemToEntry(item, channel);
             });
 
@@ -50,7 +50,7 @@ export class YoutubeUploads implements EntryFetcher
     private mapPlayListItemToEntry(
         item: GoogleApiYouTubePlaylistItemResource,
         channel: IConfig['fetchables']['youtube'][number]
-    ): UnprocessedUpdateEntry
+    ): Update
     {
         return {
             ...createBlankUnprocessedUpdate(),

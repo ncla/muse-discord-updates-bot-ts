@@ -1,4 +1,4 @@
-import {createBlankUnprocessedUpdate, UnprocessedUpdateEntry, UpdateType} from "../../src/update";
+import {createBlankUnprocessedUpdate, Update, UpdateType} from "../../src/update";
 import {IConfig} from "../../src/config";
 
 export function repeatText(text: string, times: number) {
@@ -15,9 +15,9 @@ export function repeatText(text: string, times: number) {
     return result;
 }
 
-export function createTestUnprocessedEntry(updateType: UpdateType = UpdateType.YOUTUBE_UPLOAD): UnprocessedUpdateEntry
+export function createTestUnprocessedEntry(updateType: UpdateType = UpdateType.YOUTUBE_UPLOAD): Update
 {
-    return <UnprocessedUpdateEntry>{
+    return <Update>{
         ...createBlankUnprocessedUpdate(),
         type: updateType,
         uniqueId: 'test',

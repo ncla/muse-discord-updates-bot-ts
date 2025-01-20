@@ -1,5 +1,5 @@
-import {UnprocessedUpdateEntry} from "../update";
+import {Update} from "../update";
 
 export interface EntryFetcher {
-    fetch(): Promise<UnprocessedUpdateEntry[]>;
+    fetch(): Promise<Update[]>;
 }

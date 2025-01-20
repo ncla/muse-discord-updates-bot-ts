@@ -2,7 +2,7 @@ import {EntryFetcher} from "../entry-fetchers";
 import {IUpdatesRepository} from "../repositories/updates-repository";
 import {getTransformer} from "../updates/transformers";
 import {AbstractUpdateRequestManager} from "../request-manager";
-import {UnprocessedUpdateEntry, WebhookService} from "../update";
+import {Update, WebhookService} from "../update";
 import {WebhookMessageCreateOptions} from "discord.js";
 import {FulfilledPromise, PromiseResult, RejectedPromise} from "../types/promises";
 
@@ -23,10 +23,10 @@ export class FeedProcessor<
 
     async process()
     {
-        const fetcherResults: PromiseResult<UnprocessedUpdateEntry[]>[] = await Promise.all(
+        const fetcherResults: PromiseResult<Update[]>[] = await Promise.all(
             this.entryFetchers.map(async fetcher => {
                 try {
-                    return <FulfilledPromise<UnprocessedUpdateEntry[]>>{
+                    return <FulfilledPromise<Update[]>>{
                         status: 'fulfilled',
                         value: await fetcher.fetch()
                     }

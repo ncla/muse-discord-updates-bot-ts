@@ -1,15 +1,13 @@
-import {afterEach, beforeAll, beforeEach, expect, test, vi} from 'vitest'
-import {createBlankUnprocessedUpdate, UnprocessedUpdateEntry, UpdateType, WebhookService} from "../../../src/update";
+import {expect, test, vi} from 'vitest'
+import {createBlankUnprocessedUpdate, Update, UpdateType, WebhookService} from "../../../src/update";
 import {getTransformer} from "../../../src/updates/transformers";
-import {Json as JsonDiscordTransformer} from "../../../src/updates/transformers/discord/json";
 import {YoutubeUpload as YoutubeUploadTransformer} from "../../../src/updates/transformers/discord/youtube-upload";
-import {YoutubeUploads} from "../../../src/entry-fetchers/youtube-uploads";
 import {createTestUnprocessedEntry, repeatText} from "../../__utils__";
 import {setNestedProperty} from "../../../src/common";
-import {APIEmbed, WebhookMessageCreateOptions } from 'discord.js';
+import {APIEmbed, WebhookMessageCreateOptions} from 'discord.js';
 
 test('youtube upload transformer gets selected for youtube uploads', async () => {
-    const unprocessedUpdate: UnprocessedUpdateEntry = {
+    const unprocessedUpdate: Update = {
         ...createBlankUnprocessedUpdate(),
         type: UpdateType.YOUTUBE_UPLOAD,
         uniqueId: 'test',

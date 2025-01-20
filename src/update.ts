@@ -32,13 +32,7 @@ export interface Update extends OptionalUpdateFields {
     id: string;
 }
 
-export interface UnprocessedUpdateEntry extends Update {
-    isNew: boolean | null; // TODO: Remove this field
-}
-
-export interface EmptyUnprocessedUpdateEntry extends OptionalUpdateFields {
-    isNew: null;
-}
+export interface EmptyUnprocessedUpdateEntry extends OptionalUpdateFields {}
 
 export function createBlankUnprocessedUpdate(): EmptyUnprocessedUpdateEntry
 {
@@ -55,6 +49,5 @@ export function createBlankUnprocessedUpdate(): EmptyUnprocessedUpdateEntry
             name: null,
             image_url: null,
         },
-        isNew: null
     }
 }

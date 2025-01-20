@@ -1,6 +1,6 @@
 import {afterEach, beforeAll, beforeEach, expect, test, vi} from 'vitest'
 import {FeedProcessor} from "../../src/processors/feed-processor";
-import {UnprocessedUpdateEntry, UpdateType, WebhookService} from "../../src/update";
+import {Update, UpdateType, WebhookService} from "../../src/update";
 import {UpdatesRepositoryKysely} from "../../src/repositories/updates-repository";
 import {clearTestDatabase, createTestDatabase} from "../__utils__/database";
 import {DiscordWebhookRequestManager} from "../../src/request-manager";
@@ -29,7 +29,7 @@ test('it processes with one of the fetchers throwing error', async () => {
     const entryFetcherFailing = new YoutubeUploads(config)
 
     entryFetcherGood.fetch = vi.fn(async () => {
-        return <UnprocessedUpdateEntry[]>[
+        return <Update[]>[
             createTestUnprocessedEntry(UpdateType.YOUTUBE_UPLOAD),
         ]
     })
@@ -79,7 +79,7 @@ test('insert query is not run when entry already exists', async () => {
     fakeYoutubeUploadEntry.uniqueId = FAKE_UNIQUE_ID
 
     entryFetcherGood.fetch = vi.fn(async () => {
-        return <UnprocessedUpdateEntry[]>[
+        return <Update[]>[
             fakeYoutubeUploadEntry,
         ]
     })
@@ -133,7 +133,7 @@ test('it processes fetched entries in a loop without one entry failing entire pr
         return new YoutubeUploadsTransformer
     })
 
-    const entries: UnprocessedUpdateEntry[] = []
+    const entries: Update[] = []
 
     for (let i = 0; i < 5; i++) {
         let entry = createTestUnprocessedEntry(UpdateType.YOUTUBE_UPLOAD)
