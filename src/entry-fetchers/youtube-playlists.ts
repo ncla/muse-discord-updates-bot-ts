@@ -28,60 +28,14 @@ export class YoutubePlaylistVideos<InsertablePlaylistRecord, SelectablePlaylistR
             throw new Error('Youtube playlists API key is not set')
         }
 
-        const playlistsToFetch: GoogleApiYouTubePlaylistResource[] = []
-        const playlists: { [key: string]: GoogleApiYouTubePlaylistResource } = {}
-        const playlistOwnerChannelId: { [key: string]: string } = {}
-        
-        for (const channel of channels) {
-            const channelPlaylistsResponse = await fetch(this.createPlaylistsAPIUrl(channel.channel_id, apiKey));
-            
-            if (!channelPlaylistsResponse.ok) {
-                throw new Error(`Response status: ${channelPlaylistsResponse.status}`);
-            }
+        const { playlistsToUpdate, playlists, playlistIdToOwnerChannelId } = await this.fetchPlaylistsForUpdate(channels, apiKey)
 
-            let channelPlaylistsJsonResponse: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistResource> = await channelPlaylistsResponse.json();
-            
-            for (const playlist of channelPlaylistsJsonResponse.items) {
-                playlistOwnerChannelId[playlist.id] = channel.channel_id
-
-                const dbExistingPlaylist = await this.youtubePlaylistsRepository.findByPlaylistId(playlist.id);
-
-                playlists[playlist.id] = playlist
-
-                if (dbExistingPlaylist === undefined) {
-                    playlistsToFetch.push(playlist)
-
-                    await this.youtubePlaylistsRepository.create({
-                        playlist_id: playlist.id,
-                        video_count: playlist.contentDetails.itemCount
-                    })
-                } else if (dbExistingPlaylist !== null && dbExistingPlaylist.video_count !== playlist.contentDetails.itemCount) {
-                    playlistsToFetch.push(playlist)
-
-                    await this.youtubePlaylistsRepository.updateVideoCount(
-                        playlist.id,
-                        playlist.contentDetails.itemCount
-                    )
-                }
-            }
-        }
-
-        const playlistItems = [];
-
-        for (const playlist of playlistsToFetch) {
-            const response = await fetch(this.createPlaylistItemsAPIUrl(playlist.id, apiKey));
-
-            if (!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
-            }
-
-            let json: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistItemResource> = await response.json();
-
-            playlistItems.push(...json.items)
-        }
+        const playlistItems = await this.fetchPlaylistItemsFromPlaylists(playlistsToUpdate, apiKey)
 
         return playlistItems.map((playlistItem): Update => {
-            const channel = channels.find(channel => channel.channel_id === playlistOwnerChannelId[playlistItem.snippet.playlistId])
+            const channel = channels.find(
+                channel => channel.channel_id === playlistIdToOwnerChannelId[playlistItem.snippet.playlistId]
+            )
 
             if (channel === undefined) {
                 throw new Error('Channel not found')
@@ -93,6 +47,72 @@ export class YoutubePlaylistVideos<InsertablePlaylistRecord, SelectablePlaylistR
                 channel
             );
         });
+    }
+
+    private async fetchPlaylistsForUpdate(channels: IConfig['fetchables']['youtube'], apiKey: string)
+    {
+        const playlistsToUpdate: GoogleApiYouTubePlaylistResource[] = []
+        const playlists: { [key: string]: GoogleApiYouTubePlaylistResource } = {}
+        const playlistIdToOwnerChannelId: { [key: string]: string } = {}
+
+        for (const channel of channels) {
+            const channelPlaylistsResponse = await fetch(this.createPlaylistsAPIUrl(channel.channel_id, apiKey));
+
+            if (!channelPlaylistsResponse.ok) {
+                throw new Error(`Response status: ${channelPlaylistsResponse.status}`);
+            }
+
+            let channelPlaylistsJsonResponse: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistResource> = await channelPlaylistsResponse.json();
+
+            for (const playlist of channelPlaylistsJsonResponse.items) {
+                playlistIdToOwnerChannelId[playlist.id] = channel.channel_id
+
+                const dbExistingPlaylist = await this.youtubePlaylistsRepository.findByPlaylistId(playlist.id);
+
+                playlists[playlist.id] = playlist
+
+                if (dbExistingPlaylist === undefined) {
+                    playlistsToUpdate.push(playlist)
+
+                    await this.youtubePlaylistsRepository.create({
+                        playlist_id: playlist.id,
+                        video_count: playlist.contentDetails.itemCount
+                    })
+                } else if (dbExistingPlaylist !== null && dbExistingPlaylist.video_count !== playlist.contentDetails.itemCount) {
+                    playlistsToUpdate.push(playlist)
+
+                    await this.youtubePlaylistsRepository.updateVideoCount(
+                        playlist.id,
+                        playlist.contentDetails.itemCount
+                    )
+                }
+            }
+        }
+
+        return {
+            playlistsToUpdate,
+            playlists,
+            playlistIdToOwnerChannelId
+        }
+    }
+
+    private async fetchPlaylistItemsFromPlaylists(playlists: GoogleApiYouTubePlaylistResource[], apiKey: string)
+    {
+        const playlistItems = [];
+
+        for (const playlist of playlists) {
+            const response = await fetch(this.createPlaylistItemsAPIUrl(playlist.id, apiKey));
+
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+
+            let json: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistItemResource> = await response.json();
+
+            playlistItems.push(...json.items)
+        }
+
+        return playlistItems
     }
 
     private createPlaylistsAPIUrl(channelId: string, apiKey: string): string

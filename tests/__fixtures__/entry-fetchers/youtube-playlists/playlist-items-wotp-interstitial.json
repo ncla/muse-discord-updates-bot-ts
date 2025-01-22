@@ -1,0 +1,245 @@
+{
+  "kind": "youtube#playlistItemListResponse",
+  "etag": "WBdr1HxOHgyXKv95ibTHMaMIUsU",
+  "items": [
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "PHNHNCdIWKPoz6EqfSkh3Q3j4Oo",
+      "id": "UExaN3ZXUUFyWTNoSXNTV250RW5rOHYyYTRsd0VkdXhMaC41NkI0NEY2RDEwNTU3Q0M2",
+      "snippet": {
+        "publishedAt": "2024-02-28T17:35:50Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "Muse - Kill Or Be Killed Interstitial Video (from the Will Of The People World Tour)",
+        "description": "Kill Or Be Killed Interstitial Video (from the Will Of The People World Tour)\n\nWILL OF THE PEOPLE - Out Now https://muse.co/WOTPOutNow\n\nhttp://muse.mu\nhttps://tiktok.com/@muse\nhttp://instagram.com/muse\nhttp://twitter.com/muse\nhttp://tumblr.muse.mu\nhttp://facebook.com/muse\n\nCreated By: Frame48 (https://frame48.com)\nECD: Tom Teller\nEPs: Julian Conner, Seth Josephson\nMuse Creative Director: Jesse Lee Stout\nCG Supervisor & Lead Artist: Enrique De La Garza\nCG Artists: Steven Lee, Will Hoskin\nCG Animators: Giulia Pan, Matheus Caetano\nAssistant Editor: Michele Nagy\nFX Artist: Alvaro Moreira\nCompositor: Seth Josephson\nAsset Artist: Juan Fer Bravo\nModeler: Mariano Ruiz\nRigging: Jarom Brand\nColorist: Bryan Smaller\nColor Producer: Mario Castro\nStoryboard Artist: David Green\n\n#Muse #WillOfThePeople #WorldTour",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/uTh8z4XizNI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/uTh8z4XizNI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/uTh8z4XizNI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/uTh8z4XizNI/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/uTh8z4XizNI/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "playlistId": "PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh",
+        "position": 0,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "uTh8z4XizNI"
+        },
+        "videoOwnerChannelTitle": "Muse",
+        "videoOwnerChannelId": "UCGGhM6XCSJFQ6DTRffnKRIw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "gsXagfrIXx2i0pzsX4gBQ19wP1M",
+      "id": "UExaN3ZXUUFyWTNoSXNTV250RW5rOHYyYTRsd0VkdXhMaC4yODlGNEE0NkRGMEEzMEQy",
+      "snippet": {
+        "publishedAt": "2024-02-28T17:36:01Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "Muse - Interstitial Parkour (from the Will Of The People World Tour)",
+        "description": "Interstitial Parkour (from the Will Of The People World Tour)\n\nWILL OF THE PEOPLE - Out Now https://muse.co/WOTPOutNow\n\nhttp://muse.mu\nhttps://tiktok.com/@muse\nhttp://instagram.com/muse\nhttp://twitter.com/muse\nhttp://tumblr.muse.mu\nhttp://facebook.com/muse\n\nCreated By: Frame48 (https://frame48.com)\nECD: Tom Teller\nEPs: Julian Conner, Seth Josephson\nMuse Creative Director: Jesse Lee Stout\nCG Supervisor & Lead Artist: Enrique De La Garza\nCG Artists: Steven Lee, Will Hoskin\nCG Animators: Giulia Pan, Matheus Caetano\nAssistant Editor: Michele Nagy\nFX Artist: Alvaro Moreira\nCompositor: Seth Josephson\nAsset Artist: Juan Fer Bravo\nModeler: Mariano Ruiz\nRigging: Jarom Brand\nColorist: Bryan Smaller\nColor Producer: Mario Castro\nStoryboard Artist: David Green\n\n#Muse #WillOfThePeople #WorldTour",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/TAjwoqCsr6c/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/TAjwoqCsr6c/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/TAjwoqCsr6c/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/TAjwoqCsr6c/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/TAjwoqCsr6c/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "playlistId": "PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh",
+        "position": 1,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "TAjwoqCsr6c"
+        },
+        "videoOwnerChannelTitle": "Muse",
+        "videoOwnerChannelId": "UCGGhM6XCSJFQ6DTRffnKRIw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "OHfcFQGBBcF5PPs4-nwJ8DiERr4",
+      "id": "UExaN3ZXUUFyWTNoSXNTV250RW5rOHYyYTRsd0VkdXhMaC4wMTcyMDhGQUE4NTIzM0Y5",
+      "snippet": {
+        "publishedAt": "2024-02-28T17:36:06Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "Muse - Interstitial Driving (from the Will Of The People World Tour)",
+        "description": "Interstitial Driving (from the Will Of The People World Tour)\n\nWILL OF THE PEOPLE - Out Now https://muse.co/WOTPOutNow\n\nhttp://muse.mu\nhttps://tiktok.com/@muse\nhttp://instagram.com/muse\nhttp://twitter.com/muse\nhttp://tumblr.muse.mu\nhttp://facebook.com/muse\n\nCreated By: Frame48 (https://frame48.com)\nECD: Tom Teller\nEPs: Julian Conner, Seth Josephson\nMuse Creative Director: Jesse Lee Stout\nCG Supervisor & Lead Artist: Enrique De La Garza\nCG Artists: Steven Lee, Will Hoskin\nCG Animators: Giulia Pan, Matheus Caetano\nAssistant Editor: Michele Nagy\nFX Artist: Alvaro Moreira\nCompositor: Seth Josephson\nAsset Artist: Juan Fer Bravo\nModeler: Mariano Ruiz\nRigging: Jarom Brand\nColorist: Bryan Smaller\nColor Producer: Mario Castro\nStoryboard Artist: David Green\n\n#Muse #WillOfThePeople #WorldTour",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/L55-kqT8ANs/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/L55-kqT8ANs/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/L55-kqT8ANs/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/L55-kqT8ANs/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/L55-kqT8ANs/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "playlistId": "PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh",
+        "position": 2,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "L55-kqT8ANs"
+        },
+        "videoOwnerChannelTitle": "Muse",
+        "videoOwnerChannelId": "UCGGhM6XCSJFQ6DTRffnKRIw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "uhLnPEV4uLG1RFR89CeK2EYsfDY",
+      "id": "UExaN3ZXUUFyWTNoSXNTV250RW5rOHYyYTRsd0VkdXhMaC41MjE1MkI0OTQ2QzJGNzNG",
+      "snippet": {
+        "publishedAt": "2024-02-28T17:36:12Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "Muse - Isolated System (from the Will Of The People World Tour)",
+        "description": "Isolated System (from the Will Of The People World Tour)\n\nWILL OF THE PEOPLE - Out Now https://muse.co/WOTPOutNow\n\nhttp://muse.mu\nhttps://tiktok.com/@muse\nhttp://instagram.com/muse\nhttp://twitter.com/muse\nhttp://tumblr.muse.mu\nhttp://facebook.com/muse\n\nCreated By: Frame48 (https://frame48.com)\nECD: Tom Teller\nEPs: Julian Conner, Seth Josephson\nMuse Creative Director: Jesse Lee Stout\nCG Supervisor & Lead Artist: Enrique De La Garza\nCG Artists: Steven Lee, Will Hoskin\nCG Animators: Giulia Pan, Matheus Caetano\nAssistant Editor: Michele Nagy\nFX Artist: Alvaro Moreira\nCompositor: Seth Josephson\nAsset Artist: Juan Fer Bravo\nModeler: Mariano Ruiz\nRigging: Jarom Brand\nColorist: Bryan Smaller\nColor Producer: Mario Castro\nStoryboard Artist: David Green\n\n#Muse #WillOfThePeople #WorldTour",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/uUS84FtD014/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/uUS84FtD014/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/uUS84FtD014/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/uUS84FtD014/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/uUS84FtD014/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "playlistId": "PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh",
+        "position": 3,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "uUS84FtD014"
+        },
+        "videoOwnerChannelTitle": "Muse",
+        "videoOwnerChannelId": "UCGGhM6XCSJFQ6DTRffnKRIw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "HpRvVxvw5AsgTsLIRBgKG1id33U",
+      "id": "UExaN3ZXUUFyWTNoSXNTV250RW5rOHYyYTRsd0VkdXhMaC4wOTA3OTZBNzVEMTUzOTMy",
+      "snippet": {
+        "publishedAt": "2024-02-28T17:36:18Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "Muse - The Dark Side (from the Will Of The People World Tour)",
+        "description": "The Dark Side (from the Will Of The People World Tour)\n\nWILL OF THE PEOPLE - Out Now https://muse.co/WOTPOutNow\n\nhttp://muse.mu\nhttps://tiktok.com/@muse\nhttp://instagram.com/muse\nhttp://twitter.com/muse\nhttp://tumblr.muse.mu\nhttp://facebook.com/muse\n\nCreated By: Frame48 (https://frame48.com)\nECD: Tom Teller\nEPs: Julian Conner, Seth Josephson\nMuse Creative Director: Jesse Lee Stout\nCG Supervisor & Lead Artist: Enrique De La Garza\nCG Artists: Steven Lee, Will Hoskin\nCG Animators: Giulia Pan, Matheus Caetano\nAssistant Editor: Michele Nagy\nFX Artist: Alvaro Moreira\nCompositor: Seth Josephson\nAsset Artist: Juan Fer Bravo\nModeler: Mariano Ruiz\nRigging: Jarom Brand\nColorist: Bryan Smaller\nColor Producer: Mario Castro\nStoryboard Artist: David Green\n\n#Muse #WillOfThePeople #WorldTour",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ZXJdYpkqaxs/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ZXJdYpkqaxs/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ZXJdYpkqaxs/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/ZXJdYpkqaxs/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/ZXJdYpkqaxs/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "playlistId": "PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh",
+        "position": 4,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "ZXJdYpkqaxs"
+        },
+        "videoOwnerChannelTitle": "Muse",
+        "videoOwnerChannelId": "UCGGhM6XCSJFQ6DTRffnKRIw"
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 5,
+    "resultsPerPage": 50
+  }
+}

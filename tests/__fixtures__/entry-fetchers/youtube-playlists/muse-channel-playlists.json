@@ -1,0 +1,1131 @@
+{
+  "kind": "youtube#playlistListResponse",
+  "etag": "9pBpW3weD6R9jVr1ukGM8nCQNkE",
+  "nextPageToken": "CBkQAA",
+  "pageInfo": {
+    "totalResults": 36,
+    "resultsPerPage": 25
+  },
+  "items": [
+    {
+      "kind": "youtube#playlist",
+      "etag": "sFh7Chvb4XKooXSBelCbpigAbdo",
+      "id": "PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh",
+      "snippet": {
+        "publishedAt": "2024-02-28T17:35:50.669124Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "Muse - Will Of The People World Tour Interstitial Videos",
+        "description": "Created By: Frame48 (https://frame48.com)\nECD: Tom Teller\nEPs: Julian Conner, Seth Josephson\nMuse Creative Director: Jesse Lee Stout\nCG Supervisor & Lead Artist: Enrique De La Garza\nCG Artists: Steven Lee, Will Hoskin\nCG Animators: Giulia Pan, Matheus Caetano\nAssistant Editor: Michele Nagy\nFX Artist: Alvaro Moreira\nCompositor: Seth Josephson\nAsset Artist: Juan Fer Bravo\nModeler: Mariano Ruiz\nRigging: Jarom Brand\nColorist: Bryan Smaller\nColor Producer: Mario Castro\nStoryboard Artist: David Green\n\n#Muse #WillOfThePeople #WorldTour",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/uTh8z4XizNI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/uTh8z4XizNI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/uTh8z4XizNI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/uTh8z4XizNI/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/uTh8z4XizNI/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "Muse - Will Of The People World Tour Interstitial Videos",
+          "description": "Created By: Frame48 (https://frame48.com)\nECD: Tom Teller\nEPs: Julian Conner, Seth Josephson\nMuse Creative Director: Jesse Lee Stout\nCG Supervisor & Lead Artist: Enrique De La Garza\nCG Artists: Steven Lee, Will Hoskin\nCG Animators: Giulia Pan, Matheus Caetano\nAssistant Editor: Michele Nagy\nFX Artist: Alvaro Moreira\nCompositor: Seth Josephson\nAsset Artist: Juan Fer Bravo\nModeler: Mariano Ruiz\nRigging: Jarom Brand\nColorist: Bryan Smaller\nColor Producer: Mario Castro\nStoryboard Artist: David Green\n\n#Muse #WillOfThePeople #WorldTour"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 5
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "h3SPzmm9W8DSFLhiqeZUXieNxAs",
+      "id": "PLZ7vWQArY3hKDJKX3G4uoKrNOYRXmva5R",
+      "snippet": {
+        "publishedAt": "2023-03-07T16:03:37.093422Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE: #WillOfThePeople World Tour 2023",
+        "description": "On tour now!",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/85dSzZIhd2w/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/85dSzZIhd2w/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/85dSzZIhd2w/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/85dSzZIhd2w/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/85dSzZIhd2w/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE: #WillOfThePeople World Tour 2023",
+          "description": "On tour now!"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 24
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "-nQyyEasnxxxpnEJ4wpVmRO5tSI",
+      "id": "PLZ7vWQArY3hIiZw3DdIPoBIZs3wzPpM64",
+      "snippet": {
+        "publishedAt": "2022-12-09T11:15:34.812171Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE: GHOSTS (HOW CAN I MOVE ON)",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/XV1lQueVVxg/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/XV1lQueVVxg/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/XV1lQueVVxg/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/XV1lQueVVxg/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/XV1lQueVVxg/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE: GHOSTS (HOW CAN I MOVE ON)",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 3
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "w2KCvkWE8TK8Dg8U_pdWZevdnME",
+      "id": "PLZ7vWQArY3hK-pNtgTFLxL_5veRSl8HQM",
+      "snippet": {
+        "publishedAt": "2022-03-17T16:06:00.753762Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE: WILL OF THE PEOPLE",
+        "description": "WILL OF THE PEOPLE OUT NOW \nhttps://mu-se.co/WOTPOutNow",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/oyu1WO0hRB0/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/oyu1WO0hRB0/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/oyu1WO0hRB0/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/oyu1WO0hRB0/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/oyu1WO0hRB0/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE: WILL OF THE PEOPLE",
+          "description": "WILL OF THE PEOPLE OUT NOW \nhttps://mu-se.co/WOTPOutNow"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 12
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "V5XwfsvcHx3ABP8_tJetRviEV1U",
+      "id": "PLZ7vWQArY3hIwj7TAzuKoHdukgCV8kWTJ",
+      "snippet": {
+        "publishedAt": "2022-01-13T15:20:59.110618Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE: WON'T STAND DOWN",
+        "description": "WON'T STAND DOWN\nOut Now: https://mu-se.co/wsd-out-now",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/d55ELY17CFM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/d55ELY17CFM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/d55ELY17CFM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/d55ELY17CFM/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/d55ELY17CFM/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE: WON'T STAND DOWN",
+          "description": "WON'T STAND DOWN\nOut Now: https://mu-se.co/wsd-out-now"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 1
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "_1_KS5jEXtxqkXx3UybTd0_uaxM",
+      "id": "PLZ7vWQArY3hJW-2q1s4aK0RfyQSgbjKHK",
+      "snippet": {
+        "publishedAt": "2021-09-08T15:38:11.851941Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE: The Singles",
+        "description": "Listen to Muse's singles now, including Supermassive Black Hole.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/d55ELY17CFM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/d55ELY17CFM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/d55ELY17CFM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/d55ELY17CFM/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/d55ELY17CFM/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE: The Singles",
+          "description": "Listen to Muse's singles now, including Supermassive Black Hole."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 18
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "2AkJpTYkHlnrAYHpJQ5GcBRxGDM",
+      "id": "PLZ7vWQArY3hLlk2WwSJWe8VbQr_QvkGqo",
+      "snippet": {
+        "publishedAt": "2021-06-04T06:33:26.074351Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "Origin of Symmetry: XX Anniversary RemiXX",
+        "description": "Order your copy of Origin Of Symmetry: XX Anniversary RemiXX via Warner Records: https://mu-se.co/Megalomania-XX \n\nWe are excited to celebrate the twentieth anniversary of ‘Origin Of Symmetry’ by releasing ‘Origin Of Symmetry: XX Anniversary RemiXX’ on Warner Records. The new edition features remixed and remastered audio plus re-imagined artwork and will be released on digital formats on June 18th before two vinyl packages follow on July 9th.  \n \nIn revisiting the album what we found was the original mixes on the singles, like ‘Plug In Baby’ and ‘Bliss’, were pretty good so they were the hardest ones to improve. It was the deeper album tracks like ‘Micro Cuts’ where we were able to make massive breakthroughs.\n \n- Matt, Dom & Chris\n\nAs the album’s anniversary approached, Muse asked Rich Costey, who has produced or mixed material on almost every subsequent record, to revisit the original recordings. Whereas most remix albums aim to radically rework the material, or to switch to an entirely different genre, the band and Costey wanted to provide a renewed clarity with a more open, dynamic and less crushed sound. This highlights parts and ideas previously buried or muted on the original mixes, like a harpsichord on ‘Micro Cuts’ and Abbey Road recorded strings on ‘Citizen Erased’, ‘Megalomania’ and ’Space Dementia’.\n \nThe ‘XX Anniversary RemiXX’ also adds ‘Futurism’ to the tracklist. Originally a bonus track on the album’s Japanese edition and subsequently tagged to the end of the album on streaming services, ‘Futurism’ now adds a burst of energy to bridge the gap between ‘Feeling Good’ and ‘Megalomania’. This reflects its placing on the 2019 box set ‘Origin of Muse’.\n \n‘Origin of Symmetry: XX Anniversary RemiXX’ is completed with a modernised reimagination of the album’s cover art courtesy of Sujin Kim. The visual artist has created a hyper-realistic 3D rendering of William Eager’s original cover image.\n \n‘Origin of Symmetry: XX Anniversary RemiXX’ is now available to pre-order, with ‘Citizen Erased’ provided as an instant download. A limited edition exclusive 140 gram coloured double-vinyl set is available from the band’s official store. A striking package and a must-have item for collectors, it features LP1 on translucent sun yellow vinyl and LP2 on translucent orange vinyl. It will also be released on double black vinyl and digital formats. Both versions of the vinyl feature an unorthodox detail: the sides are marked M, U, S and E rather than the standard format.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/lz4YVXt8vjs/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/lz4YVXt8vjs/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/lz4YVXt8vjs/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "Origin of Symmetry: XX Anniversary RemiXX",
+          "description": "Order your copy of Origin Of Symmetry: XX Anniversary RemiXX via Warner Records: https://mu-se.co/Megalomania-XX \n\nWe are excited to celebrate the twentieth anniversary of ‘Origin Of Symmetry’ by releasing ‘Origin Of Symmetry: XX Anniversary RemiXX’ on Warner Records. The new edition features remixed and remastered audio plus re-imagined artwork and will be released on digital formats on June 18th before two vinyl packages follow on July 9th.  \n \nIn revisiting the album what we found was the original mixes on the singles, like ‘Plug In Baby’ and ‘Bliss’, were pretty good so they were the hardest ones to improve. It was the deeper album tracks like ‘Micro Cuts’ where we were able to make massive breakthroughs.\n \n- Matt, Dom & Chris\n\nAs the album’s anniversary approached, Muse asked Rich Costey, who has produced or mixed material on almost every subsequent record, to revisit the original recordings. Whereas most remix albums aim to radically rework the material, or to switch to an entirely different genre, the band and Costey wanted to provide a renewed clarity with a more open, dynamic and less crushed sound. This highlights parts and ideas previously buried or muted on the original mixes, like a harpsichord on ‘Micro Cuts’ and Abbey Road recorded strings on ‘Citizen Erased’, ‘Megalomania’ and ’Space Dementia’.\n \nThe ‘XX Anniversary RemiXX’ also adds ‘Futurism’ to the tracklist. Originally a bonus track on the album’s Japanese edition and subsequently tagged to the end of the album on streaming services, ‘Futurism’ now adds a burst of energy to bridge the gap between ‘Feeling Good’ and ‘Megalomania’. This reflects its placing on the 2019 box set ‘Origin of Muse’.\n \n‘Origin of Symmetry: XX Anniversary RemiXX’ is completed with a modernised reimagination of the album’s cover art courtesy of Sujin Kim. The visual artist has created a hyper-realistic 3D rendering of William Eager’s original cover image.\n \n‘Origin of Symmetry: XX Anniversary RemiXX’ is now available to pre-order, with ‘Citizen Erased’ provided as an instant download. A limited edition exclusive 140 gram coloured double-vinyl set is available from the band’s official store. A striking package and a must-have item for collectors, it features LP1 on translucent sun yellow vinyl and LP2 on translucent orange vinyl. It will also be released on double black vinyl and digital formats. Both versions of the vinyl feature an unorthodox detail: the sides are marked M, U, S and E rather than the standard format."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 15
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "4-7Q9FB2Rh3-LEPExko3p98npEY",
+      "id": "PLZ7vWQArY3hKiPLIIXgZrU13_8tFGYjjx",
+      "snippet": {
+        "publishedAt": "2020-09-28T15:18:03.121651Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "Muse - Muse & Fight",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ac4E_UsmB1g/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ac4E_UsmB1g/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ac4E_UsmB1g/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/ac4E_UsmB1g/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/ac4E_UsmB1g/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "Muse - Muse & Fight",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 19
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "luSDSwwi6fG7w2MnqAYt1U1UVck",
+      "id": "PLZ7vWQArY3hKeHw-Y44QiwzBHlB2Gp7LT",
+      "snippet": {
+        "publishedAt": "2020-08-28T09:55:37.722581Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE :: Simulation Theory Film",
+        "description": "Watch Simulation Theory Film now: https://smarturl.it/muse-simtheoryfilm\n\nDeluxe box sets are available now at http://muse.mu/film\n\nFrom February to October of 2019 MUSE took their Simulation Theory Tour to over 28 countries and played in front of more than 1 MILLION people.  Experience the spectacle on iTunes, Amazon and Google Play (distribution will be via Eagle Rock Entertainment). For more information please go to http://muse.mu/film\n\nConceived and filmed at London’s O2 Arena in September 2019 the film directed by Lance Drake, (who also directed all the promo videos for Simulation Theory album) and Produced by Muse, Pulse Films, Lance Drake, Jesse-Lee Stout and Matthew Bellamy, follows a team of scientists as they investigate the source of a paranormal anomaly appearing around the world. Blurring the lines between narrative and concert film, virtual and reality, Muse’s most theatrical tour to date launches the viewer through a supernatural spectacle, questioning the world around us.\n\nSays Drake, “the goal for Simulation Theory was to capture the scale of the electrifying live show and to expand upon its connection to the DNA of the world we built for the past three years in music videos for Muse. In a strange turn, the film’s alternate reality eerily started to mirror our own.”",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/yj-8IzPvRQ4/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/yj-8IzPvRQ4/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/yj-8IzPvRQ4/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/yj-8IzPvRQ4/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/yj-8IzPvRQ4/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE :: Simulation Theory Film",
+          "description": "Watch Simulation Theory Film now: https://smarturl.it/muse-simtheoryfilm\n\nDeluxe box sets are available now at http://muse.mu/film\n\nFrom February to October of 2019 MUSE took their Simulation Theory Tour to over 28 countries and played in front of more than 1 MILLION people.  Experience the spectacle on iTunes, Amazon and Google Play (distribution will be via Eagle Rock Entertainment). For more information please go to http://muse.mu/film\n\nConceived and filmed at London’s O2 Arena in September 2019 the film directed by Lance Drake, (who also directed all the promo videos for Simulation Theory album) and Produced by Muse, Pulse Films, Lance Drake, Jesse-Lee Stout and Matthew Bellamy, follows a team of scientists as they investigate the source of a paranormal anomaly appearing around the world. Blurring the lines between narrative and concert film, virtual and reality, Muse’s most theatrical tour to date launches the viewer through a supernatural spectacle, questioning the world around us.\n\nSays Drake, “the goal for Simulation Theory was to capture the scale of the electrifying live show and to expand upon its connection to the DNA of the world we built for the past three years in music videos for Muse. In a strange turn, the film’s alternate reality eerily started to mirror our own.”"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 7
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "kqiADZEIKJ8wPbE72S_l4F-UUi4",
+      "id": "PLZ7vWQArY3hKaYTeWjSqZUoMgM3OhKteu",
+      "snippet": {
+        "publishedAt": "2020-07-23T17:13:38.401885Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "Muse - Muse & Chill",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/XV1lQueVVxg/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/XV1lQueVVxg/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/XV1lQueVVxg/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/XV1lQueVVxg/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/XV1lQueVVxg/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "Muse - Muse & Chill",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 27
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "OaP_BbvlkjzFJxevvMlgU4GZwB8",
+      "id": "PLZ7vWQArY3hKdBKj9HhHRwk5EC30hFpjM",
+      "snippet": {
+        "publishedAt": "2020-04-22T14:21:59.347933Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "TOKYO ZEPP 2013",
+        "description": "Parts One & Two of the Making Of “Panic Station” are out now! \n\nWe saved this footage for a rainy day..and last time we checked, it’s pouring outside.\n\nOn 30 April, we will be releasing four songs from THAT show, Tokyo Zepp 2013. \n\n12pm JST/4am BST: Panic Station\n12pm BST: Supermassive Black Hole\n12pm EDT/5pm BST: Can’t Take My Eyes Off Of You\n12pm PDT/8pm BST: Starlight\n\nFilmed by Tom Kirk and Tim Qualtrough \nEdited by Tom Kirk\nRecorded and Mixed by Marc Carolan\nFilmed Zepp Tokyo on August 13, 2013",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/wfJUae6CsEY/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/wfJUae6CsEY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/wfJUae6CsEY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/wfJUae6CsEY/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/wfJUae6CsEY/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "TOKYO ZEPP 2013",
+          "description": "Parts One & Two of the Making Of “Panic Station” are out now! \n\nWe saved this footage for a rainy day..and last time we checked, it’s pouring outside.\n\nOn 30 April, we will be releasing four songs from THAT show, Tokyo Zepp 2013. \n\n12pm JST/4am BST: Panic Station\n12pm BST: Supermassive Black Hole\n12pm EDT/5pm BST: Can’t Take My Eyes Off Of You\n12pm PDT/8pm BST: Starlight\n\nFilmed by Tom Kirk and Tim Qualtrough \nEdited by Tom Kirk\nRecorded and Mixed by Marc Carolan\nFilmed Zepp Tokyo on August 13, 2013"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 7
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "CfWdf_--_Z6W3nEeCcrK50Uh0Wo",
+      "id": "PLZ7vWQArY3hLote42DYRSoflpbPDUfF9J",
+      "snippet": {
+        "publishedAt": "2019-11-18T15:59:30.969279Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "ORIGIN OF MUSE",
+        "description": "In celebration of the 20th Anniversary of the band’s debut album Showbiz, Muse have announced the release of the deluxe boxed set Origin of Muse. Out Now: https://mu-se.co/originofmuse\n\nThis deluxe set will chronicle the band from their early beginnings in Devon, their early demos, first EPs, debut album and breakthrough record Origin of Symmetry.\n \nThe collection is housed in a 48-page casebound book which sits in a rigid board slipcase with anti-scratch and matte laminated finish with a spot gloss. The book contains an extensive and in depth interview with Matt, Dom and Chris as they talk about the earliest beginnings of the band, as well as the recording and release of their debut album Showbiz through Origin of Symmetry.  The book also incorporates original posters, setlists, photographs and contact sheets, which are inserted and can be pulled out from the book as well as original artwork and all CDs and vinyl.\n \nThe audio is 9 CDs and 4 coloured vinyl containing the following highlights:\n \nCD1 – Newton Abbot Demos -15 previously unreleased first demos by the band including an early version of the hit “Plug in Baby”\nCD2 – The Muse EPs +  Showbiz Demos – Their debut releases on Dangerous Records and previously unreleased demos for their debut album Showbiz\nCD3 – Showbiz – Remastered debut album\nCD4 – Showbiz B Sides – Contains a previously unreleased  alternate version of “Recess”\nCD5 – Showbiz Live – Previously unreleased recording of live shows broadcast on BBC Radio One in 1999/2000\nCD6 – Origin of Symmetry Instrumental Demos – Previously unreleased recorded at the Community Centre in Teignmouth\nCD7 – Origin of Symmetry – Remastered\nCD8 – Origin of Symmetry B Sides – Every B side recorded for the single released from the album\nCD9 – Origin of Symmetry Live at Reading Festival – Full version of band’s headline performance of entire album recorded at Reading Festival 2011 on the 10th Anniversary of it release\n \nVinyl 1-4 – Showbiz and Origin of Symmetry remastered 180 gram heavyweight coloured vinyl.\n \n\nOrigin of Muse Tracklisting:\n \nCD 1 - NEWTON ABBOT DEMOS\n1. Cave \n2. Rain \n3. Agitated \n4. Crazy Days \n5. Coma \n6. Connect The Kettle Lead \n7. Balloonatic \n8. Boredom \n9. Sober \n10. Jimmy Kane \n11. Ashamed \n12. Plug In Baby \n13. Earthquake \n14. Good News \n15. Overdue \n \nCD 2 - THE MUSE EPs + SHOWBIZ DEMOS\n1. Overdue\n2. Cave \n3. Coma \n4. Escape\n5. Muscle Museum \n6. Sober \n7. Uno \n8. Unintended\n9. Pink Ego Box\n10. (Muscle Museum) #2 \n11. Showbiz (Live, Sawmills Studios, 1998)\n12. Do We Need This (Live, Fortress Studios, 1999)\n13. Sunburn (Live, Fortress Studios, 1999)\n14. Overdue (Live, Fortress Studios, 1999)\n15. Uno (Alternate version, Rak Studios, 1999)\n \nCD 3 - SHOWBIZ\n1. Sunburn\n2. Muscle Museum \n3. Fillip \n4. Falling Down \n5. Cave \n6. Showbiz\n7. Unintended\n8. Uno \n9. Sober\n10. Spiral Static (Bonus track)\n11. Escape \n12. Overdue \n13. Hate This & I'll Love You \n \nCD 4 - SHOWBIZ B-SIDES\n1. Recess (Unreleased alternate version, Trident Studios, 1999)\n2. Jimmy Kane \n3. Forced In\n4. Agitated\n5. Twin \n6. Host\n7. Do We Need This?\n8. Con-Science \n9. Minimum\n10. Ashamed\n11. Yes Please\n12. Recess\n13. Nishe\n \nCD 5 - SHOWBIZ LIVE\n1. Uno (Live, The Pyramid Centre, Portsmouth, 1999)\n2. Cave (Live, The Pyramid Centre, Portsmouth, 1999)\n3. Muscle Museum (Live, The Pyramid Centre, Portsmouth, 1999)\n4. Falling Down (Live, The Pyramid Centre, Portsmouth, 1999)\n5. Fillip (Live, The Pyramid Centre, Portsmouth, 1999)\n6. Do We Need This (Live, The Pyramid Centre, Portsmouth, 1999)\n7. Agitated (Live, The Astoria, London, 2000)\n8. Sunburn (Live, The Astoria, London, 2000)\n9. Plug In Baby (Live, The Astoria, London, 2000)\n10. Showbiz (Live, The Astoria, London, 2000)\n11. Cave (Acoustic live demo, Airfield Studios, 1999)\n12. Muscle Museum (Acoustic live demo, Airfield Studios, 1999)\n \nCD 6 - ORIGIN OF SYMMETRY INSTRUMENTAL DEMOS\n1. Micro Cuts\n2. Feeling Good\n3. Space Dementia \n4. Hyper Music \n5. Citizen Erased \n6. Megalomania \n7. Screenager \n8. Shrinking Universe \n9. Shine \n \nCD 7 - ORIGIN OF SYMMETRY \n1. New Born\n2. Bliss\n3. Space Dementia \n4. Hyper Music \n5. Plug In Baby \n6. Citizen Erased \n7. Micro Cuts \n8. Screenager \n9. Darkshines\n10. Feeling Good\n11. Futurism (Bonus track)\n12. Megalomania \n \nCD 8 - ORIGIN OF SYMMETRY B-SIDES\n1. Nature 1\n2. Execution Commentary\n3. Bedroom Acoustics\n4. Shrinking Universe\n5. Piano Thing\n6. Map Of Your Head\n7. The Gallery\n8. Hyper Chondriac Music\n9. Shine\n10. Please, Please, Please, Let Me Get What I Want           \n11. Dead Star\n12. In Your World\n13. Can’t Take My Eyes Off You \n \nCD 9 - ORIGIN OF SYMMETRY, LIVE AT READING FESTIVAL\n1. New Born\n2. Bliss \n3. Space Dementia \n4. Hyper Music \n5. Plug In Baby \n6. Citizen Erased \n7. Micro Cuts \n8. Screenager \n9. Darkshines \n10. Feeling Good \n11. Megalomania",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/KKHLLE6qXaw/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/KKHLLE6qXaw/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/KKHLLE6qXaw/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/KKHLLE6qXaw/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/KKHLLE6qXaw/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "ORIGIN OF MUSE",
+          "description": "In celebration of the 20th Anniversary of the band’s debut album Showbiz, Muse have announced the release of the deluxe boxed set Origin of Muse. Out Now: https://mu-se.co/originofmuse\n\nThis deluxe set will chronicle the band from their early beginnings in Devon, their early demos, first EPs, debut album and breakthrough record Origin of Symmetry.\n \nThe collection is housed in a 48-page casebound book which sits in a rigid board slipcase with anti-scratch and matte laminated finish with a spot gloss. The book contains an extensive and in depth interview with Matt, Dom and Chris as they talk about the earliest beginnings of the band, as well as the recording and release of their debut album Showbiz through Origin of Symmetry.  The book also incorporates original posters, setlists, photographs and contact sheets, which are inserted and can be pulled out from the book as well as original artwork and all CDs and vinyl.\n \nThe audio is 9 CDs and 4 coloured vinyl containing the following highlights:\n \nCD1 – Newton Abbot Demos -15 previously unreleased first demos by the band including an early version of the hit “Plug in Baby”\nCD2 – The Muse EPs +  Showbiz Demos – Their debut releases on Dangerous Records and previously unreleased demos for their debut album Showbiz\nCD3 – Showbiz – Remastered debut album\nCD4 – Showbiz B Sides – Contains a previously unreleased  alternate version of “Recess”\nCD5 – Showbiz Live – Previously unreleased recording of live shows broadcast on BBC Radio One in 1999/2000\nCD6 – Origin of Symmetry Instrumental Demos – Previously unreleased recorded at the Community Centre in Teignmouth\nCD7 – Origin of Symmetry – Remastered\nCD8 – Origin of Symmetry B Sides – Every B side recorded for the single released from the album\nCD9 – Origin of Symmetry Live at Reading Festival – Full version of band’s headline performance of entire album recorded at Reading Festival 2011 on the 10th Anniversary of it release\n \nVinyl 1-4 – Showbiz and Origin of Symmetry remastered 180 gram heavyweight coloured vinyl.\n \n\nOrigin of Muse Tracklisting:\n \nCD 1 - NEWTON ABBOT DEMOS\n1. Cave \n2. Rain \n3. Agitated \n4. Crazy Days \n5. Coma \n6. Connect The Kettle Lead \n7. Balloonatic \n8. Boredom \n9. Sober \n10. Jimmy Kane \n11. Ashamed \n12. Plug In Baby \n13. Earthquake \n14. Good News \n15. Overdue \n \nCD 2 - THE MUSE EPs + SHOWBIZ DEMOS\n1. Overdue\n2. Cave \n3. Coma \n4. Escape\n5. Muscle Museum \n6. Sober \n7. Uno \n8. Unintended\n9. Pink Ego Box\n10. (Muscle Museum) #2 \n11. Showbiz (Live, Sawmills Studios, 1998)\n12. Do We Need This (Live, Fortress Studios, 1999)\n13. Sunburn (Live, Fortress Studios, 1999)\n14. Overdue (Live, Fortress Studios, 1999)\n15. Uno (Alternate version, Rak Studios, 1999)\n \nCD 3 - SHOWBIZ\n1. Sunburn\n2. Muscle Museum \n3. Fillip \n4. Falling Down \n5. Cave \n6. Showbiz\n7. Unintended\n8. Uno \n9. Sober\n10. Spiral Static (Bonus track)\n11. Escape \n12. Overdue \n13. Hate This & I'll Love You \n \nCD 4 - SHOWBIZ B-SIDES\n1. Recess (Unreleased alternate version, Trident Studios, 1999)\n2. Jimmy Kane \n3. Forced In\n4. Agitated\n5. Twin \n6. Host\n7. Do We Need This?\n8. Con-Science \n9. Minimum\n10. Ashamed\n11. Yes Please\n12. Recess\n13. Nishe\n \nCD 5 - SHOWBIZ LIVE\n1. Uno (Live, The Pyramid Centre, Portsmouth, 1999)\n2. Cave (Live, The Pyramid Centre, Portsmouth, 1999)\n3. Muscle Museum (Live, The Pyramid Centre, Portsmouth, 1999)\n4. Falling Down (Live, The Pyramid Centre, Portsmouth, 1999)\n5. Fillip (Live, The Pyramid Centre, Portsmouth, 1999)\n6. Do We Need This (Live, The Pyramid Centre, Portsmouth, 1999)\n7. Agitated (Live, The Astoria, London, 2000)\n8. Sunburn (Live, The Astoria, London, 2000)\n9. Plug In Baby (Live, The Astoria, London, 2000)\n10. Showbiz (Live, The Astoria, London, 2000)\n11. Cave (Acoustic live demo, Airfield Studios, 1999)\n12. Muscle Museum (Acoustic live demo, Airfield Studios, 1999)\n \nCD 6 - ORIGIN OF SYMMETRY INSTRUMENTAL DEMOS\n1. Micro Cuts\n2. Feeling Good\n3. Space Dementia \n4. Hyper Music \n5. Citizen Erased \n6. Megalomania \n7. Screenager \n8. Shrinking Universe \n9. Shine \n \nCD 7 - ORIGIN OF SYMMETRY \n1. New Born\n2. Bliss\n3. Space Dementia \n4. Hyper Music \n5. Plug In Baby \n6. Citizen Erased \n7. Micro Cuts \n8. Screenager \n9. Darkshines\n10. Feeling Good\n11. Futurism (Bonus track)\n12. Megalomania \n \nCD 8 - ORIGIN OF SYMMETRY B-SIDES\n1. Nature 1\n2. Execution Commentary\n3. Bedroom Acoustics\n4. Shrinking Universe\n5. Piano Thing\n6. Map Of Your Head\n7. The Gallery\n8. Hyper Chondriac Music\n9. Shine\n10. Please, Please, Please, Let Me Get What I Want           \n11. Dead Star\n12. In Your World\n13. Can’t Take My Eyes Off You \n \nCD 9 - ORIGIN OF SYMMETRY, LIVE AT READING FESTIVAL\n1. New Born\n2. Bliss \n3. Space Dementia \n4. Hyper Music \n5. Plug In Baby \n6. Citizen Erased \n7. Micro Cuts \n8. Screenager \n9. Darkshines \n10. Feeling Good \n11. Megalomania"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 4
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "JJO6uBNpF82Wz-znhh3WeBxutgg",
+      "id": "PLZ7vWQArY3hKSYBozs2C240omCkPAkIo0",
+      "snippet": {
+        "publishedAt": "2019-01-18T16:30:47.259485Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE :: The Making of Simulation Theory [Behind-The-Scenes Interviews]",
+        "description": "Watch Matt & Dom talk about the making of Simulation Theory. Subscribe to the band’s YouTube channel for the latest behind-the-scenes videos!\n\nNew album available on digital, vinyl, CD, cassette and Super Deluxe Boxset: https://mu-se.co/simulationtheory",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/yfY1PGWgrbg/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/yfY1PGWgrbg/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/yfY1PGWgrbg/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/yfY1PGWgrbg/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/yfY1PGWgrbg/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE :: The Making of Simulation Theory [Behind-The-Scenes Interviews]",
+          "description": "Watch Matt & Dom talk about the making of Simulation Theory. Subscribe to the band’s YouTube channel for the latest behind-the-scenes videos!\n\nNew album available on digital, vinyl, CD, cassette and Super Deluxe Boxset: https://mu-se.co/simulationtheory"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 13
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "Z2v0G-vnXFOJyMweVOWXsCsjmiI",
+      "id": "PLZ7vWQArY3hL5QicTeOcZy9k9Pb1XT05G",
+      "snippet": {
+        "publishedAt": "2018-10-17T17:30:18.999339Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE :: Pressure [Fan Covers]",
+        "description": "Check out these amazing fan covers of “Pressure” now!\n\nShare yours with #MusePressure to be added to the playlist.\n\nWatch the official music video here: http://mu-se.co/pressure_vid\n\nNew album Simulation Theory out 9 November. Pre-order from the Official Store for early access to 2019 headline tour tickets: http://simulationtheory.muse.mu/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Mgnecjs9B8E/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Mgnecjs9B8E/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Mgnecjs9B8E/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/Mgnecjs9B8E/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/Mgnecjs9B8E/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE :: Pressure [Fan Covers]",
+          "description": "Check out these amazing fan covers of “Pressure” now!\n\nShare yours with #MusePressure to be added to the playlist.\n\nWatch the official music video here: http://mu-se.co/pressure_vid\n\nNew album Simulation Theory out 9 November. Pre-order from the Official Store for early access to 2019 headline tour tickets: http://simulationtheory.muse.mu/"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 37
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "pfZV669QBsZgjb6Z4oDWrnu5nFs",
+      "id": "PLZ7vWQArY3hIkPp11ImVx_OLWe7ilaekg",
+      "snippet": {
+        "publishedAt": "2018-09-14T17:36:09.086619Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE :: The Dark Side [Fan Covers]",
+        "description": "Check out these amazing fan covers of “The Dark Side” now!\n\nWatch the official music video here: https://mu-se.co/tds_yt\n\nNew album Simulation Theory out 9 November 2018. Pre-order via the Official Shop for early access to tickets for the 2019 tour: https://mu-se.co/simulationtheory",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/LdcFW7w4lCA/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/LdcFW7w4lCA/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/LdcFW7w4lCA/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/LdcFW7w4lCA/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/LdcFW7w4lCA/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE :: The Dark Side [Fan Covers]",
+          "description": "Check out these amazing fan covers of “The Dark Side” now!\n\nWatch the official music video here: https://mu-se.co/tds_yt\n\nNew album Simulation Theory out 9 November 2018. Pre-order via the Official Shop for early access to tickets for the 2019 tour: https://mu-se.co/simulationtheory"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 16
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "FVjURgeDZhXkGh2_4WITZCUtxb8",
+      "id": "PLZ7vWQArY3hK7ki7-iTEdUITfAoou2wAD",
+      "snippet": {
+        "publishedAt": "2018-08-29T17:15:50.062628Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE :: Simulation Theory",
+        "description": "Muse have announced that their new studio album, Simulation Theory, will be released on November 9th through Warner Music. The eleven-track record was produced by the band, along with producers Rich Costey, Mike Elizondo, Shellback and Timbaland. Each of the album’s songs will be accompanied by a video. \n\nPre-order for instant downloads of “The Dark Side,” “Something Human,” “Thought Contagion” and “Dig Down” now: https://mu-se.co/simulationtheory\n\nWatch the new music video for “The Dark Side” here. Directed by Lance Drake.\n\nSimulation Theory will be released in three formats: Standard (11 tracks), Deluxe (16 tracks), and Super Deluxe (21 tracks). The expanded tracklisting features an acoustic gospel version of “Dig Down,” the UCLA Bruin Marching Band feature on “Pressure,” a live version of “Thought Contagion,” acoustic versions of several tracks, including “Something Human” and ‘Alternate Reality’ versions of “Algorithm” and “The Dark Side.” For specific format tracklisting, please see below.\n\nPre-order Simulation Theory through the band’s Official Shop for early access to tickets for Muse’s 2019 tour. Stay tuned for more details.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/X8f5RgwY8CI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/X8f5RgwY8CI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/X8f5RgwY8CI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/X8f5RgwY8CI/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/X8f5RgwY8CI/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE :: Simulation Theory",
+          "description": "Muse have announced that their new studio album, Simulation Theory, will be released on November 9th through Warner Music. The eleven-track record was produced by the band, along with producers Rich Costey, Mike Elizondo, Shellback and Timbaland. Each of the album’s songs will be accompanied by a video. \n\nPre-order for instant downloads of “The Dark Side,” “Something Human,” “Thought Contagion” and “Dig Down” now: https://mu-se.co/simulationtheory\n\nWatch the new music video for “The Dark Side” here. Directed by Lance Drake.\n\nSimulation Theory will be released in three formats: Standard (11 tracks), Deluxe (16 tracks), and Super Deluxe (21 tracks). The expanded tracklisting features an acoustic gospel version of “Dig Down,” the UCLA Bruin Marching Band feature on “Pressure,” a live version of “Thought Contagion,” acoustic versions of several tracks, including “Something Human” and ‘Alternate Reality’ versions of “Algorithm” and “The Dark Side.” For specific format tracklisting, please see below.\n\nPre-order Simulation Theory through the band’s Official Shop for early access to tickets for Muse’s 2019 tour. Stay tuned for more details."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 36
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "PfOuzjwrTshHaDKxUXN_ey0exWM",
+      "id": "PLZ7vWQArY3hJ6eVf841K96f-j3Brfx3R3",
+      "snippet": {
+        "publishedAt": "2018-08-08T16:33:34.697201Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE :: Something Human [Fan Covers]",
+        "description": "Listen to the “Something Human” fan covers playlist, featuring versions by Evie W, GnUs Cello, Nightwalk, KrideDrummer, Jewelia, Wave Potter, Oscar Lennerhag, Matthew Tayvis & more now!\n\nWatch the official music video here: https://www.youtube.com/watch?v=azAEHCQgcUI\n\nNew album coming November 2018",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/UAb6IPNB8FA/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/UAb6IPNB8FA/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/UAb6IPNB8FA/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/UAb6IPNB8FA/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/UAb6IPNB8FA/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE :: Something Human [Fan Covers]",
+          "description": "Listen to the “Something Human” fan covers playlist, featuring versions by Evie W, GnUs Cello, Nightwalk, KrideDrummer, Jewelia, Wave Potter, Oscar Lennerhag, Matthew Tayvis & more now!\n\nWatch the official music video here: https://www.youtube.com/watch?v=azAEHCQgcUI\n\nNew album coming November 2018"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 29
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "5ntcPb7chpBZx3mrMBF4uGd2McM",
+      "id": "PLZ7vWQArY3hKagjv1aqtHcK4im5J8UdYu",
+      "snippet": {
+        "publishedAt": "2018-07-17T13:57:55.267389Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE :: Something Human",
+        "description": "New song \"Something Human\" out now!\nNew album coming November 2018.\n\nhttps://muse.mu",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/azAEHCQgcUI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/azAEHCQgcUI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/azAEHCQgcUI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/azAEHCQgcUI/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/azAEHCQgcUI/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE :: Something Human",
+          "description": "New song \"Something Human\" out now!\nNew album coming November 2018.\n\nhttps://muse.mu"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 8
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "ffiDPEm6K404bWaAld6jOnHV_bA",
+      "id": "PLZ7vWQArY3hL2ugSDFlBu-L868uEF9xGx",
+      "snippet": {
+        "publishedAt": "2018-05-10T14:51:22.498556Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE: Drones World Tour [Official Film Trailer]",
+        "description": "Tickets available now for MUSE: Drones World Tour! The film is a one-night only event, in cinemas worldwide, on Thursday 12 July 2018.\n\nGet tickets here: http://www.musedrones.film\n\nFans in Mexico, please click here: http://www.cinepolis.com/pelicula/mus...\n\nThe film contains never-before-seen special effects, perfectly complimenting the creative stage production, ensuring the ultimate audio / visual sensory experience.\n\nAlongside exclusive insight from the band talking about the creative concept, highlights of the show include autonomous Drones flying across the audience, giant projections and intricate, perfectly crafted LED laser works that create an eerie, dystopian world.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/VyZ2zRk1Grs/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/VyZ2zRk1Grs/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/VyZ2zRk1Grs/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/VyZ2zRk1Grs/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/VyZ2zRk1Grs/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE: Drones World Tour [Official Film Trailer]",
+          "description": "Tickets available now for MUSE: Drones World Tour! The film is a one-night only event, in cinemas worldwide, on Thursday 12 July 2018.\n\nGet tickets here: http://www.musedrones.film\n\nFans in Mexico, please click here: http://www.cinepolis.com/pelicula/mus...\n\nThe film contains never-before-seen special effects, perfectly complimenting the creative stage production, ensuring the ultimate audio / visual sensory experience.\n\nAlongside exclusive insight from the band talking about the creative concept, highlights of the show include autonomous Drones flying across the audience, giant projections and intricate, perfectly crafted LED laser works that create an eerie, dystopian world."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 6
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "YJKk-B-kTJ4cLUi0Xool0KaZskY",
+      "id": "PLZ7vWQArY3hIUZoUcFtj8I-8blvsDiTtv",
+      "snippet": {
+        "publishedAt": "2018-03-29T17:09:57.98823Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE :: Thought Contagion :: Fan Covers",
+        "description": "Check out these fan covers of “Thought Contagion” now. Share yours with #ThoughtContagion to be added to the playlist.\n\nWatch the music video here: https://mu-se.co/tc_playlistyt\n\nDownload or stream the new song now: https://mu-se.co/muse_tc\n\nhttp://muse.mu\nhttp://instagram.com/muse \nhttp://twitter.com/muse \nhttp://tumblr.muse.mu \nhttp://facebook.com/muse",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/NGeB9wYOoqU/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/NGeB9wYOoqU/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/NGeB9wYOoqU/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/NGeB9wYOoqU/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/NGeB9wYOoqU/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE :: Thought Contagion :: Fan Covers",
+          "description": "Check out these fan covers of “Thought Contagion” now. Share yours with #ThoughtContagion to be added to the playlist.\n\nWatch the music video here: https://mu-se.co/tc_playlistyt\n\nDownload or stream the new song now: https://mu-se.co/muse_tc\n\nhttp://muse.mu\nhttp://instagram.com/muse \nhttp://twitter.com/muse \nhttp://tumblr.muse.mu \nhttp://facebook.com/muse"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 30
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "RHluR9LegxS2fHHgrF0T2ejA0Qw",
+      "id": "PLZ7vWQArY3hKgz7woiBxdix-pZ8emyFXW",
+      "snippet": {
+        "publishedAt": "2018-02-15T20:34:54.127009Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE :: Thought Contagion",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/QQ_3S-IQm38/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/QQ_3S-IQm38/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/QQ_3S-IQm38/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/QQ_3S-IQm38/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE :: Thought Contagion",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 11
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "vC9bk162rf6h6Vg6K3_9NMe2AlA",
+      "id": "PLZ7vWQArY3hIyP4tWVpC35LJT9X_v6MRb",
+      "snippet": {
+        "publishedAt": "2017-05-09T16:32:54.294119Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE :: Dig Down",
+        "description": "New single “Dig Down” available now\n\nhttp://muse.mu\nhttp://instagram.com/muse \nhttp://twitter.com/muse \nhttp://tumblr.muse.mu \nhttp://facebook.com/muse",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/b4ozdiGys5g/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/b4ozdiGys5g/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/b4ozdiGys5g/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/b4ozdiGys5g/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE :: Dig Down",
+          "description": "New single “Dig Down” available now\n\nhttp://muse.mu\nhttp://instagram.com/muse \nhttp://twitter.com/muse \nhttp://tumblr.muse.mu \nhttp://facebook.com/muse"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 11
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "DhRcjsxY8IqpjQcdezVgRoHx-VY",
+      "id": "PLZ7vWQArY3hKMI6z1b3H_QZVN3heW80HQ",
+      "snippet": {
+        "publishedAt": "2015-09-24T17:23:33.764776Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE: Live Fan Videos",
+        "description": "Catch MUSE on the Drones World Tour in 2015/16: http://muse.mu/tour-dates.htm\n\nThe Drones World Tour will see the band perform for the first time “in the round” from the middle of the arena. This stage design and configuration will give fans a true 360 degree audio/visual sensory experience.\n\nGet the new album DRONES now: http://buy.muse.mu/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/2YPfUIwkGmQ/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/2YPfUIwkGmQ/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/2YPfUIwkGmQ/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/2YPfUIwkGmQ/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/2YPfUIwkGmQ/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE: Live Fan Videos",
+          "description": "Catch MUSE on the Drones World Tour in 2015/16: http://muse.mu/tour-dates.htm\n\nThe Drones World Tour will see the band perform for the first time “in the round” from the middle of the arena. This stage design and configuration will give fans a true 360 degree audio/visual sensory experience.\n\nGet the new album DRONES now: http://buy.muse.mu/"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 26
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "x2YZzDeU9aqinyQJufagr_7NxjE",
+      "id": "PLZ7vWQArY3hKCK4gWNXAj_jgsZ97EsHWI",
+      "snippet": {
+        "publishedAt": "2015-07-22T15:44:59.39566Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE - Band's Picks",
+        "description": "Listen to the new playlist “Band’s Picks” now!\n\nCurated by Matt, Dom and Chris.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/yj8Xpdx60Ws/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/yj8Xpdx60Ws/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/yj8Xpdx60Ws/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/yj8Xpdx60Ws/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE - Band's Picks",
+          "description": "Listen to the new playlist “Band’s Picks” now!\n\nCurated by Matt, Dom and Chris."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 30
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "EtF_7UDEBhx8V3FSApNMkMlSF2I",
+      "id": "PLZ7vWQArY3hLN2vCNQBz7F8LMEqg720iI",
+      "snippet": {
+        "publishedAt": "2015-03-12T18:16:42.143466Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "MUSE :: DRONES",
+        "description": "Muse's new album, DRONES, is out now!\n\nGet the new album now on CD, CD+DVD, 12\" double gatefold 180g vinyl, digital download or the exclusive muse.mu  deluxe package with CD/DVD/tri-fold vinyl: http://buy.muse.mu/\n\nhttp://muse.mu/\nhttp://instagram.com/muse\nhttp://twitter.com/muse\nhttp://tumblr.muse.mu\nhttp://facebook.com/muse",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/I5sJhSNUkwQ/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/I5sJhSNUkwQ/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/I5sJhSNUkwQ/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/I5sJhSNUkwQ/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "MUSE :: DRONES",
+          "description": "Muse's new album, DRONES, is out now!\n\nGet the new album now on CD, CD+DVD, 12\" double gatefold 180g vinyl, digital download or the exclusive muse.mu  deluxe package with CD/DVD/tri-fold vinyl: http://buy.muse.mu/\n\nhttp://muse.mu/\nhttp://instagram.com/muse\nhttp://twitter.com/muse\nhttp://tumblr.muse.mu\nhttp://facebook.com/muse"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 19
+      }
+    }
+  ]
+}

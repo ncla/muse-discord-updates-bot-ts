@@ -1,0 +1,57 @@
+{
+  "kind": "youtube#playlistListResponse",
+  "etag": "9pBpW3weD6R9jVr1ukGM8nCQNkE",
+  "nextPageToken": "CBkQAA",
+  "pageInfo": {
+    "totalResults": 36,
+    "resultsPerPage": 25
+  },
+  "items": [
+    {
+      "kind": "youtube#playlist",
+      "etag": "sFh7Chvb4XKooXSBelCbpigAbdo",
+      "id": "PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh",
+      "snippet": {
+        "publishedAt": "2024-02-28T17:35:50.669124Z",
+        "channelId": "UCGGhM6XCSJFQ6DTRffnKRIw",
+        "title": "Muse - Will Of The People World Tour Interstitial Videos",
+        "description": "Created By: Frame48 (https://frame48.com)\nECD: Tom Teller\nEPs: Julian Conner, Seth Josephson\nMuse Creative Director: Jesse Lee Stout\nCG Supervisor & Lead Artist: Enrique De La Garza\nCG Artists: Steven Lee, Will Hoskin\nCG Animators: Giulia Pan, Matheus Caetano\nAssistant Editor: Michele Nagy\nFX Artist: Alvaro Moreira\nCompositor: Seth Josephson\nAsset Artist: Juan Fer Bravo\nModeler: Mariano Ruiz\nRigging: Jarom Brand\nColorist: Bryan Smaller\nColor Producer: Mario Castro\nStoryboard Artist: David Green\n\n#Muse #WillOfThePeople #WorldTour",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/uTh8z4XizNI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/uTh8z4XizNI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/uTh8z4XizNI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/uTh8z4XizNI/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/uTh8z4XizNI/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "localized": {
+          "title": "Muse - Will Of The People World Tour Interstitial Videos",
+          "description": "Created By: Frame48 (https://frame48.com)\nECD: Tom Teller\nEPs: Julian Conner, Seth Josephson\nMuse Creative Director: Jesse Lee Stout\nCG Supervisor & Lead Artist: Enrique De La Garza\nCG Artists: Steven Lee, Will Hoskin\nCG Animators: Giulia Pan, Matheus Caetano\nAssistant Editor: Michele Nagy\nFX Artist: Alvaro Moreira\nCompositor: Seth Josephson\nAsset Artist: Juan Fer Bravo\nModeler: Mariano Ruiz\nRigging: Jarom Brand\nColorist: Bryan Smaller\nColor Producer: Mario Castro\nStoryboard Artist: David Green\n\n#Muse #WillOfThePeople #WorldTour"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 5
+      }
+    }
+  ]
+}

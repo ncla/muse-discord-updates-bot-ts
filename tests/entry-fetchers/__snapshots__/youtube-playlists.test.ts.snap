@@ -1,0 +1,231 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`it fetches update entries 1`] = `
+[
+  {
+    "author": {
+      "id": "UCGGhM6XCSJFQ6DTRffnKRIw",
+      "image_url": "https://yt3.ggpht.com/a/AATXAJyCalVyFs_seZmv6CVDdMB5iyI_5L2c1_OBJA=s88-c-k-c0xffffffff-no-rj-mo",
+      "name": "muse",
+    },
+    "content": "Kill Or Be Killed Interstitial Video (from the Will Of The People World Tour)
+
+WILL OF THE PEOPLE - Out Now https://muse.co/WOTPOutNow
+
+http://muse.mu
+https://tiktok.com/@muse
+http://instagram.com/muse
+http://twitter.com/muse
+http://tumblr.muse.mu
+http://facebook.com/muse
+
+Created By: Frame48 (https://frame48.com)
+ECD: Tom Teller
+EPs: Julian Conner, Seth Josephson
+Muse Creative Director: Jesse Lee Stout
+CG Supervisor & Lead Artist: Enrique De La Garza
+CG Artists: Steven Lee, Will Hoskin
+CG Animators: Giulia Pan, Matheus Caetano
+Assistant Editor: Michele Nagy
+FX Artist: Alvaro Moreira
+Compositor: Seth Josephson
+Asset Artist: Juan Fer Bravo
+Modeler: Mariano Ruiz
+Rigging: Jarom Brand
+Colorist: Bryan Smaller
+Color Producer: Mario Castro
+Storyboard Artist: David Green
+
+#Muse #WillOfThePeople #WorldTour",
+    "created_at": 2024-02-28T17:35:50.000Z,
+    "id": "UExaN3ZXUUFyWTNoSXNTV250RW5rOHYyYTRsd0VkdXhMaC41NkI0NEY2RDEwNTU3Q0M2",
+    "image_url": "https://i.ytimg.com/vi/uTh8z4XizNI/maxresdefault.jpg",
+    "parent_id": null,
+    "parent_title": "Muse - Will Of The People World Tour Interstitial Videos",
+    "title": "Muse - Kill Or Be Killed Interstitial Video (from the Will Of The People World Tour)",
+    "type": "YOUTUBE_PLAYLIST_VIDEO",
+    "uniqueId": "PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh_uTh8z4XizNI",
+    "url": "https://www.youtube.com/watch?v=uTh8z4XizNI&list=PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh",
+  },
+  {
+    "author": {
+      "id": "UCGGhM6XCSJFQ6DTRffnKRIw",
+      "image_url": "https://yt3.ggpht.com/a/AATXAJyCalVyFs_seZmv6CVDdMB5iyI_5L2c1_OBJA=s88-c-k-c0xffffffff-no-rj-mo",
+      "name": "muse",
+    },
+    "content": "Interstitial Parkour (from the Will Of The People World Tour)
+
+WILL OF THE PEOPLE - Out Now https://muse.co/WOTPOutNow
+
+http://muse.mu
+https://tiktok.com/@muse
+http://instagram.com/muse
+http://twitter.com/muse
+http://tumblr.muse.mu
+http://facebook.com/muse
+
+Created By: Frame48 (https://frame48.com)
+ECD: Tom Teller
+EPs: Julian Conner, Seth Josephson
+Muse Creative Director: Jesse Lee Stout
+CG Supervisor & Lead Artist: Enrique De La Garza
+CG Artists: Steven Lee, Will Hoskin
+CG Animators: Giulia Pan, Matheus Caetano
+Assistant Editor: Michele Nagy
+FX Artist: Alvaro Moreira
+Compositor: Seth Josephson
+Asset Artist: Juan Fer Bravo
+Modeler: Mariano Ruiz
+Rigging: Jarom Brand
+Colorist: Bryan Smaller
+Color Producer: Mario Castro
+Storyboard Artist: David Green
+
+#Muse #WillOfThePeople #WorldTour",
+    "created_at": 2024-02-28T17:36:01.000Z,
+    "id": "UExaN3ZXUUFyWTNoSXNTV250RW5rOHYyYTRsd0VkdXhMaC4yODlGNEE0NkRGMEEzMEQy",
+    "image_url": "https://i.ytimg.com/vi/TAjwoqCsr6c/maxresdefault.jpg",
+    "parent_id": null,
+    "parent_title": "Muse - Will Of The People World Tour Interstitial Videos",
+    "title": "Muse - Interstitial Parkour (from the Will Of The People World Tour)",
+    "type": "YOUTUBE_PLAYLIST_VIDEO",
+    "uniqueId": "PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh_TAjwoqCsr6c",
+    "url": "https://www.youtube.com/watch?v=TAjwoqCsr6c&list=PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh",
+  },
+  {
+    "author": {
+      "id": "UCGGhM6XCSJFQ6DTRffnKRIw",
+      "image_url": "https://yt3.ggpht.com/a/AATXAJyCalVyFs_seZmv6CVDdMB5iyI_5L2c1_OBJA=s88-c-k-c0xffffffff-no-rj-mo",
+      "name": "muse",
+    },
+    "content": "Interstitial Driving (from the Will Of The People World Tour)
+
+WILL OF THE PEOPLE - Out Now https://muse.co/WOTPOutNow
+
+http://muse.mu
+https://tiktok.com/@muse
+http://instagram.com/muse
+http://twitter.com/muse
+http://tumblr.muse.mu
+http://facebook.com/muse
+
+Created By: Frame48 (https://frame48.com)
+ECD: Tom Teller
+EPs: Julian Conner, Seth Josephson
+Muse Creative Director: Jesse Lee Stout
+CG Supervisor & Lead Artist: Enrique De La Garza
+CG Artists: Steven Lee, Will Hoskin
+CG Animators: Giulia Pan, Matheus Caetano
+Assistant Editor: Michele Nagy
+FX Artist: Alvaro Moreira
+Compositor: Seth Josephson
+Asset Artist: Juan Fer Bravo
+Modeler: Mariano Ruiz
+Rigging: Jarom Brand
+Colorist: Bryan Smaller
+Color Producer: Mario Castro
+Storyboard Artist: David Green
+
+#Muse #WillOfThePeople #WorldTour",
+    "created_at": 2024-02-28T17:36:06.000Z,
+    "id": "UExaN3ZXUUFyWTNoSXNTV250RW5rOHYyYTRsd0VkdXhMaC4wMTcyMDhGQUE4NTIzM0Y5",
+    "image_url": "https://i.ytimg.com/vi/L55-kqT8ANs/maxresdefault.jpg",
+    "parent_id": null,
+    "parent_title": "Muse - Will Of The People World Tour Interstitial Videos",
+    "title": "Muse - Interstitial Driving (from the Will Of The People World Tour)",
+    "type": "YOUTUBE_PLAYLIST_VIDEO",
+    "uniqueId": "PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh_L55-kqT8ANs",
+    "url": "https://www.youtube.com/watch?v=L55-kqT8ANs&list=PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh",
+  },
+  {
+    "author": {
+      "id": "UCGGhM6XCSJFQ6DTRffnKRIw",
+      "image_url": "https://yt3.ggpht.com/a/AATXAJyCalVyFs_seZmv6CVDdMB5iyI_5L2c1_OBJA=s88-c-k-c0xffffffff-no-rj-mo",
+      "name": "muse",
+    },
+    "content": "Isolated System (from the Will Of The People World Tour)
+
+WILL OF THE PEOPLE - Out Now https://muse.co/WOTPOutNow
+
+http://muse.mu
+https://tiktok.com/@muse
+http://instagram.com/muse
+http://twitter.com/muse
+http://tumblr.muse.mu
+http://facebook.com/muse
+
+Created By: Frame48 (https://frame48.com)
+ECD: Tom Teller
+EPs: Julian Conner, Seth Josephson
+Muse Creative Director: Jesse Lee Stout
+CG Supervisor & Lead Artist: Enrique De La Garza
+CG Artists: Steven Lee, Will Hoskin
+CG Animators: Giulia Pan, Matheus Caetano
+Assistant Editor: Michele Nagy
+FX Artist: Alvaro Moreira
+Compositor: Seth Josephson
+Asset Artist: Juan Fer Bravo
+Modeler: Mariano Ruiz
+Rigging: Jarom Brand
+Colorist: Bryan Smaller
+Color Producer: Mario Castro
+Storyboard Artist: David Green
+
+#Muse #WillOfThePeople #WorldTour",
+    "created_at": 2024-02-28T17:36:12.000Z,
+    "id": "UExaN3ZXUUFyWTNoSXNTV250RW5rOHYyYTRsd0VkdXhMaC41MjE1MkI0OTQ2QzJGNzNG",
+    "image_url": "https://i.ytimg.com/vi/uUS84FtD014/maxresdefault.jpg",
+    "parent_id": null,
+    "parent_title": "Muse - Will Of The People World Tour Interstitial Videos",
+    "title": "Muse - Isolated System (from the Will Of The People World Tour)",
+    "type": "YOUTUBE_PLAYLIST_VIDEO",
+    "uniqueId": "PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh_uUS84FtD014",
+    "url": "https://www.youtube.com/watch?v=uUS84FtD014&list=PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh",
+  },
+  {
+    "author": {
+      "id": "UCGGhM6XCSJFQ6DTRffnKRIw",
+      "image_url": "https://yt3.ggpht.com/a/AATXAJyCalVyFs_seZmv6CVDdMB5iyI_5L2c1_OBJA=s88-c-k-c0xffffffff-no-rj-mo",
+      "name": "muse",
+    },
+    "content": "The Dark Side (from the Will Of The People World Tour)
+
+WILL OF THE PEOPLE - Out Now https://muse.co/WOTPOutNow
+
+http://muse.mu
+https://tiktok.com/@muse
+http://instagram.com/muse
+http://twitter.com/muse
+http://tumblr.muse.mu
+http://facebook.com/muse
+
+Created By: Frame48 (https://frame48.com)
+ECD: Tom Teller
+EPs: Julian Conner, Seth Josephson
+Muse Creative Director: Jesse Lee Stout
+CG Supervisor & Lead Artist: Enrique De La Garza
+CG Artists: Steven Lee, Will Hoskin
+CG Animators: Giulia Pan, Matheus Caetano
+Assistant Editor: Michele Nagy
+FX Artist: Alvaro Moreira
+Compositor: Seth Josephson
+Asset Artist: Juan Fer Bravo
+Modeler: Mariano Ruiz
+Rigging: Jarom Brand
+Colorist: Bryan Smaller
+Color Producer: Mario Castro
+Storyboard Artist: David Green
+
+#Muse #WillOfThePeople #WorldTour",
+    "created_at": 2024-02-28T17:36:18.000Z,
+    "id": "UExaN3ZXUUFyWTNoSXNTV250RW5rOHYyYTRsd0VkdXhMaC4wOTA3OTZBNzVEMTUzOTMy",
+    "image_url": "https://i.ytimg.com/vi/ZXJdYpkqaxs/maxresdefault.jpg",
+    "parent_id": null,
+    "parent_title": "Muse - Will Of The People World Tour Interstitial Videos",
+    "title": "Muse - The Dark Side (from the Will Of The People World Tour)",
+    "type": "YOUTUBE_PLAYLIST_VIDEO",
+    "uniqueId": "PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh_ZXJdYpkqaxs",
+    "url": "https://www.youtube.com/watch?v=ZXJdYpkqaxs&list=PLZ7vWQArY3hIsSWntEnk8v2a4lwEduxLh",
+  },
+]
+`;
