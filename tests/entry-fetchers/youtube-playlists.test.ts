@@ -25,7 +25,7 @@ test('it throws error on missing API key', async () => {
 
     testConfig.services.youtube.uploads_api_key = undefined
 
-    const fetcher = new YoutubePlaylistVideos(repository, config)
+    const fetcher = new YoutubePlaylistVideos(repository, testConfig)
 
     await expect(fetcher.fetch()).rejects.toThrow('Youtube playlists API key is not set')
 })
