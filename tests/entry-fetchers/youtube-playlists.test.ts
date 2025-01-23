@@ -1,5 +1,4 @@
 import {afterEach, beforeEach, expect, test, vi} from 'vitest'
-import config from "../../src/config";
 import {getTestConfig} from "../__utils__";
 import {YoutubePlaylistVideos} from "../../src/entry-fetchers/youtube-playlists";
 import {YoutubePlaylistsKysely} from "../../src/repositories/youtube-playlists-repository";
@@ -23,7 +22,7 @@ test('it throws error on missing API key', async () => {
     const testConfig = await getTestConfig()
     const repository = new YoutubePlaylistsKysely(await createTestDatabase(DB_FILE_IDENTIFIER))
 
-    testConfig.services.youtube.uploads_api_key = undefined
+    testConfig.services.youtube.playlists_api_key = undefined
 
     const fetcher = new YoutubePlaylistVideos(repository, testConfig)
 

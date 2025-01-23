@@ -17,6 +17,7 @@ vi.mock('../src/config', async () => {
                     user_agent: process.env.TEST_MUSEBOOTLEGS_USER_AGENT,
                 },
                 youtube: {
+                    playlists_api_key: process.env.TEST_YOUTUBE_PLAYLISTS_API_KEY,
                     uploads_api_key: process.env.TEST_YOUTUBE_UPLOADS_API_KEY
                 }
             },
