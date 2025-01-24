@@ -18,6 +18,7 @@ jobs:
       # runner's environment
       VARS_CONTEXT: ${{ toJson(vars) }}
       TEST_YOUTUBE_UPLOADS_API_KEY: ${{ secrets.TEST_YOUTUBE_UPLOADS_API_KEY }}
+      TEST_YOUTUBE_PLAYLISTS_API_KEY: ${{ secrets.TEST_YOUTUBE_PLAYLISTS_API_KEY }}
       TEST_DISCORD_WEBHOOK_ID: ${{ secrets.TEST_DISCORD_WEBHOOK_ID }}
       TEST_DISCORD_WEBHOOK_TOKEN: ${{ secrets.TEST_DISCORD_WEBHOOK_TOKEN }}
     steps:

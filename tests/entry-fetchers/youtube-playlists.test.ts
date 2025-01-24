@@ -39,6 +39,7 @@ test('no playlists get fetched or queried when no channels are set to fetch play
         channel.playlists = false
     }
 
+    console.log(process.env)
     console.log(testConfig)
 
     const fetcher = new YoutubePlaylistVideos(repository, testConfig)
