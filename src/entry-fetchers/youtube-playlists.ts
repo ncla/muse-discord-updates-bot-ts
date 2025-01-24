@@ -19,13 +19,18 @@ export class YoutubePlaylistVideos<InsertablePlaylistRecord, SelectablePlaylistR
     // have changed in video count since last check. This is because of rather low rate-limit of the YouTube API.
     async fetch()
     {
-        const channels = this.config.fetchables.youtube
-            .filter(channel => channel.playlists);
-
         const apiKey = this.config.services.youtube.playlists_api_key
 
         if (apiKey === undefined) {
             throw new Error('Youtube playlists API key is not set')
+        }
+
+        const channels = this.config.fetchables.youtube
+            .filter(channel => channel.playlists);
+
+        if (channels.length === 0) {
+            console.warn('No channels to fetch playlists from')
+            return []
         }
 
         const { playlistsToUpdate, playlists, playlistIdToOwnerChannelId } = await this.fetchPlaylistsForUpdate(channels, apiKey)

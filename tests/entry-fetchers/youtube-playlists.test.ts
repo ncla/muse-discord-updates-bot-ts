@@ -29,6 +29,23 @@ test('it throws error on missing API key', async () => {
     await expect(fetcher.fetch()).rejects.toThrow('Youtube playlists API key is not set')
 })
 
+test('no playlists get fetched or queried when no channels are set to fetch playlists in config', async () => {
+    const testConfig = await getTestConfig()
+    const repository = new YoutubePlaylistsKysely(await createTestDatabase(DB_FILE_IDENTIFIER))
+
+    const repositoryFindSpy = vi.spyOn(repository, 'findByPlaylistId')
+
+    for (const channel of testConfig.fetchables.youtube) {
+        channel.playlists = false
+    }
+
+    const fetcher = new YoutubePlaylistVideos(repository, testConfig)
+
+    await fetcher.fetch()
+
+    expect(repositoryFindSpy).toHaveBeenCalledTimes(0)
+})
+
 test('fetcher fails when playlists requests fails', async () => {
     const testConfig = await getTestConfig()
     const repository = new YoutubePlaylistsKysely(await createTestDatabase(DB_FILE_IDENTIFIER))
