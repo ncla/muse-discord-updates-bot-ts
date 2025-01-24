@@ -14,7 +14,6 @@ export class MusebootlegsTorrent implements DiscordUpdateTransformer {
             typeof update.author?.name !== 'string' ||
             !(update.created_at instanceof Date)
         ) {
-            console.log(update)
             throw new Error('Missing required fields for YouTube playlist');
         }
 

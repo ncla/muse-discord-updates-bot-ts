@@ -20,6 +20,7 @@ export class YoutubeUploads implements EntryFetcher
 
         let entries: Update[] = []
 
+        // TODO: Filter out channels that are not set to be fetched by uploads property
         for (const channel of this.config.fetchables.youtube) {
             let url = new URL(`https://www.googleapis.com/youtube/v3/playlistItems`);
 

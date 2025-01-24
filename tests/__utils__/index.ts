@@ -38,5 +38,5 @@ export function createTestUnprocessedEntry(updateType: UpdateType = UpdateType.Y
 export async function getTestConfig()
 {
     const config = await import('../../src/config')
-    return config.default as IConfig
+    return JSON.parse(JSON.stringify(config.default)) as IConfig
 }
