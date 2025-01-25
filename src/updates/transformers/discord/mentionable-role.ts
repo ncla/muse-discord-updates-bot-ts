@@ -1,5 +1,5 @@
-import {UpdateType} from "../../../update";
-import config from "../../../config";
+import {UpdateType} from "@/src/update";
+import config from "@/src/config";
 
 export function getMentionableRoleId(updateType: UpdateType): string | undefined {
     switch (updateType) {

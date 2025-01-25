@@ -1,7 +1,7 @@
 import {WebhookMessageCreateOptions} from "discord.js";
 import {RateLimiterMemory, RateLimiterQueue} from "rate-limiter-flexible";
-import {retryPromise} from "./common";
-import {PromiseResult} from "./types/promises";
+import {retryPromise} from "@/src/common";
+import {PromiseResult} from "@/src/types/promises";
 
 export interface WebhookExecuteRequester<UpdateRequestBody> {
     send(update: UpdateRequestBody): Promise<Response>

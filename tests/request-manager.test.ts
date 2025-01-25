@@ -1,6 +1,6 @@
 import {afterEach, beforeAll, beforeEach, expect, test, vi} from 'vitest'
 import dotenv from 'dotenv'
-import {DiscordWebhookRequestManager} from "../src/request-manager";
+import {DiscordWebhookRequestManager} from "@/src/request-manager";
 
 beforeAll(() => {
     dotenv.config()

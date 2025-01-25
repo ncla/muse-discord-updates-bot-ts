@@ -1,5 +1,5 @@
-import {DiscordUpdateTransformer, UpdateTransformer} from "../index";
-import {Update} from "../../../update";
+import {DiscordUpdateTransformer, UpdateTransformer} from "@/src/updates/transformers";
+import {Update} from "@/src/update";
 import {WebhookMessageCreateOptions} from "discord.js";
 
 export class Json implements DiscordUpdateTransformer {

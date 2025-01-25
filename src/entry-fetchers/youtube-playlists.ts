@@ -1,8 +1,8 @@
-import {EntryFetcher} from "./index";
-import {IConfig} from "../config";
-import {IYoutubePlaylistsRepository, YoutubePlaylistsKysely} from "../repositories/youtube-playlists-repository";
-import {createBlankUnprocessedUpdate, Update, UpdateType} from "../update";
-import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "../common";
+import {EntryFetcher} from "@/src/entry-fetchers/index";
+import {IConfig} from "@/src/config";
+import {IYoutubePlaylistsRepository, YoutubePlaylistsKysely} from "@/src/repositories/youtube-playlists-repository";
+import {createBlankUnprocessedUpdate, Update, UpdateType} from "@/src/update";
+import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/common";
 
 export class YoutubePlaylistVideos<InsertablePlaylistRecord, SelectablePlaylistRecord> implements EntryFetcher
 {

@@ -1,14 +1,14 @@
 import {afterEach, beforeAll, beforeEach, expect, test, vi} from 'vitest'
-import {FeedProcessor} from "../../src/processors/feed-processor";
-import {Update, UpdateType, WebhookService} from "../../src/update";
-import {UpdatesRepositoryKysely} from "../../src/repositories/updates-repository";
-import {clearTestDatabase, createTestDatabase} from "../__utils__/database";
-import {DiscordWebhookRequestManager} from "../../src/request-manager";
-import {YoutubeUploads} from "../../src/entry-fetchers/youtube-uploads";
-import {createTestUnprocessedEntry} from "../__utils__";
-import {YoutubeUpload as YoutubeUploadsTransformer} from "../../src/updates/transformers/discord/youtube-upload";
-import * as transformerExports from '../../src/updates/transformers/index'
-import config from "../../src/config";
+import {FeedProcessor} from "@/src/processors/feed-processor";
+import {Update, UpdateType, WebhookService} from "@/src/update";
+import {UpdatesRepositoryKysely} from "@/src/repositories/updates-repository";
+import {clearTestDatabase, createTestDatabase} from "@/tests/__utils__/database";
+import {DiscordWebhookRequestManager} from "@/src/request-manager";
+import {YoutubeUploads} from "@/src/entry-fetchers/youtube-uploads";
+import {createTestUnprocessedEntry} from "@/tests/__utils__";
+import {YoutubeUpload as YoutubeUploadsTransformer} from "@/src/updates/transformers/discord/youtube-upload";
+import * as transformerExports from '@/src/updates/transformers/index'
+import config from "@/src/config";
 
 const DB_FILE_IDENTIFIER = 'feed-processor'
 

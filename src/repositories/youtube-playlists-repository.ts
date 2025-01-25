@@ -1,5 +1,5 @@
 import {Kysely} from "kysely";
-import {Database, InsertableYoutubePlaylistRecord, ReturnableYoutubePlaylistRecord} from "../database";
+import {Database, InsertableYoutubePlaylistRecord, ReturnableYoutubePlaylistRecord} from "@/src/database";
 
 export interface IYoutubePlaylistsRepository<CreatePlaylistRecordType, ReturnablePlaylistRecordType> {
     findByPlaylistId(id: string): Promise<ReturnablePlaylistRecordType | undefined>;

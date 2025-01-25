@@ -1,8 +1,8 @@
-import {EntryFetcher} from "./index";
-import config, {IConfig} from "../config";
+import {EntryFetcher} from "@/src/entry-fetchers/index";
+import config, {IConfig} from "@/src/config";
 // import * as util from "node:util";
-import {createBlankUnprocessedUpdate, Update, UpdateType} from "../update";
-import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "../common";
+import {createBlankUnprocessedUpdate, Update, UpdateType} from "@/src/update";
+import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/common";
 
 export class YoutubeUploads implements EntryFetcher
 {

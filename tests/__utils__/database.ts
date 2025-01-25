@@ -1,10 +1,10 @@
-import {Database, queryLogging} from "../../src/database";
+import {Database, queryLogging} from "@/src/database";
 import SQLite from 'better-sqlite3'
 import {Kysely, Migrator, SqliteDialect } from 'kysely'
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
-import {TypeScriptFileMigrationProvider} from "../../src/ts-migration-transpiler";
-import config from "../../src/config";
+import {TypeScriptFileMigrationProvider} from "@/src/ts-migration-transpiler";
+import config from "@/src/config";
 
 export const createTestDatabase = async (dbFileIdentifier: string) => {
     const dialect = new SqliteDialect({

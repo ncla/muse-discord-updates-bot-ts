@@ -1,6 +1,6 @@
 import SQLite from 'better-sqlite3'
 import { Kysely, SqliteDialect } from 'kysely'
-import config from "./config";
+import config from "@/src/config";
 import {
     ColumnType,
     Generated,
@@ -9,7 +9,7 @@ import {
     Selectable,
     Updateable,
 } from 'kysely'
-import {Update} from "./update";
+import {Update} from "@/src/update";
 
 const dialect = new SqliteDialect({
     database: new SQLite('./data/db.sqlite3'),

@@ -1,19 +1,13 @@
-import {DiscordWebhookRequestManager} from "./request-manager";
-import {YoutubeUploads} from "./entry-fetchers/youtube-uploads";
-import config from "./config";
-import {WebhookService} from "./update";
-import {UpdatesRepositoryKysely} from "./repositories/updates-repository";
-import {YoutubePlaylistsKysely} from "./repositories/youtube-playlists-repository";
-import {
-    db,
-    InsertableUpdateRecord,
-    InsertableYoutubePlaylistRecord,
-    SelectableUpdateRecord,
-    ReturnableYoutubePlaylistRecord
-} from "./database";
-import {FeedProcessor} from "./processors/feed-processor";
-import {YoutubePlaylistVideos} from "./entry-fetchers/youtube-playlists";
-import {Musebootlegs} from "./entry-fetchers/musebootlegs";
+import {DiscordWebhookRequestManager} from "@/src/request-manager";
+import {YoutubeUploads} from "@/src/entry-fetchers/youtube-uploads";
+import config from "@/src/config";
+import {WebhookService} from "@/src/update";
+import {UpdatesRepositoryKysely} from "@/src/repositories/updates-repository";
+import {YoutubePlaylistsKysely} from "@/src/repositories/youtube-playlists-repository";
+import {db} from "@/src/database";
+import {FeedProcessor} from "@/src/processors/feed-processor";
+import {YoutubePlaylistVideos} from "@/src/entry-fetchers/youtube-playlists";
+import {Musebootlegs} from "@/src/entry-fetchers/musebootlegs";
 
 (async () => {
     const discordWebhookId = config.webhooks.discord.id;

@@ -1,4 +1,4 @@
-import config from "../src/config";
+import config from "@/src/config";
 import dotenv from 'dotenv'
 import {beforeAll, expect, test} from 'vitest'
 

@@ -1,8 +1,8 @@
 import {afterEach, beforeEach, expect, test, vi} from 'vitest'
-import {getTestConfig} from "../__utils__";
-import {YoutubePlaylistVideos} from "../../src/entry-fetchers/youtube-playlists";
-import {YoutubePlaylistsKysely} from "../../src/repositories/youtube-playlists-repository";
-import {clearTestDatabase, createTestDatabase} from "../__utils__/database";
+import {getTestConfig} from "@/tests/__utils__";
+import {YoutubePlaylistVideos} from "@/src/entry-fetchers/youtube-playlists";
+import {YoutubePlaylistsKysely} from "@/src/repositories/youtube-playlists-repository";
+import {clearTestDatabase, createTestDatabase} from "@/tests/__utils__/database";
 import {setupServer} from 'msw/node'
 import {http, HttpResponse} from 'msw'
 import {promises as fs} from "fs";

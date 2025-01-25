@@ -1,7 +1,7 @@
-import {YoutubeUploads} from "../../src/entry-fetchers/youtube-uploads";
+import {YoutubeUploads} from "@/src/entry-fetchers/youtube-uploads";
 import {expect, test, vi } from 'vitest'
-import config, {IConfig} from "../../src/config";
-import {getTestConfig} from "../__utils__";
+import config, {IConfig} from "@/src/config";
+import {getTestConfig} from "@/tests/__utils__";
 
 // TODO: flaky. depends on an actual API response.
 test('fetches youtube uploads', async () => {

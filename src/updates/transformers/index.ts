@@ -1,9 +1,9 @@
 import {WebhookMessageCreateOptions} from "discord.js";
-import {Update, UpdateType, WebhookService} from "../../update";
-import {Json as DefaultJsonDiscordTransformer} from "./discord/json";
-import {YoutubeUpload as YoutubeUploadsTransformer} from "./discord/youtube-upload";
-import {YoutubePlaylistVideo} from "./discord/youtube-playlist-video";
-import {MusebootlegsTorrent} from "./discord/musebootlegs-torrent";
+import {Update, UpdateType, WebhookService} from "@/src/update";
+import {Json as DefaultJsonDiscordTransformer} from "@/src/updates/transformers/discord/json";
+import {YoutubeUpload as YoutubeUploadsTransformer} from "@/src/updates/transformers/discord/youtube-upload";
+import {YoutubePlaylistVideo} from "@/src/updates/transformers/discord/youtube-playlist-video";
+import {MusebootlegsTorrent} from "@/src/updates/transformers/discord/musebootlegs-torrent";
 
 export interface UpdateTransformer<BodyType> {
     transform(update: Update): BodyType;

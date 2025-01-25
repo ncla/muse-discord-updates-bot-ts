@@ -1,5 +1,5 @@
-import {createBlankUnprocessedUpdate, Update, UpdateType} from "../../src/update";
-import {IConfig} from "../../src/config";
+import {createBlankUnprocessedUpdate, Update, UpdateType} from "@/src/update";
+import {IConfig} from "@/src/config";
 
 export function repeatText(text: string, times: number) {
     if (times < 0) {

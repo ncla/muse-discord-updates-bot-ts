@@ -1,5 +1,5 @@
 import { Kysely } from "kysely";
-import {Database, InsertableUpdateRecord, SelectableUpdateRecord} from "../database";
+import {Database, InsertableUpdateRecord, SelectableUpdateRecord} from "@/src/database";
 
 export interface IUpdatesRepository<CreateUpdateRecordType, ReturnableUpdateRecordType> {
     findByTypeAndUniqueId(type: string, uniqueId: string): Promise<ReturnableUpdateRecordType | undefined>;

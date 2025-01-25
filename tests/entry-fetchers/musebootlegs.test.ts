@@ -1,6 +1,6 @@
-import {Musebootlegs} from "../../src/entry-fetchers/musebootlegs";
+import {Musebootlegs} from "@/src/entry-fetchers/musebootlegs";
 import {expect, test, vi, beforeEach } from 'vitest'
-import {IConfig} from "../../src/config";
+import {IConfig} from "@/src/config";
 import { promises as fs } from "fs";
 import path from "node:path";
 import { setupServer } from 'msw/node'
