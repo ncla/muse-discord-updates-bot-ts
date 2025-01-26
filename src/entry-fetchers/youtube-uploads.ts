@@ -1,7 +1,7 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import config, {IConfig} from "@/src/config";
 // import * as util from "node:util";
-import {createBlankUnprocessedUpdate, Update, UpdateType} from "@/src/update";
+import {createBlankUpdate, Update, UpdateType} from "@/src/update";
 import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/common";
 
 export class YoutubeUploads implements EntryFetcher
@@ -60,7 +60,7 @@ export class YoutubeUploads implements EntryFetcher
     ): Update
     {
         return {
-            ...createBlankUnprocessedUpdate(),
+            ...createBlankUpdate(),
             uniqueId: `${channel.channel_id}_${item.snippet.resourceId.videoId}`,
             type: UpdateType.YOUTUBE_UPLOAD,
             id: item.snippet.resourceId.videoId,

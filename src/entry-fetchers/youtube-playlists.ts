@@ -1,7 +1,7 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import {IConfig} from "@/src/config";
 import {IYoutubePlaylistsRepository, YoutubePlaylistsKysely} from "@/src/repositories/youtube-playlists-repository";
-import {createBlankUnprocessedUpdate, Update, UpdateType} from "@/src/update";
+import {createBlankUpdate, Update, UpdateType} from "@/src/update";
 import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/common";
 
 export class YoutubePlaylistVideos<InsertablePlaylistRecord, SelectablePlaylistRecord> implements EntryFetcher
@@ -151,7 +151,7 @@ export class YoutubePlaylistVideos<InsertablePlaylistRecord, SelectablePlaylistR
     ): Update
     {
         return {
-            ...createBlankUnprocessedUpdate(),
+            ...createBlankUpdate(),
             uniqueId: `${playlistItem.snippet.playlistId}_${playlistItem.snippet.resourceId.videoId}`,
             type: UpdateType.YOUTUBE_PLAYLIST_VIDEO,
             id: `${playlistItem.id}`,

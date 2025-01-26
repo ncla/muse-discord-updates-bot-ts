@@ -1,7 +1,7 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import config, {IConfig} from "@/src/config";
 import {JSDOM} from 'jsdom'
-import {createBlankUnprocessedUpdate, Update, UpdateType} from "@/src/update";
+import {createBlankUpdate, Update, UpdateType} from "@/src/update";
 
 export class Musebootlegs implements EntryFetcher
 {
@@ -170,7 +170,7 @@ export class Musebootlegs implements EntryFetcher
             const torrentId = torrentBox.id.replace(/^\D+/g, '')
 
             entries.push({
-                ...createBlankUnprocessedUpdate(),
+                ...createBlankUpdate(),
                 type: UpdateType.MUSEBOOTLEGS_TORRENT,
                 id: torrentId,
                 uniqueId: torrentId,

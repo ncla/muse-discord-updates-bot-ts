@@ -1,5 +1,5 @@
 import {expect, test, vi} from 'vitest'
-import {createBlankUnprocessedUpdate, Update, UpdateType, WebhookService} from "@/src/update";
+import {createBlankUpdate, Update, UpdateType, WebhookService} from "@/src/update";
 import {getTransformer} from "@/src/updates/transformers";
 import {YoutubeUpload as YoutubeUploadTransformer} from "@/src/updates/transformers/discord/youtube-upload";
 import {createTestUnprocessedEntry, repeatText} from "@/tests/__utils__";
@@ -8,7 +8,7 @@ import {APIEmbed, WebhookMessageCreateOptions} from 'discord.js';
 
 test('youtube upload transformer gets selected for youtube uploads', async () => {
     const unprocessedUpdate: Update = {
-        ...createBlankUnprocessedUpdate(),
+        ...createBlankUpdate(),
         type: UpdateType.YOUTUBE_UPLOAD,
         uniqueId: 'test',
         id: 'test',

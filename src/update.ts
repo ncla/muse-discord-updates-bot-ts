@@ -32,9 +32,9 @@ export interface Update extends OptionalUpdateFields {
     id: string;
 }
 
-export interface EmptyUnprocessedUpdateEntry extends OptionalUpdateFields {}
+export interface EmptyUpdateEntry extends OptionalUpdateFields {}
 
-export function createBlankUnprocessedUpdate(): EmptyUnprocessedUpdateEntry
+export function createBlankUpdate(): EmptyUpdateEntry
 {
     return {
         parent_id: null,
