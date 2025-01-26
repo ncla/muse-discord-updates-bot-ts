@@ -37,7 +37,9 @@ export interface IConfig {
     },
     pingable_mention_ids: {
         discord: {
+            musebootlegs_torrents: string | undefined,
             youtube_uploads: string | undefined,
+            youtube_playlist_videos: string | undefined,
         }
     }
 }
@@ -77,7 +79,9 @@ const config: IConfig = {
     },
     pingable_mention_ids: {
         discord: {
+            musebootlegs_torrents: process.env.DISCORD_ROLE_ID_MUSE_BOOTLEGS,
             youtube_uploads: process.env.DISCORD_ROLE_ID_YOUTUBE_UPLOADS,
+            youtube_playlist_videos: process.env.DISCORD_ROLE_ID_YOUTUBE_PLAYLISTS,
         }
     }
 };
