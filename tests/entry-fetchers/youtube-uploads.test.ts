@@ -170,3 +170,20 @@ test('uses default thumbnail if standard is not present', async () => {
 
     expect(result[0].image_url).toBe(DEFAULT_THUMBNAIL_URL)
 })
+
+test('it returns empty array when no channels are set to be fetched', async () => {
+    const testConfig = await getTestConfig()
+
+    for (const channel of testConfig.fetchables.youtube) {
+        channel.uploads = false
+    }
+
+    const fetchSpy = vi.spyOn(global, 'fetch')
+
+    const fetcher = new YoutubeUploads(testConfig)
+
+    const result = await fetcher.fetch()
+
+    expect(result).toEqual([])
+    expect(fetchSpy).not.toHaveBeenCalled()
+})

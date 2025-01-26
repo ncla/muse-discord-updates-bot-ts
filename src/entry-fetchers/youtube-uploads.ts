@@ -18,10 +18,16 @@ export class YoutubeUploads implements EntryFetcher
             throw new Error('Youtube uploads API key is not set')
         }
 
+        const channels = this.config.fetchables.youtube.filter(channel => channel.uploads)
+
+        if (channels.length === 0) {
+            console.warn('No YouTube channels set to be fetched by uploads property')
+            return []
+        }
+
         let entries: Update[] = []
 
-        // TODO: Filter out channels that are not set to be fetched by uploads property
-        for (const channel of this.config.fetchables.youtube) {
+        for (const channel of channels) {
             let url = new URL(`https://www.googleapis.com/youtube/v3/playlistItems`);
 
             url.searchParams.append('playlistId', channel.uploads_playlist_id)
