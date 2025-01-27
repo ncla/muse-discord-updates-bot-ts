@@ -123,6 +123,7 @@ test('it processes fetched entries in a loop without one entry failing entire pr
     let getTransformerCallCount = 0;
 
     // This could be any other method that returns error, we just need to test that the feed process continues
+    // TODO: Try actually passing invalid value to getTransformer. This is kinda poopy.
     vi.spyOn(transformerExports, 'getTransformer').mockImplementation(() => {
         if (getTransformerCallCount === 2) {
             getTransformerCallCount++

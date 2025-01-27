@@ -23,6 +23,7 @@ export class FeedProcessor<
 
     async process()
     {
+        // TODO: allSettled
         const fetcherResults: PromiseResult<Update[]>[] = await Promise.all(
             this.entryFetchers.map(async fetcher => {
                 try {
