@@ -1,7 +1,7 @@
 import {UpdatesRepositoryKysely} from "@/src/repositories/updates-repository";
 import {clearTestDatabase, createTestDatabase} from "@/tests/__utils__/database";
 import {afterAll, afterEach, beforeEach, expect, test} from 'vitest'
-import {UpdateType} from "@/src/update";
+import {UpdateType} from "@/src/updates";
 
 const DB_FILE_IDENTIFIER = 'updates-repository'
 

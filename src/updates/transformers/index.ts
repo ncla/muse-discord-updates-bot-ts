@@ -1,5 +1,5 @@
 import {WebhookMessageCreateOptions} from "discord.js";
-import {Update, UpdateType, WebhookService} from "@/src/update";
+import {Update, UpdateType, WebhookService} from "@/src/updates";
 import {Json as DefaultJsonDiscordTransformer} from "@/src/updates/transformers/discord/json";
 import {YoutubeUpload as YoutubeUploadsTransformer} from "@/src/updates/transformers/discord/youtube-upload";
 import {YoutubePlaylistVideo} from "@/src/updates/transformers/discord/youtube-playlist-video";

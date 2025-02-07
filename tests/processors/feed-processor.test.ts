@@ -1,6 +1,6 @@
 import {afterEach, beforeAll, beforeEach, expect, test, vi} from 'vitest'
 import {FeedProcessor} from "@/src/processors/feed-processor";
-import {Update, UpdateType, WebhookService} from "@/src/update";
+import {Update, UpdateType, WebhookService} from "@/src/updates";
 import {UpdatesRepositoryKysely} from "@/src/repositories/updates-repository";
 import {clearTestDatabase, createTestDatabase} from "@/tests/__utils__/database";
 import {DiscordWebhookRequestManager} from "@/src/request-manager";

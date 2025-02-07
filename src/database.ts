@@ -9,7 +9,7 @@ import {
     Selectable,
     Updateable,
 } from 'kysely'
-import {Update} from "@/src/update";
+import {Update} from "@/src/updates";
 
 const dialect = new SqliteDialect({
     database: new SQLite('./data/db.sqlite3'),

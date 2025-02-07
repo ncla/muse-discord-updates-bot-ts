@@ -1,4 +1,4 @@
-import {UpdateType} from "@/src/update";
+import {UpdateType} from "@/src/updates";
 import config from "@/src/config";
 
 export function getMentionableRoleId(updateType: UpdateType): string | undefined {

@@ -1,7 +1,7 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import {IConfig} from "@/src/config";
 import {IYoutubePlaylistsRepository, YoutubePlaylistsKysely} from "@/src/repositories/youtube-playlists-repository";
-import {createBlankUpdate, Update, UpdateType} from "@/src/update";
+import {createBlankUpdate, Update, UpdateType} from "@/src/updates";
 import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/common";
 import {InsertableYoutubePlaylistRecord, ReturnableYoutubePlaylistRecord} from "@/src/database";
 

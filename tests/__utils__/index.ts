@@ -1,4 +1,4 @@
-import {createBlankUpdate, Update, UpdateType} from "@/src/update";
+import {createBlankUpdate, Update, UpdateType} from "@/src/updates";
 import {IConfig} from "@/src/config";
 
 export function repeatText(text: string, times: number) {

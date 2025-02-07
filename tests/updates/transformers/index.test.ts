@@ -1,5 +1,5 @@
 import {expect, test, vi} from 'vitest'
-import {createBlankUpdate, Update, UpdateType, WebhookService} from "@/src/update";
+import {createBlankUpdate, Update, UpdateType, WebhookService} from "@/src/updates";
 import {getTransformer} from "@/src/updates/transformers";
 import {YoutubeUpload as YoutubeUploadTransformer} from "@/src/updates/transformers/discord/youtube-upload";
 import {createTestUnprocessedEntry, repeatText} from "@/tests/__utils__";

@@ -1,5 +1,5 @@
 import {DiscordUpdateTransformer, UpdateTransformer} from "@/src/updates/transformers";
-import {Update} from "@/src/update";
+import {Update} from "@/src/updates";
 import {WebhookMessageCreateOptions} from "discord.js";
 import {formatDateTimeStringToUTC, truncateText} from "@/src/common";
 import {getMentionableRoleIdString} from "@/src/updates/transformers/discord/mentionable-role";

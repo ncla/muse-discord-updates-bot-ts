@@ -1,7 +1,7 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import config, {IConfig} from "@/src/config";
 import {JSDOM} from 'jsdom'
-import {createBlankUpdate, Update, UpdateType} from "@/src/update";
+import {createBlankUpdate, Update, UpdateType} from "@/src/updates";
 
 export class Musebootlegs implements EntryFetcher
 {

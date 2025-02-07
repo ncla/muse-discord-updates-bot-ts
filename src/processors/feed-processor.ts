@@ -2,9 +2,8 @@ import {EntryFetcher} from "@/src/entry-fetchers";
 import {IUpdatesRepository} from "@/src/repositories/updates-repository";
 import {getTransformer} from "@/src/updates/transformers";
 import {AbstractUpdateRequestManager} from "@/src/request-manager";
-import {Update, WebhookService} from "@/src/update";
+import {Update, WebhookService} from "@/src/updates";
 import {WebhookMessageCreateOptions} from "discord.js";
-import {FulfilledPromise, PromiseResult, RejectedPromise} from "@/src/types/promises";
 
 export class FeedProcessor<
     CreateUpdateRecordType,
