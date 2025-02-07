@@ -3,13 +3,12 @@ import {IConfig} from "@/src/config";
 import {IYoutubePlaylistsRepository, YoutubePlaylistsKysely} from "@/src/repositories/youtube-playlists-repository";
 import {createBlankUpdate, Update, UpdateType} from "@/src/update";
 import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/common";
+import {InsertableYoutubePlaylistRecord, ReturnableYoutubePlaylistRecord} from "@/src/database";
 
-export class YoutubePlaylistVideos<InsertablePlaylistRecord, SelectablePlaylistRecord> implements EntryFetcher
+export class YoutubePlaylistVideos implements EntryFetcher
 {
     constructor(
-        // TODO: Tried to do this as interface but TypeScript could not infer the types from generics
-        // TODO: Come back later and try to make this work
-        private youtubePlaylistsRepository: YoutubePlaylistsKysely,
+        private youtubePlaylistsRepository: IYoutubePlaylistsRepository<InsertableYoutubePlaylistRecord, ReturnableYoutubePlaylistRecord>,
         private config: IConfig
     ) {
         return this
