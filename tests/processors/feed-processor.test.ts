@@ -35,7 +35,7 @@ test('it processes with one of the fetchers throwing error', async () => {
     })
 
     entryFetcherFailing.fetch = vi.fn(async () => {
-        throw new Error()
+        throw new Error('Fake error')
     })
 
     const requestManagerSendSpy = vi

@@ -23,20 +23,9 @@ export class FeedProcessor<
 
     async process()
     {
-        // TODO: allSettled
-        const fetcherResults: PromiseResult<Update[]>[] = await Promise.all(
+        const fetcherResults: PromiseSettledResult<Update[]>[] = await Promise.allSettled(
             this.entryFetchers.map(async fetcher => {
-                try {
-                    return <FulfilledPromise<Update[]>>{
-                        status: 'fulfilled',
-                        value: await fetcher.fetch()
-                    }
-                } catch (error) {
-                    return <RejectedPromise>{
-                        status: 'rejected',
-                        reason: error
-                    }
-                }
+                return await fetcher.fetch()
             })
         )
 
