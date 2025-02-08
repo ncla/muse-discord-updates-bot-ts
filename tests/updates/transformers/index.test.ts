@@ -62,49 +62,6 @@ test('youtube upload title and description is truncated', async () => {
     vi.useRealTimers()
 })
 
-test('youtube upload transformer fails on undefined or null update entry fields', async () => {
-    vi.useFakeTimers({
-        now: new Date('2025-01-01T00:00:00Z')
-    })
-
-    const unprocessedUpdate = createTestUnprocessedEntry()
-
-    const transformer = getTransformer(
-        WebhookService.Discord,
-        unprocessedUpdate.type
-    )
-
-    const fieldsToTest = [
-        'title',
-        'url',
-        'image_url',
-        'author',
-        'author.name',
-        'author.image_url',
-        'created_at',
-    ]
-
-    for (const field of fieldsToTest) {
-        let unprocessedUpdateCopy = {...unprocessedUpdate}
-
-        setNestedProperty(unprocessedUpdateCopy, field, null)
-
-        expect(() => {
-            transformer.transform(unprocessedUpdateCopy)
-        }).toThrowError('Missing required fields for YouTube upload')
-
-        unprocessedUpdateCopy = {...unprocessedUpdate}
-
-        setNestedProperty(unprocessedUpdateCopy, field, undefined)
-
-        expect(() => {
-            transformer.transform(unprocessedUpdateCopy)
-        }).toThrowError('Missing required fields for YouTube upload')
-    }
-
-    vi.useRealTimers()
-})
-
 test('description is omitted if not provided', async () => {
     vi.useFakeTimers({
         now: new Date('2025-01-01T00:00:00Z')

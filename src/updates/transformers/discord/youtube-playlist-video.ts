@@ -1,25 +1,11 @@
 import {DiscordUpdateTransformer, UpdateTransformer} from "@/src/updates/transformers";
-import {Update} from "@/src/updates";
+import {Update, YoutubePlaylistUpdate} from "@/src/updates";
 import {WebhookMessageCreateOptions} from "discord.js";
 import {formatDateTimeStringToUTC, truncateText} from "@/src/common";
 import {getMentionableRoleIdString} from "@/src/updates/transformers/discord/mentionable-role";
 
 export class YoutubePlaylistVideo implements DiscordUpdateTransformer {
-    transform(update: Update): WebhookMessageCreateOptions {
-        // TODO: Unsure about this type "guard" here
-        if (
-            typeof update.title !== 'string' ||
-            typeof update.parent_title !== 'string' ||
-            typeof update.url !== 'string' ||
-            typeof update.image_url !== 'string' ||
-            update.author === null ||
-            typeof update.author?.name !== 'string' ||
-            typeof update.author?.image_url !== 'string' ||
-            !(update.created_at instanceof Date)
-        ) {
-            throw new Error('Missing required fields for YouTube playlist');
-        }
-
+    transform(update: YoutubePlaylistUpdate): WebhookMessageCreateOptions {
         const baseMessageString = `**${update.author.name}** has added new video to a playlist`
         const mentionRoleIdString = getMentionableRoleIdString(update.type)
         const message = [mentionRoleIdString, baseMessageString].filter(Boolean).join(' ')

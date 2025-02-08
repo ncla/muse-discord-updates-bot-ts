@@ -1,7 +1,7 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import {IConfig} from "@/src/config";
 import {IYoutubePlaylistsRepository, YoutubePlaylistsKysely} from "@/src/repositories/youtube-playlists-repository";
-import {createBlankUpdate, Update, UpdateType} from "@/src/updates";
+import {BaseUpdate, createBlankUpdate, Update, UpdateType, YoutubePlaylistUpdate} from "@/src/updates";
 import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/common";
 import {InsertableYoutubePlaylistRecord, ReturnableYoutubePlaylistRecord} from "@/src/database";
 
@@ -36,7 +36,7 @@ export class YoutubePlaylistVideos implements EntryFetcher
 
         const playlistItems = await this.fetchPlaylistItemsFromPlaylists(playlistsToUpdate, apiKey)
 
-        return playlistItems.map((playlistItem): Update => {
+        return playlistItems.map((playlistItem): YoutubePlaylistUpdate => {
             const channel = channels.find(
                 channel => channel.channel_id === playlistIdToOwnerChannelId[playlistItem.snippet.playlistId]
             )
@@ -147,7 +147,7 @@ export class YoutubePlaylistVideos implements EntryFetcher
         playlist: GoogleApiYouTubePlaylistResource,
         playlistItem: GoogleApiYouTubePlaylistItemResource,
         channel: IConfig['fetchables']['youtube'][number]
-    ): Update
+    ): YoutubePlaylistUpdate
     {
         return {
             ...createBlankUpdate(),

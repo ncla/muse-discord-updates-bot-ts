@@ -1,24 +1,11 @@
 import {DiscordUpdateTransformer, UpdateTransformer} from "@/src/updates/transformers";
-import {Update} from "@/src/updates";
+import {Update, YoutubeUploadUpdate} from "@/src/updates";
 import {WebhookMessageCreateOptions} from "discord.js";
 import {formatDateTimeStringToUTC, truncateText} from "@/src/common";
 import {getMentionableRoleIdString} from "@/src/updates/transformers/discord/mentionable-role";
 
 export class YoutubeUpload implements DiscordUpdateTransformer {
-    transform(update: Update): WebhookMessageCreateOptions {
-        // TODO: Unsure about this type "guard" here
-        if (
-            typeof update.title !== 'string' ||
-            typeof update.url !== 'string' ||
-            typeof update.image_url !== 'string' ||
-            update.author === null ||
-            typeof update.author?.name !== 'string' ||
-            typeof update.author?.image_url !== 'string' ||
-            !(update.created_at instanceof Date)
-        ) {
-            throw new Error('Missing required fields for YouTube upload');
-        }
-
+    transform(update: YoutubeUploadUpdate): WebhookMessageCreateOptions {
         const baseMessageString = `**${update.author.name}** uploaded a video on YouTube`
         const mentionRoleIdString = getMentionableRoleIdString(update.type)
         const message = [mentionRoleIdString, baseMessageString].filter(Boolean).join(' ')

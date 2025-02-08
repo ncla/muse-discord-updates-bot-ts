@@ -15,7 +15,7 @@ export type UpdateAuthor = {
     image_url: string | null;
 }
 
-export interface OptionalUpdateFields {
+export type OptionalUpdateFields = {
     parent_id?: string | null;
     title?: string | null;
     parent_title?: string | null;
@@ -26,13 +26,15 @@ export interface OptionalUpdateFields {
     author?: UpdateAuthor | null;
 }
 
-export interface Update extends OptionalUpdateFields {
+export type BaseUpdate = {
     type: UpdateType;
     uniqueId: string;
     id: string;
 }
 
-export interface EmptyUpdateEntry extends OptionalUpdateFields {}
+export type Update = BaseUpdate & OptionalUpdateFields
+
+export type EmptyUpdateEntry = OptionalUpdateFields
 
 export function createBlankUpdate(): EmptyUpdateEntry
 {
@@ -50,4 +52,41 @@ export function createBlankUpdate(): EmptyUpdateEntry
             image_url: null,
         },
     }
+}
+
+export type YoutubeUploadUpdate = BaseUpdate & {
+    title: string;
+    content: string | null;
+    url: string;
+    image_url: string;
+    author: UpdateAuthor & {
+        id: string;
+        name: string;
+        image_url: string;
+    };
+    created_at: Date;
+}
+
+export type YoutubePlaylistUpdate = BaseUpdate & {
+    title: string;
+    content: string | null;
+    parent_title: string;
+    url: string;
+    image_url: string;
+    author: UpdateAuthor & {
+        name: string;
+        image_url: string;
+    }
+    created_at: Date;
+}
+
+export type MuseBootlegsTorrentUpdate = BaseUpdate & {
+    title: string;
+    content: string | null;
+    url: string | null;
+    image_url: string | null;
+    author: UpdateAuthor & {
+        name: string | null;
+    },
+    created_at: Date | null;
 }

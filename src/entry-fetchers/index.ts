@@ -1,5 +1,5 @@
-import {Update} from "@/src/updates";
+import {BaseUpdate, Update} from "@/src/updates";
 
 export interface EntryFetcher {
-    fetch(): Promise<Update[]>;
+    fetch(): Promise<BaseUpdate[]>;
 }

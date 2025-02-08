@@ -2,7 +2,7 @@ import {EntryFetcher} from "@/src/entry-fetchers";
 import {IUpdatesRepository} from "@/src/repositories/updates-repository";
 import {getTransformer} from "@/src/updates/transformers";
 import {AbstractUpdateRequestManager} from "@/src/request-manager";
-import {Update, WebhookService} from "@/src/updates";
+import {BaseUpdate, Update, WebhookService} from "@/src/updates";
 import {WebhookMessageCreateOptions} from "discord.js";
 
 export class FeedProcessor<
@@ -22,7 +22,7 @@ export class FeedProcessor<
 
     async process()
     {
-        const fetcherResults: PromiseSettledResult<Update[]>[] = await Promise.allSettled(
+        const fetcherResults: PromiseSettledResult<BaseUpdate[]>[] = await Promise.allSettled(
             this.entryFetchers.map(async fetcher => {
                 return await fetcher.fetch()
             })
