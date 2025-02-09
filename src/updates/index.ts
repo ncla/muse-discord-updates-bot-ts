@@ -7,6 +7,7 @@ export enum UpdateType {
     YOUTUBE_UPLOAD = 'YOUTUBE_UPLOAD',
     YOUTUBE_PLAYLIST_VIDEO = 'YOUTUBE_PLAYLIST_VIDEO',
     MUSEBOOTLEGS_TORRENT = 'MUSEBOOTLEGS_TORRENT',
+    DOMAIN_CERTIFICATE = 'DOMAIN_CERTIFICATE',
 }
 
 export type UpdateAuthor = {
@@ -90,3 +91,5 @@ export type MuseBootlegsTorrentUpdate = BaseUpdate & {
     },
     created_at: Date | null;
 }
+
+export type DomainCertificateUpdate = BaseUpdate

@@ -1,9 +1,10 @@
 import {WebhookMessageCreateOptions} from "discord.js";
-import {BaseUpdate, Update, UpdateType, WebhookService} from "@/src/updates";
+import {BaseUpdate, UpdateType, WebhookService} from "@/src/updates";
 import {Json as DefaultJsonDiscordTransformer} from "@/src/updates/transformers/discord/json";
 import {YoutubeUpload as YoutubeUploadsTransformer} from "@/src/updates/transformers/discord/youtube-upload";
 import {YoutubePlaylistVideo} from "@/src/updates/transformers/discord/youtube-playlist-video";
 import {MusebootlegsTorrent} from "@/src/updates/transformers/discord/musebootlegs-torrent";
+import {DomainCertificate} from "@/src/updates/transformers/discord/domain-certificate";
 
 export interface UpdateTransformer<BodyType> {
     transform(update: BaseUpdate): BodyType;
@@ -27,6 +28,8 @@ export function getTransformer(
                     return new YoutubePlaylistVideo
                 case UpdateType.MUSEBOOTLEGS_TORRENT:
                     return new MusebootlegsTorrent;
+                case UpdateType.DOMAIN_CERTIFICATE:
+                    return new DomainCertificate
                 default:
                     return new DefaultJsonDiscordTransformer
             }

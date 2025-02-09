@@ -9,6 +9,9 @@ export interface IConfig {
         debug: boolean,
     }
     services: {
+        crtsh: {
+            domain: string | undefined,
+        },
         musebootlegs: {
             username: string | undefined,
             password: string | undefined,
@@ -40,6 +43,7 @@ export interface IConfig {
             musebootlegs_torrents: string | undefined,
             youtube_uploads: string | undefined,
             youtube_playlist_videos: string | undefined,
+            domain_certificates: string | undefined,
         }
     }
 }
@@ -49,6 +53,9 @@ const config: IConfig = {
         debug: process.env.APP_DEBUG === 'true',
     },
     services: {
+        crtsh: {
+            domain: process.env.CRTSH_DOMAIN,
+        },
         musebootlegs: {
             username: process.env.MUSEBOOTLEGS_USERNAME,
             password: process.env.MUSEBOOTLEGS_PASSWORD,
@@ -82,6 +89,7 @@ const config: IConfig = {
             musebootlegs_torrents: process.env.DISCORD_ROLE_ID_MUSE_BOOTLEGS,
             youtube_uploads: process.env.DISCORD_ROLE_ID_YOUTUBE_UPLOADS,
             youtube_playlist_videos: process.env.DISCORD_ROLE_ID_YOUTUBE_PLAYLISTS,
+            domain_certificates: process.env.DISCORD_ROLE_ID_DOMAIN_CERTIFICATES,
         }
     }
 };

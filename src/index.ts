@@ -8,6 +8,7 @@ import {db, InsertableYoutubePlaylistRecord, ReturnableYoutubePlaylistRecord} fr
 import {FeedProcessor} from "@/src/processors/feed-processor";
 import {YoutubePlaylistVideos} from "@/src/entry-fetchers/youtube-playlists";
 import {Musebootlegs} from "@/src/entry-fetchers/musebootlegs";
+import {DomainCertificates} from "@/src/entry-fetchers/domain-certificates";
 
 (async () => {
     const discordWebhookId = config.webhooks.discord.id;
@@ -20,9 +21,10 @@ import {Musebootlegs} from "@/src/entry-fetchers/musebootlegs";
     const feedProcessor = new FeedProcessor(
         WebhookService.Discord,
         [
-            new YoutubeUploads(config),
-            new YoutubePlaylistVideos(new YoutubePlaylistsKysely(db), config),
-            new Musebootlegs(config)
+            new DomainCertificates(config.services.crtsh.domain),
+            // new YoutubeUploads(config),
+            // new YoutubePlaylistVideos(new YoutubePlaylistsKysely(db), config),
+            // new Musebootlegs(config)
         ],
         new UpdatesRepositoryKysely(db),
         new DiscordWebhookRequestManager(discordWebhookId, discordWebhookToken)
