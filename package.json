@@ -5,7 +5,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "process": "tsx src/index.ts",
+    "process": "tsx src/commands/process.ts",
     "test": "vitest --coverage",
     "ci:test": "vitest run --coverage --coverage.reporter=json-summary --coverage.reportOnFailure=true",
     "ci:badges": "npx istanbul-badges-readme --exitCode=1"

@@ -32,6 +32,7 @@ export class FeedProcessor<
         const failedFetcherResults = fetcherResults.filter(result => result.status === 'rejected')
 
         if (failedFetcherResults.length > 0) {
+            // Increase verbosity of error messages
             console.warn(`Failed fetchers: ${failedFetcherResults.map(failedFetcher => failedFetcher.reason)}`)
         }
 
