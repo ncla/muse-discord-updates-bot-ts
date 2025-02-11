@@ -55,6 +55,8 @@ export class Process {
             fetcherIds = Object.keys(fetchersById)
         }
 
+        console.info('Running process command with fetchers:', fetcherIds)
+
         const fetchers = fetcherIds.map(fetcher => fetchersById[fetcher]())
 
         const feedProcessor = new FeedProcessor(
