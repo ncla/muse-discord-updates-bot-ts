@@ -1,30 +1,30 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
-import config, {IConfig} from "@/src/config";
 import {JSDOM} from 'jsdom'
 import {createBlankUpdate, MuseBootlegsTorrentUpdate, Update, UpdateType} from "@/src/updates";
 
 export class Musebootlegs implements EntryFetcher
 {
-    private config: IConfig;
-
-    constructor(config: IConfig) {
-        this.config = config;
+    constructor(
+        private username: string | undefined,
+        private password: string | undefined,
+        private userAgent: string | undefined
+    ) {
     }
 
     async fetch()
     {
         if (
-            this.config.services.musebootlegs.username === undefined ||
-            this.config.services.musebootlegs.password === undefined ||
-            this.config.services.musebootlegs.user_agent === undefined
+            this.username === undefined ||
+            this.password === undefined ||
+            this.userAgent === undefined
         ) {
             throw new Error('MuseBootlegs username, password or user agent is not set')
         }
 
         const loginResponse = await this.sendLoginRequest(
-            this.config.services.musebootlegs.username,
-            this.config.services.musebootlegs.password,
-            this.config.services.musebootlegs.user_agent
+            this.username,
+            this.password,
+            this.userAgent
         )
 
         const cookies = loginResponse.headers.getSetCookie()
@@ -40,7 +40,7 @@ export class Musebootlegs implements EntryFetcher
 
         const torrentListResponse = await this.sendTorrentListRequest(
             cookieHeader,
-            this.config.services.musebootlegs.user_agent
+            this.userAgent
         )
 
         if (!torrentListResponse.ok) {

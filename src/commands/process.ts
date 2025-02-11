@@ -26,9 +26,20 @@ export class Process {
 
         const fetchersById: { [key: string]: FetcherFunction } = {
             'cert': () => new DomainCertificates(config.services.crtsh.domain),
-            'yt-uploads': () => new YoutubeUploads(config),
-            'yt-playlists': () => new YoutubePlaylistVideos(new YoutubePlaylistsKysely(db), config),
-            'bootlegs': () => new Musebootlegs(config)
+            'yt-uploads': () => new YoutubeUploads(
+                config.services.youtube.uploads_api_key,
+                config.fetchables.youtube
+            ),
+            'yt-playlists': () => new YoutubePlaylistVideos(
+                new YoutubePlaylistsKysely(db),
+                config.services.youtube.playlists_api_key,
+                config.fetchables.youtube
+            ),
+            'bootlegs': () => new Musebootlegs(
+                config.services.musebootlegs.username,
+                config.services.musebootlegs.password,
+                config.services.musebootlegs.user_agent
+            )
         }
 
         let fetcherIds = this.parseFetchersArgument(argv)

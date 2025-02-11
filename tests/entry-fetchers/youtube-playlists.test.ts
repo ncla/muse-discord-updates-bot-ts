@@ -24,7 +24,11 @@ test('it throws error on missing API key', async () => {
 
     testConfig.services.youtube.playlists_api_key = undefined
 
-    const fetcher = new YoutubePlaylistVideos(repository, testConfig)
+    const fetcher = new YoutubePlaylistVideos(
+        repository,
+        testConfig.services.youtube.playlists_api_key,
+        testConfig.fetchables.youtube
+    )
 
     await expect(fetcher.fetch()).rejects.toThrow('Youtube playlists API key is not set')
 })
@@ -39,7 +43,11 @@ test('no playlists get fetched or queried when no channels are set to fetch play
         channel.playlists = false
     }
 
-    const fetcher = new YoutubePlaylistVideos(repository, testConfig)
+    const fetcher = new YoutubePlaylistVideos(
+        repository,
+        testConfig.services.youtube.playlists_api_key,
+        testConfig.fetchables.youtube
+    )
 
     await fetcher.fetch()
 
@@ -52,7 +60,11 @@ test('fetcher fails when playlists requests fails', async () => {
 
     testConfig.services.youtube.playlists_api_key = 'test'
 
-    const fetcher = new YoutubePlaylistVideos(repository, testConfig)
+    const fetcher = new YoutubePlaylistVideos(
+        repository,
+        testConfig.services.youtube.playlists_api_key,
+        testConfig.fetchables.youtube
+    )
 
     const requestHandlers = [
         http.get('https://www.googleapis.com/youtube/v3/playlists', () => {
@@ -85,7 +97,11 @@ test('fetcher queries and creates playlists for new playlists', async () => {
     const createSpy = vi.spyOn(repository, 'create')
     const updateSpy = vi.spyOn(repository, 'updateVideoCount')
 
-    const fetcher = new YoutubePlaylistVideos(repository, testConfig)
+    const fetcher = new YoutubePlaylistVideos(
+        repository,
+        testConfig.services.youtube.playlists_api_key,
+        testConfig.fetchables.youtube
+    )
 
     const playlistsJsonResponse = JSON.parse(await fs.readFile(
         path.join(__dirname, '../__fixtures__/entry-fetchers/youtube-playlists/muse-channel-playlists.json'),
@@ -146,7 +162,11 @@ test('fetcher queries and updates playlist video count for existing playlist', a
     const createSpy = vi.spyOn(repository, 'create')
     const updateSpy = vi.spyOn(repository, 'updateVideoCount')
 
-    const fetcher = new YoutubePlaylistVideos(repository, testConfig)
+    const fetcher = new YoutubePlaylistVideos(
+        repository,
+        testConfig.services.youtube.playlists_api_key,
+        testConfig.fetchables.youtube
+    )
 
     const playlistsJsonResponse = JSON.parse(await fs.readFile(
         path.join(__dirname, '../__fixtures__/entry-fetchers/youtube-playlists/muse-channel-playlists-single-item.json'),
@@ -212,7 +232,11 @@ test('fetcher queries but does not create or update playlists in database when n
     const createSpy = vi.spyOn(repository, 'create')
     const updateSpy = vi.spyOn(repository, 'updateVideoCount')
 
-    const fetcher = new YoutubePlaylistVideos(repository, testConfig)
+    const fetcher = new YoutubePlaylistVideos(
+        repository,
+        testConfig.services.youtube.playlists_api_key,
+        testConfig.fetchables.youtube
+    )
 
     const playlistsJsonResponse = JSON.parse(await fs.readFile(
         path.join(__dirname, '../__fixtures__/entry-fetchers/youtube-playlists/muse-channel-playlists-two-items.json'),
@@ -264,7 +288,11 @@ test('it fetches update entries', async () => {
 
     testConfig.services.youtube.playlists_api_key = 'test'
 
-    const fetcher = new YoutubePlaylistVideos(repository, testConfig)
+    const fetcher = new YoutubePlaylistVideos(
+        repository,
+        testConfig.services.youtube.playlists_api_key,
+        testConfig.fetchables.youtube
+    )
 
     const playlistsJsonResponse = JSON.parse(await fs.readFile(
         path.join(__dirname, '../__fixtures__/entry-fetchers/youtube-playlists/muse-channel-playlists-single-item.json'),

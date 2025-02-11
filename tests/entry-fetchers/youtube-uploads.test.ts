@@ -1,13 +1,23 @@
 import {YoutubeUploads} from "@/src/entry-fetchers/youtube-uploads";
-import {expect, test, vi } from 'vitest'
+import {expect, test, vi, beforeEach, afterEach } from 'vitest'
 import config, {IConfig} from "@/src/config";
 import {getTestConfig} from "@/tests/__utils__";
+
+afterEach(() => {
+    vi.unstubAllGlobals()
+})
 
 // TODO: flaky. depends on an actual API response.
 test('fetches youtube uploads', async () => {
     vi.resetModules()
 
-    const fetcher = new YoutubeUploads(config)
+    const testConfig = await getTestConfig()
+
+    const fetcher = new YoutubeUploads(
+        testConfig.services.youtube.uploads_api_key,
+        testConfig.fetchables.youtube
+    )
+
     const fetchResult = await fetcher.fetch()
 
     expect(Array.isArray(fetchResult)).toBe(true)
@@ -19,9 +29,10 @@ test('throws error when no API key is set', async () => {
 
     const testConfig = await getTestConfig()
 
-    testConfig.services.youtube.uploads_api_key = undefined
-
-    const fetcher = new YoutubeUploads(testConfig)
+    const fetcher = new YoutubeUploads(
+        undefined,
+        testConfig.fetchables.youtube
+    )
     await expect(fetcher.fetch()).rejects.toThrow()
 })
 
@@ -31,13 +42,16 @@ test('throws 400 HTTP error when incorrect API key is set', async () => {
 
     const testConfig = await getTestConfig()
 
-    testConfig.services.youtube.uploads_api_key = 'incorrect'
-
-    const fetcher = new YoutubeUploads(testConfig)
+    const fetcher = new YoutubeUploads(
+        'incorrect',
+        testConfig.fetchables.youtube
+    )
     await expect(fetcher.fetch()).rejects.toThrow('Response status: 400')
 })
 
 test('content is null when no description is provided for video', async () => {
+    const testConfig = await getTestConfig()
+
     vi.stubGlobal('fetch', () => {
         return Promise.resolve({
             ok: true,
@@ -62,7 +76,10 @@ test('content is null when no description is provided for video', async () => {
         })
     })
 
-    const fetcher = new YoutubeUploads(config)
+    const fetcher = new YoutubeUploads(
+        testConfig.services.youtube.uploads_api_key,
+        testConfig.fetchables.youtube
+    )
     const result = await fetcher.fetch()
 
     expect(result[0].content).toBeNull()
@@ -70,6 +87,8 @@ test('content is null when no description is provided for video', async () => {
 
 test('content is set when description is provided', async () => {
     const DESCRIPTION = 'Description :)'
+
+    const testConfig = await getTestConfig()
 
     vi.stubGlobal('fetch', () => {
         return Promise.resolve({
@@ -95,7 +114,10 @@ test('content is set when description is provided', async () => {
         })
     })
 
-    const fetcher = new YoutubeUploads(config)
+    const fetcher = new YoutubeUploads(
+        testConfig.services.youtube.uploads_api_key,
+        testConfig.fetchables.youtube
+    )
     const result = await fetcher.fetch()
 
     expect(result[0].content).toBe(DESCRIPTION)
@@ -104,6 +126,8 @@ test('content is set when description is provided', async () => {
 test('uses standard thumbnail if it is provided', async () => {
     const STANDARD_THUMBNAIL_URL = 'https://thumbnail.com/standard.jpg'
     const DEFAULT_THUMBNAIL_URL = 'https://thumbnail.com/default.jpg'
+
+    const testConfig = await getTestConfig()
 
     vi.stubGlobal('fetch', () => {
         return Promise.resolve({
@@ -132,7 +156,10 @@ test('uses standard thumbnail if it is provided', async () => {
         })
     })
 
-    const fetcher = new YoutubeUploads(config)
+    const fetcher = new YoutubeUploads(
+        testConfig.services.youtube.uploads_api_key,
+        testConfig.fetchables.youtube
+    )
     const result = await fetcher.fetch()
 
     expect(result[0].image_url).toBe(STANDARD_THUMBNAIL_URL)
@@ -140,6 +167,8 @@ test('uses standard thumbnail if it is provided', async () => {
 
 test('uses default thumbnail if standard is not present', async () => {
     const DEFAULT_THUMBNAIL_URL = 'https://thumbnail.com/default.jpg'
+
+    const testConfig = await getTestConfig()
 
     vi.stubGlobal('fetch', () => {
         return Promise.resolve({
@@ -165,7 +194,10 @@ test('uses default thumbnail if standard is not present', async () => {
         })
     })
 
-    const fetcher = new YoutubeUploads(config)
+    const fetcher = new YoutubeUploads(
+        testConfig.services.youtube.uploads_api_key,
+        testConfig.fetchables.youtube
+    )
     const result = await fetcher.fetch()
 
     expect(result[0].image_url).toBe(DEFAULT_THUMBNAIL_URL)
@@ -180,7 +212,10 @@ test('it returns empty array when no channels are set to be fetched', async () =
 
     const fetchSpy = vi.spyOn(global, 'fetch')
 
-    const fetcher = new YoutubeUploads(testConfig)
+    const fetcher = new YoutubeUploads(
+        testConfig.services.youtube.uploads_api_key,
+        testConfig.fetchables.youtube
+    )
 
     const result = await fetcher.fetch()
 

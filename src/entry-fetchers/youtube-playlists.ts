@@ -9,7 +9,8 @@ export class YoutubePlaylistVideos implements EntryFetcher
 {
     constructor(
         private youtubePlaylistsRepository: IYoutubePlaylistsRepository<InsertableYoutubePlaylistRecord, ReturnableYoutubePlaylistRecord>,
-        private config: IConfig
+        private apiKey: string | undefined,
+        private fetchables: IConfig['fetchables']['youtube']
     ) {
         return this
     }
@@ -18,13 +19,16 @@ export class YoutubePlaylistVideos implements EntryFetcher
     // have changed in video count since last check. This is because of rather low rate-limit of the YouTube API.
     async fetch()
     {
-        const apiKey = this.config.services.youtube.playlists_api_key
-
-        if (apiKey === undefined) {
+        if (this.apiKey === undefined) {
             throw new Error('Youtube playlists API key is not set')
         }
 
-        const channels = this.config.fetchables.youtube
+        if (!Array.isArray(this.fetchables)) {
+            throw new Error('Youtube fetchables are not set')
+        }
+
+        const channels = this
+            .fetchables
             .filter(channel => channel.playlists);
 
         if (channels.length === 0) {
@@ -32,9 +36,9 @@ export class YoutubePlaylistVideos implements EntryFetcher
             return []
         }
 
-        const { playlistsToUpdate, playlists, playlistIdToOwnerChannelId } = await this.fetchPlaylistsForUpdate(channels, apiKey)
+        const { playlistsToUpdate, playlists, playlistIdToOwnerChannelId } = await this.fetchPlaylistsForUpdate(channels, this.apiKey)
 
-        const playlistItems = await this.fetchPlaylistItemsFromPlaylists(playlistsToUpdate, apiKey)
+        const playlistItems = await this.fetchPlaylistItemsFromPlaylists(playlistsToUpdate, this.apiKey)
 
         return playlistItems.map((playlistItem): YoutubePlaylistUpdate => {
             const channel = channels.find(

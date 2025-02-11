@@ -17,7 +17,11 @@ test('throws error on missing login credentials', async () => {
     testConfig.services.musebootlegs.username = undefined
     testConfig.services.musebootlegs.password = undefined
 
-    const fetcher = new Musebootlegs(testConfig)
+    const fetcher = new Musebootlegs(
+        testConfig.services.musebootlegs.username,
+        testConfig.services.musebootlegs.password,
+        testConfig.services.musebootlegs.user_agent
+    )
 
     await expect(fetcher.fetch()).rejects.toThrow('MuseBootlegs username, password or user agent is not set')
 })
@@ -30,7 +34,11 @@ test('throws error on missing user agent', async () => {
     testConfig.services.musebootlegs.password = 'test'
     testConfig.services.musebootlegs.user_agent = undefined
 
-    const fetcher = new Musebootlegs(testConfig)
+    const fetcher = new Musebootlegs(
+        testConfig.services.musebootlegs.username,
+        testConfig.services.musebootlegs.password,
+        testConfig.services.musebootlegs.user_agent
+    )
 
     await expect(fetcher.fetch()).rejects.toThrow('MuseBootlegs username, password or user agent is not set')
 })
@@ -64,7 +72,11 @@ test('throws error on failed login', async () => {
     const server = setupServer(...requestHandlers)
     server.listen({ onUnhandledRequest: 'error' })
 
-    const fetcher = new Musebootlegs(testConfig)
+    const fetcher = new Musebootlegs(
+        testConfig.services.musebootlegs.username,
+        testConfig.services.musebootlegs.password,
+        testConfig.services.musebootlegs.user_agent
+    )
     await expect(fetcher.fetch()).rejects.toThrow('Failed to get login cookies')
 
     server.close()
@@ -121,7 +133,11 @@ test('throws error on failed torrent list request', async () => {
     const server = setupServer(...requestHandlers)
     server.listen({ onUnhandledRequest: 'error' })
 
-    const fetcher = new Musebootlegs(testConfig)
+    const fetcher = new Musebootlegs(
+        testConfig.services.musebootlegs.username,
+        testConfig.services.musebootlegs.password,
+        testConfig.services.musebootlegs.user_agent
+    )
     await expect(fetcher.fetch()).rejects.toThrow('Error box found')
 
     server.close()
@@ -173,7 +189,11 @@ test('torrent list request bad status code throws error', async () => {
     const server = setupServer(...requestHandlers)
     server.listen({ onUnhandledRequest: 'error' })
 
-    const fetcher = new Musebootlegs(testConfig)
+    const fetcher = new Musebootlegs(
+        testConfig.services.musebootlegs.username,
+        testConfig.services.musebootlegs.password,
+        testConfig.services.musebootlegs.user_agent
+    )
     await expect(fetcher.fetch()).rejects.toThrow('Failed to get torrent list response')
 
     server.close()
@@ -230,7 +250,12 @@ test('it fetches torrent list', async () => {
     const server = setupServer(...requestHandlers)
     server.listen({ onUnhandledRequest: 'error' })
 
-    const fetcher = new Musebootlegs(testConfig)
+    const fetcher = new Musebootlegs(
+        testConfig.services.musebootlegs.username,
+        testConfig.services.musebootlegs.password,
+        testConfig.services.musebootlegs.user_agent
+    )
+
     await expect(await fetcher.fetch()).toMatchSnapshot()
 
     server.close()
@@ -240,7 +265,11 @@ test('it fetches torrent list', async () => {
 test('parses latest torrents', async () => {
     const config = await import('../../src/config')
     const testConfig = config.default as IConfig
-    const fetcher = new Musebootlegs(testConfig)
+    const fetcher = new Musebootlegs(
+        testConfig.services.musebootlegs.username,
+        testConfig.services.musebootlegs.password,
+        testConfig.services.musebootlegs.user_agent
+    )
 
     const html = await fs.readFile(
         path.join(__dirname, '../__fixtures__/entry-fetchers/musebootlegs/torrent-list-response-good.html'),

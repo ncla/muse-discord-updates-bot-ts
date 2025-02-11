@@ -6,19 +6,24 @@ import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/co
 
 export class YoutubeUploads implements EntryFetcher
 {
-    constructor(private config: IConfig) {
+    constructor(
+        private apiKey: string | undefined,
+        private fetchables: IConfig['fetchables']['youtube']
+    ) {
         return this
     }
 
     async fetch()
     {
-        const apiKey = this.config.services.youtube.uploads_api_key
-
-        if (apiKey === undefined) {
+        if (this.apiKey === undefined) {
             throw new Error('Youtube uploads API key is not set')
         }
 
-        const channels = this.config.fetchables.youtube.filter(channel => channel.uploads)
+        if (!Array.isArray(this.fetchables)) {
+            throw new Error('Youtube fetchables are not set')
+        }
+
+        const channels = this.fetchables.filter(channel => channel.uploads)
 
         if (channels.length === 0) {
             console.warn('No YouTube channels set to be fetched by uploads property')
@@ -33,7 +38,7 @@ export class YoutubeUploads implements EntryFetcher
             url.searchParams.append('playlistId', channel.uploads_playlist_id)
             url.searchParams.append('maxResults', '25')
             url.searchParams.append('part', 'snippet')
-            url.searchParams.append('key', apiKey)
+            url.searchParams.append('key', this.apiKey)
 
             const response = await fetch(url.toString());
 
