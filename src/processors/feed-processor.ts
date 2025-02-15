@@ -1,21 +1,26 @@
 import {EntryFetcher} from "@/src/entry-fetchers";
 import {IUpdatesRepository} from "@/src/repositories/updates-repository";
 import {getTransformer} from "@/src/updates/transformers";
-import {AbstractUpdateRequestManager} from "@/src/request-manager";
-import {BaseUpdate, Update, WebhookService} from "@/src/updates";
-import {WebhookMessageCreateOptions} from "discord.js";
+import {
+    WebhookExecuteRequestor
+} from "@/src/webhook-requestor";
+import {FixedWindowRateLimitedActionableQueueManager} from "@/src/action-queue-manager";
+import {BaseUpdate, WebhookService} from "@/src/updates";
+import {PromiseResult} from "@/src/types/promises";
 
 export class FeedProcessor<
     CreateUpdateRecordType,
     ReturnableUpdateRecordType,
-    RequestManagerBodyType extends string | WebhookMessageCreateOptions
+    RequestManagerBodyType,
+    QueueableActionReturnType
 >
 {
     constructor(
         protected webhookService: WebhookService,
         protected entryFetchers: EntryFetcher[],
         protected updatesRepository: IUpdatesRepository<CreateUpdateRecordType, ReturnableUpdateRecordType>,
-        protected requestManager: AbstractUpdateRequestManager<RequestManagerBodyType>
+        protected webhookExecuteRequestor: WebhookExecuteRequestor<RequestManagerBodyType, QueueableActionReturnType>,
+        protected queueActionManager: FixedWindowRateLimitedActionableQueueManager<QueueableActionReturnType>
     ) {
         return this
     }
@@ -24,76 +29,62 @@ export class FeedProcessor<
     {
         console.info('Running feed fetchers..')
 
-        const fetcherResults: PromiseSettledResult<BaseUpdate[]>[] = await Promise.allSettled(
+        let requestPromises: Promise<PromiseResult<QueueableActionReturnType>>[] = []
+
+        await Promise.allSettled(
             this.entryFetchers.map(async fetcher => {
-                return await fetcher.fetch()
+                const updates = await fetcher.fetch()
+
+                console.log(`Fetched ${updates.length} updates from ${fetcher.constructor.name}`)
+
+                return Promise.allSettled(
+                    updates.map(async update => {
+                        const transformedEntry = await this.processUpdateEntry(update)
+
+                        if (transformedEntry === undefined) {
+                            return
+                        }
+
+                        requestPromises.push(
+                            this.queueActionManager.queue(
+                                () => this.webhookExecuteRequestor.send(transformedEntry as RequestManagerBodyType) // TODO: 💩
+                            )
+                        )
+                    })
+                )
             })
         )
 
-        console.info('Feed fetchers finished running..')
+        return await Promise.all(requestPromises)
+    }
 
-        const successfulFetcherResults = fetcherResults.filter(result => result.status === 'fulfilled')
-        const failedFetcherResults = fetcherResults.filter(result => result.status === 'rejected')
+    private async processUpdateEntry(entry: BaseUpdate)
+    {
+        console.info(`Processing update entry: ${entry.type} – ${entry.uniqueId}`)
 
-        console.info(`Successful fetchers: ${successfulFetcherResults.length}`)
+        const existingEntry = await this.updatesRepository.findByTypeAndUniqueId(
+            entry.type,
+            entry.uniqueId
+        )
 
-        if (failedFetcherResults.length > 0) {
-            // Increase verbosity of error messages
-            console.warn(`Failed fetchers: ${failedFetcherResults.length}`)
-
-            for (const failedFetcher of failedFetcherResults) {
-                console.error(failedFetcher.reason)
-            }
+        if (existingEntry !== undefined) {
+            console.info(`Entry already exists, skipping: ${entry.type} – ${entry.uniqueId}`)
+            return
         }
 
-        let entries = successfulFetcherResults
-            .map(result => result.value)
-            .flat()
-
-        console.info(`Total update entries: ${entries.length}`)
-
-        for (const entry of entries) {
-            try {
-                console.info(`Processing update entry: ${entry.type} – ${entry.uniqueId}`)
-
-                const existingEntry = await this.updatesRepository.findByTypeAndUniqueId(
-                    entry.type,
-                    entry.uniqueId
-                )
-
-                if (existingEntry !== undefined) {
-                    console.info(`Entry already exists, skipping: ${entry.type} – ${entry.uniqueId}`)
-                    continue
-                }
-
-                const newEntry = <CreateUpdateRecordType>{
-                    type: entry.type,
-                    unique_id: entry.uniqueId,
-                    data: entry
-                }
-
-                console.info(`Creating new entry: ${entry.type} – ${entry.uniqueId}`)
-
-                this.updatesRepository.create(newEntry)
-
-                console.info(`Created entry in database: ${entry.type} – ${entry.uniqueId}`)
-
-                const entryTransformer = getTransformer(this.webhookService, entry.type)
-                const entryRequestBody = entryTransformer.transform(entry)
-
-                console.info(`Adding transformed entry to request manager: ${entry.type} – ${entry.uniqueId}`)
-
-                // TODO: Asserting type here is not ideal.
-                this.requestManager.add(entryRequestBody as RequestManagerBodyType)
-            } catch (error) {
-                console.error(`Failed to process entry: ${error}`)
-            }
+        const newEntry = <CreateUpdateRecordType>{
+            type: entry.type,
+            unique_id: entry.uniqueId,
+            data: entry
         }
 
-        console.info('Sending all requests.')
+        console.info(`Creating new entry: ${entry.type} – ${entry.uniqueId}`)
 
-        if (this.requestManager.count() > 0) {
-            return this.requestManager.sendAll()
-        }
+        this.updatesRepository.create(newEntry)
+
+        console.info(`Created entry in database: ${entry.type} – ${entry.uniqueId}`)
+
+        const entryTransformer = getTransformer(this.webhookService, entry.type)
+        return entryTransformer.transform(entry)
     }
 }

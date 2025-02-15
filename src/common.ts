@@ -1,4 +1,4 @@
-type PromiseFunction<T> = () => Promise<T>;
+export type PromiseFunction<T> = () => Promise<T>;
 
 export function retryPromise<T>(
     fn: PromiseFunction<T>,

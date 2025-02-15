@@ -1,11 +1,12 @@
-import {afterEach, beforeAll, beforeEach, expect, test, vi} from 'vitest'
+import {afterEach, beforeEach, expect, test, vi} from 'vitest'
 import {FeedProcessor} from "@/src/processors/feed-processor";
-import {Update, UpdateType, WebhookService} from "@/src/updates";
+import {UpdateType, WebhookService, YoutubeUploadUpdate} from "@/src/updates";
 import {UpdatesRepositoryKysely} from "@/src/repositories/updates-repository";
 import {clearTestDatabase, createTestDatabase} from "@/tests/__utils__/database";
-import {DiscordWebhookRequestManager} from "@/src/request-manager";
+import {DiscordWebhookExecuteRequestor} from "@/src/webhook-requestor";
+import {FixedWindowRateLimitedActionableQueueManager} from "@/src/action-queue-manager";
 import {YoutubeUploads} from "@/src/entry-fetchers/youtube-uploads";
-import {createTestUnprocessedEntry} from "@/tests/__utils__";
+import {createTestYoutubeUploadsEntry} from "@/tests/__utils__";
 import {YoutubeUpload as YoutubeUploadsTransformer} from "@/src/updates/transformers/discord/youtube-upload";
 import * as transformerExports from '@/src/updates/transformers/index'
 import config from "@/src/config";
@@ -23,14 +24,21 @@ afterEach(async () => {
 test('it processes with one of the fetchers throwing error', async () => {
     const db = await createTestDatabase(DB_FILE_IDENTIFIER)
     const updatesRepository = new UpdatesRepositoryKysely(db)
-    const requestManager = new DiscordWebhookRequestManager('fake', 'fake')
+    const webhookRequestor = new DiscordWebhookExecuteRequestor('fake', 'fake')
+    const queueActionManager = new FixedWindowRateLimitedActionableQueueManager()
 
-    const entryFetcherGood = new YoutubeUploads(config)
-    const entryFetcherFailing = new YoutubeUploads(config)
+    const entryFetcherGood = new YoutubeUploads(
+        config.services.youtube.uploads_api_key,
+        config.fetchables.youtube
+    )
+    const entryFetcherFailing = new YoutubeUploads(
+        config.services.youtube.uploads_api_key,
+        config.fetchables.youtube
+    )
 
     entryFetcherGood.fetch = vi.fn(async () => {
-        return <Update[]>[
-            createTestUnprocessedEntry(UpdateType.YOUTUBE_UPLOAD),
+        return <YoutubeUploadUpdate[]>[
+            createTestYoutubeUploadsEntry(),
         ]
     })
 
@@ -38,8 +46,8 @@ test('it processes with one of the fetchers throwing error', async () => {
         throw new Error('Fake error')
     })
 
-    const requestManagerSendSpy = vi
-        .spyOn(requestManager, 'send')
+    const requestorSpy = vi
+        .spyOn(webhookRequestor, 'send')
         .mockImplementation(async () => {
             return new Response()
         })
@@ -48,12 +56,13 @@ test('it processes with one of the fetchers throwing error', async () => {
         WebhookService.Discord,
         [entryFetcherGood, entryFetcherFailing],
         updatesRepository,
-        requestManager
+        webhookRequestor,
+        queueActionManager
     )
 
     expect(async () => {
         await feedProcessor.process()
-        expect(requestManagerSendSpy).toHaveBeenCalledTimes(1)
+        expect(requestorSpy).toHaveBeenCalledTimes(1)
     }).not.toThrow()
 })
 
@@ -71,21 +80,25 @@ test('insert query is not run when entry already exists', async () => {
         .executeTakeFirst()
 
     const updatesRepository = new UpdatesRepositoryKysely(db)
-    const requestManager = new DiscordWebhookRequestManager('fake', 'fake')
+    const webhookExecuteRequestor = new DiscordWebhookExecuteRequestor('fake', 'fake')
+    const queueActionManager = new FixedWindowRateLimitedActionableQueueManager()
 
-    const entryFetcherGood = new YoutubeUploads(config)
+    const entryFetcherGood = new YoutubeUploads(
+        config.services.youtube.uploads_api_key,
+        config.fetchables.youtube
+    )
 
-    let fakeYoutubeUploadEntry = createTestUnprocessedEntry(UpdateType.YOUTUBE_UPLOAD)
+    let fakeYoutubeUploadEntry = createTestYoutubeUploadsEntry()
     fakeYoutubeUploadEntry.uniqueId = FAKE_UNIQUE_ID
 
     entryFetcherGood.fetch = vi.fn(async () => {
-        return <Update[]>[
+        return <YoutubeUploadUpdate[]>[
             fakeYoutubeUploadEntry,
         ]
     })
 
     const requestManagerSendSpy = vi
-        .spyOn(requestManager, 'send')
+        .spyOn(webhookExecuteRequestor, 'send')
         .mockImplementation(async () => {
             return new Response()
         })
@@ -97,7 +110,8 @@ test('insert query is not run when entry already exists', async () => {
         WebhookService.Discord,
         [entryFetcherGood],
         updatesRepository,
-        requestManager
+        webhookExecuteRequestor,
+        queueActionManager
     )
 
     await feedProcessor.process()
@@ -117,8 +131,12 @@ test('it processes fetched entries in a loop without one entry failing entire pr
     const db = await createTestDatabase(DB_FILE_IDENTIFIER)
 
     const updatesRepository = new UpdatesRepositoryKysely(db)
-    const requestManager = new DiscordWebhookRequestManager('fake', 'fake')
-    const entryFetcher = new YoutubeUploads(config)
+    const webhookExecuteRequestor = new DiscordWebhookExecuteRequestor('fake', 'fake')
+    const queueActionManager = new FixedWindowRateLimitedActionableQueueManager()
+    const entryFetcher = new YoutubeUploads(
+        config.services.youtube.uploads_api_key,
+        config.fetchables.youtube
+    )
 
     let getTransformerCallCount = 0;
 
@@ -134,10 +152,10 @@ test('it processes fetched entries in a loop without one entry failing entire pr
         return new YoutubeUploadsTransformer
     })
 
-    const entries: Update[] = []
+    const entries: YoutubeUploadUpdate[] = []
 
     for (let i = 0; i < 5; i++) {
-        let entry = createTestUnprocessedEntry(UpdateType.YOUTUBE_UPLOAD)
+        let entry = createTestYoutubeUploadsEntry()
         entry.uniqueId = `unique_id_${i}`
         entries.push(entry)
     }
@@ -146,8 +164,8 @@ test('it processes fetched entries in a loop without one entry failing entire pr
         return entries
     })
 
-    const requestManagerSendSpy = vi
-        .spyOn(requestManager, 'send')
+    const requestorSpy = vi
+        .spyOn(webhookExecuteRequestor, 'send')
         .mockImplementation(async () => {
             return new Response()
         })
@@ -156,10 +174,11 @@ test('it processes fetched entries in a loop without one entry failing entire pr
         WebhookService.Discord,
         [entryFetcher],
         updatesRepository,
-        requestManager
+        webhookExecuteRequestor,
+        queueActionManager
     )
 
     await feedProcessor.process()
 
-    expect(requestManagerSendSpy).toHaveBeenCalledTimes(4)
+    expect(requestorSpy).toHaveBeenCalledTimes(4)
 })

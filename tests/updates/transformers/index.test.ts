@@ -2,7 +2,7 @@ import {expect, test, vi} from 'vitest'
 import {createBlankUpdate, Update, UpdateType, WebhookService} from "@/src/updates";
 import {getTransformer} from "@/src/updates/transformers";
 import {YoutubeUpload as YoutubeUploadTransformer} from "@/src/updates/transformers/discord/youtube-upload";
-import {createTestUnprocessedEntry, repeatText} from "@/tests/__utils__";
+import {createTestYoutubeUploadsEntry, repeatText} from "@/tests/__utils__";
 import {setNestedProperty} from "@/src/common";
 import {APIEmbed, WebhookMessageCreateOptions} from 'discord.js';
 
@@ -27,7 +27,7 @@ test('youtube upload entry is transformed to discord webhook message options', a
         now: new Date('2025-01-01T00:00:00Z')
     })
 
-    const unprocessedUpdate = createTestUnprocessedEntry()
+    const unprocessedUpdate = createTestYoutubeUploadsEntry()
 
     const transformer = getTransformer(
         WebhookService.Discord,
@@ -46,7 +46,7 @@ test('youtube upload title and description is truncated', async () => {
         now: new Date('2025-01-01T00:00:00Z')
     })
 
-    let unprocessedUpdate = createTestUnprocessedEntry()
+    let unprocessedUpdate = createTestYoutubeUploadsEntry()
     unprocessedUpdate.title = repeatText('A', 300)
     unprocessedUpdate.content = repeatText('A', 1050)
 
@@ -67,7 +67,7 @@ test('description is omitted if not provided', async () => {
         now: new Date('2025-01-01T00:00:00Z')
     })
 
-    let unprocessedUpdate = createTestUnprocessedEntry()
+    let unprocessedUpdate = createTestYoutubeUploadsEntry()
     unprocessedUpdate.content = ''
 
     const transformer = getTransformer(

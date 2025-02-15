@@ -4,7 +4,8 @@ import {WebhookService} from "@/src/updates";
 import {DomainCertificates} from "@/src/entry-fetchers/domain-certificates";
 import {UpdatesRepositoryKysely} from "@/src/repositories/updates-repository";
 import {db} from "@/src/database";
-import {DiscordWebhookRequestManager} from "@/src/request-manager";
+import {DiscordWebhookExecuteRequestor} from "@/src/webhook-requestor";
+import {FixedWindowRateLimitedActionableQueueManager} from "@/src/action-queue-manager";
 import {YoutubeUploads} from "@/src/entry-fetchers/youtube-uploads";
 import {YoutubePlaylistVideos} from "@/src/entry-fetchers/youtube-playlists";
 import {YoutubePlaylistsKysely} from "@/src/repositories/youtube-playlists-repository";
@@ -63,7 +64,8 @@ export class Process {
             WebhookService.Discord,
             fetchers,
             new UpdatesRepositoryKysely(db),
-            new DiscordWebhookRequestManager(discordWebhookId, discordWebhookToken)
+            new DiscordWebhookExecuteRequestor(discordWebhookId, discordWebhookToken),
+            new FixedWindowRateLimitedActionableQueueManager(5, 2)
         )
 
         return feedProcessor.process()

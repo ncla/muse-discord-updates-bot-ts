@@ -1,4 +1,4 @@
-import {createBlankUpdate, Update, UpdateType} from "@/src/updates";
+import {BaseUpdate, createBlankUpdate, EmptyUpdateEntry, Update, UpdateType, YoutubeUploadUpdate} from "@/src/updates";
 import {IConfig} from "@/src/config";
 
 export function repeatText(text: string, times: number) {
@@ -15,23 +15,23 @@ export function repeatText(text: string, times: number) {
     return result;
 }
 
-export function createTestUnprocessedEntry(updateType: UpdateType = UpdateType.YOUTUBE_UPLOAD): Update
+export function createTestYoutubeUploadsEntry(): YoutubeUploadUpdate
 {
-    return <Update>{
+    return {
         ...createBlankUpdate(),
-        type: updateType,
+        type: UpdateType.YOUTUBE_UPLOAD,
         uniqueId: 'test',
         id: 'test',
         title: 'title',
         content: 'content',
         url: 'https://youtube.com/watch?v=test',
         image_url: 'https://google.com/image.jpg',
-        created_at: new Date(),
         author: {
             id: 'test',
             name: 'muse',
             image_url: 'https://google.com/image.jpg',
-        }
+        },
+        created_at: new Date()
     }
 }
 
