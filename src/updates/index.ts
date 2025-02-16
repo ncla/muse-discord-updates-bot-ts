@@ -1,6 +1,16 @@
+import {WebhookMessageCreateOptions} from "discord.js";
+
 export enum WebhookService {
     Discord,
 }
+
+export type WebhookServiceBodyMap = {
+    [WebhookService.Discord]: WebhookMessageCreateOptions;
+};
+
+export type WebhookServiceResponseMap = {
+    [WebhookService.Discord]: Response;
+};
 
 export enum UpdateType {
     INSTAGRAM_POST = 'INSTAGRAM_POST',

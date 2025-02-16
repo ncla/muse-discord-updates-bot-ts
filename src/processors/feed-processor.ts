@@ -5,21 +5,21 @@ import {
     WebhookExecuteRequestor
 } from "@/src/webhook-requestor";
 import {FixedWindowRateLimitedActionableQueueManager} from "@/src/action-queue-manager";
-import {BaseUpdate, WebhookService} from "@/src/updates";
+import {BaseUpdate, WebhookService, WebhookServiceBodyMap} from "@/src/updates";
 import {PromiseResult} from "@/src/types/promises";
 
 export class FeedProcessor<
     CreateUpdateRecordType,
     ReturnableUpdateRecordType,
-    RequestManagerBodyType,
+    WS extends WebhookService,
     QueueableActionReturnType
 >
 {
     constructor(
-        protected webhookService: WebhookService,
+        protected webhookService: WS,
         protected entryFetchers: EntryFetcher[],
         protected updatesRepository: IUpdatesRepository<CreateUpdateRecordType, ReturnableUpdateRecordType>,
-        protected webhookExecuteRequestor: WebhookExecuteRequestor<RequestManagerBodyType, QueueableActionReturnType>,
+        protected webhookExecuteRequestor: WebhookExecuteRequestor<WebhookServiceBodyMap[WS], QueueableActionReturnType>,
         protected queueActionManager: FixedWindowRateLimitedActionableQueueManager<QueueableActionReturnType>
     ) {
         return this
@@ -47,7 +47,7 @@ export class FeedProcessor<
 
                         requestPromises.push(
                             this.queueActionManager.queue(
-                                () => this.webhookExecuteRequestor.send(transformedEntry as RequestManagerBodyType) // TODO: 💩
+                                () => this.webhookExecuteRequestor.send(transformedEntry)
                             )
                         )
                     })
@@ -58,7 +58,7 @@ export class FeedProcessor<
         return await Promise.all(requestPromises)
     }
 
-    private async processUpdateEntry(entry: BaseUpdate)
+    private async processUpdateEntry(entry: BaseUpdate): Promise<WebhookServiceBodyMap[WS] | undefined>
     {
         console.info(`Processing update entry: ${entry.type} – ${entry.uniqueId}`)
 
@@ -85,6 +85,6 @@ export class FeedProcessor<
         console.info(`Created entry in database: ${entry.type} – ${entry.uniqueId}`)
 
         const entryTransformer = getTransformer(this.webhookService, entry.type)
-        return entryTransformer.transform(entry)
+        return entryTransformer.transform(entry) as WebhookServiceBodyMap[WS]
     }
 }

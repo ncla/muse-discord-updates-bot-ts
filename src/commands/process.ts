@@ -1,9 +1,9 @@
 import config from "@/src/config";
 import {FeedProcessor} from "@/src/processors/feed-processor";
-import {WebhookService} from "@/src/updates";
+import {WebhookService, WebhookServiceResponseMap} from "@/src/updates";
 import {DomainCertificates} from "@/src/entry-fetchers/domain-certificates";
 import {UpdatesRepositoryKysely} from "@/src/repositories/updates-repository";
-import {db} from "@/src/database";
+import {db, InsertableUpdateRecord, SelectableUpdateRecord} from "@/src/database";
 import {DiscordWebhookExecuteRequestor} from "@/src/webhook-requestor";
 import {FixedWindowRateLimitedActionableQueueManager} from "@/src/action-queue-manager";
 import {YoutubeUploads} from "@/src/entry-fetchers/youtube-uploads";
@@ -60,7 +60,12 @@ export class Process {
 
         const fetchers = fetcherIds.map(fetcher => fetchersById[fetcher]())
 
-        const feedProcessor = new FeedProcessor(
+        const feedProcessor = new FeedProcessor<
+            InsertableUpdateRecord,
+            SelectableUpdateRecord,
+            WebhookService.Discord,
+            WebhookServiceResponseMap[WebhookService.Discord]
+        >(
             WebhookService.Discord,
             fetchers,
             new UpdatesRepositoryKysely(db),
