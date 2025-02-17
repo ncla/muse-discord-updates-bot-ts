@@ -187,3 +187,99 @@ test('it processes fetched entries in a loop without one entry failing entire pr
 
     expect(requestorSpy).toHaveBeenCalledTimes(4)
 })
+
+test('it sends webhook requests before other entry fetchers have completed', async () => {
+    const db = await createTestDatabase(DB_FILE_IDENTIFIER)
+    const updatesRepository = new UpdatesRepositoryKysely(db)
+    const webhookExecuteRequestor = new DiscordWebhookExecuteRequestor('fake', 'fake')
+    const queueActionManager = new FixedWindowRateLimitedActionableQueueManager<WebhookServiceResponseMap[WebhookService.Discord]>()
+
+    let queueActionFinishTimestamps: number[] = []
+
+    let entryId = 1
+
+    let entryFetchersSlow = Array.from({length: 2}, (x, i) => {
+        const fetcher = new YoutubeUploads(
+            config.services.youtube.uploads_api_key,
+            config.fetchables.youtube
+        )
+
+        const entries: YoutubeUploadUpdate[] = []
+
+        for (let i = 0; i < 5; i++) {
+            let entry = createTestYoutubeUploadsEntry()
+            entry.uniqueId = `unique_id_${entryId}`
+            entries.push(entry)
+            entryId++
+        }
+
+        fetcher.fetch = vi.fn(async (): Promise<YoutubeUploadUpdate[]> => {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(entries)
+                }, 5000)
+            })
+        })
+
+        return fetcher
+    })
+
+    const entryFetcherFast = new YoutubeUploads(
+        config.services.youtube.uploads_api_key,
+        config.fetchables.youtube
+    )
+
+    entryFetcherFast.fetch = vi.fn(async () => {
+        let entry = createTestYoutubeUploadsEntry()
+        entry.uniqueId = `unique_id_1337`
+
+        return [
+            entry
+        ]
+    })
+
+    const requestorSpy = vi
+        .spyOn(webhookExecuteRequestor, 'send')
+        .mockImplementation(async () => {
+            return new Response()
+        })
+
+    const originalQueue = queueActionManager.queue
+
+    const queueSpy  = vi
+        .spyOn(queueActionManager, 'queue')
+        .mockImplementation(async (...args) => {
+            return originalQueue.apply(queueActionManager, args).then(result => {
+                queueActionFinishTimestamps.push(+Date.now())
+                return result
+            });
+        })
+
+
+    const feedProcessor = new FeedProcessor(
+        WebhookService.Discord,
+        [...entryFetchersSlow, entryFetcherFast],
+        updatesRepository,
+        webhookExecuteRequestor,
+        queueActionManager
+    )
+
+    vi.useFakeTimers()
+    vi.advanceTimersByTimeAsync(9000)
+
+    return feedProcessor
+        .process()
+        .then(() => {
+            queueActionFinishTimestamps = queueActionFinishTimestamps.sort()
+
+            expect(queueActionFinishTimestamps[1] - queueActionFinishTimestamps[0]).toBeGreaterThan(4900)
+            expect(requestorSpy).toHaveBeenCalledTimes(11)
+            expect(queueSpy).toHaveBeenCalledTimes(11)
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+        .finally(() => {
+            vi.useRealTimers()
+        })
+})
