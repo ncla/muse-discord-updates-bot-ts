@@ -63,8 +63,7 @@ export class Process {
         const feedProcessor = new FeedProcessor<
             InsertableUpdateRecord,
             SelectableUpdateRecord,
-            WebhookService.Discord,
-            WebhookServiceResponseMap[WebhookService.Discord]
+            WebhookService.Discord
         >(
             WebhookService.Discord,
             fetchers,
@@ -73,7 +72,21 @@ export class Process {
             new FixedWindowRateLimitedActionableQueueManager(5, 2)
         )
 
-        return feedProcessor.process()
+        const summary = await feedProcessor.process()
+
+        console.info('Process command fetcher summary:')
+
+        for (let fetcherSummary of summary.fetcherSummaries) {
+            console.info(`Fetcher: ${fetcherSummary.name}`)
+            console.info(`Entries: ${fetcherSummary.entries.length}`)
+            console.info(`Entries in database already: ${fetcherSummary.entriesInDatabaseAlready.length}`)
+            console.info(`Entries processed: ${fetcherSummary.entriesProcessed.length}`)
+            console.info(`Entries transformed: ${fetcherSummary.entriesTransformed.length}`)
+        }
+
+        console.info('Process command webhook request summary:')
+        console.info(`Webhook service: ${summary.webhookRequestSummary.webhookService}`)
+        console.info(`Responses: ${summary.webhookRequestSummary.responses.length}`)
     }
 
      private parseFetchersArgument(argv: string[]): string[] {

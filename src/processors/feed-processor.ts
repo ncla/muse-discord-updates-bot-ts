@@ -5,57 +5,87 @@ import {
     WebhookExecuteRequestor
 } from "@/src/webhook-requestor";
 import {FixedWindowRateLimitedActionableQueueManager} from "@/src/action-queue-manager";
-import {BaseUpdate, WebhookService, WebhookServiceBodyMap} from "@/src/updates";
+import {BaseUpdate, WebhookService, WebhookServiceBodyMap, WebhookServiceResponseMap} from "@/src/updates";
 import {PromiseResult} from "@/src/types/promises";
+import {FeedProcessorSummary, FetcherSummary, WebhookRequestSummary} from "../types/feed-processor";
 
 export class FeedProcessor<
     CreateUpdateRecordType,
     ReturnableUpdateRecordType,
-    WS extends WebhookService,
-    QueueableActionReturnType
+    WS extends WebhookService
 >
 {
     constructor(
         protected webhookService: WS,
         protected entryFetchers: EntryFetcher[],
         protected updatesRepository: IUpdatesRepository<CreateUpdateRecordType, ReturnableUpdateRecordType>,
-        protected webhookExecuteRequestor: WebhookExecuteRequestor<WebhookServiceBodyMap[WS], QueueableActionReturnType>,
-        protected queueActionManager: FixedWindowRateLimitedActionableQueueManager<QueueableActionReturnType>
+        protected webhookExecuteRequestor: WebhookExecuteRequestor<WebhookServiceBodyMap[WS], WebhookServiceResponseMap[WS]>,
+        protected queueActionManager: FixedWindowRateLimitedActionableQueueManager<WebhookServiceResponseMap[WS]>
     ) {
         return this
     }
 
-    async process()
+    async process(): Promise<FeedProcessorSummary<WebhookServiceBodyMap[WS], WebhookServiceResponseMap[WS]>>
     {
         console.info('Running feed fetchers..')
 
-        let requestPromises: Promise<PromiseResult<QueueableActionReturnType>>[] = []
+        let requestPromises: Promise<PromiseResult<WebhookServiceResponseMap[WS]>>[] = []
+
+        let fetcherSummaries: FetcherSummary<WebhookServiceBodyMap[WS]>[] = this.entryFetchers.map(fetcher => {
+            return {
+                name: fetcher.constructor.name,
+                entries: [],
+                entriesInDatabaseAlready: [],
+                entriesProcessed: [],
+                entriesTransformed: []
+            }
+        })
+
+        let webhookRequestSummary: WebhookRequestSummary<WebhookServiceResponseMap[WS]> = {
+            webhookService: this.webhookService,
+            responses: []
+        }
 
         await Promise.allSettled(
-            this.entryFetchers.map(async fetcher => {
+            this.entryFetchers.map(async (fetcher, fetcherIndex) => {
                 const updates = await fetcher.fetch()
 
                 console.log(`Fetched ${updates.length} updates from ${fetcher.constructor.name}`)
+
+                fetcherSummaries[fetcherIndex].entries = updates
 
                 return Promise.allSettled(
                     updates.map(async update => {
                         const transformedEntry = await this.processUpdateEntry(update)
 
                         if (transformedEntry === undefined) {
+                            fetcherSummaries[fetcherIndex].entriesInDatabaseAlready.push(update)
                             return
                         }
+
+                        fetcherSummaries[fetcherIndex].entriesProcessed.push(update)
+                        fetcherSummaries[fetcherIndex].entriesTransformed.push(transformedEntry)
 
                         requestPromises.push(
                             this.queueActionManager.queue(
                                 () => this.webhookExecuteRequestor.send(transformedEntry)
-                            )
+                            ).then(response => {
+                                webhookRequestSummary.responses.push(response)
+
+                                return response
+                            })
                         )
                     })
                 )
             })
         )
 
-        return await Promise.all(requestPromises)
+        await Promise.all(requestPromises)
+
+        return {
+            fetcherSummaries,
+            webhookRequestSummary
+        }
     }
 
     private async processUpdateEntry(entry: BaseUpdate): Promise<WebhookServiceBodyMap[WS] | undefined>
