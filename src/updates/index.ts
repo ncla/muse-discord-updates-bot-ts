@@ -18,6 +18,7 @@ export enum UpdateType {
     YOUTUBE_PLAYLIST_VIDEO = 'YOUTUBE_PLAYLIST_VIDEO',
     MUSEBOOTLEGS_TORRENT = 'MUSEBOOTLEGS_TORRENT',
     DOMAIN_CERTIFICATE = 'DOMAIN_CERTIFICATE',
+    MUSEMU_GIG = 'MUSEMU_GIG',
 }
 
 export type UpdateAuthor = {
@@ -66,6 +67,7 @@ export function createBlankUpdate(): EmptyUpdateEntry
 }
 
 export type YoutubeUploadUpdate = BaseUpdate & {
+    type: UpdateType.YOUTUBE_UPLOAD;
     title: string;
     content: string | null;
     url: string;
@@ -79,6 +81,7 @@ export type YoutubeUploadUpdate = BaseUpdate & {
 }
 
 export type YoutubePlaylistUpdate = BaseUpdate & {
+    type: UpdateType.YOUTUBE_PLAYLIST_VIDEO;
     title: string;
     content: string | null;
     parent_title: string;
@@ -92,6 +95,7 @@ export type YoutubePlaylistUpdate = BaseUpdate & {
 }
 
 export type MuseBootlegsTorrentUpdate = BaseUpdate & {
+    type: UpdateType.MUSEBOOTLEGS_TORRENT;
     title: string;
     content: string | null;
     url: string | null;
@@ -102,4 +106,13 @@ export type MuseBootlegsTorrentUpdate = BaseUpdate & {
     created_at: Date | null;
 }
 
-export type DomainCertificateUpdate = BaseUpdate
+export type DomainCertificateUpdate = BaseUpdate & {
+    type: UpdateType.DOMAIN_CERTIFICATE;
+}
+
+export type MuseMuGigsUpdate = BaseUpdate & {
+    type: UpdateType.MUSEMU_GIG;
+    title: string;
+    url: string;
+    event_date: Date;
+}

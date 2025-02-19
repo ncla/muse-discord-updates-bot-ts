@@ -11,6 +11,8 @@ export function getMentionableRoleId(updateType: UpdateType): string | undefined
             return config.pingable_mention_ids.discord.youtube_playlist_videos
         case UpdateType.DOMAIN_CERTIFICATE:
             return config.pingable_mention_ids.discord.domain_certificates
+        case UpdateType.MUSEMU_GIG:
+            return config.pingable_mention_ids.discord.gigs
         default:
             return undefined
     }

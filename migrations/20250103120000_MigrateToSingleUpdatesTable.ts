@@ -135,7 +135,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(musemuGigs.map(musemuGig => ({
-            type: 'musemu_gig',
+            type: 'musemu_gig', // TODO: Convert to capital case
             unique_id: musemuGig.entry_id,
             data: JSON.stringify({
                 title: musemuGig.entry_text,

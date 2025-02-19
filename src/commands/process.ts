@@ -11,6 +11,7 @@ import {YoutubePlaylistVideos} from "@/src/entry-fetchers/youtube-playlists";
 import {YoutubePlaylistsKysely} from "@/src/repositories/youtube-playlists-repository";
 import {Musebootlegs} from "@/src/entry-fetchers/musebootlegs";
 import {EntryFetcher} from "@/src/entry-fetchers";
+import {MusemuGigs} from "@/src/entry-fetchers/musemu-gigs";
 
 export class Process {
     public async run(argv: string[]) {
@@ -40,7 +41,8 @@ export class Process {
                 config.services.musebootlegs.username,
                 config.services.musebootlegs.password,
                 config.services.musebootlegs.user_agent
-            )
+            ),
+            'musemu-gigs': () => new MusemuGigs()
         }
 
         let fetcherIds = this.parseFetchersArgument(argv)

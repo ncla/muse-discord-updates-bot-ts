@@ -5,6 +5,7 @@ import {YoutubeUpload as YoutubeUploadsTransformer} from "@/src/updates/transfor
 import {YoutubePlaylistVideo} from "@/src/updates/transformers/discord/youtube-playlist-video";
 import {MusebootlegsTorrent} from "@/src/updates/transformers/discord/musebootlegs-torrent";
 import {DomainCertificate} from "@/src/updates/transformers/discord/domain-certificate";
+import {MusemuGig} from "@/src/updates/transformers/discord/musemu-gig";
 
 export interface UpdateTransformer<BodyType> {
     transform(update: BaseUpdate): BodyType;
@@ -27,9 +28,11 @@ export function getTransformer(
                 case UpdateType.YOUTUBE_PLAYLIST_VIDEO:
                     return new YoutubePlaylistVideo
                 case UpdateType.MUSEBOOTLEGS_TORRENT:
-                    return new MusebootlegsTorrent;
+                    return new MusebootlegsTorrent
                 case UpdateType.DOMAIN_CERTIFICATE:
                     return new DomainCertificate
+                case UpdateType.MUSEMU_GIG:
+                    return new MusemuGig
                 default:
                     return new DefaultJsonDiscordTransformer
             }

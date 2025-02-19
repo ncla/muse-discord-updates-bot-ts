@@ -44,6 +44,7 @@ export interface IConfig {
             youtube_uploads: string | undefined,
             youtube_playlist_videos: string | undefined,
             domain_certificates: string | undefined,
+            gigs: string | undefined,
         }
     }
 }
@@ -90,6 +91,7 @@ const config: IConfig = {
             youtube_uploads: process.env.DISCORD_ROLE_ID_YOUTUBE_UPLOADS,
             youtube_playlist_videos: process.env.DISCORD_ROLE_ID_YOUTUBE_PLAYLISTS,
             domain_certificates: process.env.DISCORD_ROLE_ID_DOMAIN_CERTIFICATES,
+            gigs: process.env.DISCORD_ROLE_ID_GIGS,
         }
     }
 };
