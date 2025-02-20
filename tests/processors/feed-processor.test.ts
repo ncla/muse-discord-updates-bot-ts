@@ -66,8 +66,12 @@ test('it processes with one of the fetchers throwing error', async () => {
     )
 
     expect(async () => {
-        await feedProcessor.process()
+        const processResult = await feedProcessor.process()
+
+        const fetchersWithErrors = processResult.fetcherSummaries.filter(summary => summary.errors.length > 0)
+
         expect(requestorSpy).toHaveBeenCalledTimes(1)
+        expect(fetchersWithErrors.length).toBe(1)
     }).not.toThrow()
 })
 

@@ -37,46 +37,75 @@ export class FeedProcessor<
                 entries: [],
                 entriesInDatabaseAlready: [],
                 entriesProcessed: [],
-                entriesTransformed: []
+                entriesTransformed: [],
+                errors: []
             }
         })
 
         let webhookRequestSummary: WebhookRequestSummary<WebhookServiceResponseMap[WS]> = {
             webhookService: this.webhookService,
-            responses: []
+            responses: [],
+            errors: []
         }
 
+        // TODO: This is tough to read. Could somehow make it easier for human eyes to parse.
         await Promise.allSettled(
             this.entryFetchers.map(async (fetcher, fetcherIndex) => {
-                const updates = await fetcher.fetch()
+                try {
+                    const updates = await fetcher.fetch()
 
-                console.log(`Fetched ${updates.length} updates from ${fetcher.constructor.name}`)
+                    console.log(`Fetched ${updates.length} updates from ${fetcher.constructor.name}`)
 
-                fetcherSummaries[fetcherIndex].entries = updates
+                    fetcherSummaries[fetcherIndex].entries = updates
 
-                return Promise.allSettled(
-                    updates.map(async update => {
-                        const transformedEntry = await this.processUpdateEntry(update)
+                    return Promise.allSettled(
+                        updates.map(async update => {
+                            try {
+                                const transformedEntry = await this.processUpdateEntry(update)
 
-                        if (transformedEntry === undefined) {
-                            fetcherSummaries[fetcherIndex].entriesInDatabaseAlready.push(update)
-                            return
-                        }
+                                if (transformedEntry === undefined) {
+                                    fetcherSummaries[fetcherIndex].entriesInDatabaseAlready.push(update)
+                                    return
+                                }
 
-                        fetcherSummaries[fetcherIndex].entriesProcessed.push(update)
-                        fetcherSummaries[fetcherIndex].entriesTransformed.push(transformedEntry)
+                                fetcherSummaries[fetcherIndex].entriesProcessed.push(update)
+                                fetcherSummaries[fetcherIndex].entriesTransformed.push(transformedEntry)
 
-                        requestPromises.push(
-                            this.queueActionManager.queue(
-                                () => this.webhookExecuteRequestor.send(transformedEntry)
-                            ).then(response => {
-                                webhookRequestSummary.responses.push(response)
+                                requestPromises.push(
+                                    this.queueActionManager.queue(
+                                        () => this.webhookExecuteRequestor.send(transformedEntry)
+                                    ).then(result => {
+                                        if (result.status === 'rejected') {
+                                            webhookRequestSummary.errors.push(result.reason)
+                                        } else if (result.status === 'fulfilled') {
+                                            webhookRequestSummary.responses.push(result.value)
+                                        }
 
-                                return response
-                            })
-                        )
-                    })
-                )
+                                        return result
+                                    })
+                                )
+
+                                return
+                            } catch (error) {
+                                // To make TypeScript happy
+                                if (error instanceof Error) {
+                                    fetcherSummaries[fetcherIndex].errors.push(error)
+                                } else {
+                                    fetcherSummaries[fetcherIndex].errors.push(new Error('Unknown error occurred'))
+                                }
+                            }
+                        })
+                    )
+                } catch (error) {
+                    // To make TypeScript happy
+                    if (error instanceof Error) {
+                        fetcherSummaries[fetcherIndex].errors.push(error)
+                    } else {
+                        fetcherSummaries[fetcherIndex].errors.push(new Error('Unknown error occurred'))
+                    }
+
+                    return
+                }
             })
         )
 

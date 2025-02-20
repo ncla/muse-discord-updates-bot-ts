@@ -6,12 +6,14 @@ export type FetcherSummary<EntryTransformedType> = {
     entries: BaseUpdate[]
     entriesInDatabaseAlready: BaseUpdate[]
     entriesProcessed: BaseUpdate[],
-    entriesTransformed: EntryTransformedType[]
+    entriesTransformed: EntryTransformedType[],
+    errors: Error[]
 }
 
 export type WebhookRequestSummary<WebhookResponseType> = {
     webhookService: WebhookService
-    responses: PromiseResult<WebhookResponseType>[]
+    responses: WebhookResponseType[]
+    errors: Error[]
 }
 
 export type FeedProcessorSummary<EntryTransformedType, WebhookResponseType> = {

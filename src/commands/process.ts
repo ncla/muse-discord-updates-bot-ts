@@ -78,6 +78,20 @@ export class Process {
 
         const summary = await feedProcessor.process()
 
+        const summariesWithErrors = summary.fetcherSummaries.filter(fetcherSummary => fetcherSummary.errors.length > 0);
+
+        if (summariesWithErrors.length > 0) {
+            console.info('Fetchers with errors:');
+
+            for (let fetcherSummary of summariesWithErrors) {
+                console.info(`Fetcher: ${fetcherSummary.name}`);
+                console.info(`Errors: ${fetcherSummary.errors.length}`);
+                for (let error of fetcherSummary.errors) {
+                    console.error(error);
+                }
+            }
+        }
+
         console.info('Process command fetcher summary:')
 
         for (let fetcherSummary of summary.fetcherSummaries) {
@@ -86,6 +100,7 @@ export class Process {
             console.info(`Entries in database already: ${fetcherSummary.entriesInDatabaseAlready.length}`)
             console.info(`Entries processed: ${fetcherSummary.entriesProcessed.length}`)
             console.info(`Entries transformed: ${fetcherSummary.entriesTransformed.length}`)
+            console.info(`Errors: ${fetcherSummary.errors.length}`)
         }
 
         console.info('Process command webhook request summary:')
