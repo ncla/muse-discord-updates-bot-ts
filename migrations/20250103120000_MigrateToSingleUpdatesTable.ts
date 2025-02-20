@@ -40,7 +40,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 
     await insertRecordsInBatches(
         bootlegsRecords.map(bootleg => ({
-            type: 'musebootlegs',
+            type: 'MUSEBOOTLEGS_TORRENT',
             unique_id: bootleg.entry_id,
             data: JSON.stringify({
                 title: bootleg.entry_text
@@ -54,7 +54,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(dimeRecords.map(dimeRecord => ({
-            type: 'dimeadozen',
+            type: 'DIMEADOZEN',
             unique_id: dimeRecord.entry_id,
             data: JSON.stringify({
                 title: dimeRecord.entry_text
@@ -68,7 +68,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(facebookPosts.map(facebookPost => ({
-            type: 'facebook_post',
+            type: 'FACEBOOK_POST',
             unique_id: facebookPost.entry_id,
             data: JSON.stringify({
                 title: facebookPost.entry_text,
@@ -83,7 +83,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(instagramFollowings.map(instagramFollow => ({
-            type: 'instagram_following',
+            type: 'INSTAGRAM_FOLLOWING',
             unique_id: `${instagramFollow.user_id}_${instagramFollow.entry_id}`,
             data: null,
             created_at: instagramFollow.created_at
@@ -95,7 +95,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(instagramPosts.map(instagramPost => ({
-            type: 'instagram_post',
+            type: 'INSTAGRAM_POST',
             unique_id: instagramPost.entry_id,
             data: JSON.stringify({
                 content: instagramPost.entry_text,
@@ -115,7 +115,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(instagramStories.map(instagramStory => ({
-            type: 'instagram_story',
+            type: 'INSTAGRAM_STORY',
             unique_id: instagramStory.entry_id,
             data: JSON.stringify({
                 content: instagramStory.entry_text,
@@ -135,7 +135,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(musemuGigs.map(musemuGig => ({
-            type: 'musemu_gig', // TODO: Convert to capital case
+            type: 'MUSEMU_GIG',
             unique_id: musemuGig.entry_id,
             data: JSON.stringify({
                 title: musemuGig.entry_text,
@@ -149,7 +149,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(musemuNews.map(musemuNewsItem => ({
-            type: 'musemu_news',
+            type: 'MUSEMU_NEWS',
             unique_id: musemuNewsItem.entry_id,
             data: JSON.stringify({
                 title: musemuNewsItem.entry_text,
@@ -163,7 +163,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(musemuSitemapItems.map(musemuSitemapItem => ({
-            type: 'musemu_sitemap',
+            type: 'MUSEMU_SITEMAP',
             unique_id: musemuSitemapItem.url,
             data: null,
             created_at: musemuSitemapItem.created_at
@@ -175,7 +175,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(redditPosts.map(redditPost => ({
-            type: 'reddit_post',
+            type: 'REDDIT_POST',
             unique_id: `${redditPost.entry_id}`,
             data: JSON.stringify({
                 title: redditPost.entry_text,
@@ -195,7 +195,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(museStoreItems.map(museStoreItem => ({
-            type: 'muse_shop',
+            type: 'MUSEMU_STORE',
             unique_id: museStoreItem.entry_id,
             data: JSON.stringify({
                 title: museStoreItem.entry_text,
@@ -209,7 +209,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(musemuShopSitemapItems.map(musemuShopSitemapItem => ({
-            type: 'musemu_shop_sitemap',
+            type: 'MUSEMU_SHOP_SITEMAP',
             unique_id: musemuShopSitemapItem.url,
             data: null,
             created_at: musemuShopSitemapItem.created_at
@@ -221,7 +221,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(twitterFollowing.map(twitterFollowingItem => ({
-            type: 'twitter_following',
+            type: 'TWITTER_FOLLOWING',
             unique_id: `${twitterFollowingItem.user_id}_${twitterFollowingItem.entry_id}`,
             data: JSON.stringify({
                 content: twitterFollowingItem.entry_text,
@@ -240,7 +240,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(twitterLikes.map(twitterLike => ({
-            type: 'twitter_like',
+            type: 'TWITTER_LIKE',
             unique_id: `${twitterLike.user_id}_${twitterLike.entry_id}`,
             data: JSON.stringify({
                 content: twitterLike.entry_text,
@@ -260,7 +260,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(twitterTweets.map(twitterTweet => ({
-            type: 'twitter_tweet',
+            type: 'TWITTER_TWEET',
             unique_id: `${twitterTweet.user_id}_${twitterTweet.entry_id}`,
             data: JSON.stringify({
                 content: twitterTweet.entry_text,
@@ -280,7 +280,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(youtubePlaylistVideos.map(youtubePlaylistVideo => ({
-            type: 'youtube_playlist_video',
+            type: 'YOUTUBE_PLAYLIST_VIDEO',
             unique_id: `${youtubePlaylistVideo.entry_id}_${youtubePlaylistVideo.video_id}`,
             data: JSON.stringify({
                 title: youtubePlaylistVideo.entry_text,
@@ -295,7 +295,7 @@ export async function up(db: Kysely<any>): Promise<void> {
         .execute()
 
     await insertRecordsInBatches(youtubeUploads.map(youtubeUpload => ({
-            type: 'youtube_upload',
+            type: 'YOUTUBE_UPLOAD',
             unique_id: `${youtubeUpload.user_id}_${youtubeUpload.entry_id}`,
             data: JSON.stringify({
                 title: youtubeUpload.entry_text,
