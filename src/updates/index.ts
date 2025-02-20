@@ -19,6 +19,7 @@ export enum UpdateType {
     MUSEBOOTLEGS_TORRENT = 'MUSEBOOTLEGS_TORRENT',
     DOMAIN_CERTIFICATE = 'DOMAIN_CERTIFICATE',
     MUSEMU_GIG = 'MUSEMU_GIG',
+    MUSEMU_STORE = 'MUSEMU_STORE',
 }
 
 export type UpdateAuthor = {
@@ -115,4 +116,12 @@ export type MuseMuGigsUpdate = BaseUpdate & {
     title: string;
     url: string;
     event_date: Date;
+}
+
+export type MusemuStoreUpdate = BaseUpdate & {
+    type: UpdateType.MUSEMU_STORE;
+    id: string;
+    title: string;
+    url: string;
+    image_url: string;
 }
