@@ -29,9 +29,9 @@ export class Store implements DiscordUpdateTransformer {
                     ],
                     url: update.url,
                     color: 0,
-                    thumbnail: {
+                    thumbnail: update.image_url ? {
                         url: update.image_url
-                    }
+                    } : undefined
                 }
             ]
         }

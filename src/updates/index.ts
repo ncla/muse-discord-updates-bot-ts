@@ -22,6 +22,7 @@ export enum UpdateType {
     MUSEMU_STORE = 'MUSEMU_STORE',
     MUSEMU_US_STORE = 'MUSEMU_US_STORE',
     WARNER_CA_STORE = 'WARNER_CA_STORE',
+    WARNER_AU_STORE = 'WARNER_AU_STORE',
 }
 
 export type UpdateAuthor = {
@@ -142,4 +143,12 @@ export type WarnerCanadaStoreUpdate = BaseUpdate & {
     title: string;
     url: string;
     image_url: string;
+}
+
+export type WarnerAustraliaStoreUpdate = BaseUpdate & {
+    type: UpdateType.WARNER_AU_STORE;
+    id: string;
+    title: string;
+    url: string;
+    image_url: string | null; // One rare store item had no image
 }
