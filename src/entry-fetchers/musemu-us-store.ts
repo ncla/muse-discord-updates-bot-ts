@@ -1,6 +1,6 @@
 import {EntryFetcher} from "@/src/entry-fetchers";
 import * as puppeteer from 'puppeteer';
-import {UpdateType, WarnerCanadaStoreUpdate} from "@/src/updates";
+import {MusemuUsStoreUpdate, UpdateType, WarnerCanadaStoreUpdate} from "@/src/updates";
 import {ensureUrlProtocol} from "@/src/common";
 
 export class MusemuUsStore implements EntryFetcher
@@ -8,7 +8,7 @@ export class MusemuUsStore implements EntryFetcher
     async fetch()
     {
         const browser = await puppeteer.launch({
-            headless: false
+            // headless: false
         });
 
         try {
@@ -53,7 +53,7 @@ export class MusemuUsStore implements EntryFetcher
         }
     }
 
-    private async parseCollectionsPage(page: puppeteer.Page): Promise<WarnerCanadaStoreUpdate[]> {
+    private async parseCollectionsPage(page: puppeteer.Page): Promise<MusemuUsStoreUpdate[]> {
         const productsFromPageContext = await page.evaluate(() => {
             return Array.from(document.querySelectorAll('#product-grid .grid__item')).map(el => ({
                 title: el.querySelector('.card-information__text.h5 a')?.textContent?.trim(),
@@ -62,7 +62,7 @@ export class MusemuUsStore implements EntryFetcher
             }));
         })
 
-        const results: WarnerCanadaStoreUpdate[] = [];
+        const results: MusemuUsStoreUpdate[] = [];
 
         for (const product of productsFromPageContext) {
             if (!product.title || !product.url || !product.image_url) {

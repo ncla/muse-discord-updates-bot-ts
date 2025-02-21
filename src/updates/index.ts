@@ -129,7 +129,7 @@ export type MusemuStoreUpdate = BaseUpdate & {
 }
 
 export type MusemuUsStoreUpdate = BaseUpdate & {
-    type: UpdateType.MUSEMU_STORE;
+    type: UpdateType.MUSEMU_US_STORE;
     id: string;
     title: string;
     url: string;
@@ -137,7 +137,7 @@ export type MusemuUsStoreUpdate = BaseUpdate & {
 }
 
 export type WarnerCanadaStoreUpdate = BaseUpdate & {
-    type: UpdateType.MUSEMU_US_STORE;
+    type: UpdateType.WARNER_CA_STORE;
     id: string;
     title: string;
     url: string;
