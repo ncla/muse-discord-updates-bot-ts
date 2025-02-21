@@ -14,6 +14,7 @@ import {EntryFetcher} from "@/src/entry-fetchers";
 import {MusemuGigs} from "@/src/entry-fetchers/musemu-gigs";
 import {MusemuStore} from "@/src/entry-fetchers/musemu-store";
 import {WarnerMusicCanadaStore} from "@/src/entry-fetchers/warnermusic-ca-store";
+import {MusemuUsStore} from "@/src/entry-fetchers/musemu-us-store";
 
 export class Process {
     public async run(argv: string[]) {
@@ -46,6 +47,7 @@ export class Process {
             ),
             'musemu-gigs': () => new MusemuGigs(),
             'musemu-store': () => new MusemuStore(),
+            'musemu-us-store': () => new MusemuUsStore(),
             'warner-ca-store': () => new WarnerMusicCanadaStore()
         }
 
@@ -75,6 +77,7 @@ export class Process {
             fetchers,
             new UpdatesRepositoryKysely(db),
             new DiscordWebhookExecuteRequestor(discordWebhookId, discordWebhookToken),
+            // TODO: Rate limit is reached probably by a secondary rate limit that is per minute
             new FixedWindowRateLimitedActionableQueueManager(5, 2)
         )
 

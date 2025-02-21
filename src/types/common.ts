@@ -1,4 +1,5 @@
 export enum StoreRegion {
     EU = 'EU',
-    CA = 'CA'
+    CA = 'CA',
+    US = 'US',
 }

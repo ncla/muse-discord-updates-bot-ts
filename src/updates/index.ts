@@ -20,6 +20,7 @@ export enum UpdateType {
     DOMAIN_CERTIFICATE = 'DOMAIN_CERTIFICATE',
     MUSEMU_GIG = 'MUSEMU_GIG',
     MUSEMU_STORE = 'MUSEMU_STORE',
+    MUSEMU_US_STORE = 'MUSEMU_US_STORE',
     WARNER_CA_STORE = 'WARNER_CA_STORE',
 }
 
@@ -127,8 +128,16 @@ export type MusemuStoreUpdate = BaseUpdate & {
     image_url: string;
 }
 
+export type MusemuUsStoreUpdate = BaseUpdate & {
+    type: UpdateType.MUSEMU_STORE;
+    id: string;
+    title: string;
+    url: string;
+    image_url: string;
+}
+
 export type WarnerCanadaStoreUpdate = BaseUpdate & {
-    type: UpdateType.WARNER_CA_STORE;
+    type: UpdateType.MUSEMU_US_STORE;
     id: string;
     title: string;
     url: string;

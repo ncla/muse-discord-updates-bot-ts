@@ -39,6 +39,8 @@ export function getTransformer(
                     return new Store(StoreRegion.EU)
                 case UpdateType.WARNER_CA_STORE:
                     return new Store(StoreRegion.CA)
+                case UpdateType.MUSEMU_US_STORE:
+                    return new Store(StoreRegion.US)
                 default:
                     return new DefaultJsonDiscordTransformer
             }
