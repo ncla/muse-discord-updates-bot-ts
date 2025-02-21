@@ -124,22 +124,10 @@ export async function scrollUntilNoMoreContentLoads(
         await page.evaluate((selector, scrollLogicalPosition) => {
             const element = document.querySelector(selector);
             if (element) {
-
                 element.scrollIntoView({
                     behavior: 'smooth',
                     block: scrollLogicalPosition
                 });
-
-                // const elementRect = element.getBoundingClientRect();
-                // const elementTop = element.getBoundingClientRect().top + window.scrollY;
-                //
-                // // Calculate scroll position where element would appear at bottom of viewport
-                // // Subtract element's height to ensure we can see the whole element
-                // const scrollPosition = elementTop - window.innerHeight + elementRect.height;
-                // window.scrollTo({
-                //     top: scrollPosition,
-                //     behavior: 'smooth'
-                // });
             } else {
                 // If element not found, scroll to bottom as fallback
                 window.scrollTo(0, document.body.scrollHeight);
