@@ -78,17 +78,24 @@ export class Process {
 
         const summary = await feedProcessor.process()
 
-        const summariesWithErrors = summary.fetcherSummaries.filter(fetcherSummary => fetcherSummary.errors.length > 0);
+        const fetcherSummariesWithErrors = summary.fetcherSummaries.filter(fetcherSummary => fetcherSummary.errors.length > 0);
 
-        if (summariesWithErrors.length > 0) {
+        if (fetcherSummariesWithErrors.length > 0) {
             console.info('Fetchers with errors:');
 
-            for (let fetcherSummary of summariesWithErrors) {
+            for (let fetcherSummary of fetcherSummariesWithErrors) {
                 console.info(`Fetcher: ${fetcherSummary.name}`);
                 console.info(`Errors: ${fetcherSummary.errors.length}`);
                 for (let error of fetcherSummary.errors) {
                     console.error(error);
                 }
+            }
+        }
+
+        if (summary.webhookRequestSummary.errors && summary.webhookRequestSummary.errors.length > 0) {
+            console.info('Errors in webhook requests:');
+            for (let error of summary.webhookRequestSummary.errors) {
+                console.error(error);
             }
         }
 
