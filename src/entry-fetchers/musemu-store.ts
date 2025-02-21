@@ -1,6 +1,7 @@
 import {EntryFetcher} from "@/src/entry-fetchers";
 import * as puppeteer from 'puppeteer';
 import {MusemuStoreUpdate, UpdateType} from "@/src/updates";
+import {scrollUntilNoMoreContentLoads} from "@/src/common";
 
 export class MusemuStore implements EntryFetcher
 {
@@ -10,79 +11,27 @@ export class MusemuStore implements EntryFetcher
             // headless: false
         });
 
-        const page = await browser.newPage();
-        
-        await page.goto('https://store.muse.mu/eu/search/?q=', {
-            waitUntil: 'networkidle0'
-        });
+        try {
+            const page = await browser.newPage();
 
-        await this.scrollUntilNoMoreContentLoads(page, '.product-grid__bottom');
+            await page.goto('https://store.muse.mu/eu/search/?q=', {
+                waitUntil: 'networkidle0'
+            });
 
-        const products = await this.parseSearchResults(page);
+            await scrollUntilNoMoreContentLoads(
+                page,
+                '.product-grid__bottom',
+                '.spinner',
+                'center'
+            );
 
-        await browser.close();
-
-        console.log(`Found ${products.length} products`);
-
-        return products;
-    }
-
-    private async scrollUntilNoMoreContentLoads(page: puppeteer.Page, targetSelector: string): Promise<void> {
-        const startTime = Date.now();
-        const MAX_DURATION = 20000;
-
-        while (true) {
-            // Check if we've exceeded the maximum time
-            if (Date.now() - startTime >= MAX_DURATION) {
-                console.log('Reached maximum scroll time limit of 20 seconds');
-                break;
-            }
-
-            // Scroll so the target element just appears at the bottom of viewport
-            await page.evaluate((selector) => {
-                const element = document.querySelector(selector);
-                if (element) {
-                    const elementRect = element.getBoundingClientRect();
-                    const elementTop = element.getBoundingClientRect().top + window.scrollY;
-
-                    // Calculate scroll position where element would appear at bottom of viewport
-                    // Subtract element's height to ensure we can see the whole element
-                    const scrollPosition = elementTop - window.innerHeight + elementRect.height;
-                    window.scrollTo({
-                        top: scrollPosition,
-                        behavior: 'smooth'
-                    });
-                } else {
-                    // If element not found, scroll to bottom as fallback
-                    window.scrollTo(0, document.body.scrollHeight);
-                }
-            }, targetSelector);
-
-            try {
-                await page.waitForSelector('.spinner', {
-                    visible: true,
-                    timeout: 1000
-                });
-
-                await page.waitForSelector('.spinner', {
-                    hidden: true,
-                    timeout: 10000
-                });
-
-            } catch (error) {
-                if (error instanceof puppeteer.TimeoutError) {
-                    console.log('No more content to load');
-                    break;
-                }
-
-                throw error;
-            }
-
-            // Small pause to let any new content render
-            await new Promise(r => setTimeout(r, 500));
+            return await this.parseSearchResults(page);
+        } catch (e) {
+            throw e
+        } finally {
+            await browser.close();
         }
     }
-
 
     private async parseSearchResults(page: puppeteer.Page): Promise<MusemuStoreUpdate[]> {
         const productsFromPageContext = await page.evaluate(() => {

@@ -13,6 +13,7 @@ import {Musebootlegs} from "@/src/entry-fetchers/musebootlegs";
 import {EntryFetcher} from "@/src/entry-fetchers";
 import {MusemuGigs} from "@/src/entry-fetchers/musemu-gigs";
 import {MusemuStore} from "@/src/entry-fetchers/musemu-store";
+import {WarnerMusicCanadaStore} from "@/src/entry-fetchers/warnermusic-ca-store";
 
 export class Process {
     public async run(argv: string[]) {
@@ -44,7 +45,8 @@ export class Process {
                 config.services.musebootlegs.user_agent
             ),
             'musemu-gigs': () => new MusemuGigs(),
-            'musemu-store': () => new MusemuStore()
+            'musemu-store': () => new MusemuStore(),
+            'warner-ca-store': () => new WarnerMusicCanadaStore()
         }
 
         let fetcherIds = this.parseFetchersArgument(argv)

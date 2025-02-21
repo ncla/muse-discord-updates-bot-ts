@@ -1,3 +1,5 @@
+import * as puppeteer from 'puppeteer';
+
 export type PromiseFunction<T> = () => Promise<T>;
 
 export function retryPromise<T>(
@@ -100,4 +102,83 @@ export function exportHighestResolutionThumbnailUrlFromThumbnailResource(thumbna
     }
 
     return thumbnail.url;
+}
+
+export async function scrollUntilNoMoreContentLoads(
+    page: puppeteer.Page,
+    scrollToElementSelector: string,
+    spinnerSelector: string,
+    scrollLogicalPosition: ScrollLogicalPosition
+): Promise<void> {
+    const startTime = Date.now();
+    const MAX_DURATION = 20000;
+
+    while (true) {
+        // Check if we've exceeded the maximum time
+        if (Date.now() - startTime >= MAX_DURATION) {
+            console.log('Reached maximum scroll time limit of 20 seconds');
+            break;
+        }
+
+        // Scroll so the target element just appears at the bottom of viewport
+        await page.evaluate((selector, scrollLogicalPosition) => {
+            const element = document.querySelector(selector);
+            if (element) {
+
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: scrollLogicalPosition
+                });
+
+                // const elementRect = element.getBoundingClientRect();
+                // const elementTop = element.getBoundingClientRect().top + window.scrollY;
+                //
+                // // Calculate scroll position where element would appear at bottom of viewport
+                // // Subtract element's height to ensure we can see the whole element
+                // const scrollPosition = elementTop - window.innerHeight + elementRect.height;
+                // window.scrollTo({
+                //     top: scrollPosition,
+                //     behavior: 'smooth'
+                // });
+            } else {
+                // If element not found, scroll to bottom as fallback
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        }, scrollToElementSelector, scrollLogicalPosition);
+
+        try {
+            await page.waitForSelector(spinnerSelector, {
+                visible: true,
+                timeout: 1000
+            });
+
+            await page.waitForSelector(spinnerSelector, {
+                hidden: true,
+                timeout: 10000
+            });
+
+        } catch (error) {
+            if (error instanceof puppeteer.TimeoutError) {
+                console.log('No more content to load');
+                break;
+            }
+
+            throw error;
+        }
+
+        // Small pause to let any new content render
+        await new Promise(r => setTimeout(r, 500));
+    }
+}
+
+export function ensureUrlProtocol(url: string, defaultProtocol = 'https:'): string {
+    if (url.startsWith('//')) {
+        return `${defaultProtocol}${url}`;
+    }
+
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+        return url;
+    }
+
+    return `${defaultProtocol}//${url}`;
 }
