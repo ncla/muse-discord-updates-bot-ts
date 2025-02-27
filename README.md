@@ -1,9 +1,9 @@
 # Muse Discord Updates Bot
 
-![Statements](https://img.shields.io/badge/statements-53.12%25-red.svg?style=flat)
-![Branches](https://img.shields.io/badge/branches-72.06%25-red.svg?style=flat)
-![Functions](https://img.shields.io/badge/functions-73.43%25-red.svg?style=flat)
-![Lines](https://img.shields.io/badge/lines-53.12%25-red.svg?style=flat)
+![Statements](https://img.shields.io/badge/statements-55.21%25-red.svg?style=flat)
+![Branches](https://img.shields.io/badge/branches-74.01%25-red.svg?style=flat)
+![Functions](https://img.shields.io/badge/functions-75.71%25-red.svg?style=flat)
+![Lines](https://img.shields.io/badge/lines-55.21%25-red.svg?style=flat)
 
 A simple, web-hook based bot that sends updates about any new entries on social media platforms or websites.
 
