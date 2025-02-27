@@ -62,8 +62,6 @@ export class WarnermusicAuStore implements EntryFetcher
             }));
         })
 
-        console.log(productsFromPageContext)
-
         const results: WarnerAustraliaStoreUpdate[] = [];
 
         for (const product of productsFromPageContext) {

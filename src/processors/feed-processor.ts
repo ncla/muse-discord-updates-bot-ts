@@ -4,7 +4,7 @@ import {getTransformer} from "@/src/updates/transformers";
 import {
     WebhookExecuteRequestor
 } from "@/src/webhook-requestor";
-import {FixedWindowRateLimitedActionableQueueManager} from "@/src/action-queue-manager";
+import {DoubleRateLimitedActionableQueueManager} from "@/src/action-queue-manager";
 import {BaseUpdate, WebhookService, WebhookServiceBodyMap, WebhookServiceResponseMap} from "@/src/updates";
 import {PromiseResult} from "@/src/types/promises";
 import {FeedProcessorSummary, FetcherSummary, WebhookRequestSummary} from "../types/feed-processor";
@@ -20,7 +20,7 @@ export class FeedProcessor<
         protected entryFetchers: EntryFetcher[],
         protected updatesRepository: IUpdatesRepository<CreateUpdateRecordType, ReturnableUpdateRecordType>,
         protected webhookExecuteRequestor: WebhookExecuteRequestor<WebhookServiceBodyMap[WS], WebhookServiceResponseMap[WS]>,
-        protected queueActionManager: FixedWindowRateLimitedActionableQueueManager<WebhookServiceResponseMap[WS]>
+        protected queueActionManager: DoubleRateLimitedActionableQueueManager<WebhookServiceResponseMap[WS]>
     ) {
         return this
     }
@@ -110,6 +110,8 @@ export class FeedProcessor<
         )
 
         await Promise.all(requestPromises)
+
+        this.queueActionManager.stopWorker()
 
         return {
             fetcherSummaries,

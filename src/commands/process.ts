@@ -5,7 +5,7 @@ import {DomainCertificates} from "@/src/entry-fetchers/domain-certificates";
 import {UpdatesRepositoryKysely} from "@/src/repositories/updates-repository";
 import {db, InsertableUpdateRecord, SelectableUpdateRecord} from "@/src/database";
 import {DiscordWebhookExecuteRequestor} from "@/src/webhook-requestor";
-import {FixedWindowRateLimitedActionableQueueManager} from "@/src/action-queue-manager";
+import {DoubleRateLimitedActionableQueueManager} from "@/src/action-queue-manager";
 import {YoutubeUploads} from "@/src/entry-fetchers/youtube-uploads";
 import {YoutubePlaylistVideos} from "@/src/entry-fetchers/youtube-playlists";
 import {YoutubePlaylistsKysely} from "@/src/repositories/youtube-playlists-repository";
@@ -79,8 +79,7 @@ export class Process {
             fetchers,
             new UpdatesRepositoryKysely(db),
             new DiscordWebhookExecuteRequestor(discordWebhookId, discordWebhookToken),
-            // TODO: Rate limit is reached probably by a secondary rate limit that is per minute
-            new FixedWindowRateLimitedActionableQueueManager(5, 2)
+            new DoubleRateLimitedActionableQueueManager(5, 2, 30, 60)
         )
 
         const summary = await feedProcessor.process()
@@ -120,6 +119,7 @@ export class Process {
         console.info('Process command webhook request summary:')
         console.info(`Webhook service: ${summary.webhookRequestSummary.webhookService}`)
         console.info(`Responses: ${summary.webhookRequestSummary.responses.length}`)
+        console.info(`Errors: ${summary.webhookRequestSummary.errors.length}`)
     }
 
      private parseFetchersArgument(argv: string[]): string[] {
