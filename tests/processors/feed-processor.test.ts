@@ -287,3 +287,58 @@ test('it sends webhook requests before other entry fetchers have completed', asy
             vi.useRealTimers()
         })
 })
+
+test('feed manager stops the queue worker interval', async () => {
+    vi.useFakeTimers({
+        now: new Date('2025-01-01T00:00:00Z')
+    })
+
+    const db = await createTestDatabase(DB_FILE_IDENTIFIER)
+    const updatesRepository = new UpdatesRepositoryKysely(db)
+    const webhookRequestor = new DiscordWebhookExecuteRequestor('fake', 'fake')
+    const queueActionManager = new DoubleRateLimitedActionableQueueManager<WebhookServiceResponseMap[WebhookService.Discord]>()
+
+    const entryFetcher = new YoutubeUploads(
+        config.services.youtube.uploads_api_key,
+        config.fetchables.youtube
+    )
+
+    entryFetcher.fetch = vi.fn(async () => {
+        return <YoutubeUploadUpdate[]>[
+            createTestYoutubeUploadsEntry(),
+        ]
+    })
+
+    const requestorSendSpy = vi
+        .spyOn(webhookRequestor, 'send')
+        .mockImplementation(async () => {
+            return new Response()
+        })
+
+    const queueManagerStopWorkerSpy = vi
+        .spyOn(queueActionManager, 'stopWorker')
+
+    const feedProcessor = new FeedProcessor<
+        InsertableUpdateRecord,
+        SelectableUpdateRecord,
+        WebhookService.Discord
+    >(
+        WebhookService.Discord,
+        [entryFetcher],
+        updatesRepository,
+        webhookRequestor,
+        queueActionManager
+    )
+
+    expect(async () => {
+        const processResult = await feedProcessor.process()
+
+        expect(processResult).toMatchSnapshot()
+
+        expect(requestorSendSpy).toHaveBeenCalledTimes(1)
+        expect(queueManagerStopWorkerSpy).toHaveBeenCalledTimes(1)
+        expect(queueManagerStopWorkerSpy).toHaveReturnedWith(true)
+    }).not.toThrow()
+
+    vi.useRealTimers()
+})

@@ -1,0 +1,113 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`feed manager stops the queue worker interval 1`] = `
+{
+  "fetcherSummaries": [
+    {
+      "entries": [
+        {
+          "author": {
+            "id": "test",
+            "image_url": "https://google.com/image.jpg",
+            "name": "muse",
+          },
+          "content": "content",
+          "created_at": 2025-01-01T00:00:00.000Z,
+          "id": "test",
+          "image_url": "https://google.com/image.jpg",
+          "parent_id": null,
+          "parent_title": null,
+          "title": "title",
+          "type": "YOUTUBE_UPLOAD",
+          "uniqueId": "test",
+          "url": "https://youtube.com/watch?v=test",
+        },
+      ],
+      "entriesInDatabaseAlready": [],
+      "entriesProcessed": [
+        {
+          "author": {
+            "id": "test",
+            "image_url": "https://google.com/image.jpg",
+            "name": "muse",
+          },
+          "content": "content",
+          "created_at": 2025-01-01T00:00:00.000Z,
+          "id": "test",
+          "image_url": "https://google.com/image.jpg",
+          "parent_id": null,
+          "parent_title": null,
+          "title": "title",
+          "type": "YOUTUBE_UPLOAD",
+          "uniqueId": "test",
+          "url": "https://youtube.com/watch?v=test",
+        },
+      ],
+      "entriesTransformed": [
+        {
+          "content": "<@&700712850603245639> **muse** uploaded a video on YouTube",
+          "embeds": [
+            {
+              "author": {
+                "icon_url": "https://google.com/image.jpg",
+                "name": "muse",
+              },
+              "color": 15158332,
+              "description": "content",
+              "footer": {
+                "text": "Uploaded at 2025-01-01 00:00:00 UTC+0",
+              },
+              "thumbnail": {
+                "url": "https://google.com/image.jpg",
+              },
+              "title": "title",
+              "url": "https://youtube.com/watch?v=test",
+            },
+          ],
+        },
+      ],
+      "errors": [],
+      "name": "YoutubeUploads",
+    },
+  ],
+  "webhookRequestSummary": {
+    "errors": [],
+    "responses": [
+      Response {
+        Symbol(realm): {
+          "settingsObject": {},
+        },
+        Symbol(state): {
+          "aborted": false,
+          "cacheState": "",
+          "headersList": HeadersList {
+            "cookies": null,
+            Symbol(headers map): Map {},
+            Symbol(headers map sorted): null,
+          },
+          "rangeRequested": false,
+          "requestIncludesCredentials": false,
+          "status": 200,
+          "statusText": "",
+          "timingAllowPassed": false,
+          "timingInfo": null,
+          "type": "default",
+          "urlList": [],
+        },
+        Symbol(headers): Headers {
+          Symbol(guard): "response",
+          Symbol(headers list): HeadersList {
+            "cookies": null,
+            Symbol(headers map): Map {},
+            Symbol(headers map sorted): null,
+          },
+          Symbol(realm): {
+            "settingsObject": {},
+          },
+        },
+      },
+    ],
+    "webhookService": 0,
+  },
+}
+`;

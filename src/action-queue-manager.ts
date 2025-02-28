@@ -58,13 +58,13 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
             })
 
             try {
-                await this.attemptToRunFirstActionable()
+                this.startWorkerIfNotRunning()
             } catch (error) {
                 console.error(error)
             }
 
             try {
-                this.startWorkerIfNotRunning()
+                await this.attemptToRunFirstActionable()
             } catch (error) {
                 console.error(error)
             }
@@ -143,9 +143,12 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
     public stopWorker()
     {
         if (this.workerInterval === null) {
-            return
+            return false
         }
 
         clearInterval(this.workerInterval)
+        this.workerInterval = null
+
+        return true
     }
 }
