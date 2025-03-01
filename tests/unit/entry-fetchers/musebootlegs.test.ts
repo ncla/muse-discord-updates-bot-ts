@@ -11,7 +11,7 @@ beforeEach(() => {
 })
 
 test('throws error on missing login credentials', async () => {
-    const config = await import('../../src/config')
+    const config = await import('../../../src/config')
     const testConfig = config.default as IConfig
 
     testConfig.services.musebootlegs.username = undefined
@@ -27,7 +27,7 @@ test('throws error on missing login credentials', async () => {
 })
 
 test('throws error on missing user agent', async () => {
-    const config = await import('../../src/config')
+    const config = await import('../../../src/config')
     const testConfig = config.default as IConfig
 
     testConfig.services.musebootlegs.username = 'test'
@@ -44,7 +44,7 @@ test('throws error on missing user agent', async () => {
 })
 
 test('throws error on failed login', async () => {
-    const config = await import('../../src/config')
+    const config = await import('../../../src/config')
     const testConfig = config.default as IConfig
 
     testConfig.services.musebootlegs.username = 'test'
@@ -52,7 +52,7 @@ test('throws error on failed login', async () => {
     testConfig.services.musebootlegs.user_agent = 'test'
 
     const failedLoginHtmlResponse = await fs.readFile(
-        path.join(__dirname, '../__fixtures__/entry-fetchers/musebootlegs/failed-login-response.html'),
+        path.join(__dirname, '../../__fixtures__/entry-fetchers/musebootlegs/failed-login-response.html'),
         { encoding: 'utf-8' }
     );
 
@@ -84,7 +84,7 @@ test('throws error on failed login', async () => {
 })
 
 test('throws error on failed torrent list request', async () => {
-    const config = await import('../../src/config')
+    const config = await import('../../../src/config')
     const testConfig = config.default as IConfig
 
     testConfig.services.musebootlegs.username = 'test'
@@ -92,7 +92,7 @@ test('throws error on failed torrent list request', async () => {
     testConfig.services.musebootlegs.user_agent = 'test'
 
     const noPermissionErrorBoxHtml = await fs.readFile(
-        path.join(__dirname, '../__fixtures__/entry-fetchers/musebootlegs/no-permission-error-box-response.html'),
+        path.join(__dirname, '../../__fixtures__/entry-fetchers/musebootlegs/no-permission-error-box-response.html'),
         { encoding: 'utf-8' }
     );
 
@@ -145,7 +145,7 @@ test('throws error on failed torrent list request', async () => {
 })
 
 test('torrent list request bad status code throws error', async () => {
-    const config = await import('../../src/config')
+    const config = await import('../../../src/config')
     const testConfig = config.default as IConfig
 
     testConfig.services.musebootlegs.username = 'test'
@@ -201,7 +201,7 @@ test('torrent list request bad status code throws error', async () => {
 })
 
 test('it fetches torrent list', async () => {
-    const config = await import('../../src/config')
+    const config = await import('../../../src/config')
     const testConfig = config.default as IConfig
 
     testConfig.services.musebootlegs.username = 'test'
@@ -209,7 +209,7 @@ test('it fetches torrent list', async () => {
     testConfig.services.musebootlegs.user_agent = 'test'
 
     const torrentListHtml = await fs.readFile(
-        path.join(__dirname, '../__fixtures__/entry-fetchers/musebootlegs/torrent-list-response-good.html'),
+        path.join(__dirname, '../../__fixtures__/entry-fetchers/musebootlegs/torrent-list-response-good.html'),
         { encoding: 'utf-8' }
     );
 
@@ -263,7 +263,7 @@ test('it fetches torrent list', async () => {
 })
 
 test('parses latest torrents', async () => {
-    const config = await import('../../src/config')
+    const config = await import('../../../src/config')
     const testConfig = config.default as IConfig
     const fetcher = new Musebootlegs(
         testConfig.services.musebootlegs.username,
@@ -272,7 +272,7 @@ test('parses latest torrents', async () => {
     )
 
     const html = await fs.readFile(
-        path.join(__dirname, '../__fixtures__/entry-fetchers/musebootlegs/torrent-list-response-good.html'),
+        path.join(__dirname, '../../__fixtures__/entry-fetchers/musebootlegs/torrent-list-response-good.html'),
         { encoding: 'utf-8' }
     );
 

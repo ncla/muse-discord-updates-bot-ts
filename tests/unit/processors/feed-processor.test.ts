@@ -8,7 +8,7 @@ import {DoubleRateLimitedActionableQueueManager} from "@/src/action-queue-manage
 import {YoutubeUploads} from "@/src/entry-fetchers/youtube-uploads";
 import {createTestYoutubeUploadsEntry} from "@/tests/__utils__";
 import {YoutubeUpload as YoutubeUploadsTransformer} from "@/src/updates/transformers/discord/youtube-upload";
-import * as transformerExports from '@/src/updates/transformers/index'
+import * as transformerExports from '@/src/updates/transformers'
 import config from "@/src/config";
 import {InsertableUpdateRecord, SelectableUpdateRecord} from "@/src/database";
 

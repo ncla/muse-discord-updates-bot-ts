@@ -104,12 +104,12 @@ test('fetcher queries and creates playlists for new playlists', async () => {
     )
 
     const playlistsJsonResponse = JSON.parse(await fs.readFile(
-        path.join(__dirname, '../__fixtures__/entry-fetchers/youtube-playlists/muse-channel-playlists.json'),
+        path.join(__dirname, '../../__fixtures__/entry-fetchers/youtube-playlists/muse-channel-playlists.json'),
         { encoding: 'utf-8' }
     ))
 
     const playlistItemsEmptyItems = JSON.parse(await fs.readFile(
-        path.join(__dirname, '../__fixtures__/entry-fetchers/youtube-playlists/playlist-items-empty.json'),
+        path.join(__dirname, '../../__fixtures__/entry-fetchers/youtube-playlists/playlist-items-empty.json'),
         { encoding: 'utf-8' }
     ))
 
@@ -169,12 +169,12 @@ test('fetcher queries and updates playlist video count for existing playlist', a
     )
 
     const playlistsJsonResponse = JSON.parse(await fs.readFile(
-        path.join(__dirname, '../__fixtures__/entry-fetchers/youtube-playlists/muse-channel-playlists-single-item.json'),
+        path.join(__dirname, '../../__fixtures__/entry-fetchers/youtube-playlists/muse-channel-playlists-single-item.json'),
         { encoding: 'utf-8' }
     ))
 
     const playlistItemsEmptyItems = JSON.parse(await fs.readFile(
-        path.join(__dirname, '../__fixtures__/entry-fetchers/youtube-playlists/playlist-items-empty.json'),
+        path.join(__dirname, '../../__fixtures__/entry-fetchers/youtube-playlists/playlist-items-empty.json'),
         { encoding: 'utf-8' }
     ))
 
@@ -239,12 +239,12 @@ test('fetcher queries but does not create or update playlists in database when n
     )
 
     const playlistsJsonResponse = JSON.parse(await fs.readFile(
-        path.join(__dirname, '../__fixtures__/entry-fetchers/youtube-playlists/muse-channel-playlists-two-items.json'),
+        path.join(__dirname, '../../__fixtures__/entry-fetchers/youtube-playlists/muse-channel-playlists-two-items.json'),
         { encoding: 'utf-8' }
     ))
 
     const playlistItemsEmptyItems = JSON.parse(await fs.readFile(
-        path.join(__dirname, '../__fixtures__/entry-fetchers/youtube-playlists/playlist-items-empty.json'),
+        path.join(__dirname, '../../__fixtures__/entry-fetchers/youtube-playlists/playlist-items-empty.json'),
         { encoding: 'utf-8' }
     ))
 
@@ -295,12 +295,12 @@ test('it fetches update entries', async () => {
     )
 
     const playlistsJsonResponse = JSON.parse(await fs.readFile(
-        path.join(__dirname, '../__fixtures__/entry-fetchers/youtube-playlists/muse-channel-playlists-single-item.json'),
+        path.join(__dirname, '../../__fixtures__/entry-fetchers/youtube-playlists/muse-channel-playlists-single-item.json'),
         { encoding: 'utf-8' }
     ))
 
     const playlistItems = JSON.parse(await fs.readFile(
-        path.join(__dirname, '../__fixtures__/entry-fetchers/youtube-playlists/playlist-items-wotp-interstitial.json'),
+        path.join(__dirname, '../../__fixtures__/entry-fetchers/youtube-playlists/playlist-items-wotp-interstitial.json'),
         { encoding: 'utf-8' }
     ))
 
