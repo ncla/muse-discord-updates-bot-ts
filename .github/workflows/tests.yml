@@ -11,7 +11,7 @@ jobs:
       name: CI
     permissions:
       contents: write
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       # this will take the entire vars context configured in the repository > environments
       # setting and convert it to JSON so we can automatically assign all the values to the
