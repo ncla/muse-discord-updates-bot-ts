@@ -1,4 +1,4 @@
-name: Badges
+name: Tests & Coverage Badges
 
 on:
   push:
@@ -38,8 +38,8 @@ jobs:
           "\(.key)=\(.value)"' >> $GITHUB_ENV
       - name: Install dependencies
         run: npm ci
-      - name: Run tests
-        run: npm run ci:test
+      - name: Run all tests
+        run: npm run ci:testall
       - name: Update badges
         run: npm run ci:badges
       - name: Commit changes

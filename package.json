@@ -6,8 +6,9 @@
   "main": "dist/index.js",
   "scripts": {
     "process": "tsx src/commands/process.ts",
-    "test": "vitest --coverage",
-    "ci:test": "vitest run --coverage --coverage.reporter=json-summary --coverage.reportOnFailure=true",
+    "test": "vitest tests/unit tests/e2e --coverage",
+    "ci:testunit": "vitest run tests/unit --coverage --coverage.reporter=json-summary --coverage.reportOnFailure=true",
+    "ci:testall": "vitest run tests/unit tests/e2e --coverage --coverage.reporter=json-summary --coverage.reportOnFailure=true",
     "ci:badges": "npx istanbul-badges-readme --exitCode=1"
   },
   "dependencies": {
