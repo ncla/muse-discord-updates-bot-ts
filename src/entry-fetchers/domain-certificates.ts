@@ -1,6 +1,6 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import {z} from "zod";
-import {BaseUpdate, createBlankUpdate, DomainCertificateUpdate, UpdateType} from "@/src/updates";
+import {createBlankUpdate, DomainCertificateUpdate, UpdateType} from "@/src/updates";
 
 const CertificateSchema = z.object({
     issuer_ca_id: z.number(),
