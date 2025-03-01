@@ -1,8 +1,8 @@
 import {expect, test, vi, beforeEach } from 'vitest'
-import {WarnerMusicCanadaStore} from "@/src/entry-fetchers/warnermusic-ca-store";
+import {MusemuStore} from "@/src/entry-fetchers/musemu-store";
 
 test('it fetches entries', async () => {
-    const fetcher = new WarnerMusicCanadaStore()
+    const fetcher = new MusemuStore()
     const result = await fetcher.fetch()
 
     expect(result.length).toBeGreaterThan(0)

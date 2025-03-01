@@ -36,8 +36,6 @@ export class MusemuGigs implements EntryFetcher
             pageNumber++
         }
 
-        console.log(gigs)
-
         await browser.close()
 
         return gigs

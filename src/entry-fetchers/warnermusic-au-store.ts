@@ -3,7 +3,7 @@ import * as puppeteer from 'puppeteer';
 import {UpdateType, WarnerAustraliaStoreUpdate, WarnerCanadaStoreUpdate} from "@/src/updates";
 import {ensureUrlProtocol} from "@/src/common";
 
-export class WarnermusicAuStore implements EntryFetcher
+export class WarnermusicAustraliaStore implements EntryFetcher
 {
     async fetch()
     {
