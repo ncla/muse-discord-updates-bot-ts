@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v2
         with:
-          node-version: 18
+          node-version: 22
       - name: Set env vars from vars context JSON
         run: |
           # Pipe the JSON string into jq
