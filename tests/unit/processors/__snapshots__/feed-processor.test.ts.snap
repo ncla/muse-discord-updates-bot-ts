@@ -74,9 +74,6 @@ exports[`feed manager stops the queue worker interval 1`] = `
     "errors": [],
     "responses": [
       Response {
-        Symbol(realm): {
-          "settingsObject": {},
-        },
         Symbol(state): {
           "aborted": false,
           "cacheState": "",
@@ -94,17 +91,7 @@ exports[`feed manager stops the queue worker interval 1`] = `
           "type": "default",
           "urlList": [],
         },
-        Symbol(headers): Headers {
-          Symbol(guard): "response",
-          Symbol(headers list): HeadersList {
-            "cookies": null,
-            Symbol(headers map): Map {},
-            Symbol(headers map sorted): null,
-          },
-          Symbol(realm): {
-            "settingsObject": {},
-          },
-        },
+        Symbol(headers): Headers {},
       },
     ],
     "webhookService": 0,
