@@ -145,6 +145,7 @@ export class Process {
                 return argv[i].slice(21);
             }
         }
+
         return undefined;
     }
 
@@ -154,19 +155,22 @@ export class Process {
                 return argv[i].slice(24);
             }
         }
+
         return undefined;
     }
 
     private parseExecutionMode(argv: string[]): FetcherExecutionMode {
         for (let i = 0; i < argv.length; i++) {
             if (argv[i].startsWith('--execution-mode=')) {
-                const mode = argv[i].slice(16).toLowerCase();
+                const mode = argv[i].slice(17).toLowerCase();
+
                 if (mode === 'sequential') {
                     return FetcherExecutionMode.Sequential;
                 }
             }
         }
-        return FetcherExecutionMode.Parallel; // Default to parallel
+
+        return FetcherExecutionMode.Parallel;
     }
 }
 
