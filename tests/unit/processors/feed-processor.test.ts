@@ -22,6 +22,7 @@ afterEach(async () => {
     await clearTestDatabase(DB_FILE_IDENTIFIER)
 })
 
+// Helper function to create a fetcher with a given number
 const createTestFetcher = (
     num: number, 
     delayMs: number, 
@@ -166,7 +167,6 @@ test('it processes fetched entries in a loop without one entry failing entire pr
     const updatesRepository = new UpdatesRepositoryKysely(db)
     const webhookExecuteRequestor = new DiscordWebhookExecuteRequestor('fake', 'fake')
     const queueActionManager = new DoubleRateLimitedActionableQueueManager<WebhookServiceResponseMap[WebhookService.Discord]>()
-
     const entryFetcher = new YoutubeUploads(
         config.services.youtube.uploads_api_key,
         config.fetchables.youtube
@@ -220,7 +220,7 @@ test('it processes fetched entries in a loop without one entry failing entire pr
 
 test('it sends webhook requests already before other entry fetchers have completed (parallel mode)', async () => {
     vi.useFakeTimers()
-    
+
     const db = await createTestDatabase(DB_FILE_IDENTIFIER)
     const updatesRepository = new UpdatesRepositoryKysely(db)
     const webhookExecuteRequestor = new DiscordWebhookExecuteRequestor('fake', 'fake')
@@ -299,9 +299,9 @@ test('it sends webhook requests already before other entry fetchers have complet
     const processPromise = feedProcessor.process()
 
     await vi.advanceTimersByTimeAsync(7000)
-    
+
     await processPromise
-    
+
     queueActionFinishTimestamps = queueActionFinishTimestamps.sort((a, b) => a - b)
 
     console.log(queueActionFinishTimestamps)
@@ -317,22 +317,20 @@ test('it sends webhook requests already before other entry fetchers have complet
 test('it processes fetchers in parallel in parallel mode', async () => {
     vi.useFakeTimers()
 
+    let fetcherExecutionOrder: string[] = []
+
+    const fetcher1 = createTestFetcher(1, 1500, fetcherExecutionOrder)
+    const fetcher2 = createTestFetcher(2, 500, fetcherExecutionOrder)
+    const fetcher3 = createTestFetcher(3, 1000, fetcherExecutionOrder)
+
     const db = await createTestDatabase(DB_FILE_IDENTIFIER)
     const updatesRepository = new UpdatesRepositoryKysely(db)
     const webhookExecuteRequestor = new DiscordWebhookExecuteRequestor('fake', 'fake')
     const queueActionManager = new DoubleRateLimitedActionableQueueManager<WebhookServiceResponseMap[WebhookService.Discord]>()
 
-    const fetcherExecutionOrder: string[] = []
-    
-    // Create three fetchers with different delays
-    const fetcher1 = createTestFetcher(1, 2000, fetcherExecutionOrder)
-    const fetcher2 = createTestFetcher(2, 1000, fetcherExecutionOrder)
-    const fetcher3 = createTestFetcher(3, 1500, fetcherExecutionOrder)
-
     const requestorSpy = vi
         .spyOn(webhookExecuteRequestor, 'send')
         .mockImplementation(async () => {
-            console.log(12)
             return new Response()
         })
 
@@ -345,18 +343,28 @@ test('it processes fetchers in parallel in parallel mode', async () => {
         FetcherExecutionMode.Parallel
     )
 
-    vi.advanceTimersByTimeAsync(2000)
+    const processPromise = feedProcessor.process()
 
-    await feedProcessor.process()
-
-    // In parallel mode, we should have all 3 fetchers starting
+    await vi.advanceTimersByTimeAsync(10)
+    
+    // All fetchers should have started immediately
     const startEvents = fetcherExecutionOrder.filter(event => event.includes('-start'))
-    const endEvents = fetcherExecutionOrder.filter(event => event.includes('-end'))
-
+    let endEvents = fetcherExecutionOrder.filter(event => event.includes('-end'))
     expect(startEvents.length).toBe(3)
-    expect(endEvents.length).toBe(3)
+    expect(endEvents.length).toBe(0)
 
-    // The faster fetchers should finish before the slower ones
+    // Now advance time to let all fetchers complete
+    await vi.advanceTimersByTimeAsync(1500)
+    
+    // Complete the process
+    await processPromise
+    
+    // Check that all fetchers have completed
+    endEvents = fetcherExecutionOrder.filter(event => event.includes('-end'))
+    expect(endEvents.length).toBe(3)
+    
+    // Verify the expected execution order
+    expect(fetcherExecutionOrder.indexOf('fetcher1-end')).toBeGreaterThan(fetcherExecutionOrder.indexOf('fetcher2-end'))
     expect(fetcherExecutionOrder.indexOf('fetcher2-end')).toBeLessThan(fetcherExecutionOrder.indexOf('fetcher3-end'))
     expect(fetcherExecutionOrder.indexOf('fetcher3-end')).toBeLessThan(fetcherExecutionOrder.indexOf('fetcher1-end'))
 
