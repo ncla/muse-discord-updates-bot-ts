@@ -21,8 +21,8 @@ export class Process {
     public async run(argv: string[]) {
         console.log('Running process command with args:', argv);
 
-        const discordWebhookId = config.webhooks.discord.id;
-        const discordWebhookToken = config.webhooks.discord.token;
+        let discordWebhookId = this.parseDiscordWebhookId(argv) || config.webhooks.discord.id;
+        let discordWebhookToken = this.parseDiscordWebhookToken(argv) || config.webhooks.discord.token;
 
         if (discordWebhookId === undefined || discordWebhookToken === undefined) {
             throw new Error('Discord webhook ID or token is not set');
@@ -133,6 +133,24 @@ export class Process {
         }
 
         return fetchersArray;
+    }
+
+    private parseDiscordWebhookId(argv: string[]): string | undefined {
+        for (let i = 0; i < argv.length; i++) {
+            if (argv[i].startsWith('--discord-webhook-id=')) {
+                return argv[i].slice(21);
+            }
+        }
+        return undefined;
+    }
+
+    private parseDiscordWebhookToken(argv: string[]): string | undefined {
+        for (let i = 0; i < argv.length; i++) {
+            if (argv[i].startsWith('--discord-webhook-token=')) {
+                return argv[i].slice(24);
+            }
+        }
+        return undefined;
     }
 }
 
