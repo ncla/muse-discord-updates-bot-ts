@@ -1,5 +1,5 @@
 import config from "@/src/config";
-import {FeedProcessor} from "@/src/processors/feed-processor";
+import {FeedProcessor, FetcherExecutionMode} from "@/src/processors/feed-processor";
 import {WebhookService, WebhookServiceResponseMap} from "@/src/updates";
 import {DomainCertificates} from "@/src/entry-fetchers/domain-certificates";
 import {UpdatesRepositoryKysely} from "@/src/repositories/updates-repository";
@@ -23,10 +23,13 @@ export class Process {
 
         let discordWebhookId = this.parseDiscordWebhookId(argv) || config.webhooks.discord.id;
         let discordWebhookToken = this.parseDiscordWebhookToken(argv) || config.webhooks.discord.token;
+        let executionMode = this.parseExecutionMode(argv);
 
         if (discordWebhookId === undefined || discordWebhookToken === undefined) {
             throw new Error('Discord webhook ID or token is not set');
         }
+
+        console.info(`Using execution mode: ${executionMode}`);
 
         type FetcherFunction = () => EntryFetcher;
 
@@ -79,7 +82,8 @@ export class Process {
             fetchers,
             new UpdatesRepositoryKysely(db),
             new DiscordWebhookExecuteRequestor(discordWebhookId, discordWebhookToken),
-            new DoubleRateLimitedActionableQueueManager(5, 2, 30, 60)
+            new DoubleRateLimitedActionableQueueManager(5, 2, 30, 60),
+            executionMode
         )
 
         const summary = await feedProcessor.process()
@@ -151,6 +155,18 @@ export class Process {
             }
         }
         return undefined;
+    }
+
+    private parseExecutionMode(argv: string[]): FetcherExecutionMode {
+        for (let i = 0; i < argv.length; i++) {
+            if (argv[i].startsWith('--execution-mode=')) {
+                const mode = argv[i].slice(16).toLowerCase();
+                if (mode === 'sequential') {
+                    return FetcherExecutionMode.Sequential;
+                }
+            }
+        }
+        return FetcherExecutionMode.Parallel; // Default to parallel
     }
 }
 

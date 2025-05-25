@@ -1,5 +1,5 @@
 import {afterEach, beforeEach, expect, test, vi} from 'vitest'
-import {FeedProcessor} from "@/src/processors/feed-processor";
+import {FeedProcessor, FetcherExecutionMode} from "@/src/processors/feed-processor";
 import {UpdateType, WebhookService, WebhookServiceResponseMap, YoutubeUploadUpdate} from "@/src/updates";
 import {UpdatesRepositoryKysely} from "@/src/repositories/updates-repository";
 import {clearTestDatabase, createTestDatabase} from "@/tests/__utils__/database";
@@ -21,6 +21,28 @@ beforeEach(async () => {
 afterEach(async () => {
     await clearTestDatabase(DB_FILE_IDENTIFIER)
 })
+
+const createTestFetcher = (
+    num: number, 
+    delayMs: number, 
+    fetcherExecutionOrder: string[]
+): YoutubeUploads => {
+    const fetcher = new YoutubeUploads(
+        config.services.youtube.uploads_api_key,
+        config.fetchables.youtube
+    )
+
+    fetcher.fetch = vi.fn(async (): Promise<YoutubeUploadUpdate[]> => {
+        fetcherExecutionOrder.push(`fetcher${num}-start`)
+        await new Promise(resolve => setTimeout(resolve, delayMs)) // Simulate delay
+        fetcherExecutionOrder.push(`fetcher${num}-end`)
+        let entry = createTestYoutubeUploadsEntry()
+        entry.uniqueId = `fetcher${num}-entry`
+        return [entry]
+    })
+
+    return fetcher
+}
 
 test('it processes with one of the fetchers throwing error', async () => {
     const db = await createTestDatabase(DB_FILE_IDENTIFIER)
@@ -62,7 +84,8 @@ test('it processes with one of the fetchers throwing error', async () => {
         [entryFetcherGood, entryFetcherFailing],
         updatesRepository,
         webhookRequestor,
-        queueActionManager
+        queueActionManager,
+        FetcherExecutionMode.Parallel
     )
 
     expect(async () => {
@@ -120,7 +143,8 @@ test('insert query is not run when entry already exists', async () => {
         [entryFetcherGood],
         updatesRepository,
         webhookExecuteRequestor,
-        queueActionManager
+        queueActionManager,
+        FetcherExecutionMode.Parallel
     )
 
     await feedProcessor.process()
@@ -142,6 +166,7 @@ test('it processes fetched entries in a loop without one entry failing entire pr
     const updatesRepository = new UpdatesRepositoryKysely(db)
     const webhookExecuteRequestor = new DiscordWebhookExecuteRequestor('fake', 'fake')
     const queueActionManager = new DoubleRateLimitedActionableQueueManager<WebhookServiceResponseMap[WebhookService.Discord]>()
+
     const entryFetcher = new YoutubeUploads(
         config.services.youtube.uploads_api_key,
         config.fetchables.youtube
@@ -184,7 +209,8 @@ test('it processes fetched entries in a loop without one entry failing entire pr
         [entryFetcher],
         updatesRepository,
         webhookExecuteRequestor,
-        queueActionManager
+        queueActionManager,
+        FetcherExecutionMode.Parallel
     )
 
     await feedProcessor.process()
@@ -192,7 +218,9 @@ test('it processes fetched entries in a loop without one entry failing entire pr
     expect(requestorSpy).toHaveBeenCalledTimes(4)
 })
 
-test('it sends webhook requests before other entry fetchers have completed', async () => {
+test('it sends webhook requests already before other entry fetchers have completed (parallel mode)', async () => {
+    vi.useFakeTimers()
+    
     const db = await createTestDatabase(DB_FILE_IDENTIFIER)
     const updatesRepository = new UpdatesRepositoryKysely(db)
     const webhookExecuteRequestor = new DiscordWebhookExecuteRequestor('fake', 'fake')
@@ -250,42 +278,140 @@ test('it sends webhook requests before other entry fetchers have completed', asy
 
     const originalQueue = queueActionManager.queue
 
-    const queueSpy  = vi
+    const queueSpy = vi
         .spyOn(queueActionManager, 'queue')
         .mockImplementation(async (...args) => {
             return originalQueue.apply(queueActionManager, args).then(result => {
-                queueActionFinishTimestamps.push(+Date.now())
+                queueActionFinishTimestamps.push(+new Date())
                 return result
             });
         })
-
 
     const feedProcessor = new FeedProcessor(
         WebhookService.Discord,
         [...entryFetchersSlow, entryFetcherFast],
         updatesRepository,
         webhookExecuteRequestor,
-        queueActionManager
+        queueActionManager,
+        FetcherExecutionMode.Parallel
     )
 
+    const processPromise = feedProcessor.process()
+
+    await vi.advanceTimersByTimeAsync(7000)
+    
+    await processPromise
+    
+    queueActionFinishTimestamps = queueActionFinishTimestamps.sort((a, b) => a - b)
+
+    console.log(queueActionFinishTimestamps)
+
+    expect(queueActionFinishTimestamps.length).toBe(11)
+    expect(queueActionFinishTimestamps[1] - queueActionFinishTimestamps[0]).toBeGreaterThan(4900)
+    expect(requestorSpy).toHaveBeenCalledTimes(11)
+    expect(queueSpy).toHaveBeenCalledTimes(11)
+    
+    vi.useRealTimers()
+})
+
+test('it processes fetchers in parallel in parallel mode', async () => {
     vi.useFakeTimers()
-    vi.advanceTimersByTimeAsync(9000)
 
-    return feedProcessor
-        .process()
-        .then(() => {
-            queueActionFinishTimestamps = queueActionFinishTimestamps.sort()
+    const db = await createTestDatabase(DB_FILE_IDENTIFIER)
+    const updatesRepository = new UpdatesRepositoryKysely(db)
+    const webhookExecuteRequestor = new DiscordWebhookExecuteRequestor('fake', 'fake')
+    const queueActionManager = new DoubleRateLimitedActionableQueueManager<WebhookServiceResponseMap[WebhookService.Discord]>()
 
-            expect(queueActionFinishTimestamps[1] - queueActionFinishTimestamps[0]).toBeGreaterThan(4900)
-            expect(requestorSpy).toHaveBeenCalledTimes(11)
-            expect(queueSpy).toHaveBeenCalledTimes(11)
+    const fetcherExecutionOrder: string[] = []
+    
+    // Create three fetchers with different delays
+    const fetcher1 = createTestFetcher(1, 2000, fetcherExecutionOrder)
+    const fetcher2 = createTestFetcher(2, 1000, fetcherExecutionOrder)
+    const fetcher3 = createTestFetcher(3, 1500, fetcherExecutionOrder)
+
+    const requestorSpy = vi
+        .spyOn(webhookExecuteRequestor, 'send')
+        .mockImplementation(async () => {
+            console.log(12)
+            return new Response()
         })
-        .catch((error) => {
-            console.error(error)
+
+    const feedProcessor = new FeedProcessor(
+        WebhookService.Discord,
+        [fetcher1, fetcher2, fetcher3],
+        updatesRepository,
+        webhookExecuteRequestor,
+        queueActionManager,
+        FetcherExecutionMode.Parallel
+    )
+
+    vi.advanceTimersByTimeAsync(2000)
+
+    await feedProcessor.process()
+
+    // In parallel mode, we should have all 3 fetchers starting
+    const startEvents = fetcherExecutionOrder.filter(event => event.includes('-start'))
+    const endEvents = fetcherExecutionOrder.filter(event => event.includes('-end'))
+
+    expect(startEvents.length).toBe(3)
+    expect(endEvents.length).toBe(3)
+
+    // The faster fetchers should finish before the slower ones
+    expect(fetcherExecutionOrder.indexOf('fetcher2-end')).toBeLessThan(fetcherExecutionOrder.indexOf('fetcher3-end'))
+    expect(fetcherExecutionOrder.indexOf('fetcher3-end')).toBeLessThan(fetcherExecutionOrder.indexOf('fetcher1-end'))
+
+    expect(requestorSpy).toHaveBeenCalledTimes(3)
+
+    vi.useRealTimers()
+})
+
+test('it processes fetchers sequentially in sequential mode', async () => {
+    vi.useFakeTimers()
+
+    const db = await createTestDatabase(DB_FILE_IDENTIFIER)
+    const updatesRepository = new UpdatesRepositoryKysely(db)
+    const webhookExecuteRequestor = new DiscordWebhookExecuteRequestor('fake', 'fake')
+    const queueActionManager = new DoubleRateLimitedActionableQueueManager<WebhookServiceResponseMap[WebhookService.Discord]>()
+
+    // Track the execution order of fetchers
+    const fetcherExecutionOrder: string[] = []
+
+    // Create three fetchers with different delays
+    const fetcher1 = createTestFetcher(1, 2000, fetcherExecutionOrder)
+    const fetcher2 = createTestFetcher(2, 1000, fetcherExecutionOrder)
+    const fetcher3 = createTestFetcher(3, 1500, fetcherExecutionOrder)
+
+    const requestorSpy = vi
+        .spyOn(webhookExecuteRequestor, 'send')
+        .mockImplementation(async () => {
+            return new Response()
         })
-        .finally(() => {
-            vi.useRealTimers()
-        })
+
+    const feedProcessor = new FeedProcessor(
+        WebhookService.Discord,
+        [fetcher1, fetcher2, fetcher3],
+        updatesRepository,
+        webhookExecuteRequestor,
+        queueActionManager,
+        FetcherExecutionMode.Sequential
+    )
+
+    vi.advanceTimersByTimeAsync(5500)
+    await feedProcessor.process()
+
+    // In sequential mode, each fetcher should complete before the next one starts
+    expect(fetcherExecutionOrder).toEqual([
+        'fetcher1-start',
+        'fetcher1-end',
+        'fetcher2-start',
+        'fetcher2-end',
+        'fetcher3-start',
+        'fetcher3-end'
+    ])
+
+    expect(requestorSpy).toHaveBeenCalledTimes(3)
+
+    vi.useRealTimers()
 })
 
 test('feed manager stops the queue worker interval', async () => {
@@ -327,7 +453,8 @@ test('feed manager stops the queue worker interval', async () => {
         [entryFetcher],
         updatesRepository,
         webhookRequestor,
-        queueActionManager
+        queueActionManager,
+        FetcherExecutionMode.Parallel
     )
 
     expect(async () => {

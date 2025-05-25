@@ -9,6 +9,11 @@ import {BaseUpdate, WebhookService, WebhookServiceBodyMap, WebhookServiceRespons
 import {PromiseResult} from "@/src/types/promises";
 import {FeedProcessorSummary, FetcherSummary, WebhookRequestSummary} from "../types/feed-processor";
 
+export enum FetcherExecutionMode {
+    Parallel = 'parallel',
+    Sequential = 'sequential'
+}
+
 export class FeedProcessor<
     CreateUpdateRecordType,
     ReturnableUpdateRecordType,
@@ -20,7 +25,8 @@ export class FeedProcessor<
         protected entryFetchers: EntryFetcher[],
         protected updatesRepository: IUpdatesRepository<CreateUpdateRecordType, ReturnableUpdateRecordType>,
         protected webhookExecuteRequestor: WebhookExecuteRequestor<WebhookServiceBodyMap[WS], WebhookServiceResponseMap[WS]>,
-        protected queueActionManager: DoubleRateLimitedActionableQueueManager<WebhookServiceResponseMap[WS]>
+        protected queueActionManager: DoubleRateLimitedActionableQueueManager<WebhookServiceResponseMap[WS]>,
+        protected executionMode: FetcherExecutionMode = FetcherExecutionMode.Parallel
     ) {
         return this
     }
@@ -28,6 +34,7 @@ export class FeedProcessor<
     async process(): Promise<FeedProcessorSummary<WebhookServiceBodyMap[WS], WebhookServiceResponseMap[WS]>>
     {
         console.info('Running feed fetchers..')
+        console.info(`Execution mode: ${this.executionMode}`)
 
         let requestPromises: Promise<PromiseResult<WebhookServiceResponseMap[WS]>>[] = []
 
@@ -48,66 +55,23 @@ export class FeedProcessor<
             errors: []
         }
 
-        // TODO: This is tough to read. Could somehow make it easier for human eyes to parse.
-        await Promise.allSettled(
-            this.entryFetchers.map(async (fetcher, fetcherIndex) => {
-                try {
-                    const updates = await fetcher.fetch()
-
-                    console.log(`Fetched ${updates.length} updates from ${fetcher.constructor.name}`)
-
-                    fetcherSummaries[fetcherIndex].entries = updates
-
-                    return Promise.allSettled(
-                        updates.map(async update => {
-                            try {
-                                const transformedEntry = await this.processUpdateEntry(update)
-
-                                if (transformedEntry === undefined) {
-                                    fetcherSummaries[fetcherIndex].entriesInDatabaseAlready.push(update)
-                                    return
-                                }
-
-                                fetcherSummaries[fetcherIndex].entriesProcessed.push(update)
-                                fetcherSummaries[fetcherIndex].entriesTransformed.push(transformedEntry)
-
-                                requestPromises.push(
-                                    this.queueActionManager.queue(
-                                        () => this.webhookExecuteRequestor.send(transformedEntry)
-                                    ).then(result => {
-                                        if (result.status === 'rejected') {
-                                            webhookRequestSummary.errors.push(result.reason)
-                                        } else if (result.status === 'fulfilled') {
-                                            webhookRequestSummary.responses.push(result.value)
-                                        }
-
-                                        return result
-                                    })
-                                )
-
-                                return
-                            } catch (error) {
-                                // To make TypeScript happy
-                                if (error instanceof Error) {
-                                    fetcherSummaries[fetcherIndex].errors.push(error)
-                                } else {
-                                    fetcherSummaries[fetcherIndex].errors.push(new Error('Unknown error occurred'))
-                                }
-                            }
-                        })
-                    )
-                } catch (error) {
-                    // To make TypeScript happy
-                    if (error instanceof Error) {
-                        fetcherSummaries[fetcherIndex].errors.push(error)
-                    } else {
-                        fetcherSummaries[fetcherIndex].errors.push(new Error('Unknown error occurred'))
-                    }
-
-                    return
-                }
-            })
-        )
+        if (this.executionMode === FetcherExecutionMode.Parallel) {
+            await Promise.allSettled(
+                this.entryFetchers.map((fetcher, fetcherIndex) => 
+                    this.processFetcher(fetcher, fetcherIndex, fetcherSummaries, webhookRequestSummary, requestPromises)
+                )
+            )
+        } else {
+            for (let fetcherIndex = 0; fetcherIndex < this.entryFetchers.length; fetcherIndex++) {
+                await this.processFetcher(
+                    this.entryFetchers[fetcherIndex], 
+                    fetcherIndex, 
+                    fetcherSummaries, 
+                    webhookRequestSummary, 
+                    requestPromises
+                )
+            }
+        }
 
         await Promise.all(requestPromises)
 
@@ -116,6 +80,68 @@ export class FeedProcessor<
         return {
             fetcherSummaries,
             webhookRequestSummary
+        }
+    }
+
+    private async processFetcher(
+        fetcher: EntryFetcher,
+        fetcherIndex: number,
+        fetcherSummaries: FetcherSummary<WebhookServiceBodyMap[WS]>[],
+        webhookRequestSummary: WebhookRequestSummary<WebhookServiceResponseMap[WS]>,
+        requestPromises: Promise<PromiseResult<WebhookServiceResponseMap[WS]>>[]
+    ): Promise<void> {
+        try {
+            const updates = await fetcher.fetch()
+
+            console.log(`Fetched ${updates.length} updates from ${fetcher.constructor.name}`)
+
+            fetcherSummaries[fetcherIndex].entries = updates
+
+            await Promise.allSettled(
+                updates.map(async update => {
+                    try {
+                        const transformedEntry = await this.processUpdateEntry(update)
+
+                        if (transformedEntry === undefined) {
+                            fetcherSummaries[fetcherIndex].entriesInDatabaseAlready.push(update)
+                            return
+                        }
+
+                        fetcherSummaries[fetcherIndex].entriesProcessed.push(update)
+                        fetcherSummaries[fetcherIndex].entriesTransformed.push(transformedEntry)
+
+                        requestPromises.push(
+                            this.queueActionManager.queue(
+                                () => this.webhookExecuteRequestor.send(transformedEntry)
+                            ).then(result => {
+                                if (result.status === 'rejected') {
+                                    webhookRequestSummary.errors.push(result.reason)
+                                } else if (result.status === 'fulfilled') {
+                                    webhookRequestSummary.responses.push(result.value)
+                                }
+
+                                return result
+                            })
+                        )
+
+                        return
+                    } catch (error) {
+                        // To make TypeScript happy
+                        if (error instanceof Error) {
+                            fetcherSummaries[fetcherIndex].errors.push(error)
+                        } else {
+                            fetcherSummaries[fetcherIndex].errors.push(new Error('Unknown error occurred'))
+                        }
+                    }
+                })
+            )
+        } catch (error) {
+            // To make TypeScript happy
+            if (error instanceof Error) {
+                fetcherSummaries[fetcherIndex].errors.push(error)
+            } else {
+                fetcherSummaries[fetcherIndex].errors.push(new Error('Unknown error occurred'))
+            }
         }
     }
 
