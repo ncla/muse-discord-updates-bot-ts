@@ -46,6 +46,7 @@ export interface IConfig {
             domain_certificates: string | undefined,
             gigs: string | undefined,
             store: string | undefined,
+            musewiki: string | undefined,
         }
     }
 }
@@ -94,6 +95,7 @@ const config: IConfig = {
             domain_certificates: process.env.DISCORD_ROLE_ID_DOMAIN_CERTIFICATES,
             gigs: process.env.DISCORD_ROLE_ID_GIGS,
             store: process.env.DISCORD_ROLE_ID_STORE,
+            musewiki: process.env.DISCORD_ROLE_ID_MUSEWIKI,
         }
     }
 };

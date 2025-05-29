@@ -16,6 +16,7 @@ import {MusemuStore} from "@/src/entry-fetchers/musemu-store";
 import {WarnerMusicCanadaStore} from "@/src/entry-fetchers/warnermusic-ca-store";
 import {MusemuUsStore} from "@/src/entry-fetchers/musemu-us-store";
 import {WarnermusicAustraliaStore} from "@/src/entry-fetchers/warnermusic-au-store";
+import {MuseWikiChanges} from "@/src/entry-fetchers/musewiki-changes";
 
 export class Process {
     public async run(argv: string[]) {
@@ -53,7 +54,8 @@ export class Process {
             'musemu-store': () => new MusemuStore(),
             'musemu-us-store': () => new MusemuUsStore(),
             'warner-ca-store': () => new WarnerMusicCanadaStore(),
-            'warner-au-store': () => new WarnermusicAustraliaStore()
+            'warner-au-store': () => new WarnermusicAustraliaStore(),
+            'musewiki': () => new MuseWikiChanges()
         }
 
         let fetcherIds = this.parseFetchersArgument(argv)

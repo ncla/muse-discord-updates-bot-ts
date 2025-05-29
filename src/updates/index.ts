@@ -23,6 +23,7 @@ export enum UpdateType {
     MUSEMU_US_STORE = 'MUSEMU_US_STORE',
     WARNER_CA_STORE = 'WARNER_CA_STORE',
     WARNER_AU_STORE = 'WARNER_AU_STORE',
+    MUSEWIKI_CHANGE = 'MUSEWIKI_CHANGE',
 }
 
 export type UpdateAuthor = {
@@ -151,4 +152,17 @@ export type WarnerAustraliaStoreUpdate = BaseUpdate & {
     title: string;
     url: string;
     image_url: string | null; // One rare store item had no image
+}
+
+export type MuseWikiChangeUpdate = BaseUpdate & {
+    type: UpdateType.MUSEWIKI_CHANGE;
+    title: string;
+    change_type: 'edit' | 'new' | 'log';
+    user: string;
+    comment: string | null;
+    pageid: number;
+    old_revid?: number;
+    oldlen?: number;
+    newlen?: number;
+    created_at: Date;
 }
