@@ -24,6 +24,7 @@ export enum UpdateType {
     WARNER_CA_STORE = 'WARNER_CA_STORE',
     WARNER_AU_STORE = 'WARNER_AU_STORE',
     MUSEWIKI_CHANGE = 'MUSEWIKI_CHANGE',
+    FACEBOOK_AD = 'FACEBOOK_AD',
 }
 
 export type UpdateAuthor = {
@@ -165,4 +166,8 @@ export type MuseWikiChangeUpdate = BaseUpdate & {
     oldlen?: number;
     newlen?: number;
     created_at: Date;
+}
+
+export type FacebookAdUpdate = BaseUpdate & {
+    type: UpdateType.FACEBOOK_AD;
 }

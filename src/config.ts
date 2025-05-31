@@ -25,6 +25,9 @@ export interface IConfig {
         youtube: {
             uploads_api_key: string | undefined,
             playlists_api_key: string | undefined,
+        },
+        facebook: {
+            ad_library_page_id: string | undefined,
         }
     }
     fetchables: {
@@ -52,6 +55,7 @@ export interface IConfig {
             gigs: string | undefined,
             store: string | undefined,
             musewiki: string | undefined,
+            facebook_ads: string | undefined,
         }
     }
 }
@@ -77,6 +81,9 @@ const config: IConfig = {
         youtube: {
             uploads_api_key: process.env.YOUTUBE_UPLOADS_API_KEY,
             playlists_api_key: process.env.YOUTUBE_PLAYLISTS_API_KEY,
+        },
+        facebook: {
+            ad_library_page_id: process.env.FACEBOOK_AD_LIBRARY_PAGE_ID,
         }
     },
     fetchables: {
@@ -106,6 +113,7 @@ const config: IConfig = {
             gigs: process.env.DISCORD_ROLE_ID_GIGS,
             store: process.env.DISCORD_ROLE_ID_STORE,
             musewiki: process.env.DISCORD_ROLE_ID_MUSEWIKI,
+            facebook_ads: process.env.DISCORD_ROLE_ID_FACEBOOK_ADS,
         }
     }
 };

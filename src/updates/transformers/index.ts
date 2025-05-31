@@ -8,6 +8,7 @@ import {DomainCertificate} from "@/src/updates/transformers/discord/domain-certi
 import {MusemuGig} from "@/src/updates/transformers/discord/musemu-gig";
 import {Store} from "@/src/updates/transformers/discord/store";
 import {MuseWikiChange} from "@/src/updates/transformers/discord/musewiki-change";
+import {FacebookAd} from "@/src/updates/transformers/discord/facebook-ad";
 import {StoreRegion} from "@/src/types/common";
 
 export interface UpdateTransformer<BodyType> {
@@ -46,6 +47,8 @@ export function getTransformer(
                     return new Store(StoreRegion.AU)
                 case UpdateType.MUSEWIKI_CHANGE:
                     return new MuseWikiChange()
+                case UpdateType.FACEBOOK_AD:
+                    return new FacebookAd()
                 default:
                     return new DefaultJsonDiscordTransformer
             }

@@ -116,7 +116,7 @@ export function exportHighestResolutionThumbnailUrlFromThumbnailResource(thumbna
 
 export async function scrollUntilNoMoreContentLoads(
     page: puppeteer.Page,
-    scrollToElementSelector: string,
+    scrollToElementSelector: string | null,
     spinnerSelector: string,
     scrollLogicalPosition: ScrollLogicalPosition
 ): Promise<void> {
@@ -130,16 +130,21 @@ export async function scrollUntilNoMoreContentLoads(
             break;
         }
 
-        // Scroll so the target element just appears at the bottom of viewport
+        // Scroll to element or bottom of page if selector is null
         await page.evaluate((selector, scrollLogicalPosition) => {
-            const element = document.querySelector(selector);
-            if (element) {
-                element.scrollIntoView({
-                    behavior: 'smooth',
-                    block: scrollLogicalPosition
-                });
+            if (selector) {
+                const element = document.querySelector(selector);
+                if (element) {
+                    element.scrollIntoView({
+                        behavior: 'smooth',
+                        block: scrollLogicalPosition
+                    });
+                } else {
+                    // If element not found, scroll to bottom as fallback
+                    window.scrollTo(0, document.body.scrollHeight);
+                }
             } else {
-                // If element not found, scroll to bottom as fallback
+                // If selector is null, scroll to bottom
                 window.scrollTo(0, document.body.scrollHeight);
             }
         }, scrollToElementSelector, scrollLogicalPosition);
