@@ -58,7 +58,7 @@ export class Process {
             'warner-ca-store': () => new WarnerMusicCanadaStore(),
             'warner-au-store': () => new WarnermusicAustraliaStore(),
             'musewiki': () => new MuseWikiChanges(),
-            'facebook-ad': () => new FacebookAdLibrary(config.services.facebook.ad_library_page_id)
+            'facebook-ads': () => new FacebookAdLibrary(config.services.facebook.ad_library_page_id)
         }
 
         let fetcherIds = this.parseFetchersArgument(argv)
