@@ -7,6 +7,11 @@ dotenv.config()
 export interface IConfig {
     app: {
         debug: boolean,
+        errorReporting: {
+            sentry: {
+                dsn: string | undefined,
+            }
+        }
     }
     services: {
         crtsh: {
@@ -54,6 +59,11 @@ export interface IConfig {
 const config: IConfig = {
     app: {
         debug: process.env.APP_DEBUG === 'true',
+        errorReporting: {
+            sentry: {
+                dsn: process.env.SENTRY_DSN,
+            }
+        }
     },
     services: {
         crtsh: {

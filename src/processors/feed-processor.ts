@@ -8,6 +8,7 @@ import {DoubleRateLimitedActionableQueueManager} from "@/src/action-queue-manage
 import {BaseUpdate, WebhookService, WebhookServiceBodyMap, WebhookServiceResponseMap} from "@/src/updates";
 import {PromiseResult} from "@/src/types/promises";
 import {FeedProcessorSummary, FetcherSummary, WebhookRequestSummary} from "../types/feed-processor";
+import * as Sentry from "@sentry/node";
 
 export enum FetcherExecutionMode {
     Parallel = 'parallel',
@@ -116,6 +117,8 @@ export class FeedProcessor<
                             ).then(result => {
                                 if (result.status === 'rejected') {
                                     webhookRequestSummary.errors.push(result.reason)
+                                    // Report webhook request failures to Sentry
+                                    Sentry.captureException(result.reason);
                                 } else if (result.status === 'fulfilled') {
                                     webhookRequestSummary.responses.push(result.value)
                                 }
@@ -129,8 +132,11 @@ export class FeedProcessor<
                         // To make TypeScript happy
                         if (error instanceof Error) {
                             fetcherSummaries[fetcherIndex].errors.push(error)
+                            Sentry.captureException(error);
                         } else {
-                            fetcherSummaries[fetcherIndex].errors.push(new Error('Unknown error occurred'))
+                            const unknownError = new Error('Unknown error occurred');
+                            fetcherSummaries[fetcherIndex].errors.push(unknownError)
+                            Sentry.captureException(unknownError);
                         }
                     }
                 })
@@ -139,8 +145,11 @@ export class FeedProcessor<
             // To make TypeScript happy
             if (error instanceof Error) {
                 fetcherSummaries[fetcherIndex].errors.push(error)
+                Sentry.captureException(error);
             } else {
-                fetcherSummaries[fetcherIndex].errors.push(new Error('Unknown error occurred'))
+                const unknownError = new Error('Unknown error occurred');
+                fetcherSummaries[fetcherIndex].errors.push(unknownError)
+                Sentry.captureException(unknownError);
             }
         }
     }

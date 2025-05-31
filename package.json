@@ -5,13 +5,14 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "process": "tsx src/commands/process.ts",
+    "process": "tsx --import src/sentry/instrument.ts src/commands/process.ts",
     "test": "vitest tests/unit tests/e2e --coverage",
     "ci:testunit": "vitest run tests/unit --coverage --coverage.reporter=json-summary --coverage.reportOnFailure=true",
     "ci:testall": "vitest run tests/unit tests/e2e --coverage --coverage.reporter=json-summary --coverage.reportOnFailure=true --pool=forks --poolOptions.forks.singleFork=true",
     "ci:badges": "npx istanbul-badges-readme --exitCode=1"
   },
   "dependencies": {
+    "@sentry/node": "^9.24.0",
     "better-sqlite3": "^11.7.0",
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.7",

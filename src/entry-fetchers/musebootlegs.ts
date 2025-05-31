@@ -1,6 +1,7 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import {JSDOM} from 'jsdom'
 import {createBlankUpdate, MuseBootlegsTorrentUpdate, Update, UpdateType} from "@/src/updates";
+import * as Sentry from "@sentry/node";
 
 export class Musebootlegs implements EntryFetcher
 {
@@ -164,6 +165,7 @@ export class Musebootlegs implements EntryFetcher
                     })
                 } catch (e) {
                     console.error('Error parsing uploaded date:', e)
+                    Sentry.captureException(e);
                 }
             }
 

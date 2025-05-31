@@ -1,4 +1,5 @@
 import * as puppeteer from 'puppeteer';
+import * as Sentry from "@sentry/node";
 
 export type PromiseFunction<T> = () => Promise<T>;
 
@@ -10,10 +11,19 @@ export function retryPromise<T>(
     return new Promise((resolve, reject) => {
         const attempt = (totalTries: number) => {
             function handleFailure(error: any) {
+                // Capture exception in Sentry if we're on the last retry
                 if (totalTries === maxTries) {
+                    Sentry.captureException(error);
                     reject(error);
                     return;
                 }
+
+                // For intermediate retries, we can add breadcrumbs to track retry attempts
+                Sentry.addBreadcrumb({
+                    category: 'retry',
+                    message: `Retry attempt ${totalTries} of ${maxTries}`,
+                    level: 'warning'
+                });
 
                 setTimeout(() => {
                     attempt(totalTries + 1);

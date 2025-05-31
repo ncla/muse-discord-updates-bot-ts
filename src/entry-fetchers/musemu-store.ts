@@ -2,6 +2,7 @@ import {EntryFetcher} from "@/src/entry-fetchers";
 import * as puppeteer from 'puppeteer';
 import {MusemuStoreUpdate, UpdateType} from "@/src/updates";
 import {scrollUntilNoMoreContentLoads} from "@/src/common";
+import * as Sentry from "@sentry/node";
 
 export class MusemuStore implements EntryFetcher
 {
@@ -27,6 +28,7 @@ export class MusemuStore implements EntryFetcher
 
             return await this.parseSearchResults(page);
         } catch (e) {
+            Sentry.captureException(e);
             throw e
         } finally {
             await browser.close();

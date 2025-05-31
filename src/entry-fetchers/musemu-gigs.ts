@@ -1,6 +1,7 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import * as puppeteer from 'puppeteer';
 import {MuseMuGigsUpdate, UpdateType} from "@/src/updates";
+import * as Sentry from "@sentry/node";
 
 export class MusemuGigs implements EntryFetcher
 {
@@ -96,6 +97,7 @@ export class MusemuGigs implements EntryFetcher
                 })
             } catch (error) {
                 console.error('Error processing list element:', error);
+                Sentry.captureException(error);
             }
         }
 

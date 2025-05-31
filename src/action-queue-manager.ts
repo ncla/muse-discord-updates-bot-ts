@@ -1,6 +1,9 @@
 import {PromiseFunction, retryPromise} from "@/src/common";
 import {PromiseResult} from "@/src/types/promises";
 import {RateLimiterMemory, RateLimiterRes} from "rate-limiter-flexible";
+import * as Sentry from "@sentry/node";
+import { RateLimitException } from "@/src/exceptions/rate-limit-exception";
+import { QueueException } from "@/src/exceptions/queue-exception";
 
 export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> {
     protected shortTermLimiter: RateLimiterMemory;
@@ -53,6 +56,12 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
                 })
                 .catch(error => {
                     resolve({status: 'rejected', reason: error})
+                    if (!(error instanceof RateLimitException) &&
+                        !(error instanceof QueueException) &&
+                        !(error instanceof RateLimiterRes)
+                    ) {
+                        Sentry.captureException(error);
+                    }
                     return error
                 });
             })
@@ -61,12 +70,26 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
                 this.startWorkerIfNotRunning()
             } catch (error) {
                 console.error(error)
+                if (
+                    !(error instanceof RateLimitException) &&
+                    !(error instanceof QueueException) &&
+                    !(error instanceof RateLimiterRes)
+                ) {
+                    Sentry.captureException(error);
+                }
             }
 
             try {
                 await this.attemptToRunFirstActionable()
             } catch (error) {
                 console.error(error)
+                if (
+                    !(error instanceof RateLimitException) &&
+                    !(error instanceof QueueException) &&
+                    !(error instanceof RateLimiterRes)
+                ) {
+                    Sentry.captureException(error);
+                }
             }
         })
     }
@@ -76,23 +99,23 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
         const shortTermRateLimitConsumption = await this.consumeRateLimit(this.shortTermLimiter, this.shortTermKey)
 
         if (shortTermRateLimitConsumption !== true) {
-            throw new Error('Rate limit exceeded for short term rate limiter')
+            throw new RateLimitException('Rate limit exceeded for short term rate limiter')
         }
 
         const longTermRateLimitConsumption = await this.consumeRateLimit(this.longTermLimiter, this.longTermKey)
 
         if (longTermRateLimitConsumption !== true) {
-            throw new Error('Rate limit exceeded for long term rate limiter')
+            throw new RateLimitException('Rate limit exceeded for long term rate limiter')
         }
 
         if (this.queuedActions.length === 0) {
-            throw new Error('Empty queue')
+            throw new QueueException('Empty queue')
         }
 
         const callableAction = this.queuedActions.shift()
 
         if (callableAction === undefined) {
-            throw new Error('Empty queue')
+            throw new QueueException('Empty queue')
         }
 
         return callableAction()
@@ -108,6 +131,13 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
                 await this.attemptToRunFirstActionable();
             } catch (error) {
                 console.error(error)
+                if (
+                    !(error instanceof RateLimitException) &&
+                    !(error instanceof QueueException) &&
+                    !(error instanceof RateLimiterRes)
+                ) {
+                    Sentry.captureException(error);
+                }
                 break
             }
         }
@@ -123,6 +153,14 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
                     resolve(true)
                 })
                 .catch((error) => {
+                    console.error(error)
+                    if (
+                        !(error instanceof RateLimitException) &&
+                        !(error instanceof QueueException) &&
+                        !(error instanceof RateLimiterRes)
+                    ) {
+                        Sentry.captureException(error);
+                    }
                     resolve(error)
                 });
         })

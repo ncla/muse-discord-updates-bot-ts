@@ -17,6 +17,7 @@ import {WarnerMusicCanadaStore} from "@/src/entry-fetchers/warnermusic-ca-store"
 import {MusemuUsStore} from "@/src/entry-fetchers/musemu-us-store";
 import {WarnermusicAustraliaStore} from "@/src/entry-fetchers/warnermusic-au-store";
 import {MuseWikiChanges} from "@/src/entry-fetchers/musewiki-changes";
+import * as Sentry from "@sentry/node";
 
 export class Process {
     public async run(argv: string[]) {
@@ -179,4 +180,7 @@ export class Process {
 new Process()
     .run(process.argv)
     .then(r => console.log('Process command ran successfully'))
-    .catch(e => console.error('Process command failed:', e))
+    .catch(error => {
+        console.error('Process command failed:', error);
+        Sentry.captureException(error);
+    })
