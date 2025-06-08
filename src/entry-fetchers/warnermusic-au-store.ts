@@ -7,16 +7,23 @@ export class WarnermusicAustraliaStore implements EntryFetcher
 {
     async fetch()
     {
-        const browser = await puppeteer.launch({
-            // headless: false
-        });
+        const browser = await puppeteer.launch();
 
         try {
             const page = await browser.newPage();
 
-            await page.goto('https://store.warnermusic.com.au/collections/muse', {
-                waitUntil: 'networkidle0'
-            });
+            try {
+                await page.goto('https://store.warnermusic.com.au/collections/muse', {
+                    waitUntil: 'networkidle0',
+                    timeout: 15000
+                });
+            } catch (e) {
+                if (e instanceof Error && e.name === 'TimeoutError') {
+                    console.log('Navigation timeout - continuing anyway');
+                } else {
+                    throw e;
+                }
+            }
 
             const timeout = Date.now() + 20000;
 
@@ -36,13 +43,21 @@ export class WarnermusicAustraliaStore implements EntryFetcher
                 const nextPageButton = await page.$(nextPageButtonSelector);
                 if (!nextPageButton) break;
 
-                await Promise.all([
-                    page.evaluate((selector) => {
-                        const button = document.querySelector(selector);
-                        if (button) (button as HTMLElement).click();
-                    }, nextPageButtonSelector),
-                    page.waitForNavigation({waitUntil: 'networkidle0'})
-                ]);
+                try {
+                    await Promise.all([
+                        page.evaluate((selector) => {
+                            const button = document.querySelector(selector);
+                            if (button) (button as HTMLElement).click();
+                        }, nextPageButtonSelector),
+                        page.waitForNavigation({waitUntil: 'networkidle0', timeout: 15000})
+                    ]);
+                } catch (e) {
+                    if (e instanceof Error && e.name === 'TimeoutError') {
+                        console.log('Navigation timeout during pagination - continuing anyway');
+                    } else {
+                        throw e;
+                    }
+                }
             }
 
             return results;

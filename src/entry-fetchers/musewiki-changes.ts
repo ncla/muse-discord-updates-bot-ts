@@ -40,10 +40,23 @@ type MediaWikiRecentChange = z.infer<typeof MediaWikiRecentChangeSchema>;
 type MediaWikiRecentChangesResponse = z.infer<typeof MediaWikiRecentChangesResponseSchema>;
 
 export class MuseWikiChanges implements EntryFetcher {
-    private readonly apiUrl: string = 'https://musewiki.org/api.php?action=query&list=recentchanges&rclimit=50&rcprop=title%7Cids%7Csizes%7Cflags%7Cuser%7Ccomment%7Cparsedcomment%7Cloginfo%7Ctimestamp&format=json';
+    private readonly apiUrl: string = 'https://musewiki.org/api.php';
+    private readonly apiParams = {
+        action: 'query',
+        list: 'recentchanges',
+        rclimit: '50',
+        rcprop: 'title|ids|sizes|flags|user|comment|parsedcomment|loginfo|timestamp',
+        format: 'json'
+    };
 
     async fetch(): Promise<MuseWikiChangeUpdate[]> {
-        const response = await fetch(this.apiUrl);
+        const url = new URL(this.apiUrl);
+
+        Object.entries(this.apiParams).forEach(([key, value]) => {
+            url.searchParams.append(key, value);
+        });
+
+        const response = await fetch(url.toString());
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);

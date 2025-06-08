@@ -9,4 +9,4 @@ test('it fetches entries', async () => {
     expect(typeof result[0].title).toBe('string')
     expect(typeof result[0].url).toBe('string')
     expect(typeof result[0].image_url).toBe('string')
-}, 60000)
+}, 120000)

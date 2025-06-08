@@ -7,16 +7,23 @@ export class WarnerMusicCanadaStore implements EntryFetcher
 {
     async fetch()
     {
-        const browser = await puppeteer.launch({
-            // headless: false
-        });
+        const browser = await puppeteer.launch();
 
         try {
             const page = await browser.newPage();
 
-            await page.goto('https://store.warnermusic.ca/collections/muse/', {
-                waitUntil: 'networkidle0'
-            });
+            try {
+                await page.goto('https://store.warnermusic.ca/collections/muse/', {
+                    waitUntil: 'networkidle0',
+                    timeout: 15000
+                });
+            } catch (e) {
+                if (e instanceof Error && e.name === 'TimeoutError') {
+                    console.log('Navigation timeout - continuing anyway');
+                } else {
+                    throw e;
+                }
+            }
 
             await scrollUntilNoMoreContentLoads(
                 page,
