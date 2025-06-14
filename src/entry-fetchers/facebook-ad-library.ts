@@ -3,6 +3,7 @@ import * as puppeteer from 'puppeteer';
 import { FacebookAdUpdate, UpdateType } from "@/src/updates";
 import * as fs from 'fs/promises';
 import * as path from 'path';
+import * as os from 'os';
 import * as Sentry from "@sentry/node";
 import { scrollUntilNoMoreContentLoads } from "@/src/common";
 
@@ -60,18 +61,10 @@ export class FacebookAdLibrary implements EntryFetcher {
             for (let i = 0; i < adContainers.length; i++) {
                 try {
                     const container = adContainers[i];
-                    
-                    // try {
-                    //     const containerPath = path.resolve(process.cwd(), `facebook-ad-container-${i}.png`);
-                    //
-                    //     await this.hideFixedElements(page);
-                    //
-                    //     // Take the screenshot
-                    //     await container.screenshot({ path: containerPath });
-                    //     console.log(`Saved screenshot of container ${i} to ${containerPath}`);
-                    // } catch (error) {
-                    //     console.log(`Failed to take screenshot of container ${i}: ${error.message}`);
-                    // }
+
+                    await this.hideFixedElements(page);
+
+                    const screenshotPath = await this.takeContainerScreenshot(container, i);
                     
                     const adId = await this.extractLibraryIdFromContainer(container, i);
                     
@@ -91,6 +84,7 @@ export class FacebookAdLibrary implements EntryFetcher {
                         type: UpdateType.FACEBOOK_AD,
                         uniqueId: adId,
                         id: adId,
+                        screenshot: screenshotPath,
                     });
                 } catch (error) {
                     console.error(`Error processing ad container ${i}:`, error);
@@ -204,6 +198,25 @@ export class FacebookAdLibrary implements EntryFetcher {
         
         console.log(`Successfully found ${containers.length} container elements`);
         return containers;
+    }
+
+    private async takeContainerScreenshot(
+        container: puppeteer.ElementHandle<Element>,
+        index: number
+    ): Promise<string | undefined> {
+        try {
+            const tempDir = path.join(os.tmpdir(), 'muse-discord-bot');
+            await fs.mkdir(tempDir, { recursive: true });
+            
+            const screenshotPath = path.join(tempDir, `facebook-ad-${Date.now()}-${index}.png`);
+            await container.screenshot({ path: screenshotPath });
+            console.log(`Captured screenshot of container ${index} to ${screenshotPath}`);
+            
+            return screenshotPath;
+        } catch (error) {
+            console.log(`Failed to take screenshot of container ${index}: ${(error as Error).message}`);
+            return undefined;
+        }
     }
 
     private async hideFixedElements(page: puppeteer.Page): Promise<void> {

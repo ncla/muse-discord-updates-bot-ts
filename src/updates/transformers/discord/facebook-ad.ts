@@ -20,9 +20,20 @@ export class FacebookAd implements DiscordUpdateTransformer {
         const mentionRoleIdString = getMentionableRoleIdString(facebookAdUpdate.type);
         const message = [mentionRoleIdString].filter(Boolean).join(' ');
         
-        return {
+        const result: WebhookMessageCreateOptions = {
             content: message,
             embeds: [embed]
         };
+        
+        if (facebookAdUpdate.screenshot) {
+            const filename = `facebook-ad-${facebookAdUpdate.uniqueId}.png`;
+            result.files = [{
+                attachment: facebookAdUpdate.screenshot,
+                name: filename
+            }];
+            embed.setImage(`attachment://${filename}`);
+        }
+        
+        return result;
     }
 }

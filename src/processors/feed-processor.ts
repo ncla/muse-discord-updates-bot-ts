@@ -9,6 +9,9 @@ import {BaseUpdate, WebhookService, WebhookServiceBodyMap, WebhookServiceRespons
 import {PromiseResult} from "@/src/types/promises";
 import {FeedProcessorSummary, FetcherSummary, WebhookRequestSummary} from "../types/feed-processor";
 import * as Sentry from "@sentry/node";
+import * as fs from 'fs/promises';
+import * as path from 'path';
+import * as os from 'os';
 
 export enum FetcherExecutionMode {
     Parallel = 'parallel',
@@ -77,6 +80,8 @@ export class FeedProcessor<
         await Promise.all(requestPromises)
 
         this.queueActionManager.stopWorker()
+
+        await this.cleanupTemporaryFiles(fetcherSummaries)
 
         return {
             fetcherSummaries,
@@ -182,5 +187,39 @@ export class FeedProcessor<
 
         const entryTransformer = getTransformer(this.webhookService, entry.type)
         return entryTransformer.transform(entry) as WebhookServiceBodyMap[WS]
+    }
+
+    private async cleanupTemporaryFiles(fetcherSummaries: FetcherSummary<WebhookServiceBodyMap[WS]>[]): Promise<void> {
+        console.info('Cleaning up temporary screenshot files...')
+        
+        const tempDir = path.join(os.tmpdir(), 'muse-discord-bot')
+        
+        try {
+            const files = await fs.readdir(tempDir)
+            
+            if (files.length > 0) {
+                const cleanupPromises = files.map(async (filename) => {
+                    const filePath = path.join(tempDir, filename)
+                    try {
+                        await fs.unlink(filePath)
+                        console.info(`Cleaned up temporary file: ${filePath}`)
+                    } catch (error) {
+                        console.warn(`Failed to cleanup file ${filePath}:`, error)
+                    }
+                })
+                
+                await Promise.allSettled(cleanupPromises)
+            }
+            
+            await fs.rmdir(tempDir)
+            console.info(`Removed temporary directory: ${tempDir}`)
+            
+        } catch (error) {
+            if ((error as any).code !== 'ENOENT') {
+                console.warn('Failed to cleanup temporary directory:', error)
+            }
+        }
+        
+        console.info('Temporary file cleanup completed')
     }
 }

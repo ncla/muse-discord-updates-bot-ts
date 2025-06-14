@@ -170,4 +170,5 @@ export type MuseWikiChangeUpdate = BaseUpdate & {
 
 export type FacebookAdUpdate = BaseUpdate & {
     type: UpdateType.FACEBOOK_AD;
+    screenshot?: string;
 }
