@@ -8,7 +8,7 @@ export class SpotifyPlaylists implements EntryFetcher {
     private users: string[];
     private accessToken: string | null = null;
 
-    constructor(clientId: string, clientSecret: string, users: string[]) {
+    constructor(clientId: string|undefined, clientSecret: string|undefined, users: string[]) {
         if (!clientId) {
             throw new Error('Spotify client ID is required');
         }
