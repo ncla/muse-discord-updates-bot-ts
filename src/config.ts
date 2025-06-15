@@ -28,6 +28,10 @@ export interface IConfig {
         },
         facebook: {
             ad_library_page_id: string | undefined,
+        },
+        spotify: {
+            client_id: string | undefined,
+            client_secret: string | undefined,
         }
     }
     fetchables: {
@@ -38,7 +42,8 @@ export interface IConfig {
             author_image_url: string,
             uploads: boolean,
             playlists: boolean,
-        }[]
+        }[],
+        spotify: string[]
     }
     webhooks: {
         discord: {
@@ -56,6 +61,7 @@ export interface IConfig {
             store: string | undefined,
             musewiki: string | undefined,
             facebook_ads: string | undefined,
+            spotify_playlists: string | undefined,
         }
     }
 }
@@ -84,6 +90,10 @@ const config: IConfig = {
         },
         facebook: {
             ad_library_page_id: process.env.FACEBOOK_AD_LIBRARY_PAGE_ID,
+        },
+        spotify: {
+            client_id: process.env.SPOTIFY_CLIENT_ID,
+            client_secret: process.env.SPOTIFY_CLIENT_SECRET,
         }
     },
     fetchables: {
@@ -96,7 +106,8 @@ const config: IConfig = {
                 'uploads': process.env.YOUTUBE_MUSE_UPLOADS === 'true',
                 'playlists': process.env.YOUTUBE_MUSE_PLAYLISTS === 'true'
             }
-        ]
+        ],
+        spotify: process.env.SPOTIFY_USERS ? process.env.SPOTIFY_USERS.split(',') : []
     },
     webhooks: {
         discord: {
@@ -114,6 +125,7 @@ const config: IConfig = {
             store: process.env.DISCORD_ROLE_ID_STORE,
             musewiki: process.env.DISCORD_ROLE_ID_MUSEWIKI,
             facebook_ads: process.env.DISCORD_ROLE_ID_FACEBOOK_ADS,
+            spotify_playlists: process.env.DISCORD_ROLE_ID_SPOTIFY_PLAYLISTS,
         }
     }
 };

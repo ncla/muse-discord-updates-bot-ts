@@ -25,6 +25,7 @@ export enum UpdateType {
     WARNER_AU_STORE = 'WARNER_AU_STORE',
     MUSEWIKI_CHANGE = 'MUSEWIKI_CHANGE',
     FACEBOOK_AD = 'FACEBOOK_AD',
+    SPOTIFY_PLAYLIST = 'SPOTIFY_PLAYLIST',
 }
 
 export type UpdateAuthor = {
@@ -171,4 +172,18 @@ export type MuseWikiChangeUpdate = BaseUpdate & {
 export type FacebookAdUpdate = BaseUpdate & {
     type: UpdateType.FACEBOOK_AD;
     screenshot?: string;
+}
+
+export type SpotifyPlaylistUpdate = BaseUpdate & {
+    type: UpdateType.SPOTIFY_PLAYLIST;
+    title: string;
+    content: string | null;
+    url: string;
+    image_url: string | null;
+    author: UpdateAuthor & {
+        id: string;
+        name: string;
+    };
+    created_at: Date;
+    track_count: number;
 }

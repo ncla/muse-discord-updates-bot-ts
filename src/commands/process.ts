@@ -18,6 +18,7 @@ import {MusemuUsStore} from "@/src/entry-fetchers/musemu-us-store";
 import {WarnermusicAustraliaStore} from "@/src/entry-fetchers/warnermusic-au-store";
 import {MuseWikiChanges} from "@/src/entry-fetchers/musewiki-changes";
 import {FacebookAdLibrary} from "@/src/entry-fetchers/facebook-ad-library";
+import {SpotifyPlaylists} from "@/src/entry-fetchers/spotify-playlists";
 import * as Sentry from "@sentry/node";
 
 export class Process {
@@ -58,7 +59,12 @@ export class Process {
             'warner-ca-store': () => new WarnerMusicCanadaStore(),
             'warner-au-store': () => new WarnermusicAustraliaStore(),
             'musewiki': () => new MuseWikiChanges(),
-            'facebook-ads': () => new FacebookAdLibrary(config.services.facebook.ad_library_page_id)
+            'facebook-ads': () => new FacebookAdLibrary(config.services.facebook.ad_library_page_id),
+            'spotify-playlists': () => new SpotifyPlaylists(
+                config.services.spotify.client_id,
+                config.services.spotify.client_secret,
+                config.fetchables.spotify
+            )
         }
 
         let fetcherIds = this.parseFetchersArgument(argv)

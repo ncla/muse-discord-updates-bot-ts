@@ -9,6 +9,7 @@ import {MusemuGig} from "@/src/updates/transformers/discord/musemu-gig";
 import {Store} from "@/src/updates/transformers/discord/store";
 import {MuseWikiChange} from "@/src/updates/transformers/discord/musewiki-change";
 import {FacebookAd} from "@/src/updates/transformers/discord/facebook-ad";
+import {SpotifyPlaylist} from "@/src/updates/transformers/discord/spotify-playlist";
 import {StoreRegion} from "@/src/types/common";
 
 export interface UpdateTransformer<BodyType> {
@@ -49,6 +50,8 @@ export function getTransformer(
                     return new MuseWikiChange()
                 case UpdateType.FACEBOOK_AD:
                     return new FacebookAd()
+                case UpdateType.SPOTIFY_PLAYLIST:
+                    return new SpotifyPlaylist()
                 default:
                     return new DefaultJsonDiscordTransformer
             }
