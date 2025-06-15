@@ -1,39 +1,6 @@
 import { EntryFetcher } from "@/src/entry-fetchers/index";
 import { MuseWikiChangeUpdate, UpdateType } from "@/src/updates";
-import { z } from "zod";
-
-// Zod schema for MediaWiki recent change
-const MediaWikiRecentChangeSchema = z.object({
-    type: z.string(),
-    ns: z.number(),
-    title: z.string(),
-    pageid: z.number(),
-    revid: z.number(),
-    old_revid: z.number(),
-    rcid: z.number(),
-    user: z.string(),
-    oldlen: z.number().optional(),
-    newlen: z.number().optional(),
-    comment: z.string().optional(),
-    parsedcomment: z.string().optional(),
-    new: z.string().optional(),
-    minor: z.string().optional(),
-    logtype: z.string().optional(),
-    logaction: z.string().optional(),
-    timestamp: z.string()
-});
-
-// Zod schema for MediaWiki recent changes response
-const MediaWikiRecentChangesResponseSchema = z.object({
-    batchcomplete: z.string(),
-    continue: z.object({
-        rccontinue: z.string(),
-        continue: z.string()
-    }).optional(),
-    query: z.object({
-        recentchanges: z.array(MediaWikiRecentChangeSchema)
-    })
-});
+import {MediaWikiRecentChangesResponseSchema} from "@/src/zod-schemas/musewiki-changes";
 
 export class MuseWikiChanges implements EntryFetcher {
     private readonly apiUrl: string = 'https://musewiki.org/api.php';
