@@ -1,6 +1,6 @@
 import {UpdatesRepositoryKysely} from "@/src/repositories/updates-repository";
 import {clearTestDatabase, createTestDatabase} from "@/tests/__utils__/database";
-import {afterAll, afterEach, beforeEach, expect, test} from 'vitest'
+import {afterEach, beforeEach, expect, test} from 'vitest'
 import {UpdateType} from "@/src/updates";
 
 const DB_FILE_IDENTIFIER = 'updates-repository'
@@ -62,8 +62,10 @@ test('it returns object for data property when it has JSON data in column', asyn
     const result = await updatesRepository.findByTypeAndUniqueId('test', 'test')
 
     expect(result).not.toBeUndefined()
-    // @ts-ignore
-    expect(result.data).toBeInstanceOf(Object)
+
+    if (result !== undefined) {
+        expect(result.data).toBeInstanceOf(Object)
+    }
 })
 
 test('it creates a new update', async () => {

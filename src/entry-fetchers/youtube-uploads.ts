@@ -1,7 +1,6 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
-import config, {IConfig} from "@/src/config";
-// import * as util from "node:util";
-import {BaseUpdate, createBlankUpdate, Update, UpdateType, YoutubeUploadUpdate} from "@/src/updates";
+import {IConfig} from "@/src/config";
+import {createBlankUpdate, UpdateType, YoutubeUploadUpdate} from "@/src/updates";
 import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/common";
 
 export class YoutubeUploads implements EntryFetcher
@@ -33,7 +32,7 @@ export class YoutubeUploads implements EntryFetcher
         let entries: YoutubeUploadUpdate[] = []
 
         for (const channel of channels) {
-            let url = new URL(`https://www.googleapis.com/youtube/v3/playlistItems`);
+            const url = new URL(`https://www.googleapis.com/youtube/v3/playlistItems`);
 
             url.searchParams.append('playlistId', channel.uploads_playlist_id)
             url.searchParams.append('maxResults', '25')
@@ -46,7 +45,7 @@ export class YoutubeUploads implements EntryFetcher
                 throw new Error(`Response status: ${response.status}`);
             }
 
-            let json: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistItemResource> = await response.json();
+            const json: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistItemResource> = await response.json();
 
             const channelUploadEntries: YoutubeUploadUpdate[] = json.items.map((item): YoutubeUploadUpdate => {
                 return this.mapPlayListItemToEntry(item, channel);

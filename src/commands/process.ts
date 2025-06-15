@@ -1,6 +1,6 @@
 import config from "@/src/config";
 import {FeedProcessor, FetcherExecutionMode} from "@/src/processors/feed-processor";
-import {WebhookService, WebhookServiceResponseMap} from "@/src/updates";
+import {WebhookService} from "@/src/updates";
 import {DomainCertificates} from "@/src/entry-fetchers/domain-certificates";
 import {UpdatesRepositoryKysely} from "@/src/repositories/updates-repository";
 import {db, InsertableUpdateRecord, SelectableUpdateRecord} from "@/src/database";
@@ -25,9 +25,9 @@ export class Process {
     public async run(argv: string[]) {
         console.log('Running process command with args:', argv);
 
-        let discordWebhookId = this.parseDiscordWebhookId(argv) || config.webhooks.discord.id;
-        let discordWebhookToken = this.parseDiscordWebhookToken(argv) || config.webhooks.discord.token;
-        let executionMode = this.parseExecutionMode(argv);
+        const discordWebhookId = this.parseDiscordWebhookId(argv) || config.webhooks.discord.id;
+        const discordWebhookToken = this.parseDiscordWebhookToken(argv) || config.webhooks.discord.token;
+        const executionMode = this.parseExecutionMode(argv);
 
         if (discordWebhookId === undefined || discordWebhookToken === undefined) {
             throw new Error('Discord webhook ID or token is not set');
@@ -104,10 +104,10 @@ export class Process {
         if (fetcherSummariesWithErrors.length > 0) {
             console.info('Fetchers with errors:');
 
-            for (let fetcherSummary of fetcherSummariesWithErrors) {
+            for (const fetcherSummary of fetcherSummariesWithErrors) {
                 console.info(`Fetcher: ${fetcherSummary.name}`);
                 console.info(`Errors: ${fetcherSummary.errors.length}`);
-                for (let error of fetcherSummary.errors) {
+                for (const error of fetcherSummary.errors) {
                     console.error(error);
                 }
             }
@@ -115,14 +115,14 @@ export class Process {
 
         if (summary.webhookRequestSummary.errors && summary.webhookRequestSummary.errors.length > 0) {
             console.info('Errors in webhook requests:');
-            for (let error of summary.webhookRequestSummary.errors) {
+            for (const error of summary.webhookRequestSummary.errors) {
                 console.error(error);
             }
         }
 
         console.info('Process command fetcher summary:')
 
-        for (let fetcherSummary of summary.fetcherSummaries) {
+        for (const fetcherSummary of summary.fetcherSummaries) {
             console.info(`Fetcher: ${fetcherSummary.name}`)
             console.info(`Entries: ${fetcherSummary.entries.length}`)
             console.info(`Entries in database already: ${fetcherSummary.entriesInDatabaseAlready.length}`)
@@ -187,7 +187,7 @@ export class Process {
 
 new Process()
     .run(process.argv)
-    .then(r => console.log('Process command ran successfully'))
+    .then(() => console.log('Process command ran successfully'))
     .catch(error => {
         console.error('Process command failed:', error);
         Sentry.captureException(error);

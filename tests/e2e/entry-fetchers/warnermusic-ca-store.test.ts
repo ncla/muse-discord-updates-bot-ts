@@ -1,4 +1,4 @@
-import {expect, test, vi, beforeEach } from 'vitest'
+import {expect, test } from 'vitest'
 import {WarnerMusicCanadaStore} from "@/src/entry-fetchers/warnermusic-ca-store";
 
 test('it fetches entries', async () => {

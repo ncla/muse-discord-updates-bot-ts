@@ -35,10 +35,6 @@ const MediaWikiRecentChangesResponseSchema = z.object({
     })
 });
 
-// Type inference from zod schemas
-type MediaWikiRecentChange = z.infer<typeof MediaWikiRecentChangeSchema>;
-type MediaWikiRecentChangesResponse = z.infer<typeof MediaWikiRecentChangesResponseSchema>;
-
 export class MuseWikiChanges implements EntryFetcher {
     private readonly apiUrl: string = 'https://musewiki.org/api.php';
     private readonly apiParams = {

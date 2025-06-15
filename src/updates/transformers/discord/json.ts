@@ -1,4 +1,4 @@
-import {DiscordUpdateTransformer, UpdateTransformer} from "@/src/updates/transformers";
+import {DiscordUpdateTransformer} from "@/src/updates/transformers";
 import {Update} from "@/src/updates";
 import {WebhookMessageCreateOptions} from "discord.js";
 

@@ -1,8 +1,6 @@
-import {afterEach, beforeAll, beforeEach, expect, test, vi} from 'vitest'
+import {beforeAll, expect, test, vi} from 'vitest'
 import dotenv from 'dotenv'
-import {DiscordWebhookExecuteRequestor} from "@/src/webhook-requestor";
 import {DoubleRateLimitedActionableQueueManager} from "@/src/action-queue-manager";
-import {FulfilledPromise} from "@/src/types/promises";
 import {groupTimestampsByInterval} from "@/tests/__utils__";
 
 beforeAll(() => {
@@ -19,7 +17,7 @@ test('it calls action without hitting burst rate limit', async () => {
     vi.useFakeTimers()
     vi.advanceTimersByTimeAsync(2000)
 
-    let promises = []
+    const promises = []
 
     const actionFunction = vi.fn(() => {
         return Promise.resolve(+new Date())
@@ -74,7 +72,7 @@ test('action is tried three times till it is rejected', async () => {
 
     const beforeTime = +new Date()
 
-    let promises = []
+    const promises = []
 
     for (let i = 0; i < REQUEST_AMOUNT; i++) {
         promises.push(
@@ -123,7 +121,7 @@ test('actions are rate limited by short term rate limit (5 requets/2 seconds) an
 
     vi.useFakeTimers()
 
-    let promises = []
+    const promises = []
 
     for (let i = 0; i < REQUEST_AMOUNT; i++) {
         promises.push(
@@ -166,6 +164,7 @@ test('actions are rate limited by short term rate limit (5 requets/2 seconds) an
             // console.log('Grouped by two-second intervals (item counts):', groupedTwoSecondCounts);
             // console.log('Grouped by minute intervals (item counts):', groupedMinuteCounts);
 
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const timestampDebugTable = timestampValues.map((result) => {
                 const date: Date = new Date(result);
                 const timestamp = date.toISOString().substring(14, 19);

@@ -1,6 +1,6 @@
 import { EmbedBuilder, WebhookMessageCreateOptions } from "discord.js";
 import { DiscordUpdateTransformer } from "@/src/updates/transformers";
-import { BaseUpdate, FacebookAdUpdate, UpdateType } from "@/src/updates";
+import { FacebookAdUpdate } from "@/src/updates";
 import { getMentionableRoleIdString } from "@/src/updates/transformers/discord/mentionable-role";
 
 export class FacebookAd implements DiscordUpdateTransformer {

@@ -1,4 +1,4 @@
-import {BaseUpdate, createBlankUpdate, EmptyUpdateEntry, Update, UpdateType, YoutubeUploadUpdate} from "@/src/updates";
+import {createBlankUpdate, UpdateType, YoutubeUploadUpdate} from "@/src/updates";
 import {IConfig} from "@/src/config";
 
 export function repeatText(text: string, times: number) {

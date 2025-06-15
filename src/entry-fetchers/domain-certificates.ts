@@ -31,7 +31,7 @@ export class DomainCertificates implements EntryFetcher
             throw new Error('Domain is not set')
         }
 
-        let url = new URL(`https://crt.sh/json`);
+        const url = new URL(`https://crt.sh/json`);
         url.searchParams.append('q', this.domain)
 
         const response = await fetch(url.toString());
@@ -40,7 +40,7 @@ export class DomainCertificates implements EntryFetcher
             throw new Error(`Response status: ${response.status}`);
         }
 
-        let json: any = await response.json();
+        const json = await response.json();
 
         const CertificateArraySchema = z.array(CertificateSchema)
 

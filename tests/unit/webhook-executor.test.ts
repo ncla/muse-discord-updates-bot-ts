@@ -1,4 +1,4 @@
-import {afterEach, beforeAll, beforeEach, expect, test, vi} from 'vitest'
+import {beforeAll, expect, test, vi} from 'vitest'
 import dotenv from 'dotenv'
 import {DiscordWebhookExecuteRequestor} from "@/src/webhook-requestor";
 
@@ -18,7 +18,7 @@ test('request with not OK status throws error', async () => {
     const requestor = new DiscordWebhookExecuteRequestor('fakeWebhookId', 'fakeWebhookToken')
 
     await expect(async () => {
-        const response = await requestor.send({
+        await requestor.send({
             content: 'XD'
         })
     }).rejects.toThrowError('Error: Forbidden')

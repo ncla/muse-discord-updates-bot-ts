@@ -1,6 +1,5 @@
 import {YoutubeUploads} from "@/src/entry-fetchers/youtube-uploads";
-import {expect, test, vi, beforeEach, afterEach } from 'vitest'
-import config, {IConfig} from "@/src/config";
+import {expect, test, vi, afterEach } from 'vitest'
 import {getTestConfig} from "@/tests/__utils__";
 
 afterEach(() => {

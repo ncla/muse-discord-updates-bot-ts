@@ -16,8 +16,6 @@ export const createTestDatabase = async (dbFileIdentifier: string) => {
         log: config.app.debug ? queryLogging : undefined
     })
 
-    const ROOT_DIR = path.resolve(__dirname, '../..')
-
     const migrator = new Migrator({
         db,
         provider: new TypeScriptFileMigrationProvider(path.join(__dirname, "..", "..", "migrations")),

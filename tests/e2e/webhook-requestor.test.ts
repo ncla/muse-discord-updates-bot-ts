@@ -1,4 +1,4 @@
-import {afterEach, beforeAll, beforeEach, expect, test, vi} from 'vitest'
+import {beforeAll, expect, test} from 'vitest'
 import dotenv from 'dotenv'
 import {DiscordWebhookExecuteRequestor} from "@/src/webhook-requestor";
 import * as fs from 'fs/promises';

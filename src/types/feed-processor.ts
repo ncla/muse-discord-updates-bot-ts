@@ -1,5 +1,4 @@
 import {BaseUpdate, WebhookService} from "@/src/updates";
-import {PromiseResult} from "@/src/types/promises";
 
 export type FetcherSummary<EntryTransformedType> = {
     name: string

@@ -1,6 +1,6 @@
 import {EntryFetcher} from "@/src/entry-fetchers";
 import * as puppeteer from 'puppeteer';
-import {MusemuUsStoreUpdate, UpdateType, WarnerCanadaStoreUpdate} from "@/src/updates";
+import {MusemuUsStoreUpdate, UpdateType} from "@/src/updates";
 import {ensureUrlProtocol} from "@/src/common";
 
 export class MusemuUsStore implements EntryFetcher
@@ -46,8 +46,6 @@ export class MusemuUsStore implements EntryFetcher
             }
 
             return results;
-        } catch (e) {
-            throw e
         } finally {
             await browser.close();
         }

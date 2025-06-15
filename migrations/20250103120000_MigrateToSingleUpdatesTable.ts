@@ -1,5 +1,6 @@
 import { Kysely, sql } from 'kysely'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function up(db: Kysely<any>): Promise<void> {
     const BATCH_SIZE = 100;
 
@@ -330,6 +331,7 @@ export async function up(db: Kysely<any>): Promise<void> {
     await db.schema.dropTable('youtube_uploads').execute()
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function down(db: Kysely<any>): Promise<void> {
     await db.schema.dropTable('updates').execute()
 

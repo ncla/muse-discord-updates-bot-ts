@@ -1,4 +1,4 @@
-import {expect, test, vi, beforeEach } from 'vitest'
+import {expect, test } from 'vitest'
 import {MusemuGigs} from "@/src/entry-fetchers/musemu-gigs";
 
 test('it fetches entries', async () => {

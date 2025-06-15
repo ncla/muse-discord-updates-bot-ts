@@ -24,7 +24,7 @@ export class MusemuGigs implements EntryFetcher
                 waitUntil: 'networkidle0'
             })
 
-            let currentPageGigs = await this.parseTourPageElements(page)
+            const currentPageGigs = await this.parseTourPageElements(page)
 
             gigs = [...gigs, ...currentPageGigs]
 

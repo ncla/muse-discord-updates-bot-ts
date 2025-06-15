@@ -1,7 +1,7 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import {IConfig} from "@/src/config";
-import {IYoutubePlaylistsRepository, YoutubePlaylistsKysely} from "@/src/repositories/youtube-playlists-repository";
-import {BaseUpdate, createBlankUpdate, Update, UpdateType, YoutubePlaylistUpdate} from "@/src/updates";
+import {IYoutubePlaylistsRepository,} from "@/src/repositories/youtube-playlists-repository";
+import { createBlankUpdate, UpdateType, YoutubePlaylistUpdate} from "@/src/updates";
 import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/common";
 import {InsertableYoutubePlaylistRecord, ReturnableYoutubePlaylistRecord} from "@/src/database";
 
@@ -70,7 +70,7 @@ export class YoutubePlaylistVideos implements EntryFetcher
                 throw new Error(`Response status: ${channelPlaylistsResponse.status}`);
             }
 
-            let channelPlaylistsJsonResponse: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistResource> = await channelPlaylistsResponse.json();
+            const channelPlaylistsJsonResponse: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistResource> = await channelPlaylistsResponse.json();
 
             for (const playlist of channelPlaylistsJsonResponse.items) {
                 playlistIdToOwnerChannelId[playlist.id] = channel.channel_id
@@ -115,7 +115,7 @@ export class YoutubePlaylistVideos implements EntryFetcher
                 throw new Error(`Response status: ${response.status}`);
             }
 
-            let json: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistItemResource> = await response.json();
+            const json: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistItemResource> = await response.json();
 
             playlistItems.push(...json.items)
         }
@@ -125,7 +125,7 @@ export class YoutubePlaylistVideos implements EntryFetcher
 
     private createPlaylistsAPIUrl(channelId: string, apiKey: string): string
     {
-        let url = new URL(`https://www.googleapis.com/youtube/v3/playlists`);
+        const url = new URL(`https://www.googleapis.com/youtube/v3/playlists`);
 
         url.searchParams.append('channelId', channelId)
         url.searchParams.append('maxResults', '50')
@@ -137,7 +137,7 @@ export class YoutubePlaylistVideos implements EntryFetcher
     
     private createPlaylistItemsAPIUrl(playlistId: string, apiKey: string): string
     {
-        let url = new URL(`https://www.googleapis.com/youtube/v3/playlistItems`);
+        const url = new URL(`https://www.googleapis.com/youtube/v3/playlistItems`);
 
         url.searchParams.append('playlistId', playlistId)
         url.searchParams.append('maxResults', '50')

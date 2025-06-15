@@ -1,6 +1,6 @@
 import {EntryFetcher} from "@/src/entry-fetchers";
 import * as puppeteer from 'puppeteer';
-import {UpdateType, WarnerAustraliaStoreUpdate, WarnerCanadaStoreUpdate} from "@/src/updates";
+import {UpdateType, WarnerAustraliaStoreUpdate} from "@/src/updates";
 import {ensureUrlProtocol} from "@/src/common";
 
 export class WarnermusicAustraliaStore implements EntryFetcher
@@ -61,8 +61,6 @@ export class WarnermusicAustraliaStore implements EntryFetcher
             }
 
             return results;
-        } catch (e) {
-            throw e
         } finally {
             await browser.close();
         }

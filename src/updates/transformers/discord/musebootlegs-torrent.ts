@@ -1,5 +1,5 @@
-import {DiscordUpdateTransformer, UpdateTransformer} from "@/src/updates/transformers";
-import {MuseBootlegsTorrentUpdate, Update} from "@/src/updates";
+import {DiscordUpdateTransformer} from "@/src/updates/transformers";
+import {MuseBootlegsTorrentUpdate} from "@/src/updates";
 import {WebhookMessageCreateOptions, APIEmbed, APIEmbedField } from "discord.js";
 import {formatDateTimeStringToUTC, truncateText} from "@/src/common";
 import {getMentionableRoleIdString} from "@/src/updates/transformers/discord/mentionable-role";
@@ -10,7 +10,7 @@ export class MusebootlegsTorrent implements DiscordUpdateTransformer {
         const mentionRoleIdString = getMentionableRoleIdString(update.type)
         const message = [mentionRoleIdString, baseMessageString].filter(Boolean).join(' ')
 
-        let embed: APIEmbed = {
+        const embed: APIEmbed = {
             title: truncateText(update.title, 250),
             url: update.url ?? undefined,
             description: update.content ? truncateText(update.content, 300) : undefined,
@@ -18,7 +18,7 @@ export class MusebootlegsTorrent implements DiscordUpdateTransformer {
             color: 3066993,
         }
 
-        let fields: APIEmbedField[] = []
+        const fields: APIEmbedField[] = []
 
         if (update.author.name !== null) {
             fields.push({

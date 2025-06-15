@@ -43,7 +43,7 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
      */
     async queue(queueableCallable: PromiseFunction<QueueableActionReturnType>): Promise<PromiseResult<QueueableActionReturnType>>
     {
-        return new Promise<PromiseResult<QueueableActionReturnType>>(async (resolve) => {
+        return new Promise<PromiseResult<QueueableActionReturnType>>((resolve) => {
             this.queuedActions.push(async () => {
                 return retryPromise(
                     queueableCallable,
@@ -79,10 +79,7 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
                 }
             }
 
-            try {
-                await this.attemptToRunFirstActionable()
-            } catch (error) {
-                console.error(error)
+            this.attemptToRunFirstActionable().catch((error) => {
                 if (
                     !(error instanceof RateLimitException) &&
                     !(error instanceof QueueException) &&
@@ -90,7 +87,7 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
                 ) {
                     Sentry.captureException(error);
                 }
-            }
+            })
         })
     }
 
@@ -145,7 +142,7 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
 
     private async consumeRateLimit(limiter: RateLimiterMemory, rateLimiterKey: string): Promise<boolean | Error | RateLimiterRes>
     {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             // https://github.com/animir/node-rate-limiter-flexible/wiki/API-methods#ratelimiterconsumekey-points--1-options--
             limiter
                 .consume(rateLimiterKey, 1)

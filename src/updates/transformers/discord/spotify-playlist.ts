@@ -1,5 +1,5 @@
 import {WebhookMessageCreateOptions} from "discord.js";
-import {SpotifyPlaylistUpdate, UpdateType} from "@/src/updates";
+import {SpotifyPlaylistUpdate} from "@/src/updates";
 import {getMentionableRoleIdString} from "./mentionable-role";
 
 export class SpotifyPlaylist {

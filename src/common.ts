@@ -10,6 +10,7 @@ export function retryPromise<T>(
 ): Promise<T> {
     return new Promise((resolve, reject) => {
         const attempt = (totalTries: number) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             function handleFailure(error: any) {
                 // Capture exception in Sentry if we're on the last retry
                 if (totalTries === maxTries) {
@@ -70,9 +71,11 @@ export function truncateText(text: string, maxLength: number, suffix: string = '
 }
 
 interface NestedObject {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any; // Allows for any nested structure
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function setNestedProperty<T extends NestedObject>(object: T, path: string, value: any) {
     const keys = path.split('.'); // Split the path into keys
     let current: NestedObject = object;

@@ -1,6 +1,6 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import {JSDOM} from 'jsdom'
-import {createBlankUpdate, MuseBootlegsTorrentUpdate, Update, UpdateType} from "@/src/updates";
+import {createBlankUpdate, MuseBootlegsTorrentUpdate, UpdateType} from "@/src/updates";
 import * as Sentry from "@sentry/node";
 
 export class Musebootlegs implements EntryFetcher
@@ -115,13 +115,13 @@ export class Musebootlegs implements EntryFetcher
 
         const document = dom.window.document;
 
-        let errorBox = document.querySelector('#show_error');
+        const errorBox = document.querySelector('#show_error');
 
         if (errorBox) {
             throw new Error('Error box found')
         }
 
-        let torrentBoxes = document.querySelectorAll('#content > .torrent-box[id^="torrent_"]');
+        const torrentBoxes = document.querySelectorAll('#content > .torrent-box[id^="torrent_"]');
 
         const entries: MuseBootlegsTorrentUpdate[] = []
 

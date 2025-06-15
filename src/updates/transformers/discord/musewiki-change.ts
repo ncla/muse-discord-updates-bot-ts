@@ -1,6 +1,6 @@
 import { EmbedBuilder, WebhookMessageCreateOptions } from "discord.js";
 import { DiscordUpdateTransformer } from "@/src/updates/transformers";
-import { BaseUpdate, MuseWikiChangeUpdate, UpdateType } from "@/src/updates";
+import { MuseWikiChangeUpdate } from "@/src/updates";
 import { getMentionableRoleIdString } from "@/src/updates/transformers/discord/mentionable-role";
 
 export class MuseWikiChange implements DiscordUpdateTransformer {

@@ -37,7 +37,7 @@ const createTestFetcher = (
         fetcherExecutionOrder.push(`fetcher${num}-start`)
         await new Promise(resolve => setTimeout(resolve, delayMs)) // Simulate delay
         fetcherExecutionOrder.push(`fetcher${num}-end`)
-        let entry = createTestYoutubeUploadsEntry()
+        const entry = createTestYoutubeUploadsEntry()
         entry.uniqueId = `fetcher${num}-entry`
         return [entry]
     })
@@ -121,7 +121,7 @@ test('insert query is not run when entry already exists', async () => {
         config.fetchables.youtube
     )
 
-    let fakeYoutubeUploadEntry = createTestYoutubeUploadsEntry()
+    const fakeYoutubeUploadEntry = createTestYoutubeUploadsEntry()
     fakeYoutubeUploadEntry.uniqueId = FAKE_UNIQUE_ID
 
     entryFetcherGood.fetch = vi.fn(async () => {
@@ -129,12 +129,6 @@ test('insert query is not run when entry already exists', async () => {
             fakeYoutubeUploadEntry,
         ]
     })
-
-    const requestManagerSendSpy = vi
-        .spyOn(webhookExecuteRequestor, 'send')
-        .mockImplementation(async () => {
-            return new Response()
-        })
 
     const updatesRepositoryFindSpy = vi.spyOn(updatesRepository, 'findByTypeAndUniqueId')
     const updatesRepositoryCreateSpy = vi.spyOn(updatesRepository, 'create')
@@ -189,7 +183,7 @@ test('it processes fetched entries in a loop without one entry failing entire pr
     const entries: YoutubeUploadUpdate[] = []
 
     for (let i = 0; i < 5; i++) {
-        let entry = createTestYoutubeUploadsEntry()
+        const entry = createTestYoutubeUploadsEntry()
         entry.uniqueId = `unique_id_${i}`
         entries.push(entry)
     }
@@ -230,7 +224,7 @@ test('it sends webhook requests already before other entry fetchers have complet
 
     let entryId = 1
 
-    let entryFetchersSlow = Array.from({length: 2}, (x, i) => {
+    const entryFetchersSlow = Array.from({length: 2}, () => {
         const fetcher = new YoutubeUploads(
             config.services.youtube.uploads_api_key,
             config.fetchables.youtube
@@ -239,7 +233,7 @@ test('it sends webhook requests already before other entry fetchers have complet
         const entries: YoutubeUploadUpdate[] = []
 
         for (let i = 0; i < 5; i++) {
-            let entry = createTestYoutubeUploadsEntry()
+            const entry = createTestYoutubeUploadsEntry()
             entry.uniqueId = `unique_id_${entryId}`
             entries.push(entry)
             entryId++
@@ -262,7 +256,7 @@ test('it sends webhook requests already before other entry fetchers have complet
     )
 
     entryFetcherFast.fetch = vi.fn(async () => {
-        let entry = createTestYoutubeUploadsEntry()
+        const entry = createTestYoutubeUploadsEntry()
         entry.uniqueId = `unique_id_1337`
 
         return [
@@ -317,7 +311,7 @@ test('it sends webhook requests already before other entry fetchers have complet
 test('it processes fetchers in parallel in parallel mode', async () => {
     vi.useFakeTimers()
 
-    let fetcherExecutionOrder: string[] = []
+    const fetcherExecutionOrder: string[] = []
 
     const fetcher1 = createTestFetcher(1, 1500, fetcherExecutionOrder)
     const fetcher2 = createTestFetcher(2, 500, fetcherExecutionOrder)

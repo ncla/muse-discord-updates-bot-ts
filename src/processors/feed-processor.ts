@@ -40,9 +40,9 @@ export class FeedProcessor<
         console.info('Running feed fetchers..')
         console.info(`Execution mode: ${this.executionMode}`)
 
-        let requestPromises: Promise<PromiseResult<WebhookServiceResponseMap[WS]>>[] = []
+        const requestPromises: Promise<PromiseResult<WebhookServiceResponseMap[WS]>>[] = []
 
-        let fetcherSummaries: FetcherSummary<WebhookServiceBodyMap[WS]>[] = this.entryFetchers.map(fetcher => {
+        const fetcherSummaries: FetcherSummary<WebhookServiceBodyMap[WS]>[] = this.entryFetchers.map(fetcher => {
             return {
                 name: fetcher.constructor.name,
                 entries: [],
@@ -53,7 +53,7 @@ export class FeedProcessor<
             }
         })
 
-        let webhookRequestSummary: WebhookRequestSummary<WebhookServiceResponseMap[WS]> = {
+        const webhookRequestSummary: WebhookRequestSummary<WebhookServiceResponseMap[WS]> = {
             webhookService: this.webhookService,
             responses: [],
             errors: []
@@ -81,7 +81,7 @@ export class FeedProcessor<
 
         this.queueActionManager.stopWorker()
 
-        await this.cleanupTemporaryFiles(fetcherSummaries)
+        await this.cleanupTemporaryFiles()
 
         return {
             fetcherSummaries,
@@ -189,7 +189,7 @@ export class FeedProcessor<
         return entryTransformer.transform(entry) as WebhookServiceBodyMap[WS]
     }
 
-    private async cleanupTemporaryFiles(fetcherSummaries: FetcherSummary<WebhookServiceBodyMap[WS]>[]): Promise<void> {
+    private async cleanupTemporaryFiles(): Promise<void> {
         console.info('Cleaning up temporary screenshot files...')
         
         const tempDir = path.join(os.tmpdir(), 'muse-discord-bot')
@@ -213,11 +213,8 @@ export class FeedProcessor<
             
             await fs.rmdir(tempDir)
             console.info(`Removed temporary directory: ${tempDir}`)
-            
-        } catch (error) {
-            if ((error as any).code !== 'ENOENT') {
-                console.warn('Failed to cleanup temporary directory:', error)
-            }
+        } catch (error: unknown) {
+            console.warn('Failed to cleanup temporary directory:', error)
         }
         
         console.info('Temporary file cleanup completed')

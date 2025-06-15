@@ -1,5 +1,5 @@
 import SQLite from 'better-sqlite3'
-import { Kysely, SqliteDialect } from 'kysely'
+import { Kysely, SqliteDialect, LogEvent } from 'kysely'
 import config from "../src/config";
 import {
     ColumnType,
@@ -15,7 +15,7 @@ const dialect = new SqliteDialect({
     database: new SQLite('./data/db.sqlite3'),
 })
 
-export function queryLogging(event: any) {
+export function queryLogging(event: LogEvent) {
     if (event.level === "error") {
         console.error("Query failed: ", {
             durationMs: event.queryDurationMillis,

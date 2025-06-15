@@ -4,7 +4,7 @@ import {IConfig} from "@/src/config";
 import { promises as fs } from "fs";
 import path from "node:path";
 import { setupServer } from 'msw/node'
-import { graphql, http, HttpResponse } from 'msw'
+import { http, HttpResponse } from 'msw'
 
 beforeEach(() => {
     vi.resetModules()
