@@ -77,7 +77,7 @@ export class SpotifyPlaylists implements EntryFetcher {
 
                 const update: SpotifyPlaylistUpdate = {
                     type: UpdateType.SPOTIFY_PLAYLIST,
-                    uniqueId: `spotify-playlist-${playlist.id}-${playlist.snapshot_id}`,
+                    uniqueId: `${playlist.id}`,
                     id: playlist.id,
                     title: playlist.name,
                     content: playlist.description,
