@@ -146,23 +146,46 @@ export class Musebootlegs implements EntryFetcher
 
             if (torrentOwnerElement !== null) {
                 try {
-                    torrentOwnerElement.childNodes.forEach((child) => {
-                        // Hacky way to get TEXT_NODE constant https://github.com/jsdom/jsdom/issues/2993
-                        if (child.nodeType === new JSDOM('').window.Node.TEXT_NODE) {
-                            const uploadedText = child.textContent ?? ''
-
-                            const timestamp = uploadedText.replace('Uploaded ', '').replace(' by', '').trim()
-                            const parts = timestamp.split(/[- :]/)
-
-                            uploadedDate = new Date(Date.UTC(
-                                parseInt(parts[2]),
-                                parseInt(parts[1]) - 1,
-                                parseInt(parts[0]),
-                                parseInt(parts[3]),
-                                parseInt(parts[4])
-                            ))
+                    const timeagoElement = torrentOwnerElement.querySelector('abbr.timeago')
+                    if (timeagoElement) {
+                        const unixTimestamp = timeagoElement.getAttribute('data-time')
+                        if (unixTimestamp) {
+                            uploadedDate = new Date(parseInt(unixTimestamp) * 1000)
                         }
-                    })
+                    } else {
+                        torrentOwnerElement.childNodes.forEach((child) => {
+                            // Hacky way to get TEXT_NODE constant https://github.com/jsdom/jsdom/issues/2993
+                            if (child.nodeType === new JSDOM('').window.Node.TEXT_NODE) {
+                                const uploadedText = child.textContent ?? ''
+
+                                const timestamp = uploadedText.replace('Uploaded ', '').replace(' by', '').trim()
+
+                                if (timestamp.toLowerCase() === 'a moment ago') {
+                                    uploadedDate = new Date()
+                                } else if (timestamp.startsWith('Today at ')) {
+                                    const timeStr = timestamp.replace('Today at ', '')
+                                    const [hours, minutes] = timeStr.split(':').map(Number)
+                                    const today = new Date()
+                                    uploadedDate = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate(), hours, minutes))
+                                } else if (timestamp.startsWith('Yesterday at ')) {
+                                    const timeStr = timestamp.replace('Yesterday at ', '')
+                                    const [hours, minutes] = timeStr.split(':').map(Number)
+                                    const yesterday = new Date()
+                                    yesterday.setUTCDate(yesterday.getUTCDate() - 1)
+                                    uploadedDate = new Date(Date.UTC(yesterday.getUTCFullYear(), yesterday.getUTCMonth(), yesterday.getUTCDate(), hours, minutes))
+                                } else {
+                                    const parts = timestamp.split(/[- :]/)
+                                    uploadedDate = new Date(Date.UTC(
+                                        parseInt(parts[2]),
+                                        parseInt(parts[1]) - 1,
+                                        parseInt(parts[0]),
+                                        parseInt(parts[3]),
+                                        parseInt(parts[4])
+                                    ))
+                                }
+                            }
+                        })
+                    }
                 } catch (e) {
                     console.error('Error parsing uploaded date:', e)
                     Sentry.captureException(e);

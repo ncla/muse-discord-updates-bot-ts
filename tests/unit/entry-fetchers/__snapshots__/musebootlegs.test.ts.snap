@@ -691,6 +691,666 @@ exports[`it fetches torrent list 1`] = `
 ]
 `;
 
+exports[`parses a moment ago upload date format 1`] = `
+[
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "ncla",
+    },
+    "content": "test",
+    "created_at": 2025-07-03T12:29:07.000Z,
+    "id": "2463",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "ubuntu-25.04-desktop-amd64.iso",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2463",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2463",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "Lucas",
+    },
+    "content": "YouTube [1080p]
+                            Notes: Original file/codec. (Not converted like with other 3rd party software.)
+                            Source: yt-dlp > VP9 .webm fileFormat : WebMFormat version : Version 4File size : 138 MiBDuration : 3 min 59 sOverall bit rate : 4 827 kb/sFrame rate : 23.976 FPSWriting application : Lavf62.1.101Writing library : Lavf62.1.101VideoID : 1Format : VP9Format profile : 0Codec ID : V_VP9Duration : 3 min 59 sWidth : 1 920 pixelsHeight : 1 080 pixelsDisplay aspect ratio : 16:9Frame rate mode : ConstantFrame rate : 23.976 (23976/1000) FPSColor space : YUVChroma subsampling : 4:2:0Bit depth : 8 bitsTitle : ISO Media file produced by Google Inc. Created on: 07/01/2025.Default : YesForced : NoColor range : LimitedColor primaries : BT.709Transfer characteristics : BT.709Matrix coefficients : BT.709VENDOR_ID : [0][0][0][0]AudioID : 2Format : OpusCodec ID : A_OPUSDuration : 3 min 59 sChannel(s) : 2 channelsChannel layout : L RSampling rate : 48.0 kHzBit depth : 32 bitsCompression mode : LossyDelay relative to video : 7 msLanguage : EnglishDefault : YesForced : No",
+    "created_at": 2025-07-02T09:14:00.000Z,
+    "id": "2461",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "Unravelling - Lyric Video - YouTube VP9 [1080p]",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2461",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2461",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "JrMan",
+    },
+    "content": "01 - Unravelling02 - Supermassive Black Hole03 - Prelude + StarlightLineage: npo.nl > N_m3u8DL-RE > MKVToolNix GUI (for splitting and merging)
+                            
+                                Click here to see full text
+                                General
+                                    Unique ID : 134191327447957889676054097208782860968 (0x64F44F40B1C9B91FA1D72B61C387B2A8)
+                                    Complete name : Muse Pinkpop 2025.mkv
+                                    Format : Matroska
+                                    Format version : Version 4
+                                    File size : 685 MiB
+                                    Duration : 13 min 32 s
+                                    Overall bit rate : 7 074 kb/s
+                                    Frame rate : 25.000 FPS
+                                    Encoded date : 2025-06-28 10:49:47 UTC
+                                    Writing application : mkvmerge v93.0 ('Goblu') 64-bit
+                                    Writing library : libebml v1.4.5 + libmatroska v1.7.1 / Lavf62.1.100
+                                    DATE : 2025-06-28T11:08:42.0056933+01:00
+
+                                    Video
+                                    ID : 1
+                                    Format : AVC
+                                    Format/Info : Advanced Video Codec
+                                    Format profile : [email protected]
+                                    Format settings : CABAC / 4 Ref Frames
+                                    Format settings, CABAC : Yes
+                                    Format settings, Reference frames : 4 frames
+                                    Format settings, GOP : M=4, N=50
+                                    Codec ID : V_MPEG4/ISO/AVC
+                                    Duration : 13 min 32 s
+                                    Bit rate : 6 943 kb/s
+                                    Width : 1 920 pixels
+                                    Height : 1 080 pixels
+                                    Display aspect ratio : 16:9
+                                    Frame rate mode : Constant
+                                    Frame rate : 25.000 FPS
+                                    Color space : YUV
+                                    Chroma subsampling : 4:2:0
+                                    Bit depth : 8 bits
+                                    Scan type : Progressive
+                                    Bits/(Pixel*Frame) : 0.134
+                                    Stream size : 672 MiB (98%)
+                                    Default : Yes
+                                    Forced : No
+                                    Color range : Limited
+                                    Color primaries : BT.709
+                                    Transfer characteristics : BT.709
+                                    Matrix coefficients : BT.709
+
+                                    Audio
+                                    ID : 2
+                                    Format : AAC LC
+                                    Format/Info : Advanced Audio Codec Low Complexity
+                                    Codec ID : A_AAC-2
+                                    Duration : 13 min 32 s
+                                    Bit rate : 128 kb/s
+                                    Channel(s) : 2 channels
+                                    Channel layout : L R
+                                    Sampling rate : 48.0 kHz
+                                    Frame rate : 46.875 FPS (1024 SPF)
+                                    Compression mode : Lossy
+                                    Stream size : 12.4 MiB (2%)
+                                    Default : Yes
+                                    Forced : No",
+    "created_at": Date { NaN },
+    "id": "2460",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2025-06-22 - Megaland (Pinkpop Festival), Landgraaf, LI, Netherlands - PRO WEB [1080p] MKV",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2460",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2460",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "moris",
+    },
+    "content": "Date: 17th November 2015Venue: Palacio de los DeportesCity: Mexico CityCountry: MexicoTaper: JoeldethSource: Sony full HD camera > TMPGEnc Authoring Works 4 Version. 4.0.12.42 > Bluray-discMenu: NoChapters: Yes Show Time : 1h46min32secComplete showSetlist:01 - Drones02 - Reapers03 - [Drill Sergeant] + Psycho04 - Dead Inside05 - Plug In Baby06 - The 2nd Law: Isolated System07 - The Handler08 - Interlude + Hysteria + Back in Black outro09 - Supermassive Black Hole10 - Prelude + Starlight11 - Apocalypse Please12 - Munich Jam13 - Madness14 - Undisclosed Desires15 - [JFK] + Revolt16 - Time Is Running Out **missing first 30sec17 - Uprising18 - The Globalist19 - DronesEncore:20 - Mercy21 - Man with a Harmonica + Knights of CydoniaTechnotes:Video: MPEG2 Video 1920x1080 29.97fps 25.1 Mb/sAudio: Dolby AC3 48000Hz stereo 224kbpsNotes:- Mercy was dedicated to Paris, after the terrorist attacks on November 13th.- Live premiere of Revolt, public live premiere of The Globalist and Drones (both of which were played at the dress rehearsal two days previously in Los Angeles).- Tour debut for Isolated System and Undisclosed Desires.- Hullaballoons were released during Starlight.- Revolt was played half-stepped down.- This is a complete video and audio recording from a single camera. - This show has everything close ups, distance shots and sometimes shakey shots.",
+    "created_at": 2025-05-09T04:07:00.000Z,
+    "id": "2459",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/2015-11-17-hd.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2015-11-17 - Palacio de los Deportes, Mexico City, Mexico - AUD BD",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2459",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2459",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "paranoidgcm",
+    },
+    "content": "MUSE
+                            Date:2001/11/02
+                            Venue:Apollo, Manchester, UK
+                            Time:77:20
+                            Source: Headphones > JVC (XM-R700) > 3.5mm OFC > Genius 5.1 PCI > Nero Wave Editor > CD-R > FLAC
+                            Notes:Taped by Leo Edwards
+                            Setlist:
+                            01:Intro
+                            02:Dead Star
+                            03:Micro Cuts
+                            04:Citizen Erased
+                            05:Darkshines
+                            06:Showbiz
+                            07:Megalomania
+                            08:Sunburn
+                            09:Screenager
+                            10:Space Dementia
+                            11:In Your World
+                            12:New Born
+                            13:Riff Stockholm Syndrome
+                            14:Muscle Museum
+                            15lug In Baby
+                            16:Hyper Music
+                            17: Agitated
+                            18:Feeling Good
+                            19:Bliss (last 30 sec are cut)
+                            Quality: Decent audience recording
+                            ----------------------------------
+                            Encoded by EvilBambi 2004/12/15Note: I was looking for concerts in my files to share with you. This is an improved version of an mp3's previously posted here. Thanks to the taper, sharing is caring.
+                            Please help me seed the following torrents:
+                            New York 17-03-2023
+                            Philadelphia 19-03-2023
+                            Mexico City 10-02-2019
+                            Glendale 12-05-2015
+                            Paleo Festival 24-07-2007
+                            Mexico City 12-04-2007
+                            Lisbon 26-10-2006
+                            Thanks in advance, cheers",
+    "created_at": 2025-02-27T20:24:00.000Z,
+    "id": "2458",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/000bx1sk44.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2001-11-02 - Apollo, Manchester, UK - AUD FLAC [Leo Edwards]",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2458",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2458",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "moris",
+    },
+    "content": "Date: 18th July 2016Venue: Arènes de Nîmes (Nîmes Festival) Location: NimesCountry: FranceTaper : unknownLocation : unknownLineage : ? > WAV > Audacity > FLACSetlist:PsychoPlug In BabyInterlude + Hysteria + Heartbreaker riff + Back in Black outroResistanceIsolated SystemThe HandlerUndisclosed DesiresSupermassive Black HoleMunich JamMadnessDead InsideAssassinStarlightTime is Running OutThe Globalist DronesUprisingMercyMan With a Harmonica + Knights of CydoniaNotes:Assassin was played despite not being on the setlist. This was done in response to fans near the front of the crowd chanting for the song.",
+    "created_at": 2025-02-12T05:49:00.000Z,
+    "id": "2457",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/2016-07-18-audio.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2016-07-18 - Arenes de Nimes, Nimes, France - AUD FLAC",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2457",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2457",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "2nd December 2001
+                            Imperial Hall
+                            Osaka, JapanSource:
+                            "Feed My Role" Japanese 2 discs bootleg.
+                            Lossless audience recording.
+                            Frequencies go to 22 kHz.Lineage:
+                            Unknown audience recording > Lossless burning on Japanese bootleg "Feed my role" CDs > Ripping with XLD (Paranoia ripping process > FLACInformation:
+                            This was the last known live performance of Agitated until Helsinki 2013, the last known live performance of Darkshines until Leeds Festival 2011 and the last known live performance of Unintended until Rockhal 2007.Setlist:
+                            What's He Building? (intro music)
+                            Dead Star
+                            Micro Cuts
+                            Citizen Erased
+                            Étude Op. 25, No. 12 + Sunburn (keyboard)
+                            Darkshines + riff
+                            Showbiz + Ashamed outro
+                            Jimmy Jam
+                            Unintended
+                            Hyper Music
+                            Agitated + Township Rebellion outro
+                            Prelude in C-Sharp Minor Op. 3, No. 2 + Screenager
+                            Feeling Good
+                            Space Dementia
+                            In Your World
+                            New Born
+                            Muscle Museum
+                            Plug In Baby
+                            Bliss (extended)",
+    "created_at": 2024-12-12T21:17:00.000Z,
+    "id": "2456",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/front10.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2001-12-02 - Imperial Hall, Osaka, Japan - AUD FLAC",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2456",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2456",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "moris",
+    },
+    "content": "Date: 4th December 2006Venue: DatchForumLocation: Milan, MICountry: ItalySetlistTake a BowMap of the Problematique + Maggie's Farm outroButterflies and HurricanesSupermassive Black HoleNew BornCity of DelusionStarlightForced In (instrumental)Bliss (extended)Feeling GoodHoodooInvincibleTime Is Running OutPlug In BabyEncore 1Sunburn (keyboard)HysteriaStockholm Syndrome + Township Rebellion riffEncore 2Knights of Cydonia",
+    "created_at": 2024-12-04T23:18:00.000Z,
+    "id": "2455",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2006-12-04 - DatchForum, Milan, MI, Italy - AUD MP3",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2455",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2455",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "10th November 2006
+                            Evening News Arena
+                            Manchester, United KingdomSource:
+                            Bootleg previously shared via muselive.com & Muse Hub.
+                            MP3, Mono, 192 kbps, 44100 Hz.Setlist:
+                            Take a Bow
+                            Hysteria
+                            Map of the Problematique + Maggie's Farm outro
+                            Butterflies & Hurricanes
+                            Assassin (extended)
+                            Plug In Baby
+                            Muscle Museum
+                            Forced In (instrumental)
+                            Bliss (extended)
+                            Feeling Good
+                            Whistling + Hoodoo
+                            Invincible
+                            Supermassive Black Hole
+                            Time Is Running Out
+                            Killing in the Name riff + Stockholm Syndrome + Township Rebellion outro + riff
+                            Starlight
+                            New Born
+                            Knights of Cydonia",
+    "created_at": 2024-11-21T13:36:00.000Z,
+    "id": "2454",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/Manchester-2006-11-10-setlist.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2006-11-10 - Evening News Arena, Manchester, UK - LOSSY AUD MP3",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2454",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2454",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "moris",
+    },
+    "content": "MuseGolden 1 CenterSacramento, CA,March 7, 2019Simulation Theory World TourTaper: TheJackaliPhone 8 internal mics Voice Memo app (set to lossless) m4a > Dell Inspiron 13 > Audacity WAV > Roxio Creator 9 (tracking & fades) FLACAlgorithmPressure[Drill Sergeant]PsychoBreak It to MeUprisingPropagandaPlug In Baby[Pray]The Dark SideSupermassive Black HoleThought ContagionInterludeHysteriaThe 2nd Law: UnsustainableDig Down[STT Interstitial 1]MadnessMercyTime Is Running OutHouston JamTake a BowPrelude / StarlightEncore:[STT Interstitial 2]Algorithm repriseStockholm Syndrome / Assassin / Reapers / The Handler / New BornKnights of CydoniaAnother Jackal Production Vol 23: Muse 2019-03-07 Golden 1 Center, Sacramento, CAFive years ago I wasn't very familiar with Muse and hadn't really thought about seeing them. My friend Raybo highly recommended that I attend the show. He & Mrs Raybo had also turned me on to Royal Blood & The Struts so, based on their credibility, I didn't hesitate to get a ticket. Lots of kids in the audience (if they're younger than my 39-year old daughter, they're a kid!) so lots of enthusiasm in the building. Fun show with lots of big sound & big staging.Includes the tour itinerary & some okay pics taken with my crappy iPhone 8.Enjoy!!",
+    "created_at": 2024-09-24T04:11:00.000Z,
+    "id": "2453",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2019-03-07 - Golden 1 Center, Sacramento, CA, USA - AUD FLAC",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2453",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2453",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "2004/12/20
+                            Earls Court Exhibition Centre
+                            London, UKSource:
+                            XFM master CD found on eBay, used by the radio to broadcast the show in December 2004.
+                            Used by Muse management to share live tracks into the muse.mu audio player in January 2005 (hysteria, micro cuts, space dementia, ruled by secrecy).
+                            I didn't know that this master CD could exist 20 years later and would be offered for sale, that's why I didn't hesitate. I'm happy to share with you what Muse could have added for Absolution's XX anniversary, in the best possible audio quality (no loss).
+                            Look no further, what we dream of is here.Lineage:
+                            CD > XLD > Ripper mode : CDParanoia III 10.2 > .flacSetlist:
+                            [Disc 1]
+                            01 - Dracula Mountain (instrumental)
+                            02 - Intro + Apocalypse Please
+                            03 - Hysteria
+                            04 - The Small Print + early Psycho riff
+                            05 - Sing For Absolution
+                            06 - Micro Cuts (extended outro)
+                            07 - Citizen Erased
+                            08 - End of Citizen Erased + Take a Bow (interlude) + Space Dementia
+                            09 - Ruled By Secrecy
+                            10 - Pre-Sunburn '04 piano intro + Sunburn (keyboard)
+                            11 - New Born
+                            12 - Butterflies & Hurricanes
+                            13 - Muscle Museum
+                            14 - Bliss (short version)
+                            15 - Plug In Baby
+                            [Disc 2]
+                            01 - Dead Star (from the 19th)
+                            02 - Time Is Running Out
+                            03 - Blackout
+                            04 - Stockholm Syndrome + Township Rebellion riff + Execution Commentary riff + Hyper Chondriac Heavy riff + Sinatra songs outro",
+    "created_at": 2024-07-30T10:27:00.000Z,
+    "id": "2452",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/cover73.png",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2004-12-20 - Earls Court Exhibition Centre, London, UK - XFM MASTER CD FLAC",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2452",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2452",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "2003/10/11
+                            Nosturi,
+                            Helsinki, FinlandSource:
+                            Original DAT from the RTBF (Belgian Radio) archives, recorded in 44 kHz, sound is amazing. Used for the radio broadcast of the show by Radio21.Lineage:
+                            DAT > ? > .wav > Audacity > splitting tracks > .flacSetlist:
+                            Apocalypse Please
+                            Hysteria
+                            Bliss (keyboard intro)
+                            Thoughts of a Dying Atheist
+                            Sing for Absolution
+                            Citizen Erased + Take a Bow (instrumental demo)
+                            Space Dementia
+                            Endlessly
+                            Feeling Good
+                            Butterflies & Hurricanes
+                            Sunburn (guitar)
+                            Muscle Museum
+                            Time Is Running Out
+                            Plug In Baby
+                            The Small Print
+                            Blackout
+                            New Born
+                            Stockholm Syndrome + early Psycho riff",
+    "created_at": 2024-07-19T13:57:00.000Z,
+    "id": "2451",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/DAT.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2003-10-11 - Nosturi, Helsinki, Finland - MASTER DAT FLAC",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2451",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2451",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "1999/08/03
+                            Radio KCRW, Morning Becomes Eclectic
+                            Santa Monica, California, USASource:
+                            Maverick promotional advance CD-R, absolutely the best soundboard quality.Lineage:
+                            CD-R > copying files > .WAVTracklist:
+                            01 - Interview #1
+                            02 - Sunburn
+                            03 - Falling Down
+                            04 - Overdue
+                            05 - Interview #2
+                            06 - Uno
+                            07 - Cave
+                            08 - Unintended
+                            09 - Muscle Museum
+                            10 - Interview #3",
+    "created_at": 2024-07-16T12:31:00.000Z,
+    "id": "2450",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/Front-LQ.png",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "1999-08-03 - KCRW Morning Becomes Eclectic, Santa Monica, CA, USA - ADVANCE CD WAV",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2450",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2450",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "10fingersmikey",
+    },
+    "content": "I'm sharing a full remaster I just completed yesterday for the 2006-06-28 Shepherds Bush Empire gig. I at least got this finished and uploaded on the correct date, even though it is 2 years too early to be a true 20 year anniversary, so it is the ALMOST 20 year anniversary hahaIt started from me wanting to do this remaster edit on Supermassive Black Hole since this has the single best performance of that song. I just decided to keep going with it once that song turned out the way it did. This is the way this gig was meant to heard. Please use decent headphones or put it on in the car to really experience how this sounds - playing on your phone likely won't do much.I made these as 320kbps MP3s because there is absolutely no reason to bloat the files since the best source for the audio (only some songs, not even all of them) had a bit rate of 384kbps. There will be no noticeable difference/loss - they still sound amazing.
+                            For anyone familiar with this, it was annoying that there was never a single broadcast source, so it had to be patched together from multiple sources. This made it feel like a collection of single songs rather than an actual gig, so I tried to splice them all together to make it feel like a single cohesive performance. Only exception being track 6 into 7 where there was just nothing I could do there.
+                            Grab it, turn it up, and please let me know what you think! I would welcome any feedback if it could have been done better - I think it came out ACE. I also recommend trying it with no EQ first since I make me edits to sound good without it.",
+    "created_at": 2024-06-28T23:52:00.000Z,
+    "id": "2449",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/Cover76.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2006-06-28 Shepherds Bush Empire, London, UK (The Almost 20 Year Anniversary Remaster)",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2449",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2449",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "moris",
+    },
+    "content": "Muse - Arena Riga, Riga, Latvia 02nd July 2007Filmer - UnknownTracksTake a BowMap of the ProblematiqueButterflies & HurricanesAssassinNew BornHoodooIntroApocalypse PleaseSunburnStarlightSupermassive Black HoleMan of Mystery (The Shadows cover)Time Is Running OutBlissEncore:Soldier's PoemInvincibleStockholm SyndromeEncore 2:HysteriaPlug In BabyKnights of CydoniaNotes -Just a few notes on this show and some others that I will be sharing from Mark Suffolk's collection. Some of you might know Mark, he was very active in the late 90's and all throughout the 00's, he was a very well respected trader who started taping and filming shows. Mark helped me get started in trading when it all went online in the late 90's/early 00's and I owe the guy a lot, he was an absolute pleasure to deal with. Unfortunately Mark passed away recently and his wife got in touch with me regarding his bootleg collection, TravisBickle1963 very kindly helped collect the collection and go through a lot of discs so a lot of credit goes to him for making these available to the fans, check out his YouTube channel if you ever want your tapes transferring - https://www.youtube.com/@TravisBickle1963But of course, all credit to Mark for filming and taping so many great shows, a great loss to the trading community. If you decide to share this elsewhere, please give the credit to Mark pleaseThis is his old trading site if this brings back any memories - https://web.archive.org/web/20080101124722/http://www.freewebs.com/bootlegs4trade/index.htmStream 2Original ID: 224Codec: MPEG-1/2 Video (mpgv)Type: VideoVideo resolution: 720x576Buffer dimensions: 720x576Frame rate: 25Decoded format:Orientation: Top leftChroma location: LeftVideo bitrate: 9000kbpsStream 3Original ID: 48512Codec: A52 Audio (aka AC3) (a52 )Type: AudioChannels: StereoSample rate: 48000 HzBits per sample: 32Bitrate: 192 kb/s",
+    "created_at": 2024-05-16T22:12:00.000Z,
+    "id": "2448",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2007-07-02 - Riga Arena, Riga, Latvia - AMT DVD",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2448",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2448",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "2023-07-01
+                            Werchter Festival
+                            Festivalpark,
+                            Werchter, Belgium 
+                            Source:
+                            I tried to find the best audio quality. This is from a Youtube video, since deleted:
+                            https://www.youtube.com/watch?v=PejcbBc7jhw
+                            Not the same source than the mp3 version.Lineage:
+                            .webm audio file of the YouTube video (opus codec) > Audacity > Editing > .flacSetlist:
+                            Intro
+                            Will of the People
+                            Interlude + Hysteria
+                            [Drill Sergeant] + Psycho
+                            Map of the Problematique ('Who Knows Who' riff outro)
+                            Thought Contagion
+                            Won't Stand Down
+                            Kill or Be Killed (Felsmann + Tiley Reinterpretation)
+                            Compliance
+                            Interstitial 'Parkour'
+                            Time is Running Out
+                            'Toccata and Fugue in D Minor' intro + You Make Me Feel Like It's Halloween
+                            Madness
+                            We Are Fucking Fucked
+                            The 2nd Law: Isolated System
+                            Supermassive Black Hole
+                            Interstitial 'Driving'
+                            Plug in Baby
+                            Behold, the Glove
+                            Uprising
+                            Prelude + Starlight
+                            Simulation Theory Theme/[JFK]
+                            Kill or be Killed
+                            Man With an Harmonica + Knights of Cydonia (aborted; attempted twice)
+                            Showbiz ('Ashamed' riff outro)",
+    "created_at": 2024-04-05T17:04:00.000Z,
+    "id": "2446",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/small.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2023-07-01 Rock Werchter Festival, Festivalpark, Werchter, Belgium - PRO FLAC",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2446",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2446",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "DVD Authiring & Covers By Deer 5001
+                            Visit To
+                            https://deer5001rockconcert.blogspot.com/
+                            Thank you so much For Suppot.
+                            Deer 5001
+                            *****/*****
+                            MUSE
+                            Werchter Festival
+                            at Festivalpark, Werchter, Belgium
+                            Tour: Will of the People World Tour
+                            2023-07-01
+                            Setlist:
+                            01 - Will of the People
+                            02 - Interlude + Hysteria
+                            03 - [Drill Sergeant] + Psycho
+                            04 - Map of the Problematique ('Who Knows Who' riff outro)
+                            05 - Thought Contagion
+                            06 - Won't Stand Down
+                            07 - Kill or Be Killed (Felsmann + Tiley Reinterpretation)
+                            08 - Compliance
+                            09 - Interstitial 'Parkour' + Time is Running Out
+                            10 - 'Toccata and Fugue in D Minor' intro + You Make Me Feel Like It's Halloween
+                            11 - Matt speech + Madness
+                            12 - We Are Fucking Fucked
+                            13 - The 2nd Law: Isolated System
+                            14 - Supermassive Black Hole
+                            15 - Interstitial 'Driving' + Plug in Baby
+                            16 - Behold, the Glove
+                            17 - Uprising
+                            18 - Prelude + Starlight
+                            19 - Simulation Theory Theme/[JFK] + Kill or be Killed
+                            20 - Man With an Harmonica
+                            21 - Knights of Cydonia (aborted; attempted twice, but cut due to technical issues and curfew)
+                            22 - Showbiz ('Ashamed' riff outro)
+                            Total Time: 01:43:02
+                            DVD Info:
+                            Media: pro-shot
+                            Menu: Yes
+                            Chapters (SongSelect): Yes
+                            SoundMenu: Yes
+                            Video: NTSC & PAL/16:9 Widescreen
+                            Audio1: LPCM/1536 Kbps/2 Ch
+                            Audio2: AC3/448 Kbps/5.1 Ch
+                            Audio3: AC3/448 Kbps/2 Ch
+                            MD5 Check Sum, DVD Covers & Disc (Label) Included.",
+    "created_at": 2024-04-03T17:43:00.000Z,
+    "id": "2445",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/DVD-Cover-Low-Resolution-Cut-Frame.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2023-07-01 Rock Werchter Festival, Festivalpark, Werchter, Belgium - PRO DVD",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2445",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2445",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "29/10/2001
+                            Zénith
+                            Paris, FranceSource:
+                            Unknown audience recording, MP3 192kbps.
+                            Lossy but complete recording of the show.For the lossless but incomplete show, go there:https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=1882
+                            Setlist:
+                            Intro (What's He Building)
+                            Dead Star
+                            Micro Cuts
+                            Citizen Erased
+                            Sunburn (Piano)
+                            Showbiz
+                            Megalomania
+                            Uno
+                            Screenager
+                            Feeling Good
+                            Space Dementia
+                            In Your World
+                            Jimmy Jam + Muscle Museum
+                            New Born
+                            Hyper Music
+                            Cave
+                            Plug In Baby
+                            Unintended
+                            Bliss",
+    "created_at": 2024-03-29T22:15:00.000Z,
+    "id": "2444",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2001-10-29 - Zenith, Paris, France - AUD MP3",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2444",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2444",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "siberwolf",
+    },
+    "content": "MuseWill Of The People World TourMadison Square GardenNew York City, NYFriday, March 17th, 2023Location: Barrier, main stage in front of MattSource: Samsung Galaxy Express Prime 2 > Stereo WAV (16/44)Transfer: SD Card > Audacity 3.4.2 (Soft overdrive edit; Reverb edit; Amplify edit; Fade in start/Fade out end; Tracks split) > xACT 2.47 (FLAC 16bit/44kHz; Tracks tagged)Tracklist:01 Will Of The People02 Interlude > Hysteria03 Drill Sergeant > Psycho04 Bliss05 Won't Stand Down06 Kill Or Be Killed (Felsmann + Tiley Reinterpretation on playback)07 Compliance08 Thought Contagion09 Verona10 Interstitial Parkour11 Time Is Running Out12 The 2nd Law: Isolated System13 Resistance14 Toccata and Fugue In D Minor intro > You Make Me Feel Like It's Halloween15 Madness16 We Are Fucking Fucked17 The Dark Side (Alternate Reality Version instrumental)18 Supermassive Black Hole19 Interstitial Driving20 Plug In Baby21 Behold, The Glove22 Uprising23 Prelude24 StarlightEncore:25 Simulation Theory Theme / [JFK]26 Kill Or Be Killed27 Man With A Harmonica intro > Knights Of CydoniaTotal Time: 1:51:37*Recorded, mastered, and shared exclusively on MuseBootlegs by siberwolf. For trading or gifting only. DO NOT SELL.Notes:-After two nights in Montreal, it was time to warm up a bit and fly to New York for St. Patrick's Day! Visiting Madison Square Garden had always been on my bucket list. Seeing Muse live at Madison Square Garden from the front row? Unforgettable.-Forever grateful to Catherine for saving a spot for me on the barrier. I queued from 5am and was #11 in line but missed the initial round of wristbands that were given out by MSG staff at 9am. I cannot tell you how distressed I was over this. But Catherine is the absolute BEST. This just so happened to also be her 200th Muse gig! Matt thought it would be appropriate to dedicate Madness to her, lol.-Last time I was in NYC for the 2022 Beacon show, I was lucky enough to get a pick from Matt's guitar tech. This time he gave me Matt's own stage taped setlist. Absolutely made my night!-This bootleg was recorded with an old cheap model Samsung sat upside down inside the front pocket of my jeans. It does the trick! Overall, I think this turned out to be one of my best sounding recordings. Quite clear, except for the heavier parts... then you'll hear some distortion. This is most evident during songs like Won't Stand Down and Kill Or Be Killed. Sorry, my little phone mic did its best. It was VERY loud in the front row.-I also filmed video of the entire show. Both Evanescence and Muse, plus a little One OK Rock. You can watch these videos on my YouTube playlist for MSG here: https://www.youtube.com/playlist?list=PLVXWNESJqYMR4hasA0EPTUrgHsXWIQNBlPlease subscribe to my channel at http://www.youtube.com/siberwolf-I recorded audio of Evanescence's complete opening set for this date as well. If interested in that recording, let me know.Hope you enjoy,~siberwolf",
+    "created_at": 2024-03-19T12:40:00.000Z,
+    "id": "2443",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2023-03-17 - Madison Square Garden, New York City, NY, USA - AUD FLAC [siberwolf]",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2443",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2443",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "siberwolf",
+    },
+    "content": "MuseWill Of The People World TourCentre BellMontreal, QC, CanadaWednesday, March 15th, 2023Night 2 of 2Location: Barrier, dead center b-stage (end of catwalk)Source: Samsung Galaxy Express Prime 2 > Stereo WAV (16/44)Transfer: SD Card > Audacity 3.4.2 (Soft overdrive edit; Reverb edit; Fade in start/Fade out end; Tracks split) > xACT 2.47 (FLAC 16bit/44kHz; Tracks tagged)Tracklist:01 Will Of The People02 Interlude > Hysteria03 Drill Sergeant > Psycho04 Bliss (first performance in Canada since 2016)05 Won't Stand Down06 Kill Or Be Killed (Felsmann + Tiley Reinterpretation on playback)07 Compliance08 Thought Contagion09 Liberation10 Interstitial Parkour11 Time Is Running Out12 The 2nd Law: Isolated System13 Resistance14 Toccata and Fugue In D Minor intro > You Make Me Feel Like It's Halloween15 Madness16 We Are Fucking Fucked17 The Dark Side (Alternate Reality Version instrumental)18 Supermassive Black Hole19 Interstitial Driving20 Plug In Baby21 Behold, The Glove22 Uprising23 Prelude24 StarlightEncore:25 Simulation Theory Theme / [JFK]26 Kill Or Be Killed27 Man With A Harmonica intro > Knights Of CydoniaTotal Time: 1:50:10*Recorded, mastered, and shared exclusively on MuseBootlegs by siberwolf. For trading or gifting only. DO NOT SELL.Notes:-For Montreal night two, I ended up in the same spot at the end of the catwalk/front of the b-stage as the night previous, so these two recordings are comparable in quality.-I apologize on the behalf of Jose (aka the "orange beanie guy"), who was next to me on the barrier, for his singing during Liberation, lol. He was living the dream and got to attend every date on the North American tour. It was fun experiencing a show with him!-This bootleg was recorded with an old cheap model Samsung sat upside down inside the front pocket of my jeans. It does the trick! You will hear some distortion during particularly loud moments (e.g. enthusiastic audience screamers or heavier guitar parts) due to the loudness overloading the phone's mic. Also, because the end of the catwalk is rather far from the main stage, there is a subtle distant "fishbowl" sound to this recording that I couldn't really fix. Compare this to my much clearer Madison Square Garden audio (front row, main stage) a few nights later, and the difference is rather noticeable. With that said, this recording still turned out pretty nice.-I also captured video of the entire show (both Muse & Evanescence). You can view these videos on my YouTube channel http://www.youtube.com/siberwolf or check out their specific playlists below:3/14 Montreal: https://www.youtube.com/playlist?list=PLVXWNESJqYMTEJB4zg8nhxKuejBjGjOK-3/15 Montreal: https://www.youtube.com/playlist?list=PLVXWNESJqYMQdPlYV9elU6a12U7Pghvxf-Audio of Evanescence's opening set was also recorded this night. If interested in that bootleg, let me know.Hope you enjoy,~siberwolf",
+    "created_at": 2024-03-19T12:37:00.000Z,
+    "id": "2442",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2023-03-15 - Centre Bell, Montreal, QC, Canada - AUD FLAC [siberwolf]",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2442",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2442",
+  },
+]
+`;
+
 exports[`parses latest torrents 1`] = `
 [
   {
@@ -1378,6 +2038,664 @@ exports[`parses latest torrents 1`] = `
     "type": "MUSEBOOTLEGS_TORRENT",
     "uniqueId": "2436",
     "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2436",
+  },
+]
+`;
+
+exports[`parses yesterday upload date format 1`] = `
+[
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "JrMan",
+    },
+    "content": "01 - Unravelling02 - Supermassive Black Hole03 - Prelude + StarlightLineage: npo.nl > N_m3u8DL-RE > MKVToolNix GUI (for splitting and merging)
+                            
+                                Click here to see full text
+                                General
+                                    Unique ID : 134191327447957889676054097208782860968 (0x64F44F40B1C9B91FA1D72B61C387B2A8)
+                                    Complete name : Muse Pinkpop 2025.mkv
+                                    Format : Matroska
+                                    Format version : Version 4
+                                    File size : 685 MiB
+                                    Duration : 13 min 32 s
+                                    Overall bit rate : 7 074 kb/s
+                                    Frame rate : 25.000 FPS
+                                    Encoded date : 2025-06-28 10:49:47 UTC
+                                    Writing application : mkvmerge v93.0 ('Goblu') 64-bit
+                                    Writing library : libebml v1.4.5 + libmatroska v1.7.1 / Lavf62.1.100
+                                    DATE : 2025-06-28T11:08:42.0056933+01:00
+
+                                    Video
+                                    ID : 1
+                                    Format : AVC
+                                    Format/Info : Advanced Video Codec
+                                    Format profile : [email protected]
+                                    Format settings : CABAC / 4 Ref Frames
+                                    Format settings, CABAC : Yes
+                                    Format settings, Reference frames : 4 frames
+                                    Format settings, GOP : M=4, N=50
+                                    Codec ID : V_MPEG4/ISO/AVC
+                                    Duration : 13 min 32 s
+                                    Bit rate : 6 943 kb/s
+                                    Width : 1 920 pixels
+                                    Height : 1 080 pixels
+                                    Display aspect ratio : 16:9
+                                    Frame rate mode : Constant
+                                    Frame rate : 25.000 FPS
+                                    Color space : YUV
+                                    Chroma subsampling : 4:2:0
+                                    Bit depth : 8 bits
+                                    Scan type : Progressive
+                                    Bits/(Pixel*Frame) : 0.134
+                                    Stream size : 672 MiB (98%)
+                                    Default : Yes
+                                    Forced : No
+                                    Color range : Limited
+                                    Color primaries : BT.709
+                                    Transfer characteristics : BT.709
+                                    Matrix coefficients : BT.709
+
+                                    Audio
+                                    ID : 2
+                                    Format : AAC LC
+                                    Format/Info : Advanced Audio Codec Low Complexity
+                                    Codec ID : A_AAC-2
+                                    Duration : 13 min 32 s
+                                    Bit rate : 128 kb/s
+                                    Channel(s) : 2 channels
+                                    Channel layout : L R
+                                    Sampling rate : 48.0 kHz
+                                    Frame rate : 46.875 FPS (1024 SPF)
+                                    Compression mode : Lossy
+                                    Stream size : 12.4 MiB (2%)
+                                    Default : Yes
+                                    Forced : No",
+    "created_at": 2025-07-02T14:05:00.000Z,
+    "id": "2460",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2025-06-22 - Megaland (Pinkpop Festival), Landgraaf, LI, Netherlands - PRO WEB [1080p] MKV",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2460",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2460",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "moris",
+    },
+    "content": "Date: 17th November 2015Venue: Palacio de los DeportesCity: Mexico CityCountry: MexicoTaper: JoeldethSource: Sony full HD camera > TMPGEnc Authoring Works 4 Version. 4.0.12.42 > Bluray-discMenu: NoChapters: Yes Show Time : 1h46min32secComplete showSetlist:01 - Drones02 - Reapers03 - [Drill Sergeant] + Psycho04 - Dead Inside05 - Plug In Baby06 - The 2nd Law: Isolated System07 - The Handler08 - Interlude + Hysteria + Back in Black outro09 - Supermassive Black Hole10 - Prelude + Starlight11 - Apocalypse Please12 - Munich Jam13 - Madness14 - Undisclosed Desires15 - [JFK] + Revolt16 - Time Is Running Out **missing first 30sec17 - Uprising18 - The Globalist19 - DronesEncore:20 - Mercy21 - Man with a Harmonica + Knights of CydoniaTechnotes:Video: MPEG2 Video 1920x1080 29.97fps 25.1 Mb/sAudio: Dolby AC3 48000Hz stereo 224kbpsNotes:- Mercy was dedicated to Paris, after the terrorist attacks on November 13th.- Live premiere of Revolt, public live premiere of The Globalist and Drones (both of which were played at the dress rehearsal two days previously in Los Angeles).- Tour debut for Isolated System and Undisclosed Desires.- Hullaballoons were released during Starlight.- Revolt was played half-stepped down.- This is a complete video and audio recording from a single camera. - This show has everything close ups, distance shots and sometimes shakey shots.",
+    "created_at": 2025-05-09T04:07:00.000Z,
+    "id": "2459",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/2015-11-17-hd.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2015-11-17 - Palacio de los Deportes, Mexico City, Mexico - AUD BD",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2459",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2459",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "paranoidgcm",
+    },
+    "content": "MUSE
+                            Date:2001/11/02
+                            Venue:Apollo, Manchester, UK
+                            Time:77:20
+                            Source: Headphones > JVC (XM-R700) > 3.5mm OFC > Genius 5.1 PCI > Nero Wave Editor > CD-R > FLAC
+                            Notes:Taped by Leo Edwards
+                            Setlist:
+                            01:Intro
+                            02:Dead Star
+                            03:Micro Cuts
+                            04:Citizen Erased
+                            05:Darkshines
+                            06:Showbiz
+                            07:Megalomania
+                            08:Sunburn
+                            09:Screenager
+                            10:Space Dementia
+                            11:In Your World
+                            12:New Born
+                            13:Riff Stockholm Syndrome
+                            14:Muscle Museum
+                            15lug In Baby
+                            16:Hyper Music
+                            17: Agitated
+                            18:Feeling Good
+                            19:Bliss (last 30 sec are cut)
+                            Quality: Decent audience recording
+                            ----------------------------------
+                            Encoded by EvilBambi 2004/12/15Note: I was looking for concerts in my files to share with you. This is an improved version of an mp3's previously posted here. Thanks to the taper, sharing is caring.
+                            Please help me seed the following torrents:
+                            New York 17-03-2023
+                            Philadelphia 19-03-2023
+                            Mexico City 10-02-2019
+                            Glendale 12-05-2015
+                            Paleo Festival 24-07-2007
+                            Mexico City 12-04-2007
+                            Lisbon 26-10-2006
+                            Thanks in advance, cheers",
+    "created_at": 2025-02-27T20:24:00.000Z,
+    "id": "2458",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/000bx1sk44.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2001-11-02 - Apollo, Manchester, UK - AUD FLAC [Leo Edwards]",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2458",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2458",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "moris",
+    },
+    "content": "Date: 18th July 2016Venue: Arènes de Nîmes (Nîmes Festival) Location: NimesCountry: FranceTaper : unknownLocation : unknownLineage : ? > WAV > Audacity > FLACSetlist:PsychoPlug In BabyInterlude + Hysteria + Heartbreaker riff + Back in Black outroResistanceIsolated SystemThe HandlerUndisclosed DesiresSupermassive Black HoleMunich JamMadnessDead InsideAssassinStarlightTime is Running OutThe Globalist DronesUprisingMercyMan With a Harmonica + Knights of CydoniaNotes:Assassin was played despite not being on the setlist. This was done in response to fans near the front of the crowd chanting for the song.",
+    "created_at": 2025-02-12T05:49:00.000Z,
+    "id": "2457",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/2016-07-18-audio.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2016-07-18 - Arenes de Nimes, Nimes, France - AUD FLAC",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2457",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2457",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "2nd December 2001
+                            Imperial Hall
+                            Osaka, JapanSource:
+                            "Feed My Role" Japanese 2 discs bootleg.
+                            Lossless audience recording.
+                            Frequencies go to 22 kHz.Lineage:
+                            Unknown audience recording > Lossless burning on Japanese bootleg "Feed my role" CDs > Ripping with XLD (Paranoia ripping process > FLACInformation:
+                            This was the last known live performance of Agitated until Helsinki 2013, the last known live performance of Darkshines until Leeds Festival 2011 and the last known live performance of Unintended until Rockhal 2007.Setlist:
+                            What's He Building? (intro music)
+                            Dead Star
+                            Micro Cuts
+                            Citizen Erased
+                            Étude Op. 25, No. 12 + Sunburn (keyboard)
+                            Darkshines + riff
+                            Showbiz + Ashamed outro
+                            Jimmy Jam
+                            Unintended
+                            Hyper Music
+                            Agitated + Township Rebellion outro
+                            Prelude in C-Sharp Minor Op. 3, No. 2 + Screenager
+                            Feeling Good
+                            Space Dementia
+                            In Your World
+                            New Born
+                            Muscle Museum
+                            Plug In Baby
+                            Bliss (extended)",
+    "created_at": 2024-12-12T21:17:00.000Z,
+    "id": "2456",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/front10.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2001-12-02 - Imperial Hall, Osaka, Japan - AUD FLAC",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2456",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2456",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "moris",
+    },
+    "content": "Date: 4th December 2006Venue: DatchForumLocation: Milan, MICountry: ItalySetlistTake a BowMap of the Problematique + Maggie's Farm outroButterflies and HurricanesSupermassive Black HoleNew BornCity of DelusionStarlightForced In (instrumental)Bliss (extended)Feeling GoodHoodooInvincibleTime Is Running OutPlug In BabyEncore 1Sunburn (keyboard)HysteriaStockholm Syndrome + Township Rebellion riffEncore 2Knights of Cydonia",
+    "created_at": 2024-12-04T23:18:00.000Z,
+    "id": "2455",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2006-12-04 - DatchForum, Milan, MI, Italy - AUD MP3",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2455",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2455",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "10th November 2006
+                            Evening News Arena
+                            Manchester, United KingdomSource:
+                            Bootleg previously shared via muselive.com & Muse Hub.
+                            MP3, Mono, 192 kbps, 44100 Hz.Setlist:
+                            Take a Bow
+                            Hysteria
+                            Map of the Problematique + Maggie's Farm outro
+                            Butterflies & Hurricanes
+                            Assassin (extended)
+                            Plug In Baby
+                            Muscle Museum
+                            Forced In (instrumental)
+                            Bliss (extended)
+                            Feeling Good
+                            Whistling + Hoodoo
+                            Invincible
+                            Supermassive Black Hole
+                            Time Is Running Out
+                            Killing in the Name riff + Stockholm Syndrome + Township Rebellion outro + riff
+                            Starlight
+                            New Born
+                            Knights of Cydonia",
+    "created_at": 2024-11-21T13:36:00.000Z,
+    "id": "2454",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/Manchester-2006-11-10-setlist.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2006-11-10 - Evening News Arena, Manchester, UK - LOSSY AUD MP3",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2454",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2454",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "moris",
+    },
+    "content": "MuseGolden 1 CenterSacramento, CA,March 7, 2019Simulation Theory World TourTaper: TheJackaliPhone 8 internal mics Voice Memo app (set to lossless) m4a > Dell Inspiron 13 > Audacity WAV > Roxio Creator 9 (tracking & fades) FLACAlgorithmPressure[Drill Sergeant]PsychoBreak It to MeUprisingPropagandaPlug In Baby[Pray]The Dark SideSupermassive Black HoleThought ContagionInterludeHysteriaThe 2nd Law: UnsustainableDig Down[STT Interstitial 1]MadnessMercyTime Is Running OutHouston JamTake a BowPrelude / StarlightEncore:[STT Interstitial 2]Algorithm repriseStockholm Syndrome / Assassin / Reapers / The Handler / New BornKnights of CydoniaAnother Jackal Production Vol 23: Muse 2019-03-07 Golden 1 Center, Sacramento, CAFive years ago I wasn't very familiar with Muse and hadn't really thought about seeing them. My friend Raybo highly recommended that I attend the show. He & Mrs Raybo had also turned me on to Royal Blood & The Struts so, based on their credibility, I didn't hesitate to get a ticket. Lots of kids in the audience (if they're younger than my 39-year old daughter, they're a kid!) so lots of enthusiasm in the building. Fun show with lots of big sound & big staging.Includes the tour itinerary & some okay pics taken with my crappy iPhone 8.Enjoy!!",
+    "created_at": 2024-09-24T04:11:00.000Z,
+    "id": "2453",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2019-03-07 - Golden 1 Center, Sacramento, CA, USA - AUD FLAC",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2453",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2453",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "2004/12/20
+                            Earls Court Exhibition Centre
+                            London, UKSource:
+                            XFM master CD found on eBay, used by the radio to broadcast the show in December 2004.
+                            Used by Muse management to share live tracks into the muse.mu audio player in January 2005 (hysteria, micro cuts, space dementia, ruled by secrecy).
+                            I didn't know that this master CD could exist 20 years later and would be offered for sale, that's why I didn't hesitate. I'm happy to share with you what Muse could have added for Absolution's XX anniversary, in the best possible audio quality (no loss).
+                            Look no further, what we dream of is here.Lineage:
+                            CD > XLD > Ripper mode : CDParanoia III 10.2 > .flacSetlist:
+                            [Disc 1]
+                            01 - Dracula Mountain (instrumental)
+                            02 - Intro + Apocalypse Please
+                            03 - Hysteria
+                            04 - The Small Print + early Psycho riff
+                            05 - Sing For Absolution
+                            06 - Micro Cuts (extended outro)
+                            07 - Citizen Erased
+                            08 - End of Citizen Erased + Take a Bow (interlude) + Space Dementia
+                            09 - Ruled By Secrecy
+                            10 - Pre-Sunburn '04 piano intro + Sunburn (keyboard)
+                            11 - New Born
+                            12 - Butterflies & Hurricanes
+                            13 - Muscle Museum
+                            14 - Bliss (short version)
+                            15 - Plug In Baby
+                            [Disc 2]
+                            01 - Dead Star (from the 19th)
+                            02 - Time Is Running Out
+                            03 - Blackout
+                            04 - Stockholm Syndrome + Township Rebellion riff + Execution Commentary riff + Hyper Chondriac Heavy riff + Sinatra songs outro",
+    "created_at": 2024-07-30T10:27:00.000Z,
+    "id": "2452",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/cover73.png",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2004-12-20 - Earls Court Exhibition Centre, London, UK - XFM MASTER CD FLAC",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2452",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2452",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "2003/10/11
+                            Nosturi,
+                            Helsinki, FinlandSource:
+                            Original DAT from the RTBF (Belgian Radio) archives, recorded in 44 kHz, sound is amazing. Used for the radio broadcast of the show by Radio21.Lineage:
+                            DAT > ? > .wav > Audacity > splitting tracks > .flacSetlist:
+                            Apocalypse Please
+                            Hysteria
+                            Bliss (keyboard intro)
+                            Thoughts of a Dying Atheist
+                            Sing for Absolution
+                            Citizen Erased + Take a Bow (instrumental demo)
+                            Space Dementia
+                            Endlessly
+                            Feeling Good
+                            Butterflies & Hurricanes
+                            Sunburn (guitar)
+                            Muscle Museum
+                            Time Is Running Out
+                            Plug In Baby
+                            The Small Print
+                            Blackout
+                            New Born
+                            Stockholm Syndrome + early Psycho riff",
+    "created_at": 2024-07-19T13:57:00.000Z,
+    "id": "2451",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/DAT.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2003-10-11 - Nosturi, Helsinki, Finland - MASTER DAT FLAC",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2451",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2451",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "1999/08/03
+                            Radio KCRW, Morning Becomes Eclectic
+                            Santa Monica, California, USASource:
+                            Maverick promotional advance CD-R, absolutely the best soundboard quality.Lineage:
+                            CD-R > copying files > .WAVTracklist:
+                            01 - Interview #1
+                            02 - Sunburn
+                            03 - Falling Down
+                            04 - Overdue
+                            05 - Interview #2
+                            06 - Uno
+                            07 - Cave
+                            08 - Unintended
+                            09 - Muscle Museum
+                            10 - Interview #3",
+    "created_at": 2024-07-16T12:31:00.000Z,
+    "id": "2450",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/Front-LQ.png",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "1999-08-03 - KCRW Morning Becomes Eclectic, Santa Monica, CA, USA - ADVANCE CD WAV",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2450",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2450",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "10fingersmikey",
+    },
+    "content": "I'm sharing a full remaster I just completed yesterday for the 2006-06-28 Shepherds Bush Empire gig. I at least got this finished and uploaded on the correct date, even though it is 2 years too early to be a true 20 year anniversary, so it is the ALMOST 20 year anniversary hahaIt started from me wanting to do this remaster edit on Supermassive Black Hole since this has the single best performance of that song. I just decided to keep going with it once that song turned out the way it did. This is the way this gig was meant to heard. Please use decent headphones or put it on in the car to really experience how this sounds - playing on your phone likely won't do much.I made these as 320kbps MP3s because there is absolutely no reason to bloat the files since the best source for the audio (only some songs, not even all of them) had a bit rate of 384kbps. There will be no noticeable difference/loss - they still sound amazing.
+                            For anyone familiar with this, it was annoying that there was never a single broadcast source, so it had to be patched together from multiple sources. This made it feel like a collection of single songs rather than an actual gig, so I tried to splice them all together to make it feel like a single cohesive performance. Only exception being track 6 into 7 where there was just nothing I could do there.
+                            Grab it, turn it up, and please let me know what you think! I would welcome any feedback if it could have been done better - I think it came out ACE. I also recommend trying it with no EQ first since I make me edits to sound good without it.",
+    "created_at": 2024-06-28T23:52:00.000Z,
+    "id": "2449",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/Cover76.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2006-06-28 Shepherds Bush Empire, London, UK (The Almost 20 Year Anniversary Remaster)",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2449",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2449",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "moris",
+    },
+    "content": "Muse - Arena Riga, Riga, Latvia 02nd July 2007Filmer - UnknownTracksTake a BowMap of the ProblematiqueButterflies & HurricanesAssassinNew BornHoodooIntroApocalypse PleaseSunburnStarlightSupermassive Black HoleMan of Mystery (The Shadows cover)Time Is Running OutBlissEncore:Soldier's PoemInvincibleStockholm SyndromeEncore 2:HysteriaPlug In BabyKnights of CydoniaNotes -Just a few notes on this show and some others that I will be sharing from Mark Suffolk's collection. Some of you might know Mark, he was very active in the late 90's and all throughout the 00's, he was a very well respected trader who started taping and filming shows. Mark helped me get started in trading when it all went online in the late 90's/early 00's and I owe the guy a lot, he was an absolute pleasure to deal with. Unfortunately Mark passed away recently and his wife got in touch with me regarding his bootleg collection, TravisBickle1963 very kindly helped collect the collection and go through a lot of discs so a lot of credit goes to him for making these available to the fans, check out his YouTube channel if you ever want your tapes transferring - https://www.youtube.com/@TravisBickle1963But of course, all credit to Mark for filming and taping so many great shows, a great loss to the trading community. If you decide to share this elsewhere, please give the credit to Mark pleaseThis is his old trading site if this brings back any memories - https://web.archive.org/web/20080101124722/http://www.freewebs.com/bootlegs4trade/index.htmStream 2Original ID: 224Codec: MPEG-1/2 Video (mpgv)Type: VideoVideo resolution: 720x576Buffer dimensions: 720x576Frame rate: 25Decoded format:Orientation: Top leftChroma location: LeftVideo bitrate: 9000kbpsStream 3Original ID: 48512Codec: A52 Audio (aka AC3) (a52 )Type: AudioChannels: StereoSample rate: 48000 HzBits per sample: 32Bitrate: 192 kb/s",
+    "created_at": 2024-05-16T22:12:00.000Z,
+    "id": "2448",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2007-07-02 - Riga Arena, Riga, Latvia - AMT DVD",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2448",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2448",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "2023-07-01
+                            Werchter Festival
+                            Festivalpark,
+                            Werchter, Belgium 
+                            Source:
+                            I tried to find the best audio quality. This is from a Youtube video, since deleted:
+                            https://www.youtube.com/watch?v=PejcbBc7jhw
+                            Not the same source than the mp3 version.Lineage:
+                            .webm audio file of the YouTube video (opus codec) > Audacity > Editing > .flacSetlist:
+                            Intro
+                            Will of the People
+                            Interlude + Hysteria
+                            [Drill Sergeant] + Psycho
+                            Map of the Problematique ('Who Knows Who' riff outro)
+                            Thought Contagion
+                            Won't Stand Down
+                            Kill or Be Killed (Felsmann + Tiley Reinterpretation)
+                            Compliance
+                            Interstitial 'Parkour'
+                            Time is Running Out
+                            'Toccata and Fugue in D Minor' intro + You Make Me Feel Like It's Halloween
+                            Madness
+                            We Are Fucking Fucked
+                            The 2nd Law: Isolated System
+                            Supermassive Black Hole
+                            Interstitial 'Driving'
+                            Plug in Baby
+                            Behold, the Glove
+                            Uprising
+                            Prelude + Starlight
+                            Simulation Theory Theme/[JFK]
+                            Kill or be Killed
+                            Man With an Harmonica + Knights of Cydonia (aborted; attempted twice)
+                            Showbiz ('Ashamed' riff outro)",
+    "created_at": 2024-04-05T17:04:00.000Z,
+    "id": "2446",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/small.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2023-07-01 Rock Werchter Festival, Festivalpark, Werchter, Belgium - PRO FLAC",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2446",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2446",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "DVD Authiring & Covers By Deer 5001
+                            Visit To
+                            https://deer5001rockconcert.blogspot.com/
+                            Thank you so much For Suppot.
+                            Deer 5001
+                            *****/*****
+                            MUSE
+                            Werchter Festival
+                            at Festivalpark, Werchter, Belgium
+                            Tour: Will of the People World Tour
+                            2023-07-01
+                            Setlist:
+                            01 - Will of the People
+                            02 - Interlude + Hysteria
+                            03 - [Drill Sergeant] + Psycho
+                            04 - Map of the Problematique ('Who Knows Who' riff outro)
+                            05 - Thought Contagion
+                            06 - Won't Stand Down
+                            07 - Kill or Be Killed (Felsmann + Tiley Reinterpretation)
+                            08 - Compliance
+                            09 - Interstitial 'Parkour' + Time is Running Out
+                            10 - 'Toccata and Fugue in D Minor' intro + You Make Me Feel Like It's Halloween
+                            11 - Matt speech + Madness
+                            12 - We Are Fucking Fucked
+                            13 - The 2nd Law: Isolated System
+                            14 - Supermassive Black Hole
+                            15 - Interstitial 'Driving' + Plug in Baby
+                            16 - Behold, the Glove
+                            17 - Uprising
+                            18 - Prelude + Starlight
+                            19 - Simulation Theory Theme/[JFK] + Kill or be Killed
+                            20 - Man With an Harmonica
+                            21 - Knights of Cydonia (aborted; attempted twice, but cut due to technical issues and curfew)
+                            22 - Showbiz ('Ashamed' riff outro)
+                            Total Time: 01:43:02
+                            DVD Info:
+                            Media: pro-shot
+                            Menu: Yes
+                            Chapters (SongSelect): Yes
+                            SoundMenu: Yes
+                            Video: NTSC & PAL/16:9 Widescreen
+                            Audio1: LPCM/1536 Kbps/2 Ch
+                            Audio2: AC3/448 Kbps/5.1 Ch
+                            Audio3: AC3/448 Kbps/2 Ch
+                            MD5 Check Sum, DVD Covers & Disc (Label) Included.",
+    "created_at": 2024-04-03T17:43:00.000Z,
+    "id": "2445",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/DVD-Cover-Low-Resolution-Cut-Frame.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2023-07-01 Rock Werchter Festival, Festivalpark, Werchter, Belgium - PRO DVD",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2445",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2445",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "kikinette",
+    },
+    "content": "29/10/2001
+                            Zénith
+                            Paris, FranceSource:
+                            Unknown audience recording, MP3 192kbps.
+                            Lossy but complete recording of the show.For the lossless but incomplete show, go there:https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=1882
+                            Setlist:
+                            Intro (What's He Building)
+                            Dead Star
+                            Micro Cuts
+                            Citizen Erased
+                            Sunburn (Piano)
+                            Showbiz
+                            Megalomania
+                            Uno
+                            Screenager
+                            Feeling Good
+                            Space Dementia
+                            In Your World
+                            Jimmy Jam + Muscle Museum
+                            New Born
+                            Hyper Music
+                            Cave
+                            Plug In Baby
+                            Unintended
+                            Bliss",
+    "created_at": 2024-03-29T22:15:00.000Z,
+    "id": "2444",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2001-10-29 - Zenith, Paris, France - AUD MP3",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2444",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2444",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "siberwolf",
+    },
+    "content": "MuseWill Of The People World TourMadison Square GardenNew York City, NYFriday, March 17th, 2023Location: Barrier, main stage in front of MattSource: Samsung Galaxy Express Prime 2 > Stereo WAV (16/44)Transfer: SD Card > Audacity 3.4.2 (Soft overdrive edit; Reverb edit; Amplify edit; Fade in start/Fade out end; Tracks split) > xACT 2.47 (FLAC 16bit/44kHz; Tracks tagged)Tracklist:01 Will Of The People02 Interlude > Hysteria03 Drill Sergeant > Psycho04 Bliss05 Won't Stand Down06 Kill Or Be Killed (Felsmann + Tiley Reinterpretation on playback)07 Compliance08 Thought Contagion09 Verona10 Interstitial Parkour11 Time Is Running Out12 The 2nd Law: Isolated System13 Resistance14 Toccata and Fugue In D Minor intro > You Make Me Feel Like It's Halloween15 Madness16 We Are Fucking Fucked17 The Dark Side (Alternate Reality Version instrumental)18 Supermassive Black Hole19 Interstitial Driving20 Plug In Baby21 Behold, The Glove22 Uprising23 Prelude24 StarlightEncore:25 Simulation Theory Theme / [JFK]26 Kill Or Be Killed27 Man With A Harmonica intro > Knights Of CydoniaTotal Time: 1:51:37*Recorded, mastered, and shared exclusively on MuseBootlegs by siberwolf. For trading or gifting only. DO NOT SELL.Notes:-After two nights in Montreal, it was time to warm up a bit and fly to New York for St. Patrick's Day! Visiting Madison Square Garden had always been on my bucket list. Seeing Muse live at Madison Square Garden from the front row? Unforgettable.-Forever grateful to Catherine for saving a spot for me on the barrier. I queued from 5am and was #11 in line but missed the initial round of wristbands that were given out by MSG staff at 9am. I cannot tell you how distressed I was over this. But Catherine is the absolute BEST. This just so happened to also be her 200th Muse gig! Matt thought it would be appropriate to dedicate Madness to her, lol.-Last time I was in NYC for the 2022 Beacon show, I was lucky enough to get a pick from Matt's guitar tech. This time he gave me Matt's own stage taped setlist. Absolutely made my night!-This bootleg was recorded with an old cheap model Samsung sat upside down inside the front pocket of my jeans. It does the trick! Overall, I think this turned out to be one of my best sounding recordings. Quite clear, except for the heavier parts... then you'll hear some distortion. This is most evident during songs like Won't Stand Down and Kill Or Be Killed. Sorry, my little phone mic did its best. It was VERY loud in the front row.-I also filmed video of the entire show. Both Evanescence and Muse, plus a little One OK Rock. You can watch these videos on my YouTube playlist for MSG here: https://www.youtube.com/playlist?list=PLVXWNESJqYMR4hasA0EPTUrgHsXWIQNBlPlease subscribe to my channel at http://www.youtube.com/siberwolf-I recorded audio of Evanescence's complete opening set for this date as well. If interested in that recording, let me know.Hope you enjoy,~siberwolf",
+    "created_at": 2024-03-19T12:40:00.000Z,
+    "id": "2443",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2023-03-17 - Madison Square Garden, New York City, NY, USA - AUD FLAC [siberwolf]",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2443",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2443",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "siberwolf",
+    },
+    "content": "MuseWill Of The People World TourCentre BellMontreal, QC, CanadaWednesday, March 15th, 2023Night 2 of 2Location: Barrier, dead center b-stage (end of catwalk)Source: Samsung Galaxy Express Prime 2 > Stereo WAV (16/44)Transfer: SD Card > Audacity 3.4.2 (Soft overdrive edit; Reverb edit; Fade in start/Fade out end; Tracks split) > xACT 2.47 (FLAC 16bit/44kHz; Tracks tagged)Tracklist:01 Will Of The People02 Interlude > Hysteria03 Drill Sergeant > Psycho04 Bliss (first performance in Canada since 2016)05 Won't Stand Down06 Kill Or Be Killed (Felsmann + Tiley Reinterpretation on playback)07 Compliance08 Thought Contagion09 Liberation10 Interstitial Parkour11 Time Is Running Out12 The 2nd Law: Isolated System13 Resistance14 Toccata and Fugue In D Minor intro > You Make Me Feel Like It's Halloween15 Madness16 We Are Fucking Fucked17 The Dark Side (Alternate Reality Version instrumental)18 Supermassive Black Hole19 Interstitial Driving20 Plug In Baby21 Behold, The Glove22 Uprising23 Prelude24 StarlightEncore:25 Simulation Theory Theme / [JFK]26 Kill Or Be Killed27 Man With A Harmonica intro > Knights Of CydoniaTotal Time: 1:50:10*Recorded, mastered, and shared exclusively on MuseBootlegs by siberwolf. For trading or gifting only. DO NOT SELL.Notes:-For Montreal night two, I ended up in the same spot at the end of the catwalk/front of the b-stage as the night previous, so these two recordings are comparable in quality.-I apologize on the behalf of Jose (aka the "orange beanie guy"), who was next to me on the barrier, for his singing during Liberation, lol. He was living the dream and got to attend every date on the North American tour. It was fun experiencing a show with him!-This bootleg was recorded with an old cheap model Samsung sat upside down inside the front pocket of my jeans. It does the trick! You will hear some distortion during particularly loud moments (e.g. enthusiastic audience screamers or heavier guitar parts) due to the loudness overloading the phone's mic. Also, because the end of the catwalk is rather far from the main stage, there is a subtle distant "fishbowl" sound to this recording that I couldn't really fix. Compare this to my much clearer Madison Square Garden audio (front row, main stage) a few nights later, and the difference is rather noticeable. With that said, this recording still turned out pretty nice.-I also captured video of the entire show (both Muse & Evanescence). You can view these videos on my YouTube channel http://www.youtube.com/siberwolf or check out their specific playlists below:3/14 Montreal: https://www.youtube.com/playlist?list=PLVXWNESJqYMTEJB4zg8nhxKuejBjGjOK-3/15 Montreal: https://www.youtube.com/playlist?list=PLVXWNESJqYMQdPlYV9elU6a12U7Pghvxf-Audio of Evanescence's opening set was also recorded this night. If interested in that bootleg, let me know.Hope you enjoy,~siberwolf",
+    "created_at": 2024-03-19T12:37:00.000Z,
+    "id": "2442",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2023-03-15 - Centre Bell, Montreal, QC, Canada - AUD FLAC [siberwolf]",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2442",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2442",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "siberwolf",
+    },
+    "content": "MuseWill Of The People World TourCentre BellMontreal, QC, CanadaTuesday, March 14th, 2023Night 1 of 2Location: Barrier, dead center b-stage (end of catwalk)Source: Samsung Galaxy Express Prime 2 > Stereo WAV (16/44)Transfer: SD Card > Audacity 3.4.2 (Soft overdrive edit; Reverb edit; Fade in start/Fade out end; Tracks split) > xACT 2.47 (FLAC 16bit/44kHz; Tracks tagged)Tracklist:01 Will Of The People02 Interlude > Hysteria03 Drill Sergeant > Psycho04 Citizen Erased (first performance in Canada since 2016)05 Won't Stand Down06 Kill Or Be Killed (Felsmann + Tiley Reinterpretation on playback)07 Compliance08 Thought Contagion09 Verona10 Interstitial Parkour11 Time Is Running Out12 The 2nd Law: Isolated System13 Undisclosed Desires14 Toccata and Fugue In D Minor intro > You Make Me Feel Like It's Halloween15 Madness16 We Are Fucking Fucked17 The Dark Side (Alternate Reality Version instrumental)18 Supermassive Black Hole19 Interstitial Driving20 Plug In Baby21 Behold, The Glove22 Uprising23 Prelude24 StarlightEncore:25 Simulation Theory Theme / [JFK]26 Kill Or Be Killed27 Man With A Harmonica intro > Knights Of CydoniaTotal Time: 1:52:03*Recorded, mastered, and shared exclusively on MuseBootlegs by siberwolf. For trading or gifting only. DO NOT SELL.Notes:-This was my first show (of seven) for the Will Of The People World Tour. I was quite sad when Atlanta didn't get an arena date this time around (we did eventually get a festival date), so I knew I'd have to travel if I wanted to see this tour proper. I got tix for Madison Square Garden in NYC, but when a 2nd night was announced for Montreal, I decided to do both dates in Montreal as well. -A special moment for me occurred on this night when someone from the Muse crew handed me a folded up setlist during You Make Me Feel Like It's Halloween. I had a tiny sign on the back of my phone asking "setlist please" but I never expected to just be gifted a setlist like that, much less while the concert was still ongoing! So about a minute into Halloween you can hear me randomly saying "thank you" with several "oh my gods" from my barrier companions and myself... that was in reference to receiving this setlist. Thank you Muse!-This bootleg was recorded with an old cheap model Samsung sat upside down inside the front pocket of my jeans. It does the trick! You will hear some distortion during particularly loud moments (e.g. enthusiastic audience screamers or heavier guitar parts) due to the loudness overloading the phone's mic. Also, because the end of the catwalk is rather far from the main stage, there is a subtle distant "fishbowl" sound to this recording that I couldn't really fix. Compare this to my much clearer Madison Square Garden audio (front row, main stage) a few nights later, and the difference is rather noticeable. With that said, this recording still turned out pretty nice.-I also captured video of the entire show (both Muse & Evanescence). You can view these videos on my YouTube channel http://www.youtube.com/siberwolf or check out their specific playlists below:3/14 Montreal: https://www.youtube.com/playlist?list=PLVXWNESJqYMTEJB4zg8nhxKuejBjGjOK-3/15 Montreal: https://www.youtube.com/playlist?list=PLVXWNESJqYMQdPlYV9elU6a12U7Pghvxf-I forgot to record audio of Evanescence for this date, however I did record Evanescence's complete set the following night (3/15). If interested in that bootleg, let me know.Hope you enjoy,~siberwolf",
+    "created_at": 2024-03-19T12:34:00.000Z,
+    "id": "2441",
+    "image_url": null,
+    "parent_id": null,
+    "parent_title": null,
+    "title": "2023-03-14 - Centre Bell, Montreal, QC, Canada - AUD FLAC [siberwolf]",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2441",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2441",
+  },
+  {
+    "author": {
+      "id": null,
+      "image_url": null,
+      "name": "10fingersmikey",
+    },
+    "content": "This is a full, meticulous remaster I did of the 1999-04-10 London Astoria, London, UK gig sourced from the original torrent here. Really, too much went into this to explain in full since each track had something/parts done that others didn't. I did this using my Sennheiser HD650s which are very neutral reference class cans, so you shouldn't need to use any EQ. It is a great, underrated gig that I though could use some love! Tell me what you think! Overdue Uno Cave Muscle Museum Pink Ego Box Falling Down Fillip Sober Unintended Do We Need This Showbiz",
+    "created_at": 2024-03-17T21:34:00.000Z,
+    "id": "2440",
+    "image_url": "https://www.musebootlegs.com/data/torrents/torrent_images/l/Front.jpg",
+    "parent_id": null,
+    "parent_title": null,
+    "title": "1999-04-10-London-Astoria-London-UK(musebootlegs.com)",
+    "type": "MUSEBOOTLEGS_TORRENT",
+    "uniqueId": "2440",
+    "url": "https://www.musebootlegs.com/?p=torrents&pid=10&action=details&tid=2440",
   },
 ]
 `;

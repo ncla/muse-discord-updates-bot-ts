@@ -280,3 +280,41 @@ test('parses latest torrents', async () => {
 
     expect(parsed).toMatchSnapshot()
 })
+
+test('parses yesterday upload date format', async () => {
+    const config = await import('../../../src/config')
+    const testConfig = config.default as IConfig
+    const fetcher = new Musebootlegs(
+        testConfig.services.musebootlegs.username,
+        testConfig.services.musebootlegs.password,
+        testConfig.services.musebootlegs.user_agent
+    )
+
+    const html = await fs.readFile(
+        path.join(__dirname, '../../__fixtures__/entry-fetchers/musebootlegs/torrent-list-yesterday-upload-response.html'),
+        { encoding: 'utf-8' }
+    );
+
+    const parsed = await fetcher.parseTorrentListResponse(html);
+
+    expect(parsed).toMatchSnapshot()
+})
+
+test('parses a moment ago upload date format', async () => {
+    const config = await import('../../../src/config')
+    const testConfig = config.default as IConfig
+    const fetcher = new Musebootlegs(
+        testConfig.services.musebootlegs.username,
+        testConfig.services.musebootlegs.password,
+        testConfig.services.musebootlegs.user_agent
+    )
+
+    const html = await fs.readFile(
+        path.join(__dirname, '../../__fixtures__/entry-fetchers/musebootlegs/torrent-list-a-moment-ago-response.html'),
+        { encoding: 'utf-8' }
+    );
+
+    const parsed = await fetcher.parseTorrentListResponse(html);
+
+    expect(parsed).toMatchSnapshot()
+})
