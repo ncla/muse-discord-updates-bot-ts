@@ -290,6 +290,9 @@ test('parses yesterday upload date format', async () => {
         testConfig.services.musebootlegs.user_agent
     )
 
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2025-07-03T10:00:00.000Z'))
+
     const html = await fs.readFile(
         path.join(__dirname, '../../__fixtures__/entry-fetchers/musebootlegs/torrent-list-yesterday-upload-response.html'),
         { encoding: 'utf-8' }
@@ -298,6 +301,8 @@ test('parses yesterday upload date format', async () => {
     const parsed = await fetcher.parseTorrentListResponse(html);
 
     expect(parsed).toMatchSnapshot()
+
+    vi.useRealTimers()
 })
 
 test('parses a moment ago upload date format', async () => {
@@ -309,6 +314,9 @@ test('parses a moment ago upload date format', async () => {
         testConfig.services.musebootlegs.user_agent
     )
 
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2025-07-03T10:00:00.000Z'))
+
     const html = await fs.readFile(
         path.join(__dirname, '../../__fixtures__/entry-fetchers/musebootlegs/torrent-list-a-moment-ago-response.html'),
         { encoding: 'utf-8' }
@@ -317,4 +325,6 @@ test('parses a moment ago upload date format', async () => {
     const parsed = await fetcher.parseTorrentListResponse(html);
 
     expect(parsed).toMatchSnapshot()
+
+    vi.useRealTimers()
 })
