@@ -11,35 +11,37 @@ export class MusemuGigs implements EntryFetcher
             // headless: false,
         })
 
-        const page = await browser.newPage()
+        try {
+            const page = await browser.newPage()
 
-        let reachedLastPage = false
-        let pageNumber = 0
-        let gigs: MuseMuGigsUpdate[] = []
+            let reachedLastPage = false
+            let pageNumber = 0
+            let gigs: MuseMuGigsUpdate[] = []
 
-        while (!reachedLastPage) {
-            const url = `https://www.muse.mu/tour?page=${pageNumber}`
+            while (!reachedLastPage) {
+                const url = `https://www.muse.mu/tour?page=${pageNumber}`
 
-            await page.goto(url, {
-                waitUntil: 'networkidle0'
-            })
+                await page.goto(url, {
+                    waitUntil: 'networkidle0'
+                })
 
-            const currentPageGigs = await this.parseTourPageElements(page)
+                const currentPageGigs = await this.parseTourPageElements(page)
 
-            gigs = [...gigs, ...currentPageGigs]
+                gigs = [...gigs, ...currentPageGigs]
 
-            // Prevent too much DoS if the logic for determining last page is incorrect
-            if (currentPageGigs.length === 0 || pageNumber === 10) {
-                reachedLastPage = true
-                break
+                // Prevent too much DoS if the logic for determining last page is incorrect
+                if (currentPageGigs.length === 0 || pageNumber === 10) {
+                    reachedLastPage = true
+                    break
+                }
+
+                pageNumber++
             }
 
-            pageNumber++
+            return gigs
+        } finally {
+            await browser.close()
         }
-
-        await browser.close()
-
-        return gigs
     }
 
     async parseTourPageElements(page: puppeteer.Page): Promise<MuseMuGigsUpdate[]> {
