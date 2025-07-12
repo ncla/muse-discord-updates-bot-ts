@@ -35,6 +35,10 @@ export class WarnerMusicCanadaStore implements EntryFetcher
             return await this.parseCollectionsPage(page);
         } finally {
             await browser.close();
+            const process = browser.process();
+            if (process && !process.killed) {
+                process.kill('SIGTERM');
+            }
         }
     }
 

@@ -48,6 +48,10 @@ export class MusemuUsStore implements EntryFetcher
             return results;
         } finally {
             await browser.close();
+            const process = browser.process();
+            if (process && !process.killed) {
+                process.kill('SIGTERM');
+            }
         }
     }
 

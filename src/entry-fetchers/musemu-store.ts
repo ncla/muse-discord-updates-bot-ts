@@ -32,6 +32,10 @@ export class MusemuStore implements EntryFetcher
             throw e
         } finally {
             await browser.close();
+            const process = browser.process();
+            if (process && !process.killed) {
+                process.kill('SIGTERM');
+            }
         }
     }
 

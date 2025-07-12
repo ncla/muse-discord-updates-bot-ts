@@ -41,6 +41,10 @@ export class MusemuGigs implements EntryFetcher
             return gigs
         } finally {
             await browser.close()
+            const process = browser.process()
+            if (process && !process.killed) {
+                process.kill('SIGTERM')
+            }
         }
     }
 
