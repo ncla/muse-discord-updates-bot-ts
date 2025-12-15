@@ -13,7 +13,7 @@ export class WarnerMusicCanadaStore implements EntryFetcher
             const page = await browser.newPage();
 
             try {
-                await page.goto('https://store.warnermusic.ca/collections/muse/', {
+                await page.goto('https://wmc.shop/collections/muse/', {
                     waitUntil: 'networkidle0',
                     timeout: 15000
                 });
@@ -27,8 +27,8 @@ export class WarnerMusicCanadaStore implements EntryFetcher
 
             await scrollUntilNoMoreContentLoads(
                 page,
-                '.infinite-scroll__data',
-                '.infinite-scroll__loading',
+                '.pagination',
+                '.infinite-scroll .btn-loader',
                 'center'
             );
 
@@ -44,9 +44,9 @@ export class WarnerMusicCanadaStore implements EntryFetcher
 
     private async parseCollectionsPage(page: puppeteer.Page): Promise<WarnerCanadaStoreUpdate[]> {
         const productsFromPageContext = await page.evaluate(() => {
-            return Array.from(document.querySelectorAll('#product-grid .collection-product-card')).map(el => ({
-                title: el.querySelector('.card__title.h5')?.textContent?.trim(),
-                url: el.querySelector('a.link')?.getAttribute('href'),
+            return Array.from(document.querySelectorAll('.product-card')).map(el => ({
+                title: el.querySelector('.product-card__title')?.textContent?.trim(),
+                url: el.querySelector('.product-card__title')?.getAttribute('href'),
                 image_url: el.querySelector('.media img')?.getAttribute('src')
             }));
         })
@@ -58,7 +58,7 @@ export class WarnerMusicCanadaStore implements EntryFetcher
                 throw new Error(`Missing required product attributes: ${JSON.stringify(product)}`);
             }
 
-            const productFullUrl = new URL(product.url, 'https://store.warnermusic.ca').href;
+            const productFullUrl = new URL(product.url, 'https://wmc.shop').href;
             const productImageFullUrl = new URL(ensureUrlProtocol(product.image_url)).href;
 
             results.push({
