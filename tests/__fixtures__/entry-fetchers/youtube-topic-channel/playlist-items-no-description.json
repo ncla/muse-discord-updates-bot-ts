@@ -1,0 +1,61 @@
+{
+  "kind": "youtube#playlistItemListResponse",
+  "etag": "HYbvtiGKMZK9zgnvtZTc5qscQ9s",
+  "items": [
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "q01D3XDd6DRowWWX0Iil8n4FTiA",
+      "id": "VVV3OGpJUXpCMm1kdnZvX0NWcGxMeHVnLjVPTEFERDlUQXJZ",
+      "snippet": {
+        "publishedAt": "2025-08-23T03:51:44Z",
+        "channelId": "UCw8jIQzB2mdvvo_CVplLxug",
+        "title": "Resistance (Tiësto Remix)",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/5OLADD9TArY/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/5OLADD9TArY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/5OLADD9TArY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/5OLADD9TArY/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/5OLADD9TArY/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Muse",
+        "playlistId": "UUw8jIQzB2mdvvo_CVplLxug",
+        "position": 0,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "5OLADD9TArY"
+        },
+        "videoOwnerChannelTitle": "Muse - Topic",
+        "videoOwnerChannelId": "UCw8jIQzB2mdvvo_CVplLxug"
+      },
+      "contentDetails": {
+        "videoId": "5OLADD9TArY",
+        "videoPublishedAt": "2025-08-23T03:51:44Z"
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 474,
+    "resultsPerPage": 1
+  }
+}

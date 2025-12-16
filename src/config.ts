@@ -25,6 +25,7 @@ export interface IConfig {
         youtube: {
             uploads_api_key: string | undefined,
             playlists_api_key: string | undefined,
+            topic_api_key: string | undefined,
         },
         facebook: {
             ad_library_page_id: string | undefined,
@@ -43,6 +44,12 @@ export interface IConfig {
             uploads: boolean,
             playlists: boolean,
         }[],
+        youtube_topic_channels: {
+            username: string,
+            channel_id: string,
+            author_image_url: string,
+            enabled: boolean,
+        }[],
         spotify: string[]
     }
     webhooks: {
@@ -56,6 +63,7 @@ export interface IConfig {
             musebootlegs_torrents: string | undefined,
             youtube_uploads: string | undefined,
             youtube_playlist_videos: string | undefined,
+            youtube_topic_videos: string | undefined,
             domain_certificates: string | undefined,
             gigs: string | undefined,
             store: string | undefined,
@@ -87,6 +95,7 @@ const config: IConfig = {
         youtube: {
             uploads_api_key: process.env.YOUTUBE_UPLOADS_API_KEY,
             playlists_api_key: process.env.YOUTUBE_PLAYLISTS_API_KEY,
+            topic_api_key: process.env.YOUTUBE_TOPIC_API_KEY,
         },
         facebook: {
             ad_library_page_id: process.env.FACEBOOK_AD_LIBRARY_PAGE_ID,
@@ -107,6 +116,14 @@ const config: IConfig = {
                 'playlists': process.env.YOUTUBE_MUSE_PLAYLISTS === 'true'
             }
         ],
+        youtube_topic_channels: [
+            {
+                'username': 'Muse - Topic',
+                'channel_id': 'UCw8jIQzB2mdvvo_CVplLxug',
+                'author_image_url': 'https://yt3.ggpht.com/a/AATXAJyCalVyFs_seZmv6CVDdMB5iyI_5L2c1_OBJA=s88-c-k-c0xffffffff-no-rj-mo',
+                'enabled': process.env.YOUTUBE_MUSE_TOPIC === 'true'
+            }
+        ],
         spotify: process.env.SPOTIFY_USERS ? process.env.SPOTIFY_USERS.split(',') : []
     },
     webhooks: {
@@ -120,6 +137,7 @@ const config: IConfig = {
             musebootlegs_torrents: process.env.DISCORD_ROLE_ID_MUSE_BOOTLEGS,
             youtube_uploads: process.env.DISCORD_ROLE_ID_YOUTUBE_UPLOADS,
             youtube_playlist_videos: process.env.DISCORD_ROLE_ID_YOUTUBE_PLAYLISTS,
+            youtube_topic_videos: process.env.DISCORD_ROLE_ID_YOUTUBE_TOPIC,
             domain_certificates: process.env.DISCORD_ROLE_ID_DOMAIN_CERTIFICATES,
             gigs: process.env.DISCORD_ROLE_ID_GIGS,
             store: process.env.DISCORD_ROLE_ID_STORE,

@@ -8,6 +8,7 @@ import {DiscordWebhookExecuteRequestor} from "@/src/webhook-requestor";
 import {DoubleRateLimitedActionableQueueManager} from "@/src/action-queue-manager";
 import {YoutubeUploads} from "@/src/entry-fetchers/youtube-uploads";
 import {YoutubePlaylistVideos} from "@/src/entry-fetchers/youtube-playlists";
+import {YoutubeTopicChannel} from "@/src/entry-fetchers/youtube-topic-channel";
 import {YoutubePlaylistsKysely} from "@/src/repositories/youtube-playlists-repository";
 import {Musebootlegs} from "@/src/entry-fetchers/musebootlegs";
 import {EntryFetcher} from "@/src/entry-fetchers";
@@ -47,6 +48,10 @@ export class Process {
                 new YoutubePlaylistsKysely(db),
                 config.services.youtube.playlists_api_key,
                 config.fetchables.youtube
+            ),
+            'yt-topic': () => new YoutubeTopicChannel(
+                config.services.youtube.topic_api_key,
+                config.fetchables.youtube_topic_channels
             ),
             'bootlegs': () => new Musebootlegs(
                 config.services.musebootlegs.username,

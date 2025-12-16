@@ -16,6 +16,7 @@ export enum UpdateType {
     INSTAGRAM_POST = 'INSTAGRAM_POST',
     YOUTUBE_UPLOAD = 'YOUTUBE_UPLOAD',
     YOUTUBE_PLAYLIST_VIDEO = 'YOUTUBE_PLAYLIST_VIDEO',
+    YOUTUBE_TOPIC_VIDEO = 'YOUTUBE_TOPIC_VIDEO',
     MUSEBOOTLEGS_TORRENT = 'MUSEBOOTLEGS_TORRENT',
     DOMAIN_CERTIFICATE = 'DOMAIN_CERTIFICATE',
     MUSEMU_GIG = 'MUSEMU_GIG',
@@ -98,6 +99,20 @@ export type YoutubePlaylistUpdate = BaseUpdate & {
         name: string;
         image_url: string;
     }
+    created_at: Date;
+}
+
+export type YoutubeTopicVideoUpdate = BaseUpdate & {
+    type: UpdateType.YOUTUBE_TOPIC_VIDEO;
+    title: string;
+    content: string | null;
+    url: string;
+    image_url: string;
+    author: UpdateAuthor & {
+        id: string;
+        name: string;
+        image_url: string;
+    };
     created_at: Date;
 }
 

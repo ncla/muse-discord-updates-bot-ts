@@ -3,6 +3,7 @@ import {BaseUpdate, UpdateType, WebhookService} from "@/src/updates";
 import {Json as DefaultJsonDiscordTransformer} from "@/src/updates/transformers/discord/json";
 import {YoutubeUpload as YoutubeUploadsTransformer} from "@/src/updates/transformers/discord/youtube-upload";
 import {YoutubePlaylistVideo} from "@/src/updates/transformers/discord/youtube-playlist-video";
+import {YoutubeTopicVideo} from "@/src/updates/transformers/discord/youtube-topic-video";
 import {MusebootlegsTorrent} from "@/src/updates/transformers/discord/musebootlegs-torrent";
 import {DomainCertificate} from "@/src/updates/transformers/discord/domain-certificate";
 import {MusemuGig} from "@/src/updates/transformers/discord/musemu-gig";
@@ -32,6 +33,8 @@ export function getTransformer(
                     return new YoutubeUploadsTransformer
                 case UpdateType.YOUTUBE_PLAYLIST_VIDEO:
                     return new YoutubePlaylistVideo
+                case UpdateType.YOUTUBE_TOPIC_VIDEO:
+                    return new YoutubeTopicVideo()
                 case UpdateType.MUSEBOOTLEGS_TORRENT:
                     return new MusebootlegsTorrent
                 case UpdateType.DOMAIN_CERTIFICATE:
