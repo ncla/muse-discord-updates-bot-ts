@@ -1,6 +1,6 @@
 import {PromiseFunction, retryPromise} from "@/src/common";
 import {PromiseResult} from "@/src/types/promises";
-import {RateLimiterMemory, RateLimiterRes} from "rate-limiter-flexible";
+import {RateLimiterMemory, ConsumeResult} from "@/src/rate-limiter";
 import * as Sentry from "@sentry/node";
 import { RateLimitException } from "@/src/exceptions/rate-limit-exception";
 import { QueueException } from "@/src/exceptions/queue-exception";
@@ -23,12 +23,12 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
         // TODO: we could use the union rate limiter. ✨
         this.shortTermLimiter = new RateLimiterMemory({
             points: shortTermPoints,
-            duration: shortTermDuration,
+            durationSeconds: shortTermDuration,
         });
 
         this.longTermLimiter = new RateLimiterMemory({
             points: longTermPoints,
-            duration: longTermDuration,
+            durationSeconds: longTermDuration,
         });
 
         return this;
@@ -58,7 +58,7 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
                     resolve({status: 'rejected', reason: error})
                     if (!(error instanceof RateLimitException) &&
                         !(error instanceof QueueException) &&
-                        !(error instanceof RateLimiterRes)
+                        !(error instanceof ConsumeResult)
                     ) {
                         Sentry.captureException(error);
                     }
@@ -73,7 +73,7 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
                 if (
                     !(error instanceof RateLimitException) &&
                     !(error instanceof QueueException) &&
-                    !(error instanceof RateLimiterRes)
+                    !(error instanceof ConsumeResult)
                 ) {
                     Sentry.captureException(error);
                 }
@@ -83,7 +83,7 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
                 if (
                     !(error instanceof RateLimitException) &&
                     !(error instanceof QueueException) &&
-                    !(error instanceof RateLimiterRes)
+                    !(error instanceof ConsumeResult)
                 ) {
                     Sentry.captureException(error);
                 }
@@ -131,7 +131,7 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
                 if (
                     !(error instanceof RateLimitException) &&
                     !(error instanceof QueueException) &&
-                    !(error instanceof RateLimiterRes)
+                    !(error instanceof ConsumeResult)
                 ) {
                     Sentry.captureException(error);
                 }
@@ -140,7 +140,7 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
         }
     }
 
-    private async consumeRateLimit(limiter: RateLimiterMemory, rateLimiterKey: string): Promise<boolean | Error | RateLimiterRes>
+    private async consumeRateLimit(limiter: RateLimiterMemory, rateLimiterKey: string): Promise<boolean | Error | ConsumeResult>
     {
         return new Promise((resolve) => {
             // https://github.com/animir/node-rate-limiter-flexible/wiki/API-methods#ratelimiterconsumekey-points--1-options--
@@ -154,7 +154,7 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
                     if (
                         !(error instanceof RateLimitException) &&
                         !(error instanceof QueueException) &&
-                        !(error instanceof RateLimiterRes)
+                        !(error instanceof ConsumeResult)
                     ) {
                         Sentry.captureException(error);
                     }
