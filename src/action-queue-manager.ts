@@ -1,26 +1,35 @@
-import {PromiseFunction, retryPromise} from "@/src/common";
+import {PromiseFunction} from "@/src/common";
 import {PromiseResult} from "@/src/types/promises";
 import {RateLimiterMemory, ConsumeResult} from "@/src/rate-limiter";
 import * as Sentry from "@sentry/node";
 import { RateLimitException } from "@/src/exceptions/rate-limit-exception";
 import { QueueException } from "@/src/exceptions/queue-exception";
 
+interface QueueEntry<T> {
+    action: PromiseFunction<T>;
+    resolve: (result: PromiseResult<T>) => void;
+    retriesLeft: number;
+    notBefore: number;
+}
+
 export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> {
     protected shortTermLimiter: RateLimiterMemory;
     protected longTermLimiter: RateLimiterMemory;
     protected shortTermKey: string = 'bursty';
     protected longTermKey: string = 'long';
-    protected queuedActions: PromiseFunction<QueueableActionReturnType>[] = []
+    protected queuedEntries: QueueEntry<QueueableActionReturnType>[] = []
     protected workerInterval: NodeJS.Timeout | null = null;
+    protected maxRetries: number;
+    protected retryDelayMs: number;
 
     constructor(
         shortTermPoints: number = 5,
         shortTermDuration: number = 2,
         longTermPoints: number = 30,
         longTermDuration: number = 60,
+        maxRetries: number = 3,
+        retryDelayMs: number = 2500,
     ) {
-        // TODO: Since we are now using two rate limiters without queue from the rate-limiter-flexible package,
-        // TODO: we could use the union rate limiter. ✨
         this.shortTermLimiter = new RateLimiterMemory({
             points: shortTermPoints,
             durationSeconds: shortTermDuration,
@@ -31,53 +40,21 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
             durationSeconds: longTermDuration,
         });
 
-        return this;
+        this.maxRetries = maxRetries;
+        this.retryDelayMs = retryDelayMs;
     }
 
-    /**
-     * Queue a promise function to be executed. Will return pending promise, which will resolve when it queued callable gets executed.
-     * This method will do the following:
-     * 1. Push the queueable call to an array for later usage
-     * 2. Attempt to run a single job immediately (possibly the one just got added to queue)
-     * 3. Start worker interval if it has not started yet already
-     */
     async queue(queueableCallable: PromiseFunction<QueueableActionReturnType>): Promise<PromiseResult<QueueableActionReturnType>>
     {
         return new Promise<PromiseResult<QueueableActionReturnType>>((resolve) => {
-            this.queuedActions.push(async () => {
-                return retryPromise(
-                    queueableCallable,
-                    3,
-                    2500
-                )
-                .then(result => {
-                    resolve({status: 'fulfilled', value: result})
-                    return result
-                })
-                .catch(error => {
-                    resolve({status: 'rejected', reason: error})
-                    if (!(error instanceof RateLimitException) &&
-                        !(error instanceof QueueException) &&
-                        !(error instanceof ConsumeResult)
-                    ) {
-                        Sentry.captureException(error);
-                    }
-                    return error
-                });
-            })
+            this.queuedEntries.push({
+                action: queueableCallable,
+                resolve,
+                retriesLeft: this.maxRetries,
+                notBefore: 0,
+            });
 
-            try {
-                this.startWorkerIfNotRunning()
-            } catch (error) {
-                console.error(error)
-                if (
-                    !(error instanceof RateLimitException) &&
-                    !(error instanceof QueueException) &&
-                    !(error instanceof ConsumeResult)
-                ) {
-                    Sentry.captureException(error);
-                }
-            }
+            this.startWorkerIfNotRunning();
 
             this.attemptToRunFirstActionable().catch((error) => {
                 if (
@@ -105,25 +82,35 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
             throw new RateLimitException('Rate limit exceeded for long term rate limiter')
         }
 
-        if (this.queuedActions.length === 0) {
-            throw new QueueException('Empty queue')
+        const readyIndex = this.queuedEntries.findIndex(entry => entry.notBefore <= Date.now());
+
+        if (readyIndex === -1) {
+            throw new QueueException('No ready items in queue')
         }
 
-        const callableAction = this.queuedActions.shift()
+        const entry = this.queuedEntries.splice(readyIndex, 1)[0];
 
-        if (callableAction === undefined) {
-            throw new QueueException('Empty queue')
+        try {
+            const result = await entry.action();
+            entry.resolve({status: 'fulfilled', value: result});
+        } catch (error) {
+            entry.retriesLeft--;
+
+            if (entry.retriesLeft > 0) {
+                entry.notBefore = Date.now() + this.retryDelayMs;
+                this.queuedEntries.unshift(entry);
+            } else {
+                entry.resolve({status: 'rejected', reason: error as Error});
+                Sentry.captureException(error);
+            }
         }
-
-        return callableAction()
     }
 
     private async attemptToRunAllJobs()
     {
-        console.log('Attempting to run all jobs', this.queuedActions.length)
+        console.log('Attempting to run all jobs', this.queuedEntries.length)
 
-        // Run all the possible jobs until we hit an attempt where we are rate limited
-        while (this.queuedActions.length > 0) {
+        while (this.queuedEntries.length > 0) {
             try {
                 await this.attemptToRunFirstActionable();
             } catch (error) {
@@ -143,7 +130,6 @@ export class DoubleRateLimitedActionableQueueManager<QueueableActionReturnType> 
     private async consumeRateLimit(limiter: RateLimiterMemory, rateLimiterKey: string): Promise<boolean | Error | ConsumeResult>
     {
         return new Promise((resolve) => {
-            // https://github.com/animir/node-rate-limiter-flexible/wiki/API-methods#ratelimiterconsumekey-points--1-options--
             limiter
                 .consume(rateLimiterKey, 1)
                 .then(() => {

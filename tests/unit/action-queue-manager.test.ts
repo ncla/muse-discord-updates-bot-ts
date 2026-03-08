@@ -45,7 +45,6 @@ test('it calls action without hitting burst rate limit', async () => {
             expect(result.length).toBe(REQUEST_AMOUNT)
             expect(actionFunction).toHaveBeenCalledTimes(REQUEST_AMOUNT)
 
-            // This is a bit primitive, but we are testing if time between sent actions is at least a second
             expect(timestamps[5] - timestamps[0]).toBeGreaterThanOrEqual(RATE_LIMIT_DURATION * 1000)
             expect(timestamps[10] - timestamps[5]).toBeGreaterThanOrEqual(RATE_LIMIT_DURATION * 1000)
         })
@@ -61,8 +60,17 @@ test('action is tried three times till it is rejected', async () => {
     const REQUEST_AMOUNT = 1
     const REQUEST_AMOUNT_PER_DURATION = 5
     const RATE_LIMIT_DURATION = 1
+    const MAX_RETRIES = 3
+    const RETRY_DELAY_MS = 2500
 
-    const manager = new DoubleRateLimitedActionableQueueManager(REQUEST_AMOUNT_PER_DURATION, RATE_LIMIT_DURATION)
+    const manager = new DoubleRateLimitedActionableQueueManager(
+        REQUEST_AMOUNT_PER_DURATION,
+        RATE_LIMIT_DURATION,
+        30,
+        60,
+        MAX_RETRIES,
+        RETRY_DELAY_MS
+    )
 
     const actionFunction = vi.fn(() => {
         return Promise.reject(new Error('Fake error'))
@@ -80,8 +88,11 @@ test('action is tried three times till it is rejected', async () => {
         )
     }
 
-    await vi.advanceTimersByTimeAsync(2500)
-    await vi.advanceTimersByTimeAsync(2500)
+    // First attempt happens immediately on queue().
+    // Each retry needs the 2500ms backoff to elapse, then the next worker tick (1000ms interval) to pick it up.
+    // Advance enough time for all retries to complete.
+    await vi.advanceTimersByTimeAsync(3000)
+    await vi.advanceTimersByTimeAsync(3000)
 
     return Promise
         .all(promises)
@@ -90,8 +101,8 @@ test('action is tried three times till it is rejected', async () => {
             expect(result[0].status).toBe('rejected')
 
             const afterTime = +new Date()
-            expect(afterTime - beforeTime).toBeGreaterThanOrEqual(5000)
-            expect(actionFunction).toHaveBeenCalledTimes(3)
+            expect(afterTime - beforeTime).toBeGreaterThanOrEqual(2 * RETRY_DELAY_MS)
+            expect(actionFunction).toHaveBeenCalledTimes(MAX_RETRIES)
         })
         .catch((error) => {
             throw error
@@ -99,6 +110,109 @@ test('action is tried three times till it is rejected', async () => {
         .finally(() => {
             vi.useRealTimers()
         })
+})
+
+test('retries consume rate limit points', async () => {
+    const REQUEST_AMOUNT_PER_DURATION = 5
+    const RATE_LIMIT_DURATION = 2
+    const MAX_RETRIES = 3
+    const RETRY_DELAY_MS = 500
+
+    const manager = new DoubleRateLimitedActionableQueueManager(
+        REQUEST_AMOUNT_PER_DURATION,
+        RATE_LIMIT_DURATION,
+        30,
+        60,
+        MAX_RETRIES,
+        RETRY_DELAY_MS
+    )
+
+    vi.useFakeTimers()
+
+    const callOrder: string[] = []
+
+    const failingAction = vi.fn(() => {
+        callOrder.push('failing')
+        return Promise.reject(new Error('Fake error'))
+    })
+
+    const successAction = vi.fn(() => {
+        callOrder.push('success')
+        return Promise.resolve(+new Date())
+    })
+
+    const failingPromise = manager.queue(failingAction)
+
+    const successPromises = []
+    for (let i = 0; i < 4; i++) {
+        successPromises.push(manager.queue(successAction))
+    }
+
+    await vi.advanceTimersByTimeAsync(10000)
+
+    const failResult = await failingPromise
+    await Promise.all(successPromises)
+
+    expect(failResult.status).toBe('rejected')
+    expect(failingAction).toHaveBeenCalledTimes(MAX_RETRIES)
+    expect(successAction).toHaveBeenCalledTimes(4)
+
+    // The failing action's retries should be interleaved with or delay the success actions,
+    // because they all compete for rate limit points
+    expect(callOrder.length).toBe(7) // 3 failing + 4 success
+
+    vi.useRealTimers()
+})
+
+test('failed action retries are inserted at front of queue', async () => {
+    const MAX_RETRIES = 2
+    const RETRY_DELAY_MS = 100
+
+    const manager = new DoubleRateLimitedActionableQueueManager(
+        10,
+        1,
+        30,
+        60,
+        MAX_RETRIES,
+        RETRY_DELAY_MS
+    )
+
+    vi.useFakeTimers()
+
+    const callOrder: string[] = []
+    let failOnce = true
+
+    const flakyAction = vi.fn(() => {
+        callOrder.push('flaky')
+        if (failOnce) {
+            failOnce = false
+            return Promise.reject(new Error('Temporary failure'))
+        }
+        return Promise.resolve('recovered')
+    })
+
+    const secondAction = vi.fn(() => {
+        callOrder.push('second')
+        return Promise.resolve('second-result')
+    })
+
+    const flakyPromise = manager.queue(flakyAction)
+    const secondPromise = manager.queue(secondAction)
+
+    await vi.advanceTimersByTimeAsync(5000)
+
+    const flakyResult = await flakyPromise
+    const secondResult = await secondPromise
+
+    expect(flakyResult.status).toBe('fulfilled')
+    expect(secondResult.status).toBe('fulfilled')
+    expect(flakyAction).toHaveBeenCalledTimes(2)
+
+    // The secondAction runs while flakyAction waits for its backoff delay,
+    // then the retry of flakyAction executes after the backoff elapses
+    expect(callOrder).toEqual(['flaky', 'second', 'flaky'])
+
+    vi.useRealTimers()
 })
 
 test('actions are rate limited by short term rate limit (5 requets/2 seconds) and long term rate limit (30 requests/60 seconds)', async () => {
@@ -138,16 +252,13 @@ test('actions are rate limited by short term rate limit (5 requets/2 seconds) an
             expect(result[0].status).toBe('fulfilled')
             expect(actionFunction).toHaveBeenCalledTimes(REQUEST_AMOUNT)
 
-            // Ensure no promises were rejected
             const rejectedPromises = result.filter((item) => item.status === 'rejected');
             expect(rejectedPromises.length).toBe(0);
 
-            // Work with only fulfilled promises and map to value numbers
             const timestampValues = result
                 .filter((item) => item.status === 'fulfilled')
                 .map(item => item.value)
 
-            // Ensure correct sort (from the oldest timestamp to newest)
             timestampValues.sort((a, b) => Number(a) - Number(b))
 
             const startTime = Number(timestampValues[0]);
@@ -155,27 +266,8 @@ test('actions are rate limited by short term rate limit (5 requets/2 seconds) an
             const groupedByTwoSecondInterval = groupTimestampsByInterval(timestampValues, 2, startTime)
             const groupedByMinuteInterval = groupTimestampsByInterval(timestampValues, 60, startTime)
 
-            // console.dir(groupedByTwoSecondInterval, { depth: null });
-            // console.dir(groupedByMinuteInterval, { depth: null })
-
             const groupedTwoSecondCounts = groupedByTwoSecondInterval.map((group) => group.length);
             const groupedMinuteCounts = groupedByMinuteInterval.map((group) => group.length);
-
-            // console.log('Grouped by two-second intervals (item counts):', groupedTwoSecondCounts);
-            // console.log('Grouped by minute intervals (item counts):', groupedMinuteCounts);
-
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const timestampDebugTable = timestampValues.map((result) => {
-                const date: Date = new Date(result);
-                const timestamp = date.toISOString().substring(14, 19);
-
-                return {
-                    mmss: timestamp,
-                    timestamp: result.toString().slice(-6)
-                }
-            })
-
-            // console.table(timestampDebugTable)
 
             expect(groupedMinuteCounts[0]).toBe(30)
             expect(groupedMinuteCounts[1]).toBe(10)

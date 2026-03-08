@@ -143,10 +143,16 @@ export class RateLimiterMemory {
         return this.keyPrefix.length > 0 ? `${this.keyPrefix}:${key}` : key;
     }
 
-    consume(key: string, pointsToConsume: number = 1): Promise<ConsumeResult> {
+    consume(consumeKey: string, pointsToConsume: number = 1): Promise<ConsumeResult> {
         return new Promise((resolve, reject) => {
-            const prefixedKey = this.getKey(key);
-            const result = this._memoryStorage.incrementBy(prefixedKey, pointsToConsume, this.durationSeconds);
+            const key = this.getKey(consumeKey);
+
+            const result = this._memoryStorage.incrementBy(
+                key,
+                pointsToConsume,
+                this.durationSeconds
+            );
+
             result.remainingPoints = Math.max(this.points - result.consumedPoints, 0);
 
             if (result.consumedPoints > this.points) {
