@@ -1,5 +1,28 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`musewiki batch transformer produces a single embed listing all changes 1`] = `
+[
+  {
+    "content": "",
+    "embeds": [
+      {
+        "color": 5025616,
+        "description": "3 changes across 3 pages by 2 contributors
+
+📋 [File:Some image.jpg](https://musewiki.org/File%3ASome_image.jpg) — [Boombleeb](https://musewiki.org/User:Boombleeb)
+📝 [Madrid Iberdrola Music 2025 (gig)](https://musewiki.org/index.php?title=Madrid_Iberdrola_Music_2025_(gig)&oldid=202) — [Luigiman09](https://musewiki.org/User:Luigiman09) (+1677 bytes)
+> Created page with content
+✏️ [Helsinki Kulttuuritalo 2025 (gig)](https://musewiki.org/index.php?title=Helsinki_Kulttuuritalo_2025_(gig)&diff=201&oldid=200) — [Luigiman09](https://musewiki.org/User:Luigiman09) (+9 bytes)
+> price",
+        "timestamp": "2025-05-31T09:37:50.000Z",
+        "title": "MuseWiki: 3 changes",
+        "url": "https://musewiki.org/Special:RecentChanges",
+      },
+    ],
+  },
+]
+`;
+
 exports[`youtube upload entry is transformed to discord webhook message options 1`] = `
 {
   "content": "<@&700712850603245639> **muse** uploaded a video on YouTube",

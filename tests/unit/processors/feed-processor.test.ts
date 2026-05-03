@@ -1,14 +1,14 @@
 import {afterEach, beforeEach, expect, test, vi} from 'vitest'
 import {FeedProcessor, FetcherExecutionMode} from "@/src/processors/feed-processor";
-import {UpdateType, WebhookService, WebhookServiceResponseMap, YoutubeUploadUpdate} from "@/src/updates";
+import {MuseWikiChangeUpdate, UpdateType, WebhookService, WebhookServiceResponseMap, YoutubeUploadUpdate} from "@/src/updates";
 import {UpdatesRepositoryKysely} from "@/src/repositories/updates-repository";
 import {clearTestDatabase, createTestDatabase} from "@/tests/__utils__/database";
 import {DiscordWebhookExecuteRequestor} from "@/src/webhook-requestor";
 import {DoubleRateLimitedActionableQueueManager} from "@/src/action-queue-manager";
 import {YoutubeUploads} from "@/src/entry-fetchers/youtube-uploads";
-import {createTestYoutubeUploadsEntry} from "@/tests/__utils__";
+import {MuseWikiChanges} from "@/src/entry-fetchers/musewiki-changes";
+import {createTestMuseWikiChangeEntry, createTestYoutubeUploadsEntry} from "@/tests/__utils__";
 import {YoutubeUpload as YoutubeUploadsTransformer} from "@/src/updates/transformers/discord/youtube-upload";
-import * as transformerExports from '@/src/updates/transformers'
 import config from "@/src/config";
 import {InsertableUpdateRecord, SelectableUpdateRecord} from "@/src/database";
 
@@ -19,6 +19,7 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
+    vi.restoreAllMocks()
     await clearTestDatabase(DB_FILE_IDENTIFIER)
 })
 
@@ -166,18 +167,16 @@ test('it processes fetched entries in a loop without one entry failing entire pr
         config.fetchables.youtube
     )
 
-    let getTransformerCallCount = 0;
+    let transformCallCount = 0;
 
-    // This could be any other method that returns error, we just need to test that the feed process continues
-    // TODO: Try actually passing invalid value to getTransformer. This is kinda poopy.
-    vi.spyOn(transformerExports, 'getTransformer').mockImplementation(() => {
-        if (getTransformerCallCount === 2) {
-            getTransformerCallCount++
+    vi.spyOn(YoutubeUploadsTransformer.prototype, 'transform').mockImplementation(() => {
+        if (transformCallCount === 2) {
+            transformCallCount++
             throw new Error('xD')
         }
 
-        getTransformerCallCount++
-        return new YoutubeUploadsTransformer
+        transformCallCount++
+        return { content: 'fake', embeds: [] }
     })
 
     const entries: YoutubeUploadUpdate[] = []
@@ -470,4 +469,133 @@ test('feed manager stops the queue worker interval', async () => {
     }).not.toThrow()
 
     vi.useRealTimers()
+})
+
+test('musewiki batch transformer is used when multiple new entries are returned', async () => {
+    const db = await createTestDatabase(DB_FILE_IDENTIFIER)
+    const updatesRepository = new UpdatesRepositoryKysely(db)
+    const webhookRequestor = new DiscordWebhookExecuteRequestor('fake', 'fake')
+    const queueActionManager = new DoubleRateLimitedActionableQueueManager<WebhookServiceResponseMap[WebhookService.Discord]>()
+
+    const entryFetcher = new MuseWikiChanges()
+
+    const fakeEntries: MuseWikiChangeUpdate[] = [
+        createTestMuseWikiChangeEntry({uniqueId: '1-1', id: '1', pageid: 1}),
+        createTestMuseWikiChangeEntry({uniqueId: '2-2', id: '2', pageid: 2}),
+        createTestMuseWikiChangeEntry({uniqueId: '3-3', id: '3', pageid: 3}),
+    ]
+
+    entryFetcher.fetch = vi.fn(async () => fakeEntries)
+
+    const requestorSpy = vi
+        .spyOn(webhookRequestor, 'send')
+        .mockImplementation(async () => new Response())
+
+    const feedProcessor = new FeedProcessor<
+        InsertableUpdateRecord,
+        SelectableUpdateRecord,
+        WebhookService.Discord
+    >(
+        WebhookService.Discord,
+        [entryFetcher],
+        updatesRepository,
+        webhookRequestor,
+        queueActionManager,
+        FetcherExecutionMode.Parallel
+    )
+
+    await feedProcessor.process()
+
+    expect(requestorSpy).toHaveBeenCalledTimes(1)
+
+    const sentBody = requestorSpy.mock.calls[0][0]
+    expect(sentBody.embeds?.length).toBe(1)
+
+    const rows = await db.selectFrom('updates').selectAll().execute()
+    expect(rows.length).toBe(3)
+})
+
+test('musewiki single entry uses per-entry transformer (not batch)', async () => {
+    const db = await createTestDatabase(DB_FILE_IDENTIFIER)
+    const updatesRepository = new UpdatesRepositoryKysely(db)
+    const webhookRequestor = new DiscordWebhookExecuteRequestor('fake', 'fake')
+    const queueActionManager = new DoubleRateLimitedActionableQueueManager<WebhookServiceResponseMap[WebhookService.Discord]>()
+
+    const entryFetcher = new MuseWikiChanges()
+
+    entryFetcher.fetch = vi.fn(async () => [
+        createTestMuseWikiChangeEntry({uniqueId: '42-42', id: '42', pageid: 42, title: 'Solo Page'}),
+    ])
+
+    const requestorSpy = vi
+        .spyOn(webhookRequestor, 'send')
+        .mockImplementation(async () => new Response())
+
+    const feedProcessor = new FeedProcessor<
+        InsertableUpdateRecord,
+        SelectableUpdateRecord,
+        WebhookService.Discord
+    >(
+        WebhookService.Discord,
+        [entryFetcher],
+        updatesRepository,
+        webhookRequestor,
+        queueActionManager,
+        FetcherExecutionMode.Parallel
+    )
+
+    await feedProcessor.process()
+
+    expect(requestorSpy).toHaveBeenCalledTimes(1)
+
+    const sentBody = requestorSpy.mock.calls[0][0]
+    const embed = sentBody.embeds?.[0] as { data: { title?: string } }
+    expect(embed.data.title).toBe('Solo Page')
+})
+
+test('musewiki batch transformer is skipped for entries already in database', async () => {
+    const db = await createTestDatabase(DB_FILE_IDENTIFIER)
+
+    await db.insertInto('updates').values({
+        type: UpdateType.MUSEWIKI_CHANGE,
+        unique_id: '1-1',
+    }).execute()
+
+    await db.insertInto('updates').values({
+        type: UpdateType.MUSEWIKI_CHANGE,
+        unique_id: '2-2',
+    }).execute()
+
+    const updatesRepository = new UpdatesRepositoryKysely(db)
+    const webhookRequestor = new DiscordWebhookExecuteRequestor('fake', 'fake')
+    const queueActionManager = new DoubleRateLimitedActionableQueueManager<WebhookServiceResponseMap[WebhookService.Discord]>()
+
+    const entryFetcher = new MuseWikiChanges()
+
+    entryFetcher.fetch = vi.fn(async () => [
+        createTestMuseWikiChangeEntry({uniqueId: '1-1', id: '1', pageid: 1}),
+        createTestMuseWikiChangeEntry({uniqueId: '2-2', id: '2', pageid: 2}),
+        createTestMuseWikiChangeEntry({uniqueId: '3-3', id: '3', pageid: 3}),
+    ])
+
+    const requestorSpy = vi
+        .spyOn(webhookRequestor, 'send')
+        .mockImplementation(async () => new Response())
+
+    const feedProcessor = new FeedProcessor<
+        InsertableUpdateRecord,
+        SelectableUpdateRecord,
+        WebhookService.Discord
+    >(
+        WebhookService.Discord,
+        [entryFetcher],
+        updatesRepository,
+        webhookRequestor,
+        queueActionManager,
+        FetcherExecutionMode.Parallel
+    )
+
+    await feedProcessor.process()
+
+    expect(requestorSpy).toHaveBeenCalledTimes(1)
 })

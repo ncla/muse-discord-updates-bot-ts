@@ -1,4 +1,4 @@
-import {createBlankUpdate, UpdateType, YoutubeUploadUpdate} from "@/src/updates";
+import {createBlankUpdate, MuseWikiChangeUpdate, UpdateType, YoutubeUploadUpdate} from "@/src/updates";
 import {IConfig} from "@/src/config";
 
 export function repeatText(text: string, times: number) {
@@ -32,6 +32,25 @@ export function createTestYoutubeUploadsEntry(): YoutubeUploadUpdate
             image_url: 'https://google.com/image.jpg',
         },
         created_at: new Date()
+    }
+}
+
+export function createTestMuseWikiChangeEntry(overrides: Partial<MuseWikiChangeUpdate> = {}): MuseWikiChangeUpdate
+{
+    return {
+        type: UpdateType.MUSEWIKI_CHANGE,
+        uniqueId: '1-1',
+        id: '1',
+        title: 'Test Page',
+        change_type: 'edit',
+        user: 'TestUser',
+        comment: null,
+        pageid: 1,
+        old_revid: 0,
+        oldlen: 100,
+        newlen: 120,
+        created_at: new Date('2025-01-01T00:00:00Z'),
+        ...overrides,
     }
 }
 

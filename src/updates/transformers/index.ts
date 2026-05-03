@@ -9,6 +9,7 @@ import {DomainCertificate} from "@/src/updates/transformers/discord/domain-certi
 import {MusemuGig} from "@/src/updates/transformers/discord/musemu-gig";
 import {Store} from "@/src/updates/transformers/discord/store";
 import {MuseWikiChange} from "@/src/updates/transformers/discord/musewiki-change";
+import {MuseWikiChangeBatch} from "@/src/updates/transformers/discord/musewiki-change-batch";
 import {FacebookAd} from "@/src/updates/transformers/discord/facebook-ad";
 import {SpotifyPlaylist} from "@/src/updates/transformers/discord/spotify-playlist";
 import {StoreRegion} from "@/src/types/common";
@@ -17,9 +18,32 @@ export interface UpdateTransformer<BodyType> {
     transform(update: BaseUpdate): BodyType;
 }
 
+export interface BatchUpdateTransformer<BodyType> {
+    transformBatch(updates: BaseUpdate[]): BodyType[];
+}
+
 export interface DiscordUpdateTransformer extends UpdateTransformer<WebhookMessageCreateOptions> {}
 
+export interface DiscordBatchUpdateTransformer extends BatchUpdateTransformer<WebhookMessageCreateOptions> {}
+
 export interface SlackUpdateTransformer extends UpdateTransformer<string> {}
+
+export function getBatchTransformer(
+    webhookService: WebhookService,
+    updateType: UpdateType
+): DiscordBatchUpdateTransformer | undefined {
+    switch (webhookService) {
+        case WebhookService.Discord:
+            switch (updateType) {
+                case UpdateType.MUSEWIKI_CHANGE:
+                    return new MuseWikiChangeBatch();
+                default:
+                    return undefined;
+            }
+        default:
+            return undefined;
+    }
+}
 
 // Can be other types of transformers. For now, only Discord is supported.
 export function getTransformer(

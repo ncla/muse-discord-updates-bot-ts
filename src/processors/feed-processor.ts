@@ -1,11 +1,11 @@
 import {EntryFetcher} from "@/src/entry-fetchers";
 import {IUpdatesRepository} from "@/src/repositories/updates-repository";
-import {getTransformer} from "@/src/updates/transformers";
+import {getBatchTransformer, getTransformer} from "@/src/updates/transformers";
 import {
     WebhookExecuteRequestor
 } from "@/src/webhook-requestor";
 import {DoubleRateLimitedActionableQueueManager} from "@/src/action-queue-manager";
-import {BaseUpdate, WebhookService, WebhookServiceBodyMap, WebhookServiceResponseMap} from "@/src/updates";
+import {BaseUpdate, UpdateType, WebhookService, WebhookServiceBodyMap, WebhookServiceResponseMap} from "@/src/updates";
 import {PromiseResult} from "@/src/types/promises";
 import {FeedProcessorSummary, FetcherSummary, WebhookRequestSummary} from "../types/feed-processor";
 import * as Sentry from "@sentry/node";
@@ -103,63 +103,85 @@ export class FeedProcessor<
 
             fetcherSummaries[fetcherIndex].entries = updates
 
+            const newEntriesByType = new Map<UpdateType, BaseUpdate[]>()
+
             await Promise.allSettled(
                 updates.map(async update => {
                     try {
-                        const transformedEntry = await this.processUpdateEntry(update)
+                        const persisted = await this.persistUpdateEntry(update)
 
-                        if (transformedEntry === undefined) {
+                        if (!persisted) {
                             fetcherSummaries[fetcherIndex].entriesInDatabaseAlready.push(update)
                             return
                         }
 
-                        fetcherSummaries[fetcherIndex].entriesProcessed.push(update)
-                        fetcherSummaries[fetcherIndex].entriesTransformed.push(transformedEntry)
-
-                        requestPromises.push(
-                            this.queueActionManager.queue(
-                                () => this.webhookExecuteRequestor.send(transformedEntry)
-                            ).then(result => {
-                                if (result.status === 'rejected') {
-                                    webhookRequestSummary.errors.push(result.reason)
-                                    // Report webhook request failures to Sentry
-                                    Sentry.captureException(result.reason);
-                                } else if (result.status === 'fulfilled') {
-                                    webhookRequestSummary.responses.push(result.value)
-                                }
-
-                                return result
-                            })
-                        )
-
-                        return
-                    } catch (error) {
-                        // To make TypeScript happy
-                        if (error instanceof Error) {
-                            fetcherSummaries[fetcherIndex].errors.push(error)
-                            Sentry.captureException(error);
+                        const existing = newEntriesByType.get(update.type)
+                        if (existing) {
+                            existing.push(update)
                         } else {
-                            const unknownError = new Error('Unknown error occurred');
-                            fetcherSummaries[fetcherIndex].errors.push(unknownError)
-                            Sentry.captureException(unknownError);
+                            newEntriesByType.set(update.type, [update])
                         }
+                    } catch (error) {
+                        this.recordError(error, fetcherSummaries[fetcherIndex].errors)
                     }
                 })
             )
-        } catch (error) {
-            // To make TypeScript happy
-            if (error instanceof Error) {
-                fetcherSummaries[fetcherIndex].errors.push(error)
-                Sentry.captureException(error);
-            } else {
-                const unknownError = new Error('Unknown error occurred');
-                fetcherSummaries[fetcherIndex].errors.push(unknownError)
-                Sentry.captureException(unknownError);
+
+            for (const [updateType, entries] of newEntriesByType) {
+                const batchTransformer = entries.length > 1
+                    ? getBatchTransformer(this.webhookService, updateType)
+                    : undefined
+
+                if (batchTransformer !== undefined) {
+                    try {
+                        const bodies = batchTransformer.transformBatch(entries) as WebhookServiceBodyMap[WS][]
+
+                        for (const entry of entries) {
+                            fetcherSummaries[fetcherIndex].entriesProcessed.push(entry)
+                        }
+
+                        for (const body of bodies) {
+                            fetcherSummaries[fetcherIndex].entriesTransformed.push(body)
+                            this.queueWebhookSend(body, requestPromises, webhookRequestSummary)
+                        }
+                    } catch (error) {
+                        this.recordError(error, fetcherSummaries[fetcherIndex].errors)
+                    }
+                    continue
+                }
+
+                const entryTransformer = getTransformer(this.webhookService, updateType)
+
+                for (const entry of entries) {
+                    try {
+                        const body = entryTransformer.transform(entry) as WebhookServiceBodyMap[WS]
+
+                        fetcherSummaries[fetcherIndex].entriesProcessed.push(entry)
+                        fetcherSummaries[fetcherIndex].entriesTransformed.push(body)
+                        this.queueWebhookSend(body, requestPromises, webhookRequestSummary)
+                    } catch (error) {
+                        this.recordError(error, fetcherSummaries[fetcherIndex].errors)
+                    }
+                }
             }
+        } catch (error) {
+            this.recordError(error, fetcherSummaries[fetcherIndex].errors)
         }
     }
 
-    private async processUpdateEntry(entry: BaseUpdate): Promise<WebhookServiceBodyMap[WS] | undefined>
+    private recordError(error: unknown, errors: Error[]): void
+    {
+        if (error instanceof Error) {
+            errors.push(error)
+            Sentry.captureException(error);
+        } else {
+            const unknownError = new Error('Unknown error occurred')
+            errors.push(unknownError)
+            Sentry.captureException(unknownError);
+        }
+    }
+
+    private async persistUpdateEntry(entry: BaseUpdate): Promise<boolean>
     {
         console.info(`Processing update entry: ${entry.type} – ${entry.uniqueId}`)
 
@@ -170,7 +192,7 @@ export class FeedProcessor<
 
         if (existingEntry !== undefined) {
             console.info(`Entry already exists, skipping: ${entry.type} – ${entry.uniqueId}`)
-            return
+            return false
         }
 
         const newEntry = <CreateUpdateRecordType>{
@@ -185,8 +207,28 @@ export class FeedProcessor<
 
         console.info(`Created entry in database: ${entry.type} – ${entry.uniqueId}`)
 
-        const entryTransformer = getTransformer(this.webhookService, entry.type)
-        return entryTransformer.transform(entry) as WebhookServiceBodyMap[WS]
+        return true
+    }
+
+    private queueWebhookSend(
+        body: WebhookServiceBodyMap[WS],
+        requestPromises: Promise<PromiseResult<WebhookServiceResponseMap[WS]>>[],
+        webhookRequestSummary: WebhookRequestSummary<WebhookServiceResponseMap[WS]>
+    ): void {
+        requestPromises.push(
+            this.queueActionManager.queue(
+                () => this.webhookExecuteRequestor.send(body)
+            ).then(result => {
+                if (result.status === 'rejected') {
+                    webhookRequestSummary.errors.push(result.reason)
+                    Sentry.captureException(result.reason);
+                } else if (result.status === 'fulfilled') {
+                    webhookRequestSummary.responses.push(result.value)
+                }
+
+                return result
+            })
+        )
     }
 
     private async cleanupTemporaryFiles(): Promise<void> {
