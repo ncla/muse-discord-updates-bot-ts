@@ -1,8 +1,12 @@
 import {expect, test} from 'vitest'
-import {MusemuStore} from "@/src/entry-fetchers/musemu-store";
+import {ShopifyStore} from "@/src/entry-fetchers/shopify-store";
+import {UpdateType} from "@/src/updates";
 
 test('it fetches entries', async () => {
-    const fetcher = new MusemuStore()
+    const fetcher = new ShopifyStore({
+        origin: 'https://store.muse.mu',
+        updateType: UpdateType.MUSEMU_STORE,
+    })
     const result = await fetcher.fetch()
 
     expect(result.length).toBeGreaterThan(0)

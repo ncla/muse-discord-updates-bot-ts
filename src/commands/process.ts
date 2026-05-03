@@ -1,6 +1,6 @@
 import config from "@/src/config";
 import {FeedProcessor, FetcherExecutionMode} from "@/src/processors/feed-processor";
-import {WebhookService} from "@/src/updates";
+import {UpdateType, WebhookService} from "@/src/updates";
 import {DomainCertificates} from "@/src/entry-fetchers/domain-certificates";
 import {UpdatesRepositoryKysely} from "@/src/repositories/updates-repository";
 import {db, InsertableUpdateRecord, SelectableUpdateRecord} from "@/src/database";
@@ -13,10 +13,7 @@ import {YoutubePlaylistsKysely} from "@/src/repositories/youtube-playlists-repos
 import {Musebootlegs} from "@/src/entry-fetchers/musebootlegs";
 import {EntryFetcher} from "@/src/entry-fetchers";
 import {MusemuGigs} from "@/src/entry-fetchers/musemu-gigs";
-import {MusemuStore} from "@/src/entry-fetchers/musemu-store";
-import {WarnerMusicCanadaStore} from "@/src/entry-fetchers/warnermusic-ca-store";
-import {MusemuUsStore} from "@/src/entry-fetchers/musemu-us-store";
-import {WarnermusicAustraliaStore} from "@/src/entry-fetchers/warnermusic-au-store";
+import {ShopifyStore} from "@/src/entry-fetchers/shopify-store";
 import {MuseWikiChanges} from "@/src/entry-fetchers/musewiki-changes";
 import {FacebookAdLibrary} from "@/src/entry-fetchers/facebook-ad-library";
 import {SpotifyPlaylists} from "@/src/entry-fetchers/spotify-playlists";
@@ -59,10 +56,20 @@ export class Process {
                 config.services.musebootlegs.user_agent
             ),
             'musemu-gigs': () => new MusemuGigs(),
-            'musemu-store': () => new MusemuStore(),
-            'musemu-us-store': () => new MusemuUsStore(),
-            'warner-ca-store': () => new WarnerMusicCanadaStore(),
-            'warner-au-store': () => new WarnermusicAustraliaStore(),
+            'musemu-store': () => new ShopifyStore({
+                origin: 'https://store.muse.mu',
+                updateType: UpdateType.MUSEMU_STORE,
+            }),
+            'warner-ca-store': () => new ShopifyStore({
+                origin: 'https://wmc.shop',
+                collectionHandle: 'muse',
+                updateType: UpdateType.WARNER_CA_STORE,
+            }),
+            'warner-au-store': () => new ShopifyStore({
+                origin: 'https://store.warnermusic.com.au',
+                collectionHandle: 'muse',
+                updateType: UpdateType.WARNER_AU_STORE,
+            }),
             'musewiki': () => new MuseWikiChanges(),
             'facebook-ads': () => new FacebookAdLibrary(config.services.facebook.ad_library_page_id),
             'spotify-playlists': () => new SpotifyPlaylists(

@@ -17,8 +17,6 @@ export function getMentionableRoleId(updateType: UpdateType): string | undefined
             return config.pingable_mention_ids.discord.gigs
         case UpdateType.MUSEMU_STORE:
             return config.pingable_mention_ids.discord.store
-        case UpdateType.MUSEMU_US_STORE:
-            return config.pingable_mention_ids.discord.store
         case UpdateType.WARNER_CA_STORE:
             return config.pingable_mention_ids.discord.store
         case UpdateType.WARNER_AU_STORE:

@@ -67,8 +67,6 @@ export function getTransformer(
                     return new MusemuGig
                 case UpdateType.MUSEMU_STORE:
                     return new Store(StoreRegion.EU)
-                case UpdateType.MUSEMU_US_STORE:
-                    return new Store(StoreRegion.US)
                 case UpdateType.WARNER_CA_STORE:
                     return new Store(StoreRegion.CA)
                 case UpdateType.WARNER_AU_STORE:
