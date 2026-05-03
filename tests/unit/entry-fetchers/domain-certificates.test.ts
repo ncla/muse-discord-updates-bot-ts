@@ -1,9 +1,13 @@
-import {expect, test} from 'vitest'
+import {afterAll, afterEach, beforeAll, expect, test} from 'vitest'
 import {DomainCertificates} from "@/src/entry-fetchers/domain-certificates";
 import {http, HttpResponse} from 'msw'
-import {setupServer} from 'msw/node'
 import {promises as fs} from "fs";
 import path from "node:path";
+import {server} from "@/tests/__utils__/msw-server";
+
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
 
 test('it throws error when no domain is specified', async () => {
     // @ts-expect-error: TS2554
@@ -15,25 +19,14 @@ test('it throws error when no domain is specified', async () => {
 })
 
 test('throws error on not OK response', async () => {
-    const requestHandlers = [
+    server.use(
         http.get('https://crt.sh/json', () => {
-            return HttpResponse.json(
-                {},
-                {
-                    status: 503,
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json({}, { status: 503 })
+        })
+    )
 
     const fetcher = new DomainCertificates('muse.mu')
     await expect(fetcher.fetch()).rejects.toThrow('Response status')
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('it returns unique domain certificate entries on good response', async () => {
@@ -42,25 +35,14 @@ test('it returns unique domain certificate entries on good response', async () =
         { encoding: 'utf-8' }
     );
 
-    const requestHandlers = [
+    server.use(
         http.get('https://crt.sh/json', () => {
-            return HttpResponse.json(
-                JSON.parse(goodJsonResponse),
-                {
-                    status: 200,
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(JSON.parse(goodJsonResponse), { status: 200 })
+        })
+    )
 
     const fetcher = new DomainCertificates('muse.mu')
     const result = await fetcher.fetch()
 
     expect(result).toMatchSnapshot()
-
-    server.close()
-    server.resetHandlers()
 })

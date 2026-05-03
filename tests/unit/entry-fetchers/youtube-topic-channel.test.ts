@@ -1,11 +1,15 @@
-import {afterEach, expect, test, vi} from 'vitest'
+import {afterAll, afterEach, beforeAll, expect, test, vi} from 'vitest'
 import {getTestConfig} from "@/tests/__utils__";
 import {YoutubeTopicChannel} from "@/src/entry-fetchers/youtube-topic-channel";
-import {setupServer} from 'msw/node'
 import {http, HttpResponse} from 'msw'
 import {promises as fs} from "fs";
 import path from "node:path";
 import {UpdateType} from "@/src/updates";
+import {server} from "@/tests/__utils__/msw-server";
+
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
 
 afterEach(() => {
     vi.unstubAllGlobals()
@@ -44,25 +48,13 @@ test('fetcher fails when playlistItems request fails', async () => {
         testConfig.fetchables.youtube_topic_channels
     )
 
-    const requestHandlers = [
+    server.use(
         http.get('https://www.googleapis.com/youtube/v3/playlistItems', () => {
-            return HttpResponse.json(
-                null,
-                {
-                    status: 400,
-                    statusText: 'Bad Request',
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(null, { status: 400, statusText: 'Bad Request' })
+        })
+    )
 
     await expect(fetcher.fetch()).rejects.toThrow('Response status: 400')
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('content is null when no description is provided for video', async () => {
@@ -78,27 +70,15 @@ test('content is null when no description is provided for video', async () => {
         { encoding: 'utf-8' }
     ))
 
-    const requestHandlers = [
+    server.use(
         http.get('https://www.googleapis.com/youtube/v3/playlistItems', () => {
-            return HttpResponse.json(
-                playlistItemsResponse,
-                {
-                    status: 200,
-                    statusText: 'OK',
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(playlistItemsResponse, { status: 200, statusText: 'OK' })
+        })
+    )
 
     const result = await fetcher.fetch()
 
     expect(result[0].content).toBeNull()
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('content is set when description is provided', async () => {
@@ -114,27 +94,15 @@ test('content is set when description is provided', async () => {
         { encoding: 'utf-8' }
     ))
 
-    const requestHandlers = [
+    server.use(
         http.get('https://www.googleapis.com/youtube/v3/playlistItems', () => {
-            return HttpResponse.json(
-                playlistItemsResponse,
-                {
-                    status: 200,
-                    statusText: 'OK',
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(playlistItemsResponse, { status: 200, statusText: 'OK' })
+        })
+    )
 
     const result = await fetcher.fetch()
 
     expect(result[0].content).toContain('Provided to YouTube by WM UK')
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('uses highest resolution thumbnail available (maxres)', async () => {
@@ -150,27 +118,15 @@ test('uses highest resolution thumbnail available (maxres)', async () => {
         { encoding: 'utf-8' }
     ))
 
-    const requestHandlers = [
+    server.use(
         http.get('https://www.googleapis.com/youtube/v3/playlistItems', () => {
-            return HttpResponse.json(
-                playlistItemsResponse,
-                {
-                    status: 200,
-                    statusText: 'OK',
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(playlistItemsResponse, { status: 200, statusText: 'OK' })
+        })
+    )
 
     const result = await fetcher.fetch()
 
     expect(result[0].image_url).toBe('https://i.ytimg.com/vi/5OLADD9TArY/maxresdefault.jpg')
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('uses default thumbnail if only default is present', async () => {
@@ -186,27 +142,15 @@ test('uses default thumbnail if only default is present', async () => {
         { encoding: 'utf-8' }
     ))
 
-    const requestHandlers = [
+    server.use(
         http.get('https://www.googleapis.com/youtube/v3/playlistItems', () => {
-            return HttpResponse.json(
-                playlistItemsResponse,
-                {
-                    status: 200,
-                    statusText: 'OK',
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(playlistItemsResponse, { status: 200, statusText: 'OK' })
+        })
+    )
 
     const result = await fetcher.fetch()
 
     expect(result[0].image_url).toBe('https://i.ytimg.com/vi/5OLADD9TArY/default.jpg')
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('fetches all pages when pagination is present', async () => {
@@ -229,34 +173,19 @@ test('fetches all pages when pagination is present', async () => {
 
     let requestCount = 0
 
-    const requestHandlers = [
+    server.use(
         http.get('https://www.googleapis.com/youtube/v3/playlistItems', ({ request }) => {
             requestCount++
             const url = new URL(request.url)
             const pageToken = url.searchParams.get('pageToken')
 
             if (pageToken === 'EAAaHlBUOkNBSWlFRU5HTWpFeE1USkJPRGd6T0RWQlF6WQ') {
-                return HttpResponse.json(
-                    page2Response,
-                    {
-                        status: 200,
-                        statusText: 'OK',
-                    }
-                )
+                return HttpResponse.json(page2Response, { status: 200, statusText: 'OK' })
             }
 
-            return HttpResponse.json(
-                page1Response,
-                {
-                    status: 200,
-                    statusText: 'OK',
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(page1Response, { status: 200, statusText: 'OK' })
+        })
+    )
 
     const result = await fetcher.fetch()
 
@@ -266,9 +195,6 @@ test('fetches all pages when pagination is present', async () => {
     expect(result[1].title).toBe('Resistance (Radio Edit)')
     expect(result[2].title).toBe('Resistance')
     expect(result[3].title).toBe('Supremacy (Live @ Koln)')
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('it fetches update entries with correct structure', async () => {
@@ -284,20 +210,11 @@ test('it fetches update entries with correct structure', async () => {
         { encoding: 'utf-8' }
     ))
 
-    const requestHandlers = [
+    server.use(
         http.get('https://www.googleapis.com/youtube/v3/playlistItems', () => {
-            return HttpResponse.json(
-                playlistItemsResponse,
-                {
-                    status: 200,
-                    statusText: 'OK',
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(playlistItemsResponse, { status: 200, statusText: 'OK' })
+        })
+    )
 
     const result = await fetcher.fetch()
 
@@ -312,9 +229,6 @@ test('it fetches update entries with correct structure', async () => {
     expect(entry.author.id).toBe('UCw8jIQzB2mdvvo_CVplLxug')
     expect(entry.author.name).toBe('Muse - Topic')
     expect(entry.created_at).toEqual(new Date('2025-08-23T03:51:44Z'))
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('returns empty array when playlist has no items', async () => {
@@ -330,25 +244,13 @@ test('returns empty array when playlist has no items', async () => {
         { encoding: 'utf-8' }
     ))
 
-    const requestHandlers = [
+    server.use(
         http.get('https://www.googleapis.com/youtube/v3/playlistItems', () => {
-            return HttpResponse.json(
-                playlistItemsResponse,
-                {
-                    status: 200,
-                    statusText: 'OK',
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(playlistItemsResponse, { status: 200, statusText: 'OK' })
+        })
+    )
 
     const result = await fetcher.fetch()
 
     expect(result).toEqual([])
-
-    server.close()
-    server.resetHandlers()
 })

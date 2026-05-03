@@ -1,10 +1,14 @@
 import {Musebootlegs} from "@/src/entry-fetchers/musebootlegs";
-import {expect, test, vi, beforeEach } from 'vitest'
+import {afterAll, afterEach, beforeAll, beforeEach, expect, test, vi} from 'vitest'
 import {IConfig} from "@/src/config";
 import { promises as fs } from "fs";
 import path from "node:path";
-import { setupServer } from 'msw/node'
 import { http, HttpResponse } from 'msw'
+import { server } from "@/tests/__utils__/msw-server";
+
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
 
 beforeEach(() => {
     vi.resetModules()
@@ -56,7 +60,7 @@ test('throws error on failed login', async () => {
         { encoding: 'utf-8' }
     );
 
-    const requestHandlers = [
+    server.use(
         http.post('https://www.musebootlegs.com/ajax/login.php', () => {
             // A failed login response will have 200 status code, HTML response, no Set-Cookie header
             return HttpResponse.html(
@@ -66,11 +70,8 @@ test('throws error on failed login', async () => {
                     statusText: 'OK',
                 }
             )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+        })
+    )
 
     const fetcher = new Musebootlegs(
         testConfig.services.musebootlegs.username,
@@ -78,9 +79,6 @@ test('throws error on failed login', async () => {
         testConfig.services.musebootlegs.user_agent
     )
     await expect(fetcher.fetch()).rejects.toThrow('Failed to get login cookies')
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('throws error on failed torrent list request', async () => {
@@ -96,7 +94,7 @@ test('throws error on failed torrent list request', async () => {
         { encoding: 'utf-8' }
     );
 
-    const requestHandlers = [
+    server.use(
         http.post('https://www.musebootlegs.com/ajax/login.php', () => {
             // A failed login response will have 200 status code, HTML response, no Set-Cookie header
             return new HttpResponse(
@@ -128,10 +126,7 @@ test('throws error on failed torrent list request', async () => {
 
             return HttpResponse.error()
         })
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+    )
 
     const fetcher = new Musebootlegs(
         testConfig.services.musebootlegs.username,
@@ -139,9 +134,6 @@ test('throws error on failed torrent list request', async () => {
         testConfig.services.musebootlegs.user_agent
     )
     await expect(fetcher.fetch()).rejects.toThrow('Error box found')
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('torrent list request bad status code throws error', async () => {
@@ -152,7 +144,7 @@ test('torrent list request bad status code throws error', async () => {
     testConfig.services.musebootlegs.password = 'test'
     testConfig.services.musebootlegs.user_agent = 'test'
 
-    const requestHandlers = [
+    server.use(
         http.post('https://www.musebootlegs.com/ajax/login.php', () => {
             // A failed login response will have 200 status code, HTML response, no Set-Cookie header
             return new HttpResponse(
@@ -184,10 +176,7 @@ test('torrent list request bad status code throws error', async () => {
 
             return HttpResponse.error()
         })
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+    )
 
     const fetcher = new Musebootlegs(
         testConfig.services.musebootlegs.username,
@@ -195,9 +184,6 @@ test('torrent list request bad status code throws error', async () => {
         testConfig.services.musebootlegs.user_agent
     )
     await expect(fetcher.fetch()).rejects.toThrow('Failed to get torrent list response')
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('it fetches torrent list', async () => {
@@ -213,7 +199,7 @@ test('it fetches torrent list', async () => {
         { encoding: 'utf-8' }
     );
 
-    const requestHandlers = [
+    server.use(
         http.post('https://www.musebootlegs.com/ajax/login.php', () => {
             // A failed login response will have 200 status code, HTML response, no Set-Cookie header
             return new HttpResponse(
@@ -245,10 +231,7 @@ test('it fetches torrent list', async () => {
 
             return HttpResponse.error()
         })
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+    )
 
     const fetcher = new Musebootlegs(
         testConfig.services.musebootlegs.username,
@@ -257,9 +240,6 @@ test('it fetches torrent list', async () => {
     )
 
     await expect(await fetcher.fetch()).toMatchSnapshot()
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('parses latest torrents', async () => {

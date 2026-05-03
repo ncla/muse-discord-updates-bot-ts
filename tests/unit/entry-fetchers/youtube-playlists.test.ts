@@ -1,14 +1,18 @@
-import {afterEach, beforeEach, expect, test, vi} from 'vitest'
+import {afterAll, afterEach, beforeAll, beforeEach, expect, test, vi} from 'vitest'
 import {getTestConfig} from "@/tests/__utils__";
 import {YoutubePlaylistVideos} from "@/src/entry-fetchers/youtube-playlists";
 import {YoutubePlaylistsKysely} from "@/src/repositories/youtube-playlists-repository";
 import {clearTestDatabase, createTestDatabase} from "@/tests/__utils__/database";
-import {setupServer} from 'msw/node'
 import {http, HttpResponse} from 'msw'
 import {promises as fs} from "fs";
 import path from "node:path";
+import {server} from "@/tests/__utils__/msw-server";
 
 const DB_FILE_IDENTIFIER = 'youtube-playlists'
+
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
 
 beforeEach(async () => {
     await clearTestDatabase(DB_FILE_IDENTIFIER)
@@ -66,25 +70,13 @@ test('fetcher fails when playlists requests fails', async () => {
         testConfig.fetchables.youtube
     )
 
-    const requestHandlers = [
+    server.use(
         http.get('https://www.googleapis.com/youtube/v3/playlists', () => {
-            return HttpResponse.json(
-                null,
-                {
-                    status: 400,
-                    statusText: 'Bad Request',
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(null, { status: 400, statusText: 'Bad Request' })
+        })
+    )
 
     await expect(fetcher.fetch()).rejects.toThrow('Response status: 400')
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('fetcher queries and creates playlists for new playlists', async () => {
@@ -113,38 +105,20 @@ test('fetcher queries and creates playlists for new playlists', async () => {
         { encoding: 'utf-8' }
     ))
 
-    const requestHandlers = [
+    server.use(
         http.get('https://www.googleapis.com/youtube/v3/playlists', () => {
-            return HttpResponse.json(
-                playlistsJsonResponse,
-                {
-                    status: 200,
-                    statusText: 'OK',
-                }
-            )
+            return HttpResponse.json(playlistsJsonResponse, { status: 200, statusText: 'OK' })
         }),
         http.get('https://www.googleapis.com/youtube/v3/playlistItems', () => {
-            return HttpResponse.json(
-                playlistItemsEmptyItems,
-                {
-                    status: 200,
-                    statusText: 'OK',
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(playlistItemsEmptyItems, { status: 200, statusText: 'OK' })
+        })
+    )
 
     await fetcher.fetch()
 
     expect(findByPlaylistIdSpy).toHaveBeenCalledTimes(25)
     expect(createSpy).toHaveBeenCalledTimes(25)
     expect(updateSpy).toHaveBeenCalledTimes(0)
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('fetcher queries and updates playlist video count for existing playlist', async () => {
@@ -178,38 +152,20 @@ test('fetcher queries and updates playlist video count for existing playlist', a
         { encoding: 'utf-8' }
     ))
 
-    const requestHandlers = [
+    server.use(
         http.get('https://www.googleapis.com/youtube/v3/playlists', () => {
-            return HttpResponse.json(
-                playlistsJsonResponse,
-                {
-                    status: 200,
-                    statusText: 'OK',
-                }
-            )
+            return HttpResponse.json(playlistsJsonResponse, { status: 200, statusText: 'OK' })
         }),
         http.get('https://www.googleapis.com/youtube/v3/playlistItems', () => {
-            return HttpResponse.json(
-                playlistItemsEmptyItems,
-                {
-                    status: 200,
-                    statusText: 'OK',
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(playlistItemsEmptyItems, { status: 200, statusText: 'OK' })
+        })
+    )
 
     await fetcher.fetch()
 
     expect(findByPlaylistIdSpy).toHaveBeenCalledTimes(1)
     expect(createSpy).toHaveBeenCalledTimes(0)
     expect(updateSpy).toHaveBeenCalledTimes(1)
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('fetcher queries but does not create or update playlists in database when no changes', async () => {
@@ -248,38 +204,20 @@ test('fetcher queries but does not create or update playlists in database when n
         { encoding: 'utf-8' }
     ))
 
-    const requestHandlers = [
+    server.use(
         http.get('https://www.googleapis.com/youtube/v3/playlists', () => {
-            return HttpResponse.json(
-                playlistsJsonResponse,
-                {
-                    status: 200,
-                    statusText: 'OK',
-                }
-            )
+            return HttpResponse.json(playlistsJsonResponse, { status: 200, statusText: 'OK' })
         }),
         http.get('https://www.googleapis.com/youtube/v3/playlistItems', () => {
-            return HttpResponse.json(
-                playlistItemsEmptyItems,
-                {
-                    status: 200,
-                    statusText: 'OK',
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(playlistItemsEmptyItems, { status: 200, statusText: 'OK' })
+        })
+    )
 
     await fetcher.fetch()
 
     expect(findByPlaylistIdSpy).toHaveBeenCalledTimes(2)
     expect(createSpy).toHaveBeenCalledTimes(0)
     expect(updateSpy).toHaveBeenCalledTimes(0)
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('it fetches update entries', async () => {
@@ -304,34 +242,16 @@ test('it fetches update entries', async () => {
         { encoding: 'utf-8' }
     ))
 
-    const requestHandlers = [
+    server.use(
         http.get('https://www.googleapis.com/youtube/v3/playlists', () => {
-            return HttpResponse.json(
-                playlistsJsonResponse,
-                {
-                    status: 200,
-                    statusText: 'OK',
-                }
-            )
+            return HttpResponse.json(playlistsJsonResponse, { status: 200, statusText: 'OK' })
         }),
         http.get('https://www.googleapis.com/youtube/v3/playlistItems', () => {
-            return HttpResponse.json(
-                playlistItems,
-                {
-                    status: 200,
-                    statusText: 'OK',
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(playlistItems, { status: 200, statusText: 'OK' })
+        })
+    )
 
     const result = await fetcher.fetch()
 
     expect(result).toMatchSnapshot()
-
-    server.close()
-    server.resetHandlers()
 })

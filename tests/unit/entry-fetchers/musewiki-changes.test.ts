@@ -1,30 +1,23 @@
-import { expect, test } from 'vitest'
+import { afterAll, afterEach, beforeAll, expect, test } from 'vitest'
 import { MuseWikiChanges } from '@/src/entry-fetchers/musewiki-changes'
 import { http, HttpResponse } from 'msw'
-import { setupServer } from 'msw/node'
 import { promises as fs } from 'fs'
 import path from 'node:path'
+import { server } from '@/tests/__utils__/msw-server'
+
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
 
 test('throws error on not OK response', async () => {
-    const requestHandlers = [
+    server.use(
         http.get('https://musewiki.org/api.php', () => {
-            return HttpResponse.json(
-                {},
-                {
-                    status: 503,
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json({}, { status: 503 })
+        })
+    )
 
     const fetcher = new MuseWikiChanges()
     await expect(fetcher.fetch()).rejects.toThrow('HTTP error! Status: 503')
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('throws error on failed zod validation', async () => {
@@ -32,25 +25,14 @@ test('throws error on failed zod validation', async () => {
         invalid: 'data'
     }
 
-    const requestHandlers = [
+    server.use(
         http.get('https://musewiki.org/api.php', () => {
-            return HttpResponse.json(
-                invalidResponse,
-                {
-                    status: 200,
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(invalidResponse, { status: 200 })
+        })
+    )
 
     const fetcher = new MuseWikiChanges()
     await expect(fetcher.fetch()).rejects.toThrow()
-
-    server.close()
-    server.resetHandlers()
 })
 
 test('returns updates on successful response', async () => {
@@ -60,25 +42,14 @@ test('returns updates on successful response', async () => {
     )
     const validResponse = JSON.parse(goodJsonResponse)
 
-    const requestHandlers = [
+    server.use(
         http.get('https://musewiki.org/api.php', () => {
-            return HttpResponse.json(
-                validResponse,
-                {
-                    status: 200,
-                }
-            )
-        }),
-    ]
-
-    const server = setupServer(...requestHandlers)
-    server.listen({ onUnhandledRequest: 'error' })
+            return HttpResponse.json(validResponse, { status: 200 })
+        })
+    )
 
     const fetcher = new MuseWikiChanges()
     const result = await fetcher.fetch()
 
     expect(result).toMatchSnapshot()
-
-    server.close()
-    server.resetHandlers()
 })
