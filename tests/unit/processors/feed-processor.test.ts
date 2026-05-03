@@ -90,14 +90,12 @@ test('it processes with one of the fetchers throwing error', async () => {
         FetcherExecutionMode.Parallel
     )
 
-    expect(async () => {
-        const processResult = await feedProcessor.process()
+    const processResult = await feedProcessor.process()
 
-        const fetchersWithErrors = processResult.fetcherSummaries.filter(summary => summary.errors.length > 0)
+    const fetchersWithErrors = processResult.fetcherSummaries.filter(summary => summary.errors.length > 0)
 
-        expect(requestorSpy).toHaveBeenCalledTimes(1)
-        expect(fetchersWithErrors.length).toBe(1)
-    }).not.toThrow()
+    expect(requestorSpy).toHaveBeenCalledTimes(1)
+    expect(fetchersWithErrors.length).toBe(1)
 })
 
 test('insert query is not run when entry already exists', async () => {
@@ -458,15 +456,13 @@ test('feed manager stops the queue worker interval', async () => {
         FetcherExecutionMode.Parallel
     )
 
-    expect(async () => {
-        const processResult = await feedProcessor.process()
+    const processResult = await feedProcessor.process()
 
-        expect(processResult).toMatchSnapshot()
+    expect(processResult).toMatchSnapshot()
 
-        expect(requestorSendSpy).toHaveBeenCalledTimes(1)
-        expect(queueManagerStopWorkerSpy).toHaveBeenCalledTimes(1)
-        expect(queueManagerStopWorkerSpy).toHaveReturnedWith(true)
-    }).not.toThrow()
+    expect(requestorSendSpy).toHaveBeenCalledTimes(1)
+    expect(queueManagerStopWorkerSpy).toHaveBeenCalledTimes(1)
+    expect(queueManagerStopWorkerSpy).toHaveReturnedWith(true)
 
     vi.useRealTimers()
 })
