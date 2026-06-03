@@ -26,6 +26,7 @@ export enum UpdateType {
     MUSEWIKI_CHANGE = 'MUSEWIKI_CHANGE',
     FACEBOOK_AD = 'FACEBOOK_AD',
     SPOTIFY_PLAYLIST = 'SPOTIFY_PLAYLIST',
+    MUSE_1420MHZ_DEPLOY = 'MUSE_1420MHZ_DEPLOY',
 }
 
 export type UpdateAuthor = {
@@ -178,6 +179,11 @@ export type MuseWikiChangeUpdate = BaseUpdate & {
 export type FacebookAdUpdate = BaseUpdate & {
     type: UpdateType.FACEBOOK_AD;
     screenshot?: string;
+}
+
+export type Muse1420mhzDeployUpdate = BaseUpdate & {
+    type: UpdateType.MUSE_1420MHZ_DEPLOY;
+    url: string;
 }
 
 export type SpotifyPlaylistUpdate = BaseUpdate & {

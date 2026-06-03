@@ -70,6 +70,7 @@ export interface IConfig {
             musewiki: string | undefined,
             facebook_ads: string | undefined,
             spotify_playlists: string | undefined,
+            muse_1420mhz: string | undefined,
         }
     }
 }
@@ -144,6 +145,7 @@ const config: IConfig = {
             musewiki: process.env.DISCORD_ROLE_ID_MUSEWIKI,
             facebook_ads: process.env.DISCORD_ROLE_ID_FACEBOOK_ADS,
             spotify_playlists: process.env.DISCORD_ROLE_ID_SPOTIFY_PLAYLISTS,
+            muse_1420mhz: process.env.DISCORD_ROLE_ID_MUSE_1420MHZ,
         }
     }
 };

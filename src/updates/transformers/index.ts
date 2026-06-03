@@ -12,6 +12,7 @@ import {MuseWikiChange} from "@/src/updates/transformers/discord/musewiki-change
 import {MuseWikiChangeBatch} from "@/src/updates/transformers/discord/musewiki-change-batch";
 import {FacebookAd} from "@/src/updates/transformers/discord/facebook-ad";
 import {SpotifyPlaylist} from "@/src/updates/transformers/discord/spotify-playlist";
+import {Muse1420mhzDeploy} from "@/src/updates/transformers/discord/muse-1420mhz-deploy";
 import {StoreRegion} from "@/src/types/common";
 
 export interface UpdateTransformer<BodyType> {
@@ -77,6 +78,8 @@ export function getTransformer(
                     return new FacebookAd()
                 case UpdateType.SPOTIFY_PLAYLIST:
                     return new SpotifyPlaylist()
+                case UpdateType.MUSE_1420MHZ_DEPLOY:
+                    return new Muse1420mhzDeploy()
                 default:
                     return new DefaultJsonDiscordTransformer
             }

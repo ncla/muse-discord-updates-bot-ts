@@ -27,6 +27,8 @@ export function getMentionableRoleId(updateType: UpdateType): string | undefined
             return config.pingable_mention_ids.discord.facebook_ads
         case UpdateType.SPOTIFY_PLAYLIST:
             return config.pingable_mention_ids.discord.spotify_playlists
+        case UpdateType.MUSE_1420MHZ_DEPLOY:
+            return config.pingable_mention_ids.discord.muse_1420mhz
         default:
             return undefined
     }

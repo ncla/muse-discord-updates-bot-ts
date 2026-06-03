@@ -17,6 +17,7 @@ import {ShopifyStore} from "@/src/entry-fetchers/shopify-store";
 import {MuseWikiChanges} from "@/src/entry-fetchers/musewiki-changes";
 import {FacebookAdLibrary} from "@/src/entry-fetchers/facebook-ad-library";
 import {SpotifyPlaylists} from "@/src/entry-fetchers/spotify-playlists";
+import {Muse1420mhzDeploy} from "@/src/entry-fetchers/muse-1420mhz-deploy";
 import * as Sentry from "@sentry/node";
 
 export class Process {
@@ -76,7 +77,8 @@ export class Process {
                 config.services.spotify.client_id,
                 config.services.spotify.client_secret,
                 config.fetchables.spotify
-            )
+            ),
+            'muse-1420mhz': () => new Muse1420mhzDeploy(),
         }
 
         let fetcherIds = this.parseFetchersArgument(argv)
