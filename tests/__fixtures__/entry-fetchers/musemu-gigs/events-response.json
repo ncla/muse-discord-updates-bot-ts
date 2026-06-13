@@ -1,0 +1,78 @@
+[
+  {
+    "offers": [
+      {
+        "max_price": null,
+        "ticket_seller_color": "#0084cf",
+        "min_price": null,
+        "ticket_seller_logo": "https://ticket-vendor-logos.bandsintown.com/ticketmaster.png",
+        "official": false,
+        "vendor_name": "Ticketmaster",
+        "currency": null,
+        "type": "Tickets",
+        "url": "https://www.bandsintown.com/t/1037176393?app_id=6e61950a28c04550457cfa0fd3a4e5ef&ticket_id=1641391400&came_from=267&utm_medium=api&utm_source=public_api&utm_campaign=ticket",
+        "status": "available"
+      }
+    ],
+    "venue": {
+      "street_address": "639 E Summerfest Pl",
+      "country": "United States",
+      "city": "Milwaukee",
+      "latitude": "43.0287927",
+      "name": "Summerfest | Presented by American Family Insurance",
+      "location": "Milwaukee, WI",
+      "postal_code": "53202",
+      "region": "WI",
+      "type": "Place",
+      "longitude": "-87.9015299"
+    },
+    "starts_at": "2026-07-02T19:00:00",
+    "artist": {
+      "name": "Muse"
+    },
+    "title": "",
+    "url": "https://www.bandsintown.com/e/1037176393?app_id=6e61950a28c04550457cfa0fd3a4e5ef&came_from=267&utm_medium=api&utm_source=public_api&utm_campaign=event",
+    "id": "1037176393",
+    "lineup": [
+      "Muse"
+    ],
+    "datetime": "2026-07-02T19:00:00"
+  },
+  {
+    "offers": [
+      {
+        "max_price": null,
+        "ticket_seller_color": "#0084cf",
+        "min_price": null,
+        "ticket_seller_logo": "https://ticket-vendor-logos.bandsintown.com/ticketmaster.png",
+        "official": true,
+        "vendor_name": "Ticketmaster",
+        "currency": null,
+        "type": "Tickets",
+        "url": "https://www.bandsintown.com/t/108154324?app_id=6e61950a28c04550457cfa0fd3a4e5ef&ticket_id=2029806483&came_from=267&utm_medium=api&utm_source=public_api&utm_campaign=ticket",
+        "status": "available"
+      }
+    ],
+    "venue": {
+      "street_address": "14141 Riverport Dr",
+      "country": "United States",
+      "city": "St. Louis",
+      "latitude": "38.62727",
+      "name": "Hollywood Casino Amphitheater",
+      "location": "St. Louis, MO",
+      "postal_code": "63043",
+      "region": "MO",
+      "type": "Place",
+      "longitude": "-90.19789"
+    },
+    "starts_at": "2026-07-05T18:00:00",
+    "artist": {},
+    "title": "",
+    "url": "https://www.bandsintown.com/e/108154324?app_id=6e61950a28c04550457cfa0fd3a4e5ef&came_from=267&utm_medium=api&utm_source=public_api&utm_campaign=event",
+    "id": "108154324",
+    "lineup": [
+      "Muse"
+    ],
+    "datetime": "2026-07-05T18:00:00"
+  }
+]

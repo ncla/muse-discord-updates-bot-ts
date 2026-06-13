@@ -5,6 +5,9 @@ test('it fetches entries', async () => {
     const fetcher = new MusemuGigs()
     const result = await fetcher.fetch()
 
-    // Because there can be no gigs at a time, best we can check for is that it runs without exceptions for now
-    expect(Array.isArray(result)).toBe(true)
+    expect(result.length).toBeGreaterThan(0)
+    expect(typeof result[0].id).toBe('string')
+    expect(typeof result[0].title).toBe('string')
+    expect(typeof result[0].url).toBe('string')
+    expect(result[0].event_date).toBeInstanceOf(Date)
 }, 20000)
