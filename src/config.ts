@@ -33,6 +33,11 @@ export interface IConfig {
         spotify: {
             client_id: string | undefined,
             client_secret: string | undefined,
+        },
+        leaked_cx: {
+            username: string | undefined,
+            password: string | undefined,
+            user_agent: string | undefined,
         }
     }
     fetchables: {
@@ -71,6 +76,7 @@ export interface IConfig {
             facebook_ads: string | undefined,
             spotify_playlists: string | undefined,
             muse_1420mhz: string | undefined,
+            leaked_cx: string | undefined,
         }
     }
 }
@@ -104,6 +110,11 @@ const config: IConfig = {
         spotify: {
             client_id: process.env.SPOTIFY_CLIENT_ID,
             client_secret: process.env.SPOTIFY_CLIENT_SECRET,
+        },
+        leaked_cx: {
+            username: process.env.LEAKED_CX_USERNAME,
+            password: process.env.LEAKED_CX_PASSWORD,
+            user_agent: process.env.LEAKED_CX_USER_AGENT,
         }
     },
     fetchables: {
@@ -146,6 +157,7 @@ const config: IConfig = {
             facebook_ads: process.env.DISCORD_ROLE_ID_FACEBOOK_ADS,
             spotify_playlists: process.env.DISCORD_ROLE_ID_SPOTIFY_PLAYLISTS,
             muse_1420mhz: process.env.DISCORD_ROLE_ID_MUSE_1420MHZ,
+            leaked_cx: process.env.DISCORD_ROLE_ID_LEAKED_CX,
         }
     }
 };

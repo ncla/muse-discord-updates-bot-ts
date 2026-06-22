@@ -18,6 +18,7 @@ import {MuseWikiChanges} from "@/src/entry-fetchers/musewiki-changes";
 import {FacebookAdLibrary} from "@/src/entry-fetchers/facebook-ad-library";
 import {SpotifyPlaylists} from "@/src/entry-fetchers/spotify-playlists";
 import {Muse1420mhzDeploy} from "@/src/entry-fetchers/muse-1420mhz-deploy";
+import {LeakedCxSearch} from "@/src/entry-fetchers/leaked-cx-search";
 import * as Sentry from "@sentry/node";
 
 export class Process {
@@ -79,6 +80,11 @@ export class Process {
                 config.fetchables.spotify
             ),
             'muse-1420mhz': () => new Muse1420mhzDeploy(),
+            'leaked-cx': () => new LeakedCxSearch(
+                config.services.leaked_cx.username,
+                config.services.leaked_cx.password,
+                config.services.leaked_cx.user_agent
+            ),
         }
 
         let fetcherIds = this.parseFetchersArgument(argv)
