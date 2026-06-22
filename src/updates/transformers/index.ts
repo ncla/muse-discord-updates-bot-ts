@@ -13,6 +13,7 @@ import {MuseWikiChangeBatch} from "@/src/updates/transformers/discord/musewiki-c
 import {FacebookAd} from "@/src/updates/transformers/discord/facebook-ad";
 import {SpotifyPlaylist} from "@/src/updates/transformers/discord/spotify-playlist";
 import {Muse1420mhzDeploy} from "@/src/updates/transformers/discord/muse-1420mhz-deploy";
+import {LeakedCxThread} from "@/src/updates/transformers/discord/leaked-cx-thread";
 import {StoreRegion} from "@/src/types/common";
 
 export interface UpdateTransformer<BodyType> {
@@ -80,6 +81,8 @@ export function getTransformer(
                     return new SpotifyPlaylist()
                 case UpdateType.MUSE_1420MHZ_DEPLOY:
                     return new Muse1420mhzDeploy()
+                case UpdateType.LEAKED_CX_THREAD:
+                    return new LeakedCxThread()
                 default:
                     return new DefaultJsonDiscordTransformer
             }

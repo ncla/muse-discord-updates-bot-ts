@@ -27,6 +27,7 @@ export enum UpdateType {
     FACEBOOK_AD = 'FACEBOOK_AD',
     SPOTIFY_PLAYLIST = 'SPOTIFY_PLAYLIST',
     MUSE_1420MHZ_DEPLOY = 'MUSE_1420MHZ_DEPLOY',
+    LEAKED_CX_THREAD = 'LEAKED_CX_THREAD',
 }
 
 export type UpdateAuthor = {
@@ -184,6 +185,17 @@ export type FacebookAdUpdate = BaseUpdate & {
 export type Muse1420mhzDeployUpdate = BaseUpdate & {
     type: UpdateType.MUSE_1420MHZ_DEPLOY;
     url: string;
+}
+
+export type LeakedCxThreadUpdate = BaseUpdate & {
+    type: UpdateType.LEAKED_CX_THREAD;
+    title: string;
+    url: string;
+    content: string | null;
+    author: UpdateAuthor & {
+        name: string | null;
+    };
+    created_at: Date | null;
 }
 
 export type SpotifyPlaylistUpdate = BaseUpdate & {
