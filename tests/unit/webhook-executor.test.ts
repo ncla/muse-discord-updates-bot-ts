@@ -10,8 +10,9 @@ test('request with not OK status throws error', async () => {
     vi.stubGlobal('fetch', () => {
         return Promise.resolve({
             ok: false,
+            status: 403,
             statusText: 'Forbidden',
-            json: () => Promise.resolve({})
+            text: () => Promise.resolve(JSON.stringify({ message: 'Invalid Webhook Token', code: 50027 }))
         })
     })
 
@@ -21,5 +22,5 @@ test('request with not OK status throws error', async () => {
         await requestor.send({
             content: 'XD'
         })
-    }).rejects.toThrowError('Error: Forbidden')
+    }).rejects.toThrowError('Discord webhook request failed HTTP 403 Forbidden')
 })

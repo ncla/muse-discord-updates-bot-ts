@@ -1,7 +1,7 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import {IConfig} from "@/src/config";
 import {createBlankUpdate, UpdateType, YoutubeTopicVideoUpdate} from "@/src/updates";
-import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/common";
+import {createResponseError, exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/common";
 
 export class YoutubeTopicChannel implements EntryFetcher
 {
@@ -63,7 +63,7 @@ export class YoutubeTopicChannel implements EntryFetcher
             const response = await fetch(url.toString());
 
             if (!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
+                throw await createResponseError(response, 'YouTube topic channel request failed');
             }
 
             const json: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistItemResource> = await response.json();

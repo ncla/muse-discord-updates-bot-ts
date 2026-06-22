@@ -70,6 +70,24 @@ export function truncateText(text: string, maxLength: number, suffix: string = '
     return text.substring(0, maxLength - suffix.length) + suffix;
 }
 
+export async function createResponseError(response: Response, context?: string): Promise<Error> {
+    let body: string
+
+    try {
+        body = (await response.text()).replace(/\s+/g, ' ').trim()
+    } catch {
+        body = ''
+    }
+
+    const message = [
+        context,
+        `HTTP ${response.status} ${response.statusText}`.trim(),
+        body ? `– ${truncateText(body, 1000)}` : '',
+    ].filter(Boolean).join(' ')
+
+    return new Error(message)
+}
+
 interface NestedObject {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any; // Allows for any nested structure

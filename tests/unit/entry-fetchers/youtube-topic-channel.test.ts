@@ -54,7 +54,7 @@ test('fetcher fails when playlistItems request fails', async () => {
         })
     )
 
-    await expect(fetcher.fetch()).rejects.toThrow('Response status: 400')
+    await expect(fetcher.fetch()).rejects.toThrow('YouTube topic channel request failed HTTP 400')
 })
 
 test('content is null when no description is provided for video', async () => {

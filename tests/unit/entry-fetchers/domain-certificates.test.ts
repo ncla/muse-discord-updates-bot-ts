@@ -26,7 +26,7 @@ test('throws error on not OK response', async () => {
     )
 
     const fetcher = new DomainCertificates('muse.mu')
-    await expect(fetcher.fetch()).rejects.toThrow('Response status')
+    await expect(fetcher.fetch()).rejects.toThrow('crt.sh request failed HTTP 503')
 })
 
 test('it returns unique domain certificate entries on good response', async () => {

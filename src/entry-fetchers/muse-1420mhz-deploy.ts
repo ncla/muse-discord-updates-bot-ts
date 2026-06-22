@@ -1,5 +1,6 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import {createBlankUpdate, Muse1420mhzDeployUpdate, UpdateType} from "@/src/updates";
+import {createResponseError} from "@/src/common";
 
 export class Muse1420mhzDeploy implements EntryFetcher
 {
@@ -10,7 +11,7 @@ export class Muse1420mhzDeploy implements EntryFetcher
         const response = await fetch(this.siteUrl)
 
         if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`)
+            throw await createResponseError(response, '1420mhz.muse.mu request failed')
         }
 
         const html = await response.text()

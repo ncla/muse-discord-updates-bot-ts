@@ -1,6 +1,7 @@
 import { EntryFetcher } from "@/src/entry-fetchers/index";
 import { MuseWikiChangeUpdate, UpdateType } from "@/src/updates";
 import {MediaWikiRecentChangesResponseSchema} from "@/src/zod-schemas/musewiki-changes";
+import {createResponseError} from "@/src/common";
 
 export class MuseWikiChanges implements EntryFetcher {
     private readonly apiUrl: string = 'https://musewiki.org/api.php';
@@ -22,7 +23,7 @@ export class MuseWikiChanges implements EntryFetcher {
         const response = await fetch(url.toString());
 
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            throw await createResponseError(response, 'MuseWiki API request failed');
         }
 
         const data = await response.json();

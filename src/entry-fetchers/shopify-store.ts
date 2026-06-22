@@ -1,6 +1,7 @@
 import {EntryFetcher} from "@/src/entry-fetchers";
 import {BaseUpdate, UpdateType} from "@/src/updates";
 import {ShopifyProductsResponseSchema} from "@/src/zod-schemas/shopify";
+import {createResponseError} from "@/src/common";
 
 export interface ShopifyStoreOptions {
     origin: string;
@@ -33,7 +34,7 @@ export class ShopifyStore implements EntryFetcher
             const response = await fetch(url.toString());
 
             if (!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
+                throw await createResponseError(response, `Shopify products request failed (${this.options.origin})`);
             }
 
             const data = ShopifyProductsResponseSchema.parse(await response.json());

@@ -76,7 +76,7 @@ test('fetcher fails when playlists requests fails', async () => {
         })
     )
 
-    await expect(fetcher.fetch()).rejects.toThrow('Response status: 400')
+    await expect(fetcher.fetch()).rejects.toThrow('YouTube playlists request failed HTTP 400')
 })
 
 test('fetcher queries and creates playlists for new playlists', async () => {

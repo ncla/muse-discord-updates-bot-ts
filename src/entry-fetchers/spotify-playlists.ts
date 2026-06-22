@@ -1,6 +1,7 @@
 import { EntryFetcher } from './index';
 import { BaseUpdate, SpotifyPlaylistUpdate, UpdateType } from '../updates';
 import { SpotifyTokenSchema, SpotifyPlaylistsResponseSchema } from '@/src/zod-schemas/spotify'
+import { createResponseError } from '@/src/common'
 
 export class SpotifyPlaylists implements EntryFetcher {
     private clientId: string;
@@ -43,7 +44,7 @@ export class SpotifyPlaylists implements EntryFetcher {
         });
 
         if (!response.ok) {
-            throw new Error(`Failed to get Spotify access token: ${response.status} ${response.statusText}`);
+            throw await createResponseError(response, 'Failed to get Spotify access token');
         }
 
         const tokenData = SpotifyTokenSchema.parse(await response.json());
@@ -65,7 +66,7 @@ export class SpotifyPlaylists implements EntryFetcher {
             });
 
             if (!response.ok) {
-                throw new Error(`Failed to fetch playlists for user ${userId}: ${response.status} ${response.statusText}`);
+                throw await createResponseError(response, `Failed to fetch playlists for user ${userId}`);
             }
 
             const data = SpotifyPlaylistsResponseSchema.parse(await response.json());

@@ -1,7 +1,7 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import {IConfig} from "@/src/config";
 import {createBlankUpdate, UpdateType, YoutubeUploadUpdate} from "@/src/updates";
-import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/common";
+import {createResponseError, exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/common";
 
 export class YoutubeUploads implements EntryFetcher
 {
@@ -42,7 +42,7 @@ export class YoutubeUploads implements EntryFetcher
             const response = await fetch(url.toString());
 
             if (!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
+                throw await createResponseError(response, 'YouTube uploads request failed');
             }
 
             const json: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistItemResource> = await response.json();

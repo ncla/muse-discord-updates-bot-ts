@@ -2,7 +2,7 @@ import {EntryFetcher} from "@/src/entry-fetchers/index";
 import {IConfig} from "@/src/config";
 import {IYoutubePlaylistsRepository,} from "@/src/repositories/youtube-playlists-repository";
 import { createBlankUpdate, UpdateType, YoutubePlaylistUpdate} from "@/src/updates";
-import {exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/common";
+import {createResponseError, exportHighestResolutionThumbnailUrlFromThumbnailResource} from "@/src/common";
 import {InsertableYoutubePlaylistRecord, ReturnableYoutubePlaylistRecord} from "@/src/database";
 
 export class YoutubePlaylistVideos implements EntryFetcher
@@ -67,7 +67,7 @@ export class YoutubePlaylistVideos implements EntryFetcher
             const channelPlaylistsResponse = await fetch(this.createPlaylistsAPIUrl(channel.channel_id, apiKey));
 
             if (!channelPlaylistsResponse.ok) {
-                throw new Error(`Response status: ${channelPlaylistsResponse.status}`);
+                throw await createResponseError(channelPlaylistsResponse, 'YouTube playlists request failed');
             }
 
             const channelPlaylistsJsonResponse: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistResource> = await channelPlaylistsResponse.json();
@@ -112,7 +112,7 @@ export class YoutubePlaylistVideos implements EntryFetcher
             const response = await fetch(this.createPlaylistItemsAPIUrl(playlist.id, apiKey));
 
             if (!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
+                throw await createResponseError(response, 'YouTube playlist items request failed');
             }
 
             const json: GoogleApiYouTubePaginationInfo<GoogleApiYouTubePlaylistItemResource> = await response.json();

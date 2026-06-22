@@ -1,6 +1,7 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import {JSDOM} from 'jsdom'
 import {createBlankUpdate, LeakedCxThreadUpdate, UpdateType} from "@/src/updates";
+import {createResponseError} from "@/src/common";
 
 export class LeakedCxSearch implements EntryFetcher
 {
@@ -47,7 +48,7 @@ export class LeakedCxSearch implements EntryFetcher
         })
 
         if (!response.ok) {
-            throw new Error(`Failed to fetch ${url}, status: ${response.status}`)
+            throw await createResponseError(response, `Failed to fetch ${url}`)
         }
 
         this.storeCookies(response, cookies)

@@ -32,5 +32,6 @@ test('throws 400 HTTP error when incorrect API key is set', async () => {
         testConfig.fetchables.youtube
     )
 
-    await expect(fetcher.fetch()).rejects.toThrow('Response status: 400')
+    await expect(fetcher.fetch()).rejects.toThrow('YouTube uploads request failed HTTP 400')
+    await expect(fetcher.fetch()).rejects.toThrow('API key not valid')
 })

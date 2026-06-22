@@ -21,7 +21,7 @@ test('it fetches entries', async (context) => {
         expect(firstEntry).toHaveProperty('created_at')
         expect(firstEntry.created_at).toBeInstanceOf(Date)
     } catch (error) {
-        if (error instanceof Error && error.message.includes('Status: 403')) {
+        if (error instanceof Error && error.message.includes('HTTP 403')) {
             console.warn('Skipping MuseWiki e2e test: live API blocked the runner (403, likely Cloudflare)')
             context.skip()
         }

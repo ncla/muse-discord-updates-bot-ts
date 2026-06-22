@@ -1,4 +1,5 @@
 import {WebhookMessageCreateOptions} from "discord.js";
+import {createResponseError} from "@/src/common";
 import * as fs from 'fs/promises';
 
 export interface WebhookExecuteRequestor<RequestBody, ResponseResultReturnable> {
@@ -52,7 +53,7 @@ export class DiscordWebhookExecuteRequestor implements WebhookExecuteRequestor<W
         })
         .then(async response => {
             if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
+                throw await createResponseError(response, 'Discord webhook request failed');
             }
 
             return response;

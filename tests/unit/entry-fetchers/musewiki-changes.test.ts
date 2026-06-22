@@ -17,7 +17,7 @@ test('throws error on not OK response', async () => {
     )
 
     const fetcher = new MuseWikiChanges()
-    await expect(fetcher.fetch()).rejects.toThrow('HTTP error! Status: 503')
+    await expect(fetcher.fetch()).rejects.toThrow('MuseWiki API request failed HTTP 503')
 })
 
 test('throws error on failed zod validation', async () => {

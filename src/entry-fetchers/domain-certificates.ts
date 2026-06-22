@@ -1,6 +1,7 @@
 import {EntryFetcher} from "@/src/entry-fetchers/index";
 import {createBlankUpdate, DomainCertificateUpdate, UpdateType} from "@/src/updates";
 import {CertificateSchema, Certificate} from "@/src/zod-schemas/crtsh";
+import {createResponseError} from "@/src/common";
 import {z} from "zod";
 
 export class DomainCertificates implements EntryFetcher
@@ -23,7 +24,7 @@ export class DomainCertificates implements EntryFetcher
         const response = await fetch(url.toString());
 
         if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
+            throw await createResponseError(response, 'crt.sh request failed');
         }
 
         const json = await response.json();
